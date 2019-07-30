@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "useJSXTextNode": true,
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "modules": true,
+      "jsx": true
+    }
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "no-underscore-dangle": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-unused-vars": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": "off"
+  }
+}

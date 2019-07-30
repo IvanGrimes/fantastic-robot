@@ -1,0 +1,50 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry",
+            "corejs": 2
+          }
+        ],
+        "next/babel"
+      ],
+      "plugins": [
+        [
+          "babel-plugin-styled-components",
+          {
+            "ssr": true
+          }
+        ],
+        "babel-plugin-polished"
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry",
+            "corejs": 2
+          }
+        ],
+        "next/babel"
+      ],
+      "plugins": [
+        [
+          "babel-plugin-styled-components",
+          {
+            "ssr": true,
+            "minify": true,
+            "displayName": false,
+            "fileName": false,
+            "pure": true
+          }
+        ],
+        "babel-plugin-polished"
+      ]
+    }
+  }
+}
