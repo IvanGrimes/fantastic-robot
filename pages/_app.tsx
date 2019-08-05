@@ -5,15 +5,20 @@ import { CssBaseline } from "@material-ui/core";
 import dynamic from "next/dynamic";
 import { ThemeProvider } from "styled-components";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/styles";
+import withRedux from 'next-redux-wrapper';
+import { Provider } from "react-redux";
+import { Store } from "redux";
 import { SEO } from "../components/SEO";
 import { theme } from "../theme";
 import { GlobalStyles } from "../components/_app";
+import { configureStore } from "../redux/store";
+import { RootState } from "../redux/types";
 
 const Layout = dynamic(() =>
   import("../components/Layout").then(module => module.Layout as any)
 );
 
-class MyApp extends App {
+class MyApp extends App<{ store: Store<RootState> }> {
   static async getInitialProps({
     Component,
     ctx
@@ -39,10 +44,11 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
       <Container>
+        <Provider store={store}>
         <React.Fragment>
           <CssBaseline />
           <GlobalStyles />
@@ -55,9 +61,10 @@ class MyApp extends App {
             </ThemeProvider>
           </MuiThemeProvider>
         </React.Fragment>
+        </Provider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withRedux(configureStore)(MyApp);
