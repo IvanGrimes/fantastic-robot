@@ -9,11 +9,20 @@ export const fetchStudiosFlow: Epic<
   RootAction,
   RootState,
   EpicDependencies
-> = (action$, _state$, { api: { fetchStudios }, action: { fetchStudiosAsync } }) =>
+> = (
+  action$,
+  _state$,
+  {
+    api: { fetchStudios },
+    actions: {
+      dataActions: { fetchStudiosAsync },
+    },
+  }
+) =>
   action$.pipe(
     filter(isActionOf(fetchStudiosAsync.request)),
-    switchMap(() =>
-      fetchStudios().pipe(
+    switchMap(({ payload }) =>
+      fetchStudios({ first: payload.first, last: payload.last }).pipe(
         map(fetchStudiosAsync.success),
         catchError(error => of(fetchStudiosAsync.failure(error)))
       )

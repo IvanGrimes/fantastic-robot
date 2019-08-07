@@ -1,14 +1,18 @@
-import { parseRequestType } from "../../../utils/parseActionType";
+import { parseRequestType } from '../../../lib/parseActionType';
+import { RootAction, RootState } from '../../types';
 
-export const createRequestErrorSelector = (actions = []) => (state: any) =>
-  actions.reduce((errors, action) => {
-    const [requestName, requestState] = parseRequestType(action);
+const defaultErrorObject = { networkError: '', appError: '', serverError: '' };
 
-    if (requestState !== "REQUEST") {
-      throw new Error(
-        `Request should have state 'REQUEST', instead got: ${requestName}.`
-      );
-    }
+export const createRequestErrorSelector = (action: RootAction['type']) => (
+  state: RootState
+) => {
+  const [requestName, requestState] = parseRequestType(action);
 
-    return { ...errors, ...state.api.errors[requestName] };
-  }, {});
+  if (requestState !== 'REQUEST') {
+    throw new Error(
+      `Request should have state 'REQUEST', instead got: ${requestName}.`
+    );
+  }
+
+  return { ...(state.api.errors[requestName] || {}), ...defaultErrorObject };
+};

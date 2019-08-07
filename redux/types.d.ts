@@ -1,7 +1,7 @@
-import { ActionType, StateType } from "typesafe-actions";
-import rootAction from "./rootAction";
-import { rootReducer } from "./rootReducer";
-import { rootApi } from "./rootApi";
+import { ActionType, StateType } from 'typesafe-actions';
+import rootAction from './rootAction';
+import { rootReducer } from './rootReducer';
+import { rootApi } from './rootApi';
 
 export type RootAction = ActionType<typeof rootAction>;
 
@@ -11,7 +11,7 @@ export type RootApi = typeof rootApi;
 
 export type EpicDependencies = {
   api: RootApi;
-  action: typeof rootAction;
+  actions: typeof rootAction;
 };
 
 declare module 'typesafe-actions' {

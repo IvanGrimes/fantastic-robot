@@ -1,6 +1,13 @@
-import { parseRequestType } from '../../../utils/parseActionType';
+import { parseRequestType } from '../../../lib/parseActionType';
+import { RootAction } from '../../types';
 
-export const loading = (state = {}, { type }: { type: string }) => {
+type LoadingState = {
+  [key: string]: boolean;
+};
+
+const initialState: LoadingState = {};
+
+export const loadingReducer = (state = initialState, { type }: RootAction) => {
   const matches = parseRequestType(type);
 
   if (matches) {

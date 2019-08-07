@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import Document, {
   Head,
   Main,
   DocumentContext,
-  NextScript
-} from "next/document";
-import { ServerStyleSheets } from "@material-ui/styles";
-import { ServerStyleSheet } from "styled-components";
+  NextScript,
+} from 'next/document';
+import { ServerStyleSheets } from '@material-ui/styles';
+import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
   static async getInitialProps({ renderPage }: DocumentContext) {
@@ -15,12 +15,12 @@ class MyDocument extends Document {
 
     const renderPageResult = await renderPage({
       enhanceApp: App => props =>
-        sheets.collect(scSheets.collectStyles(<App {...props} />))
+        sheets.collect(scSheets.collectStyles(<App {...props} />)),
     });
 
     return {
       ...renderPageResult,
-      styles: [...scSheets.getStyleElement(), sheets.getStyleElement()]
+      styles: [...scSheets.getStyleElement(), sheets.getStyleElement()],
     };
   }
 

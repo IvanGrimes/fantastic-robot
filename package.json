@@ -10,7 +10,7 @@
     "now-build": "npm run build",
     "lint": "eslint . -c .eslintrc",
     "lint:write": "eslint . -c .eslintrc --fix",
-    "prettier": "prettier src/**/*.{ts,tsx,json} --write",
+    "prettier": "prettier ./**/*.{ts,tsx,json} --write",
     "analyze": "BUNDLE_ANALYZE=browser next build"
   },
   "keywords": [],

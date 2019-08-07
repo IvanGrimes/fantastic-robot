@@ -1,17 +1,19 @@
-import { createReducer } from "typesafe-actions";
-import { fetchStudiosAsync } from "./actions";
-import { ShortStudio } from "./types";
+import { createReducer } from 'typesafe-actions';
+import { fetchStudiosAsync } from './actions';
+import { ShortStudio } from './types';
 
-type State = {
-  studios: ShortStudio[],
+type DataState = {
+  studios: ShortStudio[];
 };
 
-const initialState: State = {
-  studios: []
+const initialState: DataState = {
+  studios: [],
 };
 
 export const dataReducer = createReducer(initialState).handleAction(
   fetchStudiosAsync.success,
-  (state, { payload }) => ({ ...state, studios: payload })
+  (state, { payload }) => ({
+    ...state,
+    studios: [...state.studios, ...payload],
+  })
 );
-

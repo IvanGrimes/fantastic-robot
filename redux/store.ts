@@ -4,15 +4,20 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { EpicDependencies, RootAction, RootState } from './types';
 import { rootReducer } from './rootReducer';
 import { rootEpic } from './rootEpic';
-import { rootApi } from "./rootApi";
-import rootAction from "./rootAction";
+import { rootApi } from './rootApi';
+import rootAction from './rootAction';
 
 export const configureStore = (initialState: RootState) => {
-  const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, EpicDependencies>({
+  const epicMiddleware = createEpicMiddleware<
+    RootAction,
+    RootAction,
+    RootState,
+    EpicDependencies
+  >({
     dependencies: {
       api: rootApi,
-      action: rootAction,
-    }
+      actions: rootAction,
+    },
   });
   const middleware = applyMiddleware(epicMiddleware);
 

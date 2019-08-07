@@ -1,32 +1,52 @@
-import React from 'react';
-import { Subject } from 'rxjs';
-import { StateObservable, ActionsObservable } from 'redux-observable';
+import React, { useEffect } from 'react';
 import { Store } from 'redux';
-import { rootEpic } from '../redux/rootEpic';
+import { Container } from '@material-ui/core';
+import { connect } from 'react-redux';
 import { fetchStudiosAsync } from '../redux/data/actions';
 import { RootState } from '../redux/types';
-import { rootApi } from "../redux/rootApi";
-import rootAction from "../redux/rootAction";
+import { serverEpic } from '../lib/serverEpic';
+import {
+  getStudios,
+  getStudiosError,
+  getStudiosLoading,
+} from '../redux/data/selectors';
+import { StudioList } from '../components/StudioList';
 
-const Index = () => {
-  return <div>Hello world!</div>;
+type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+
+const mapStateToProps = (state: RootState) => ({
+  studios: getStudios(state),
+  loading: getStudiosLoading(state),
+  errors: getStudiosError(state),
+});
+
+const dispatchProps = {
+  fetchStudio: fetchStudiosAsync.request,
+};
+
+const Index = ({ studios, loading, errors, fetchStudio }: Props) => {
+  useEffect(() => {
+    fetchStudio({ first: studios.length + 1, last: studios.length + 5 });
+  }, []);
+
+  return (
+    <Container>
+      <StudioList
+        list={studios}
+        loading={loading}
+        error={errors.networkError}
+      />
+    </Container>
+  );
 };
 
 Index.getInitialProps = async ({ store }: { store: Store<RootState> }) => {
-  // TODO: Write helper
-  const state$ = new StateObservable<RootState>(
-    new Subject(),
-    store.getState()
-  );
-  const resultAction = await rootEpic(
-    ActionsObservable.of(fetchStudiosAsync.request()),
-    state$,
-    { api: rootApi, action: rootAction }
-  ).toPromise();
-
-  store.dispatch(resultAction);
+  await serverEpic(store, fetchStudiosAsync.request({ first: 0, last: 4 }));
 
   return {};
 };
 
-export default Index;
+export default connect(
+  mapStateToProps,
+  dispatchProps
+)(Index);

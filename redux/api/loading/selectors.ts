@@ -1,6 +1,9 @@
-import { parseRequestType } from '../../../utils/parseActionType';
+import { parseRequestType } from '../../../lib/parseActionType';
+import { RootAction, RootState } from '../../types';
 
-export const createRequestLoadingSelector = (actions: string[]) => (state: any) =>
+export const createRequestLoadingSelector = (actions: RootAction['type'][]) => (
+  state: RootState
+) =>
   actions.some(action => {
     const [requestName, requestState] = parseRequestType(action);
 
@@ -10,5 +13,5 @@ export const createRequestLoadingSelector = (actions: string[]) => (state: any) 
       );
     }
 
-    return Boolean(state.api.loading[requestName]);
+    return state.api.loading[requestName] || false;
   });

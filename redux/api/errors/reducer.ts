@@ -1,6 +1,20 @@
-import { parseRequestType } from '../../../utils/parseActionType';
+import { parseRequestType } from '../../../lib/parseActionType';
+import { RootAction } from '../../types';
 
-export const errors = (state = {}, { type, payload }: { type: string, payload: { error: string } }) => {
+export type ErrorsState = {
+  [key: string]: {
+    appError?: string;
+    serverError?: string;
+    networkError?: string;
+  };
+};
+
+const initialState: ErrorsState = {};
+
+export const errorsReducer = (
+  state = initialState,
+  { type, payload }: RootAction
+) => {
   const matches = parseRequestType(type);
 
   if (matches) {
@@ -10,9 +24,11 @@ export const errors = (state = {}, { type, payload }: { type: string, payload: {
       return {
         ...state,
         [requestName]:
-          requestState === 'FAIL' ? payload.error : {},
+          requestState === 'FAIL' ? { networkError: payload.error } : {},
       };
     }
+
+    return state;
   }
 
   return state;

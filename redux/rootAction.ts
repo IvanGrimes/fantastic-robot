@@ -1,5 +1,5 @@
-import dataActions from './data/actions';
+import * as dataActions from './data/actions';
 
-export default <const>({
-  ...dataActions
-})
+export default {
+  dataActions,
+};
