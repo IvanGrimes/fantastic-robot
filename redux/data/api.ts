@@ -1,5 +1,4 @@
 import { from } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { ShortStudio } from './types';
 
 const mockStudios = ({ first, last }: FetchStudiosInput): ShortStudio[] => {
@@ -9,7 +8,7 @@ const mockStudios = ({ first, last }: FetchStudiosInput): ShortStudio[] => {
     studios.push({
       id: i.toString(),
       name: `Test studio #${i}`,
-      photos: [{ id: i.toString(), ratio: 16.9 }],
+      photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
       priceSegment: i % 3 ? 1 : 2,
       roomsCount: Math.floor(Math.random() * 10),
       stations: [
@@ -32,8 +31,8 @@ export type FetchStudiosInput = { first: number; last: number };
 export const fetchStudios = ({ first, last }: FetchStudiosInput) =>
   from(
     new Promise<ShortStudio[]>(resolve => {
-      delay(500);
-
-      resolve(mockStudios({ first, last }));
+      setTimeout(() => {
+        resolve(mockStudios({ first, last }));
+      }, typeof window !== "undefined" ? 3000 : 0)
     })
   );

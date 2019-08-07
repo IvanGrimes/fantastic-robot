@@ -1,25 +1,21 @@
 import React, { memo } from 'react';
 import { StudioListProps } from './index';
 import { StudioListItem } from './StudioListItem';
-import { Grid } from '@material-ui/core';
+import { ListGrid, ListItemGrid } from "./StudioList.styles";
 
-const _StudioList = ({ loading, error, list }: StudioListProps) => {
-  if (loading) {
-    return <p>loading</p>;
-  }
-
+const _StudioList = ({ error, list }: StudioListProps) => {
   if (error) {
     return <p>{error}</p>;
   }
 
   return (
-    <Grid component="ul" container spacing={4}>
+    <ListGrid component="ul" container>
       {list.map(item => (
-        <Grid component="li" item xs={12}>
-          <StudioListItem key={item.id} loading={loading} {...item} />
-        </Grid>
+        <ListItemGrid key={item.id} component="li" item xs={12}>
+          <StudioListItem {...item} />
+        </ListItemGrid>
       ))}
-    </Grid>
+    </ListGrid>
   );
 };
 

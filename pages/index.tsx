@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Store } from 'redux';
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchStudiosAsync } from '../redux/data/actions';
 import { RootState } from '../redux/types';
 import { serverEpic } from '../lib/serverEpic';
-import {
-  getStudios,
-  getStudiosError,
-  getStudiosLoading,
-} from '../redux/data/selectors';
+import { getStudios, getStudiosError } from '../redux/data/selectors';
 import { StudioList } from '../components/StudioList';
+import { InfiniteScroll, InfiniteScrollLoader } from "../components/index";
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),
-  loading: getStudiosLoading(state),
   errors: getStudiosError(state),
 });
 
@@ -24,24 +20,37 @@ const dispatchProps = {
   fetchStudio: fetchStudiosAsync.request,
 };
 
-const Index = ({ studios, loading, errors, fetchStudio }: Props) => {
-  useEffect(() => {
+const Index = ({ studios, errors, fetchStudio }: Props) => {
+  const handleNext = useCallback(() => {
     fetchStudio({ first: studios.length + 1, last: studios.length + 5 });
-  }, []);
+  }, [fetchStudio, studios.length]);
 
   return (
     <Container>
-      <StudioList
-        list={studios}
-        loading={loading}
-        error={errors.networkError}
-      />
+      <Grid container item>
+        <InfiniteScroll
+          dataLength={studios.length}
+          next={handleNext}
+
+          loader={
+                <InfiniteScrollLoader />
+          }
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+          hasMore
+        >
+          <StudioList list={studios} error={errors.networkError} />
+        </InfiniteScroll>
+      </Grid>
     </Container>
   );
 };
 
 Index.getInitialProps = async ({ store }: { store: Store<RootState> }) => {
-  await serverEpic(store, fetchStudiosAsync.request({ first: 0, last: 4 }));
+  await serverEpic(store, fetchStudiosAsync.request({ first: 0, last: 5 }));
 
   return {};
 };

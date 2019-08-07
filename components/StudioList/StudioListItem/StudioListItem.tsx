@@ -4,28 +4,18 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Typography,
 } from '@material-ui/core';
+import { LazyImage } from "../../LazyImage";
 
 // TODO: Add description in the type ShortStudio
 // TODO: Add custom CardMedia
 // TODO: Make option for CardMedia render this one as Slider
-// TODO: Add LazyImage
 
-const _StudioListItem = ({ loading, name }: StudioListItemProps) => {
-  if (loading) {
-    return <p>loading</p>;
-  }
-
+const _StudioListItem = ({ name }: StudioListItemProps) => {
   return (
     <Card>
-      <CardMedia
-        component="img"
-        alt="name"
-        image="https://via.placeholder.com/400x200"
-        title={name}
-      />
+      <LazyImage src="https://via.placeholder.com/400x200" height={200} />
       <CardActionArea href="#">
         <CardContent>
           <Typography variant="h5" component="h2" gutterBottom>
