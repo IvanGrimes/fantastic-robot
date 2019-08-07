@@ -13,7 +13,7 @@ export const _LazyImage = ({
   className = '',
   src,
   alt = '',
-  height,
+  ratio,
 }: LazyImageProps) => {
   const [isLoaded, setLoaded] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
@@ -45,10 +45,15 @@ export const _LazyImage = ({
 
       observer.observe(container || image);
     }
-  }, [height, src]);
+  }, [src]);
 
   return (
-    <Figure className={className} height={height} ref={containerRef}>
+    <Figure
+      className={className}
+      ref={containerRef}
+      ratio={ratio}
+      isLoaded={isLoaded}
+    >
       <Image
         onLoad={handleLoad}
         alt={alt}

@@ -31,8 +31,11 @@ export type FetchStudiosInput = { first: number; last: number };
 export const fetchStudios = ({ first, last }: FetchStudiosInput) =>
   from(
     new Promise<ShortStudio[]>(resolve => {
-      setTimeout(() => {
-        resolve(mockStudios({ first, last }));
-      }, typeof window !== "undefined" ? 3000 : 0)
+      setTimeout(
+        () => {
+          resolve(mockStudios({ first, last }));
+        },
+        typeof window !== 'undefined' ? 3000 : 0
+      );
     })
   );

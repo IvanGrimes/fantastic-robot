@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { StudioListProps } from './index';
 import { StudioListItem } from './StudioListItem';
-import { ListGrid, ListItemGrid } from "./StudioList.styles";
+import { ListGrid, ListItemGrid } from './StudioList.styles';
 
 const _StudioList = ({ error, list }: StudioListProps) => {
   if (error) {

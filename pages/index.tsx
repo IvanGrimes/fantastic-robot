@@ -7,7 +7,11 @@ import { RootState } from '../redux/types';
 import { serverEpic } from '../lib/serverEpic';
 import { getStudios, getStudiosError } from '../redux/data/selectors';
 import { StudioList } from '../components/StudioList';
-import { InfiniteScrollGrid, InfiniteScroll, InfiniteScrollLoader } from "../components/index";
+import {
+  InfiniteScrollGrid,
+  InfiniteScroll,
+  InfiniteScrollLoader,
+} from '../components/index';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -31,10 +35,7 @@ const Index = ({ studios, errors, fetchStudio }: Props) => {
         <InfiniteScroll
           dataLength={studios.length}
           next={handleNext}
-
-          loader={
-                <InfiniteScrollLoader />
-          }
+          loader={<InfiniteScrollLoader />}
           endMessage={
             <p style={{ textAlign: 'center' }}>
               <b>Yay! You have seen it all</b>

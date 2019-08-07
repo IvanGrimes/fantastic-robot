@@ -9,6 +9,7 @@ import {
 import { StudioListItemProps } from './index';
 import { LazyImage } from '../../LazyImage';
 import { Carousel } from '../../Carousel';
+import { floatToFraction } from '../../../lib/floatToFraction';
 
 // TODO: Render image by ratio
 // TODO: Add description in the type ShortStudio
@@ -18,15 +19,15 @@ const _StudioListItem = ({ photos, name }: StudioListItemProps) => {
     <Card>
       <Grid container>
         <Grid item xs={12}>
-      <Carousel>
-        {photos.map(({ id }, index) => (
-          <LazyImage
-            key={index}
-            src={`https://via.placeholder.com/${id}`}
-            height={200}
-          />
-        ))}
-      </Carousel>
+          <Carousel>
+            {photos.map(({ id, ratio }, index) => (
+              <LazyImage
+                key={index}
+                src={`https://via.placeholder.com/${id}`}
+                ratio={floatToFraction(ratio)}
+              />
+            ))}
+          </Carousel>
         </Grid>
       </Grid>
       <CardActionArea href="#">
