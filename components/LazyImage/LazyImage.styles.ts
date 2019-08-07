@@ -22,6 +22,7 @@ export const Image = styled.img<ImageProps>`
   ${({ isVisible, isLQIP, isHide }) => css`
     width: 100%;
     height: auto;
+    max-height: 100%;
     transition: opacity 150ms linear;
     ${isHide &&
       css`

@@ -6,6 +6,15 @@ import { CircularProgressProps } from "@material-ui/core/CircularProgress";
 import { em } from "polished";
 import { GridProps } from "@material-ui/core/Grid";
 
+export const InfiniteScrollGrid = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    & > div {
+      display: flex;
+      width: 100%;
+    }
+  }
+`
+
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(DefaultInfiniteScroll)`
   && {
       overflow: hidden !important;

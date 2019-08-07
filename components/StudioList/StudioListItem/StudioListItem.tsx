@@ -1,21 +1,34 @@
 import React, { memo } from 'react';
-import { StudioListItemProps } from './index';
 import {
   Card,
   CardActionArea,
   CardContent,
   Typography,
+  Grid,
 } from '@material-ui/core';
-import { LazyImage } from "../../LazyImage";
+import { StudioListItemProps } from './index';
+import { LazyImage } from '../../LazyImage';
+import { Carousel } from '../../Carousel';
 
+// TODO: Render image by ratio
 // TODO: Add description in the type ShortStudio
-// TODO: Add custom CardMedia
-// TODO: Make option for CardMedia render this one as Slider
 
-const _StudioListItem = ({ name }: StudioListItemProps) => {
+const _StudioListItem = ({ photos, name }: StudioListItemProps) => {
   return (
     <Card>
-      <LazyImage src="https://via.placeholder.com/400x200" height={200} />
+      <Grid container>
+        <Grid item xs={12}>
+      <Carousel>
+        {photos.map(({ id }, index) => (
+          <LazyImage
+            key={index}
+            src={`https://via.placeholder.com/${id}`}
+            height={200}
+          />
+        ))}
+      </Carousel>
+        </Grid>
+      </Grid>
       <CardActionArea href="#">
         <CardContent>
           <Typography variant="h5" component="h2" gutterBottom>

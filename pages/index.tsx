@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { Store } from 'redux';
-import { Container, Grid } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchStudiosAsync } from '../redux/data/actions';
 import { RootState } from '../redux/types';
 import { serverEpic } from '../lib/serverEpic';
 import { getStudios, getStudiosError } from '../redux/data/selectors';
 import { StudioList } from '../components/StudioList';
-import { InfiniteScroll, InfiniteScrollLoader } from "../components/index";
+import { InfiniteScrollGrid, InfiniteScroll, InfiniteScrollLoader } from "../components/index";
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -27,7 +27,7 @@ const Index = ({ studios, errors, fetchStudio }: Props) => {
 
   return (
     <Container>
-      <Grid container item>
+      <InfiniteScrollGrid container item>
         <InfiniteScroll
           dataLength={studios.length}
           next={handleNext}
@@ -44,7 +44,7 @@ const Index = ({ studios, errors, fetchStudio }: Props) => {
         >
           <StudioList list={studios} error={errors.networkError} />
         </InfiniteScroll>
-      </Grid>
+      </InfiniteScrollGrid>
     </Container>
   );
 };
