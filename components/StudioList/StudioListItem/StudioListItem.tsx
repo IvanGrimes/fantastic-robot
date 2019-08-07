@@ -11,10 +11,15 @@ import { LazyImage } from '../../LazyImage';
 import { Carousel } from '../../Carousel';
 import { floatToFraction } from '../../../lib/floatToFraction';
 
-// TODO: Render image by ratio
-// TODO: Add description in the type ShortStudio
+const getPriceSegment = (priceSegment: number) =>
+  new Array(priceSegment).fill('$');
 
-const _StudioListItem = ({ photos, name }: StudioListItemProps) => {
+const _StudioListItem = ({
+  photos,
+  name,
+  description,
+  priceSegment,
+}: StudioListItemProps) => {
   return (
     <Card>
       <Grid container>
@@ -32,13 +37,23 @@ const _StudioListItem = ({ photos, name }: StudioListItemProps) => {
       </Grid>
       <CardActionArea href="#">
         <CardContent>
-          <Typography variant="h5" component="h2" gutterBottom>
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica.
-          </Typography>
+          <Grid container justify="space-between" alignItems="center" spacing={2}>
+            <Grid item>
+              <Typography variant="h5" component="h2">
+                {name}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h5" component="span">
+                {getPriceSegment(priceSegment)}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body2" color="textSecondary">
+                {description}
+              </Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>

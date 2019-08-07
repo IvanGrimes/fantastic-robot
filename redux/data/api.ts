@@ -11,6 +11,8 @@ const mockStudios = ({ first, last }: FetchStudiosInput): ShortStudio[] => {
       photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
       priceSegment: i % 3 ? 1 : 2,
       roomsCount: Math.floor(Math.random() * 10),
+      description:
+        'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
       stations: [
         {
           id: Math.floor(Math.random() * 10).toString(),
