@@ -16,6 +16,10 @@ import { MeetingRoom } from '@material-ui/icons';
 const getPriceSegment = (priceSegment: number) =>
   new Array(priceSegment).fill('$');
 
+// TODO: Добавить кнопку сердечка (избранное) после количества комнат и тултип
+// TODO: Добавить тултип на priceSegment
+// TODO: Добавить экшн,редюсер для фильтрации
+
 const _StudioListItem = ({
   photos,
   name,
