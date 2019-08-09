@@ -13,12 +13,13 @@ import { theme } from '../theme';
 import { GlobalStyles } from '../components/_app';
 import { configureStore } from '../redux/store';
 import { RootState } from '../redux/types';
+import { SSRError } from '../lib/SSRError';
 
 const Layout = dynamic(() =>
   import('../components/Layout').then(module => module.Layout as any)
 );
 
-class MyApp extends App<{ store: Store<RootState> }> {
+class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
   static async getInitialProps({
     Component,
     ctx,
@@ -26,9 +27,25 @@ class MyApp extends App<{ store: Store<RootState> }> {
     Component: NextComponentType;
     ctx: NextPageContext;
   }) {
-    const pageProps = Component.getInitialProps
-      ? await Component.getInitialProps(ctx)
-      : {};
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      try {
+        pageProps = await Component.getInitialProps(ctx);
+      } catch (e) {
+        if (e instanceof SSRError) {
+          return {
+            statusCode: e.statusCode,
+            pageProps,
+          };
+        }
+
+        return {
+          statusCode: 500,
+          pageProps,
+        };
+      }
+    }
 
     return {
       pageProps,
@@ -44,7 +61,7 @@ class MyApp extends App<{ store: Store<RootState> }> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps, store, statusCode } = this.props;
 
     return (
       <Container>
@@ -56,7 +73,11 @@ class MyApp extends App<{ store: Store<RootState> }> {
             <MuiThemeProvider theme={theme}>
               <ThemeProvider theme={theme}>
                 <Layout>
-                  <Component {...pageProps} />
+                  {statusCode ? (
+                    <h1>{statusCode}</h1>
+                  ) : (
+                    <Component {...pageProps} />
+                  )}
                 </Layout>
               </ThemeProvider>
             </MuiThemeProvider>

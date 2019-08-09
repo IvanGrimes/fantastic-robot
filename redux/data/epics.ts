@@ -22,7 +22,7 @@ export const fetchStudiosFlow: Epic<
   action$.pipe(
     filter(isActionOf(fetchStudiosAsync.request)),
     switchMap(({ payload }) =>
-      fetchStudios({ first: payload.first, last: payload.last }).pipe(
+      fetchStudios({ page: payload.page }).pipe(
         map(fetchStudiosAsync.success),
         catchError(error => of(fetchStudiosAsync.failure(error)))
       )

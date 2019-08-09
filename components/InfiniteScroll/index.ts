@@ -9,6 +9,11 @@ export type InfiniteScrollProps = {
   loader?: ReactNode;
   endMessage?: ReactNode;
   loadBefore?: number;
+  pagination?: {
+    route?: string;
+    pageNumber?: string;
+    withTrailingSlash?: boolean;
+  };
 };
 
 export { InfiniteScroll } from './InfiniteScroll';

@@ -22,10 +22,12 @@ const stations: Station[] = [
   },
 ];
 
-const mockStudios = ({ first, last }: FetchStudiosInput): ShortStudio[] => {
+export const mockStudios = ({
+  page,
+}: FetchStudiosInput): { studios: ShortStudio[]; hasNext: true } => {
   const studios: ShortStudio[] = [];
 
-  for (let i = first; i < last; i += 1) {
+  for (let i = (page - 1) * 5; i < page * 5; i += 1) {
     studios.push({
       id: i.toString(),
       name: `Test studio #${i}`,
@@ -48,17 +50,17 @@ const mockStudios = ({ first, last }: FetchStudiosInput): ShortStudio[] => {
     });
   }
 
-  return studios;
+  return { studios, hasNext: true };
 };
 
-export type FetchStudiosInput = { first: number; last: number };
+export type FetchStudiosInput = { page: number };
 
-export const fetchStudios = ({ first, last }: FetchStudiosInput) =>
+export const fetchStudios = ({ page }: FetchStudiosInput) =>
   from(
-    new Promise<ShortStudio[]>(resolve => {
+    new Promise<ReturnType<typeof mockStudios>>(resolve => {
       setTimeout(
         () => {
-          resolve(mockStudios({ first, last }));
+          resolve(mockStudios({ page }));
         },
         typeof window !== 'undefined' ? 3000 : 0
       );

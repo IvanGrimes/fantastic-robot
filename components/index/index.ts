@@ -1,1 +1,1 @@
-export * from './index.styles';
+export { Index } from './Index';

@@ -3,17 +3,26 @@ import { fetchStudiosAsync } from './actions';
 import { ShortStudio } from './types';
 
 type DataState = {
-  studios: ShortStudio[];
+  studios: {
+    list: ShortStudio[];
+    hasNext: boolean;
+  };
 };
 
 const initialState: DataState = {
-  studios: [],
+  studios: {
+    list: [],
+    hasNext: true,
+  },
 };
 
 export const dataReducer = createReducer(initialState).handleAction(
   fetchStudiosAsync.success,
   (state, { payload }) => ({
     ...state,
-    studios: [...state.studios, ...payload],
+    studios: {
+      list: [...state.studios.list, ...payload.studios],
+      hasNext: payload.hasNext,
+    },
   })
 );
