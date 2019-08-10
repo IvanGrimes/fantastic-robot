@@ -1,9 +1,5 @@
-import { ShortStudio } from '../../redux/studios/types';
+import { StudioListContainerProps } from './StudioListContainer'
 
-export type StudioListProps = {
-  className?: string;
-  list: ShortStudio[];
-  error: string;
-};
+export type StudioListProps = StudioListContainerProps;
 
-export { StudioList } from './StudioList';
+export { StudioListContainer as StudioList } from './StudioListContainer';

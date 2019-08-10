@@ -1,5 +1,5 @@
 import { from } from 'rxjs';
-import { ShortStudio, Station } from './types';
+import { PriceSegment, ShortStudio, Station, StudioType } from './types';
 
 const stations: Station[] = [
   {
@@ -22,10 +22,84 @@ const stations: Station[] = [
   },
 ];
 
+const types: StudioType[] = [
+  {
+    id: '1',
+    name: 'Test type #1',
+  },
+  {
+    id: '2',
+    name: 'Test type #3',
+  },
+  {
+    id: '3',
+    name: 'Test type #3',
+  },
+];
+
+export type FetchStudiosInput = {
+  page?: number;
+  name?: string;
+  typeIds?: string[];
+  priceSegment?: PriceSegment[];
+  roomsCount?: {
+    from?: number;
+    to?: number;
+  };
+  favorite?: boolean;
+  stationIds?: string[];
+};
+
+const getFilteredStudio = ({
+  name = 'Test studio #1',
+  typeIds = [],
+  priceSegment = [],
+  favorite = false,
+  roomsCount = {},
+  stationIds = [],
+}: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
+  {
+    id: '65345',
+    name,
+    types: typeIds.length
+      ? types.filter(({ id }) => typeIds.includes(id))
+      : types,
+    favorite,
+    roomsCount: roomsCount.to || roomsCount.from || 2,
+    stations: stationIds.length
+      ? stations.filter(({ id }) => stationIds.includes(id))
+      : stations,
+    priceSegment: priceSegment.length ? priceSegment[0] : 2,
+    description:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
+    photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
+  },
+];
+
 export const mockStudios = ({
-  page,
-}: FetchStudiosInput): { studios: ShortStudio[]; hasNext: true } => {
+  page = 1,
+  stationIds = [],
+  roomsCount = {},
+  priceSegment = [],
+  name = '',
+  favorite = false,
+  typeIds = [],
+}: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean; } => {
   const studios: ShortStudio[] = [];
+
+  if (
+    stationIds.length ||
+    roomsCount.from ||
+    roomsCount.to ||
+    priceSegment.length ||
+    name ||
+    typeIds.length
+  ) {
+    return {
+      studios: getFilteredStudio({ name, typeIds, roomsCount, priceSegment, stationIds, favorite }),
+      hasNext: false,
+    }
+  }
 
   for (let i = (page - 1) * 5; i < page * 5; i += 1) {
     studios.push({
@@ -43,10 +117,13 @@ export const mockStudios = ({
               stations[Math.floor(Math.random() * 3)],
             ]
           : [stations[Math.floor(Math.random() * 3)]],
-      types: new Array(3).fill(null).map((_, index) => ({
-        id: index.toString(),
-        name: `Test type #${index}`,
-      })),
+      types:
+        i % 2
+          ? [
+              types[Math.floor(Math.random() * 3)],
+              types[Math.floor(Math.random() * 3)],
+            ]
+          : [types[Math.floor(Math.random() * 3)]],
       favorite: Boolean(i % 2),
     });
   }
@@ -54,14 +131,12 @@ export const mockStudios = ({
   return { studios, hasNext: true };
 };
 
-export type FetchStudiosInput = { page: number };
-
-export const fetchStudios = ({ page }: FetchStudiosInput) =>
+export const fetchStudios = (input: FetchStudiosInput) =>
   from(
     new Promise<ReturnType<typeof mockStudios>>(resolve => {
       setTimeout(
         () => {
-          resolve(mockStudios({ page }));
+          resolve(mockStudios(input));
         },
         typeof window !== 'undefined' ? 3000 : 0
       );

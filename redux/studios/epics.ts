@@ -3,6 +3,7 @@ import { filter, switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isActionOf } from 'typesafe-actions';
 import { EpicDependencies, RootAction, RootState } from '../types';
+import { getFilters, getHasAppliedFilters } from "./selectors";
 
 const fetchStudiosFlow: Epic<
   RootAction,
@@ -22,12 +23,41 @@ const fetchStudiosFlow: Epic<
   action$.pipe(
     filter(isActionOf(fetchStudiosAsync.request)),
     switchMap(({ payload }) =>
-      fetchStudios({ page: payload.page }).pipe(
+      fetchStudios(payload).pipe(
         map(fetchStudiosAsync.success),
         catchError(error => of(fetchStudiosAsync.failure(error)))
       )
     )
   );
+
+const setFiltersFlow: Epic<
+  RootAction,
+  RootAction,
+  RootState,
+  EpicDependencies
+> = (
+  action$,
+  state$,
+  {
+    actions: {
+      dataActions: { setFilters, fetchStudiosAsync },
+    },
+  }
+) => {
+  const filters = getFilters(state$.value);
+  const hasAppliedFilters = getHasAppliedFilters(state$.value);
+
+  return action$.pipe(
+    filter(isActionOf(setFilters)),
+    map(({ payload }) =>
+      fetchStudiosAsync.request({
+        ...filters,
+        ...payload,
+        listUpdateType: hasAppliedFilters ? 'merge' : 'replace',
+      })
+    )
+  );
+};
 
 const addFavoriteFlow: Epic<
   RootAction,
@@ -56,4 +86,4 @@ const addFavoriteFlow: Epic<
     )
   );
 
-export const studiosEpic = [fetchStudiosFlow, addFavoriteFlow];
+export const studiosEpic = [fetchStudiosFlow, addFavoriteFlow, setFiltersFlow];

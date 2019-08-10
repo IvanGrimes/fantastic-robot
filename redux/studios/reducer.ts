@@ -1,11 +1,23 @@
 import { createReducer } from 'typesafe-actions';
-import { fetchStudiosAsync, toggleFavoriteAsync } from './actions';
-import { ShortStudio } from './types';
+import { fetchStudiosAsync, setFilters, toggleFavoriteAsync } from './actions';
+import { PriceSegment, ShortStudio } from './types';
 
-type StudiosState = {
+export type StudiosState = {
   studios: {
     list: ShortStudio[];
+    listUpdateType: 'merge' | 'replace';
     hasNext: boolean;
+    filters: {
+      name?: string;
+      typeIds?: string[];
+      priceSegment?: PriceSegment[];
+      roomsCount: {
+        from?: number;
+        to?: number;
+      };
+      favorite?: boolean;
+      stationIds?: string[];
+    };
   };
   favorite: {
     [key: string]: {
@@ -18,16 +30,31 @@ type StudiosState = {
 const initialState: StudiosState = {
   studios: {
     list: [],
-    hasNext: true,
+    listUpdateType: 'replace',
+    hasNext: false,
+    filters: {
+      roomsCount: {},
+    },
   },
   favorite: {},
 };
 
 export const studiosReducer = createReducer(initialState)
+  .handleAction(fetchStudiosAsync.request, (state, { payload }) => ({
+    ...state,
+    studios: {
+      ...state.studios,
+      listUpdateType: payload.listUpdateType || "merge",
+    }
+  }))
   .handleAction(fetchStudiosAsync.success, (state, { payload }) => ({
     ...state,
     studios: {
-      list: [...state.studios.list, ...payload.studios],
+      ...state.studios,
+      list:
+        state.studios.listUpdateType === 'merge'
+          ? [...state.studios.list, ...payload.studios]
+          : payload.studios,
       hasNext: payload.hasNext,
     },
   }))
@@ -72,4 +99,20 @@ export const studiosReducer = createReducer(initialState)
           : studio
       ),
     },
-  }));
+  }))
+  .handleAction(setFilters, (state, { payload }) => {
+    const { roomsCount } = state.studios.filters;
+
+    return {
+      ...state,
+      studios: {
+        ...state.studios,
+        filters: {
+          ...state.studios.filters,
+          roomsCount: payload.roomsCount
+            ? { ...roomsCount, ...payload.roomsCount }
+            : roomsCount,
+        },
+      },
+    };
+  });

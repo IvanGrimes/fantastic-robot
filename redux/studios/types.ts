@@ -15,10 +15,12 @@ export type Image = {
   ratio: number;
 };
 
+export type PriceSegment = 1 | 2 | 3;
+
 export type ShortStudio = {
   id: string;
   name: string;
-  priceSegment: 1 | 2 | 3;
+  priceSegment: PriceSegment;
   stations: Station[];
   types: StudioType[];
   roomsCount: number;

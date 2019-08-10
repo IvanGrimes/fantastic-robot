@@ -28,6 +28,20 @@ const _StudioListItem = ({
   roomsCount,
   favorite,
 }: StudioListItemProps) => {
+  if (
+    !studioId ||
+    !photos ||
+    !name ||
+    !description ||
+    !priceSegment ||
+    !types ||
+    !stations ||
+    !roomsCount ||
+    typeof favorite === 'undefined'
+  ) {
+    return <p>Here will be content placeholder</p>;
+  }
+
   return (
     <Card>
       <Grid container>
