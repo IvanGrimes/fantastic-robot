@@ -65,6 +65,7 @@
     "@types/react-infinite-scroll-component": "^4.2.4",
     "@types/react-redux": "^7.1.1",
     "@types/react-slick": "^0.23.4",
+    "@types/reselect": "^2.2.0",
     "@types/styled-components": "^4.1.18",
     "@types/yup": "^0.26.22",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
