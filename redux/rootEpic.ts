@@ -1,4 +1,4 @@
 import { combineEpics } from 'redux-observable';
-import { fetchStudiosFlow } from './data/epics';
+import { studiosEpic } from './studios/epics';
 
-export const rootEpic = combineEpics(fetchStudiosFlow);
+export const rootEpic = combineEpics(...studiosEpic);

@@ -1,7 +1,7 @@
+import { getType } from 'typesafe-actions';
 import { RootState } from '../types';
 import { createRequestLoadingSelector } from '../api/loading/selectors';
-import { getType } from 'typesafe-actions';
-import { fetchStudiosAsync } from './actions';
+import { fetchStudiosAsync, toggleFavoriteAsync } from './actions';
 import { createRequestErrorSelector } from '../api/errors/selectors';
 
 export const getStudiosLoading = createRequestLoadingSelector([
@@ -12,4 +12,8 @@ export const getStudiosError = createRequestErrorSelector(
   getType(fetchStudiosAsync.request)
 );
 
-export const getStudios = (state: RootState) => state.data.studios;
+export const getStudios = (state: RootState) => state.studios.studios;
+
+export const getToggleFavoriteError = createRequestErrorSelector(
+  getType(toggleFavoriteAsync.request)
+);

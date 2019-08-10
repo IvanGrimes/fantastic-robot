@@ -4,10 +4,10 @@ import { Container, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { fetchStudiosAsync } from '../../redux/data/actions';
+import { fetchStudiosAsync } from '../../redux/studios/actions';
 import { RootState } from '../../redux/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { getStudios, getStudiosError } from '../../redux/data/selectors';
+import { getStudios, getStudiosError } from '../../redux/studios/selectors';
 import { StudioList } from '../StudioList';
 import { InfiniteScrollLoader, InfiniteScroll } from './Index.styles';
 

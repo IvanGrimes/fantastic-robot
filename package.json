@@ -59,7 +59,7 @@
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@types/lodash": "^4.14.136",
-    "@types/ramda": "^0.26.18",
+    "@types/ramda": "^0.26.19",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "@types/react-infinite-scroll-component": "^4.2.4",

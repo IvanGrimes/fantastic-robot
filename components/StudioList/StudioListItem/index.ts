@@ -1,4 +1,4 @@
-import { ShortStudio } from '../../../redux/data/types';
+import { ShortStudio } from '../../../redux/studios/types';
 
 export type StudioListItemProps = ShortStudio;
 

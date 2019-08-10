@@ -47,6 +47,7 @@ export const mockStudios = ({
         id: index.toString(),
         name: `Test type #${index}`,
       })),
+      favorite: Boolean(i % 2),
     });
   }
 
@@ -64,5 +65,18 @@ export const fetchStudios = ({ page }: FetchStudiosInput) =>
         },
         typeof window !== 'undefined' ? 3000 : 0
       );
+    })
+  );
+
+export const toggleFavorite = (id: string) =>
+  from(
+    new Promise<{ id: string; success: boolean }>(resolve => {
+      setTimeout(() => {
+        resolve({ id, success: true });
+      }, 1000);
+    }).then(({ id: _id, success }) => {
+      if (!success) throw new Error('Fail');
+
+      return { id: _id };
     })
   );

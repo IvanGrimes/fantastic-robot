@@ -24,4 +24,5 @@ export type ShortStudio = {
   roomsCount: number;
   photos: Image[];
   description: string;
+  favorite: boolean;
 };

@@ -1,6 +1,6 @@
 import { Index } from '../../../components/index';
 import { serverEpic } from '../../../lib/serverEpic';
-import { fetchStudiosAsync } from '../../../redux/data/actions';
+import { fetchStudiosAsync } from '../../../redux/studios/actions';
 import { SSRError } from '../../../lib/SSRError';
 
 Index.getInitialProps = async ({ store, query, isServer }) => {

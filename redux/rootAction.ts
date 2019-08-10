@@ -1,4 +1,4 @@
-import * as dataActions from './data/actions';
+import * as dataActions from './studios/actions';
 
 export default {
   dataActions,
