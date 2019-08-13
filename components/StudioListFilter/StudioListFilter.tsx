@@ -1,25 +1,29 @@
-import React, {
-  ChangeEvent,
-  memo,
-  useCallback,
-  useState,
-} from 'react';
+import React, { memo } from 'react';
+import { Grid } from '@material-ui/core';
+import { FilterPropertyList } from './FilterPropertyList';
 
 type Props = {
   className: string;
-  handleChangeName: (value: string) => void;
+  typeList: { id: string; name: string }[];
+  selectedTypesIds: string[];
+  handleSelectType: (id?: string) => () => void;
 };
 
-const _StudioListFilter = ({ handleChangeName }: Props) => {
-  const [name, setName] = useState('');
-  const onChangeName = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
-    const nextValue = ev.target.value;
-
-    setName(nextValue);
-    handleChangeName(nextValue);
-  }, [handleChangeName]);
-
-  return <input onChange={onChangeName} value={name} />;
-};
+const _StudioListFilter = ({
+  className,
+  typeList,
+  selectedTypesIds,
+  handleSelectType,
+}: Props) => (
+  <Grid container className={className}>
+    <Grid item xs={12}>
+      <FilterPropertyList
+        list={typeList}
+        selectedIds={selectedTypesIds}
+        onChange={handleSelectType}
+      />
+    </Grid>
+  </Grid>
+);
 
 export const StudioListFilter = memo(_StudioListFilter);

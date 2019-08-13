@@ -1,6 +1,9 @@
 import { Index } from '../../../components/index';
 import { serverEpic } from '../../../lib/serverEpic';
-import { fetchStudiosAsync } from '../../../redux/studios/actions';
+import {
+  fetchFiltersAsync,
+  fetchStudiosAsync,
+} from '../../../redux/studios/actions';
 import { SSRError } from '../../../lib/SSRError';
 
 Index.getInitialProps = async ({ store, query, isServer }) => {
@@ -18,6 +21,8 @@ Index.getInitialProps = async ({ store, query, isServer }) => {
         );
       }
       await serverEpic(store, fetchStudiosAsync.request({ page: number }));
+
+      await serverEpic(store, fetchFiltersAsync.request());
     } catch (e) {
       throw new SSRError({ statusCode: 404 });
 

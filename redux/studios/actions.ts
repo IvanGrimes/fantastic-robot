@@ -1,5 +1,5 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
-import { FetchStudiosInput, mockStudios } from './api';
+import { FetchStudiosInput, mockStudios, Filters } from './api';
 import { StudiosState } from './reducer';
 
 export const fetchStudiosAsync = createAsyncAction(
@@ -20,5 +20,18 @@ export const toggleFavoriteAsync = createAsyncAction(
 
 export const setFilters = createAction(
   '@@STUDIOS/SET_FILTERS',
-  action => (payload: FetchStudiosInput) => action(payload)
+  action => ({
+    roomsCount = {},
+    typeIds = [],
+    priceSegment = [],
+    stationIds = [],
+    ...rest
+  }: FetchStudiosInput) =>
+    action({ roomsCount, typeIds, priceSegment, stationIds, ...rest })
 );
+
+export const fetchFiltersAsync = createAsyncAction(
+  '@@STUDIOS/FETCH_FILTERS_REQUEST',
+  '@@STUDIOS/FETCH_FILTERS_SUCCESS',
+  '@@STUDIOS/FETCH_FILTERS_FAIL'
+)<undefined, Filters, any>();

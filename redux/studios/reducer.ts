@@ -1,22 +1,38 @@
 import { createReducer } from 'typesafe-actions';
-import { fetchStudiosAsync, setFilters, toggleFavoriteAsync } from './actions';
-import { PriceSegment, ShortStudio } from './types';
+import {
+  fetchFiltersAsync,
+  fetchStudiosAsync,
+  setFilters,
+  toggleFavoriteAsync,
+} from './actions';
+import { PriceSegment, ShortStudio, Station, StudioType } from './types';
 
 export type StudiosState = {
   studios: {
     list: ShortStudio[];
     listUpdateType: 'merge' | 'replace';
     hasNext: boolean;
-    filters: {
+  };
+  filters: {
+    applied: {
       name?: string;
-      typeIds?: string[];
-      priceSegment?: PriceSegment[];
+      typeIds: string[];
+      priceSegments: PriceSegment[];
       roomsCount: {
         from?: number;
         to?: number;
       };
       favorite?: boolean;
-      stationIds?: string[];
+      stationIds: string[];
+    };
+    data: {
+      stations: Station[];
+      types: StudioType[];
+      priceSegments: PriceSegment[];
+      roomsCount: {
+        from: number;
+        to: number;
+      };
     };
   };
   favorite: {
@@ -32,8 +48,22 @@ const initialState: StudiosState = {
     list: [],
     listUpdateType: 'replace',
     hasNext: false,
-    filters: {
+  },
+  filters: {
+    applied: {
       roomsCount: {},
+      stationIds: [],
+      typeIds: [],
+      priceSegments: [],
+    },
+    data: {
+      stations: [],
+      types: [],
+      priceSegments: [1, 2, 3],
+      roomsCount: {
+        from: 0,
+        to: 0,
+      },
     },
   },
   favorite: {},
@@ -44,8 +74,8 @@ export const studiosReducer = createReducer(initialState)
     ...state,
     studios: {
       ...state.studios,
-      listUpdateType: payload.listUpdateType || "merge",
-    }
+      listUpdateType: payload.listUpdateType || 'merge',
+    },
   }))
   .handleAction(fetchStudiosAsync.success, (state, { payload }) => ({
     ...state,
@@ -101,18 +131,29 @@ export const studiosReducer = createReducer(initialState)
     },
   }))
   .handleAction(setFilters, (state, { payload }) => {
-    const { roomsCount } = state.studios.filters;
+    const { roomsCount } = state.filters.applied;
 
     return {
       ...state,
-      studios: {
-        ...state.studios,
-        filters: {
-          ...state.studios.filters,
+      filters: {
+        ...state.filters,
+        applied: {
+          ...state.filters.applied,
+          ...payload,
+          typeIds: payload.typeIds.length
+            ? [...state.filters.applied.typeIds, ...payload.typeIds]
+            : [],
           roomsCount: payload.roomsCount
             ? { ...roomsCount, ...payload.roomsCount }
             : roomsCount,
         },
       },
     };
-  });
+  })
+  .handleAction(fetchFiltersAsync.success, (state, { payload }) => ({
+    ...state,
+    filters: {
+      ...state.filters,
+      data: payload,
+    },
+  }));

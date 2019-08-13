@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useCallback,
   memo,
-  DragEvent,
+  DragEventHandler,
 } from 'react';
 import { LazyImageProps } from './index';
 import { Figure, Image } from './LazyImage.styles';
@@ -19,9 +19,12 @@ export const _LazyImage = ({
   const containerRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const handleLoad = useCallback(() => setLoaded(true), []);
-  const handleDragStart = useCallback((ev: DragEvent) => {
-    ev.preventDefault();
-  }, []);
+  const handleDragStart = useCallback<DragEventHandler<HTMLImageElement>>(
+    ev => {
+      ev.preventDefault();
+    },
+    []
+  );
 
   useEffect(() => {
     const container = containerRef.current;

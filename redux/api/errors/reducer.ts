@@ -13,6 +13,7 @@ const initialState: ErrorsState = {};
 
 export const errorsReducer = (
   state = initialState,
+  // @ts-ignore
   { type, payload }: RootAction
 ) => {
   const matches = parseRequestType(type);

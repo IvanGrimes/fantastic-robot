@@ -50,8 +50,37 @@ export type FetchStudiosInput = {
   stationIds?: string[];
 };
 
+export type Filters = {
+  stations: Station[];
+  types: StudioType[];
+  priceSegments: PriceSegment[];
+  roomsCount: {
+    from: number;
+    to: number;
+  };
+};
+
+export const fetchFilters = () =>
+  from(
+    new Promise<Filters>(resolve =>
+      setTimeout(
+        () =>
+          resolve({
+            stations,
+            types,
+            priceSegments: [1, 2, 3],
+            roomsCount: {
+              from: 2,
+              to: 12,
+            },
+          }),
+        typeof window !== 'undefined' ? 1000 : 0
+      )
+    )
+  );
+
 const getFilteredStudio = ({
-  name = 'Test studio #1',
+  name,
   typeIds = [],
   priceSegment = [],
   favorite = false,
@@ -60,7 +89,7 @@ const getFilteredStudio = ({
 }: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
   {
     id: '65345',
-    name,
+    name: name || 'Test studio #65345',
     types: typeIds.length
       ? types.filter(({ id }) => typeIds.includes(id))
       : types,
@@ -84,7 +113,7 @@ export const mockStudios = ({
   name = '',
   favorite = false,
   typeIds = [],
-}: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean; } => {
+}: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean } => {
   const studios: ShortStudio[] = [];
 
   if (
@@ -96,9 +125,16 @@ export const mockStudios = ({
     typeIds.length
   ) {
     return {
-      studios: getFilteredStudio({ name, typeIds, roomsCount, priceSegment, stationIds, favorite }),
+      studios: getFilteredStudio({
+        name,
+        typeIds,
+        roomsCount,
+        priceSegment,
+        stationIds,
+        favorite,
+      }),
       hasNext: false,
-    }
+    };
   }
 
   for (let i = (page - 1) * 5; i < page * 5; i += 1) {

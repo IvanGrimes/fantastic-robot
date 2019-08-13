@@ -24,20 +24,35 @@ export const getToggleFavoriteError = createRequestErrorSelector(
   getType(toggleFavoriteAsync.request)
 );
 
-export const getFilters = createDeepEqualSelector(
-  [getStudios],
+const getFiltersState = createDeepEqualSelector(
+  [getStudiosState],
   state => state.filters
 );
 
+export const getFiltersData = createDeepEqualSelector(
+  [getFiltersState],
+  state => state.data
+);
+
+export const getAppliedFilters = createDeepEqualSelector(
+  [getFiltersState],
+  state => state.applied
+);
+
 export const getHasAppliedFilters = createDeepEqualSelector(
-  [getFilters],
+  [getAppliedFilters],
   filters =>
     Boolean(
       filters.roomsCount.from ||
         filters.roomsCount.to ||
         typeof filters.favorite !== 'undefined' ||
-        (filters.priceSegment && filters.priceSegment.length) ||
+        (filters.priceSegments && filters.priceSegments.length) ||
         (filters.stationIds && filters.stationIds.length) ||
         (filters.typeIds && filters.typeIds.length)
     )
+);
+
+export const getFilters = createDeepEqualSelector(
+  [getFiltersState],
+  state => state.data
 );

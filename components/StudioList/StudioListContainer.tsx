@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { RootState } from '../../redux/types';
 import {
-  getHasAppliedFilters,
+  getAppliedFilters,
   getStudios,
   getStudiosError,
   getStudiosLoading,
@@ -13,6 +13,7 @@ import {
 import { StudioList } from './StudioList';
 import { InfiniteScroll, InfiniteScrollLoader } from '../index/Index.styles';
 import { fetchStudiosAsync } from '../../redux/studios/actions';
+import { usePrevious } from '../../hooks/usePrevious';
 
 export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & {
@@ -22,7 +23,7 @@ export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
 const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),
   errors: getStudiosError(state),
-  hasAppliedFilters: getHasAppliedFilters(state),
+  appliedFilters: getAppliedFilters(state),
   loading: getStudiosLoading(state),
 });
 
@@ -35,9 +36,10 @@ const _StudioListContainer = ({
   studios,
   errors,
   fetchStudio,
-  hasAppliedFilters,
   loading,
+  appliedFilters,
 }: StudioListContainerProps) => {
+  const prevAppliedFilters = usePrevious(appliedFilters);
   const { query } = useRouter();
   const number = useMemo(
     () => (query.number ? parseInt(query.number as string, 10) : 1),
@@ -81,7 +83,7 @@ const _StudioListContainer = ({
           className={className}
           list={studios.list}
           error={errors.networkError}
-          loading={!hasAppliedFilters && loading}
+          loading={loading && !dequal(prevAppliedFilters, appliedFilters)}
         />
       </InfiniteScroll>
     </Fragment>

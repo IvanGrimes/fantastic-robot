@@ -1,4 +1,4 @@
-import { StudioListContainerProps } from './StudioListContainer'
+import { StudioListContainerProps } from './StudioListContainer';
 
 export type StudioListProps = StudioListContainerProps;
 
