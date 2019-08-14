@@ -7,10 +7,16 @@ const _FilterPropertyListItem = ({
   name,
   onChange,
   isActive,
+  renderName,
+  ...props
 }: FilterPropertyListItemProps) => (
   <Grid container justify="space-between" alignItems="center">
     <Grid item>
-      <Typography>{name}</Typography>
+      {renderName ? (
+        renderName({ id, name, isActive, ...props })
+      ) : (
+        <Typography>{name}</Typography>
+      )}
     </Grid>
     <Grid item>
       <Checkbox

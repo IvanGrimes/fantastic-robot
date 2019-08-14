@@ -10,6 +10,7 @@ const _FilterPropertyList = ({
   list,
   onChange,
   selectedIds,
+  renderName
 }: FilterPropertyListProps) => {
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
@@ -24,13 +25,15 @@ const _FilterPropertyList = ({
     <Grid container>
       <FilterPropertyListSearch value={search} onChange={setSearch} />
       <Grid item xs={12}>
-        {filteredList.map(({ id, name }) => (
+        {filteredList.map(({ id, name, ...rest }) => (
           <FilterPropertyListItem
             key={id}
             id={id}
             name={name}
             onChange={onChange}
             isActive={selectedIds.includes(id)}
+            renderName={renderName}
+            {...rest}
           />
         ))}
       </Grid>
