@@ -1,12 +1,13 @@
 import React, { memo, useMemo, useState } from 'react';
 import dequal from 'dequal';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from "@material-ui/core";
 import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
 import { FilterPropertyListSearch } from './FilterPropertyListSearch';
 
 const _FilterPropertyList = ({
+  title,
   list,
   onChange,
   selectedIds,
@@ -23,6 +24,10 @@ const _FilterPropertyList = ({
 
   return (
     <Grid container>
+      <Grid item xs={12}>
+        <Typography variant="h6" component="span">{title}</Typography>
+      </Grid>
+      <Grid container>
       <FilterPropertyListSearch value={search} onChange={setSearch} />
       <Grid item xs={12}>
         {filteredList.map(({ id, name, ...rest }) => (
@@ -36,6 +41,7 @@ const _FilterPropertyList = ({
             {...rest}
           />
         ))}
+      </Grid>
       </Grid>
     </Grid>
   );

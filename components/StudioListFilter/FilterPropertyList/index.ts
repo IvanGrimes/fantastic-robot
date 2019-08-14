@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export type FilterPropertyListProps = {
+  title: string;
   list: {
     id: string;
     name: string;

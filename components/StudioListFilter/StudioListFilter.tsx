@@ -25,6 +25,7 @@ const _StudioListFilter = ({
   <Grid className={className} container spacing={4}>
     <Grid item xs={6}>
       <FilterPropertyList
+        title="Типы студий"
         list={typeList}
         selectedIds={selectedTypesIds}
         onChange={handleSelectType}
@@ -32,6 +33,7 @@ const _StudioListFilter = ({
     </Grid>
     <Grid item xs={6}>
       <FilterPropertyList
+        title="Станции метро"
         list={stationList}
         selectedIds={selectedStationIds}
         onChange={handleSelectStation}
