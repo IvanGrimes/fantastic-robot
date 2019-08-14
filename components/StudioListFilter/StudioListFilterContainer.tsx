@@ -35,7 +35,11 @@ const _StudioListFilterContainer = ({
       setFilters({ typeIds: typeof id !== 'undefined' ? [id] : id }),
     [setFilters]
   );
-  const handleSelectStation = useCallback((id?: string) => () => setFilters({ stationIds: typeof id !== "undefined" ? [id] : id}), [setFilters])
+  const handleSelectStation = useCallback(
+    (id?: string) => () =>
+      setFilters({ stationIds: typeof id !== 'undefined' ? [id] : id }),
+    [setFilters]
+  );
 
   return (
     <StudioListFilter

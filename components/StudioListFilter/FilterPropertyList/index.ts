@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export type FilterPropertyListProps = {
   title: string;
@@ -8,7 +8,7 @@ export type FilterPropertyListProps = {
   }[];
   selectedIds: string[];
   onChange: (id?: string) => () => void;
-  renderName?: (props: { [key: string]: any; }) => ReactNode;
+  renderName?: (props: { [key: string]: any }) => ReactNode;
 };
 
 export { FilterPropertyList } from './FilterPropertyList';
