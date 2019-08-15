@@ -12,7 +12,7 @@ const fetchStudiosFlow: Epic<
   EpicDependencies
 > = (
   action$,
-  _state$,
+  state$,
   {
     api: { fetchStudios },
     actions: {
@@ -22,11 +22,14 @@ const fetchStudiosFlow: Epic<
 ) =>
   action$.pipe(
     filter(isActionOf(fetchStudiosAsync.request)),
-    switchMap(({ payload }) =>
-      fetchStudios(payload).pipe(
-        map(fetchStudiosAsync.success),
-        catchError(error => of(fetchStudiosAsync.failure(error)))
-      )
+    switchMap(({ payload }) => {
+      const appliedFilters = getAppliedFilters(state$.value);
+
+      return fetchStudios({ ...appliedFilters, ...payload }).pipe(
+          map(fetchStudiosAsync.success),
+          catchError(error => of(fetchStudiosAsync.failure(error)))
+        )
+      }
     )
   );
 

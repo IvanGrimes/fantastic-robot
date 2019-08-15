@@ -3,14 +3,23 @@ import { Grid, Typography } from '@material-ui/core';
 import { FilterPropertyList } from './FilterPropertyList';
 import { ColorCircle } from './StudioListFilter.styles';
 
+type List = { id: string; name: string }[];
+
+type IdList = string[];
+
+type SelectHandler<T> = (id?: T) => () => void;
+
 type Props = {
   className: string;
-  typeList: { id: string; name: string }[];
-  selectedTypesIds: string[];
-  handleSelectType: (id?: string) => () => void;
-  stationList: { id: string; name: string }[];
-  selectedStationIds: string[];
-  handleSelectStation: (id?: string) => () => void;
+  typeList: List;
+  selectedTypesIds: IdList;
+  handleSelectType: SelectHandler<string>;
+  stationList: List;
+  selectedStationIds: IdList;
+  handleSelectStation: SelectHandler<string>;
+  priceSegmentList: List;
+  selectedPriceSegments: IdList;
+  handleSelectPriceSegment: SelectHandler<string>;
 };
 
 const _StudioListFilter = ({
@@ -21,6 +30,9 @@ const _StudioListFilter = ({
   stationList,
   selectedStationIds,
   handleSelectStation,
+  priceSegmentList,
+  selectedPriceSegments,
+  handleSelectPriceSegment
 }: Props) => (
   <Grid className={className} container spacing={4}>
     <Grid item xs={6}>
@@ -47,6 +59,14 @@ const _StudioListFilter = ({
             </Grid>
           </Grid>
         )}
+      />
+    </Grid>
+    <Grid item xs={6}>
+      <FilterPropertyList
+        title="Ценовой сегмент"
+        list={priceSegmentList}
+        selectedIds={selectedPriceSegments}
+        onChange={handleSelectPriceSegment}
       />
     </Grid>
   </Grid>

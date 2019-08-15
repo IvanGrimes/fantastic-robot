@@ -143,6 +143,9 @@ export const studiosReducer = createReducer(initialState)
           typeIds: payload.typeIds.length
             ? [...state.filters.applied.typeIds, ...payload.typeIds]
             : [],
+          stationIds: payload.stationIds.length
+            ? [...state.filters.applied.stationIds, ...payload.stationIds]
+            : [],
           roomsCount: payload.roomsCount
             ? { ...roomsCount, ...payload.roomsCount }
             : roomsCount,

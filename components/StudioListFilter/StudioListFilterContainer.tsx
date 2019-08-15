@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import * as a from '../../redux/studios/actions';
 import { StudioListFilter } from './StudioListFilter';
@@ -7,6 +7,8 @@ import {
   getAppliedFilters,
   getFiltersData,
 } from '../../redux/studios/selectors';
+import { PriceSegment } from '../../redux/studios/types';
+import { getPriceSegment } from '../../lib/getPriceSegment';
 
 export type StudioListFilterContainerProps = ReturnType<
   typeof mapStateToProps
@@ -40,6 +42,32 @@ const _StudioListFilterContainer = ({
       setFilters({ stationIds: typeof id !== 'undefined' ? [id] : id }),
     [setFilters]
   );
+  const handleSelectPriceSegment = useCallback(
+    (segment?: string) => () => {
+      const numberSegment =
+        typeof segment === 'string' ? parseInt(segment, 10) : segment;
+
+      return setFilters({
+        priceSegment:
+          typeof numberSegment !== 'undefined' && !Number.isNaN(numberSegment)
+            ? ([numberSegment] as PriceSegment[])
+            : undefined,
+      });
+    },
+    [setFilters]
+  );
+  const normalizedPriceSegmentList = useMemo(
+    () =>
+      filters.priceSegments.map(segment => ({
+        id: segment.toString(),
+        name: getPriceSegment(segment).join(''),
+      })),
+    [filters.priceSegments]
+  );
+  const normalizedSelectedPriceSegment = useMemo(
+    () => appliedFilters.priceSegments.map(id => id.toString()),
+    [appliedFilters.priceSegments]
+  );
 
   return (
     <StudioListFilter
@@ -50,6 +78,9 @@ const _StudioListFilterContainer = ({
       stationList={filters.stations}
       selectedStationIds={appliedFilters.stationIds}
       handleSelectStation={handleSelectStation}
+      priceSegmentList={normalizedPriceSegmentList}
+      selectedPriceSegments={normalizedSelectedPriceSegment}
+      handleSelectPriceSegment={handleSelectPriceSegment}
     />
   );
 };
