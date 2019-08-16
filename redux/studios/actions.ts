@@ -21,12 +21,12 @@ export const toggleFavoriteAsync = createAsyncAction(
 export const setFilters = createAction(
   '@@STUDIOS/SET_FILTERS',
   action => ({
-    roomsCount = {},
-    typeIds = [],
-    priceSegment = [],
-    stationIds = [],
+    roomsCount,
+    typeIds,
+    priceSegment,
+    stationIds,
     ...rest
-  }: FetchStudiosInput) =>
+  }: Omit<Omit<FetchStudiosInput, 'page'>, 'favorite'>) =>
     action({ roomsCount, typeIds, priceSegment, stationIds, ...rest })
 );
 

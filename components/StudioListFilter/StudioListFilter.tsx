@@ -3,7 +3,7 @@ import { Grid, Typography } from '@material-ui/core';
 import { FilterPropertyList } from './FilterPropertyList';
 import { ColorCircle } from './StudioListFilter.styles';
 
-type List = { id: string; name: string }[];
+type List = { id: string; name: string; }[];
 
 type IdList = string[];
 
@@ -32,7 +32,7 @@ const _StudioListFilter = ({
   handleSelectStation,
   priceSegmentList,
   selectedPriceSegments,
-  handleSelectPriceSegment
+  handleSelectPriceSegment,
 }: Props) => (
   <Grid className={className} container spacing={4}>
     <Grid item xs={6}>

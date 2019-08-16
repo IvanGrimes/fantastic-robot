@@ -83,7 +83,6 @@ const getFilteredStudio = ({
   name,
   typeIds = [],
   priceSegment = [],
-  favorite = false,
   roomsCount = {},
   stationIds = [],
 }: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
@@ -93,7 +92,7 @@ const getFilteredStudio = ({
     types: typeIds.length
       ? types.filter(({ id }) => typeIds.includes(id))
       : types,
-    favorite,
+    favorite: false,
     roomsCount: roomsCount.to || roomsCount.from || 2,
     stations: stationIds.length
       ? stations.filter(({ id }) => stationIds.includes(id))
@@ -111,7 +110,7 @@ export const mockStudios = ({
   roomsCount = {},
   priceSegment = [],
   name = '',
-  favorite = false,
+  favorite,
   typeIds = [],
 }: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean } => {
   const studios: ShortStudio[] = [];
@@ -122,7 +121,8 @@ export const mockStudios = ({
     roomsCount.to ||
     priceSegment.length ||
     name ||
-    typeIds.length
+    typeIds.length ||
+    typeof favorite !== 'undefined'
   ) {
     return {
       studios: getFilteredStudio({

@@ -43,6 +43,19 @@ export type StudiosState = {
   };
 };
 
+const getFilterObjectValue = (state: any, payload?: any) => {
+  if (typeof payload === 'undefined') {
+    return state;
+  }
+  if (payload.length === 0) {
+    return payload;
+  }
+
+  return Array.isArray(payload)
+    ? [...state, ...payload]
+    : { ...state, ...payload };
+};
+
 const initialState: StudiosState = {
   studios: {
     list: [],
@@ -131,24 +144,28 @@ export const studiosReducer = createReducer(initialState)
     },
   }))
   .handleAction(setFilters, (state, { payload }) => {
-    const { roomsCount } = state.filters.applied;
-
     return {
       ...state,
       filters: {
         ...state.filters,
         applied: {
           ...state.filters.applied,
-          ...payload,
-          typeIds: payload.typeIds.length
-            ? [...state.filters.applied.typeIds, ...payload.typeIds]
-            : [],
-          stationIds: payload.stationIds.length
-            ? [...state.filters.applied.stationIds, ...payload.stationIds]
-            : [],
-          roomsCount: payload.roomsCount
-            ? { ...roomsCount, ...payload.roomsCount }
-            : roomsCount,
+          typeIds: getFilterObjectValue(
+            state.filters.applied.typeIds,
+            payload.typeIds
+          ),
+          stationIds: getFilterObjectValue(
+            state.filters.applied.stationIds,
+            payload.stationIds
+          ),
+          priceSegments: getFilterObjectValue(
+            state.filters.applied.priceSegments,
+            payload.priceSegment
+          ),
+          roomsCount: getFilterObjectValue(
+            state.filters.applied.roomsCount,
+            payload.roomsCount
+          ),
         },
       },
     };
@@ -157,6 +174,6 @@ export const studiosReducer = createReducer(initialState)
     ...state,
     filters: {
       ...state.filters,
-      data: payload,
+      data: { ...state.filters.data, ...payload },
     },
   }));
