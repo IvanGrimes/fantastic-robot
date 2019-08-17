@@ -17,6 +17,7 @@ export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
     flex-wrap: wrap;
     width: 100%;
     overflow: hidden !important;
+    margin-top: ${em(48)};
   }
 `;
 

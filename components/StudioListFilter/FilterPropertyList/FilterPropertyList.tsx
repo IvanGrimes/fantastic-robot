@@ -6,6 +6,8 @@ import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyL
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
 import { ClearableInput } from '../../ClearableInput';
 
+// TODO: Make list scrollable
+
 const _FilterPropertyList = ({
   title,
   list,

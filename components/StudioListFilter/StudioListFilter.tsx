@@ -1,7 +1,12 @@
-import React, { memo } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React, { memo, useCallback, useRef, useState } from 'react';
+import { Grid, Typography, IconButton } from '@material-ui/core';
+import {
+  FilterList as FilterListIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons';
+import { animated, useSpring } from 'react-spring';
 import { FilterPropertyList } from './FilterPropertyList';
-import { ColorCircle } from './StudioListFilter.styles';
+import { Wrapper, FilterGrid, ColorCircle } from './StudioListFilter.styles';
 import { ClearableInput } from '../ClearableInput';
 
 // TODO: Make fetchStudioAsync.request cancellable, before request send cancel or before set_filter action
@@ -40,50 +45,88 @@ const _StudioListFilter = ({
   handleSelectPriceSegment,
   handleSearchChange,
   searchValue,
-}: Props) => (
-  <Grid className={className} container spacing={4}>
-    <Grid item xs={12}>
-      <ClearableInput
-        label="Поиск по названию"
-        onChange={handleSearchChange}
-        value={searchValue}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FilterPropertyList
-        title="Типы студий"
-        list={typeList}
-        selectedIds={selectedTypesIds}
-        onChange={handleSelectType}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FilterPropertyList
-        title="Станции метро"
-        list={stationList}
-        selectedIds={selectedStationIds}
-        onChange={handleSelectStation}
-        renderName={({ color, name }) => (
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item>
-              <ColorCircle color={color} />
-            </Grid>
-            <Grid item>
-              <Typography>{name}</Typography>
-            </Grid>
+}: Props) => {
+  const [isOpen, setOpen] = useState(false);
+  const handleToggleOpen = useCallback(() => setOpen(!isOpen), [isOpen]);
+  const filtersRef = useRef<HTMLDivElement>(null);
+  const filtersMaxHeightHeight = filtersRef.current
+    ? filtersRef.current.scrollHeight + filtersRef.current.clientHeight / 2
+    : 0;
+  const filtersAnimation = useSpring({
+    maxHeight: isOpen ? filtersMaxHeightHeight : 0,
+    opacity: isOpen ? 1 : 0,
+  });
+
+  return (
+    <Wrapper>
+      <Grid className={className} container spacing={4}>
+        <Grid
+          container
+          item
+          xs={12}
+          alignItems="flex-end"
+          justify="space-between"
+        >
+          <Grid item xs={11}>
+            <ClearableInput
+              label="Поиск по названию"
+              onChange={handleSearchChange}
+              value={searchValue}
+            />
           </Grid>
-        )}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FilterPropertyList
-        title="Ценовой сегмент"
-        list={priceSegmentList}
-        selectedIds={selectedPriceSegments}
-        onChange={handleSelectPriceSegment}
-      />
-    </Grid>
-  </Grid>
-);
+          <Grid item>
+            <IconButton href="" size="small" onClick={handleToggleOpen}>
+              {isOpen ? <CloseIcon /> : <FilterListIcon />}
+            </IconButton>
+          </Grid>
+        </Grid>
+        <FilterGrid
+          component={animated.div as any}
+          container
+          item
+          spacing={4}
+          alignItems="center"
+          style={filtersAnimation}
+          ref={filtersRef}
+        >
+          <Grid item xs={6}>
+            <FilterPropertyList
+              title="Типы студий"
+              list={typeList}
+              selectedIds={selectedTypesIds}
+              onChange={handleSelectType}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FilterPropertyList
+              title="Станции метро"
+              list={stationList}
+              selectedIds={selectedStationIds}
+              onChange={handleSelectStation}
+              renderName={({ color, name }) => (
+                <Grid container alignItems="center" spacing={1}>
+                  <Grid item>
+                    <ColorCircle color={color} />
+                  </Grid>
+                  <Grid item>
+                    <Typography>{name}</Typography>
+                  </Grid>
+                </Grid>
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FilterPropertyList
+              title="Ценовой сегмент"
+              list={priceSegmentList}
+              selectedIds={selectedPriceSegments}
+              onChange={handleSelectPriceSegment}
+            />
+          </Grid>
+        </FilterGrid>
+      </Grid>
+    </Wrapper>
+  );
+};
 
 export const StudioListFilter = memo(_StudioListFilter);
