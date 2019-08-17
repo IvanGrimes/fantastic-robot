@@ -4,7 +4,7 @@ import { Grid, Typography } from '@material-ui/core';
 import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
-import { FilterPropertyListSearch } from './FilterPropertyListSearch';
+import { ClearableInput } from '../../ClearableInput';
 
 const _FilterPropertyList = ({
   title,
@@ -30,7 +30,7 @@ const _FilterPropertyList = ({
         </Typography>
       </Grid>
       <Grid container>
-        <FilterPropertyListSearch value={search} onChange={setSearch} />
+        <ClearableInput label="Поиск" value={search} onChange={setSearch} />
         <Grid item xs={12}>
           {filteredList.map(({ id, name, ...rest }) => (
             <FilterPropertyListItem

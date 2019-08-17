@@ -1,17 +1,17 @@
 import React, { ChangeEventHandler, memo, useCallback } from 'react';
 import { Grid, TextField, IconButton } from '@material-ui/core';
-import { FilterPropertyListSearchProps } from './index';
+import { ClearableInputProps } from './index';
 import { Close as CloseIcon } from '@material-ui/icons';
 
-const _FilterPropertyListSearch = ({
-  onChange,
-  value,
-}: FilterPropertyListSearchProps) => {
+const _ClearableInput = ({ label, onChange, value }: ClearableInputProps) => {
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ev => onChange(ev.target.value),
     [onChange]
   );
-  const handleClear = useCallback(() => onChange(''), [onChange]);
+  const handleClear = useCallback(() => value && onChange(''), [
+    value,
+    onChange,
+  ]);
 
   return (
     <Grid container item xs={12}>
@@ -25,11 +25,11 @@ const _FilterPropertyListSearch = ({
         }}
         onChange={handleChange}
         value={value}
-        label="Поиск"
+        label={label}
         fullWidth
       />
     </Grid>
   );
 };
 
-export const FilterPropertyListSearch = memo(_FilterPropertyListSearch);
+export const ClearableInput = memo(_ClearableInput);

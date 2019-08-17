@@ -15,7 +15,7 @@ export type StudiosState = {
   };
   filters: {
     applied: {
-      name?: string;
+      name: string;
       typeIds: string[];
       priceSegments: PriceSegment[];
       roomsCount: {
@@ -64,6 +64,7 @@ const initialState: StudiosState = {
   },
   filters: {
     applied: {
+      name: '',
       roomsCount: {},
       stationIds: [],
       typeIds: [],
@@ -150,6 +151,7 @@ export const studiosReducer = createReducer(initialState)
         ...state.filters,
         applied: {
           ...state.filters.applied,
+          ...payload,
           typeIds: getFilterObjectValue(
             state.filters.applied.typeIds,
             payload.typeIds

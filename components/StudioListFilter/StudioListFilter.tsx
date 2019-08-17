@@ -2,8 +2,11 @@ import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { FilterPropertyList } from './FilterPropertyList';
 import { ColorCircle } from './StudioListFilter.styles';
+import { ClearableInput } from '../ClearableInput';
 
-type List = { id: string; name: string; }[];
+// TODO: Make fetchStudioAsync.request cancellable, before request send cancel or before set_filter action
+
+type List = { id: string; name: string }[];
 
 type IdList = string[];
 
@@ -20,6 +23,8 @@ type Props = {
   priceSegmentList: List;
   selectedPriceSegments: IdList;
   handleSelectPriceSegment: SelectHandler<string>;
+  handleSearchChange: (value: string) => void;
+  searchValue: string;
 };
 
 const _StudioListFilter = ({
@@ -33,8 +38,17 @@ const _StudioListFilter = ({
   priceSegmentList,
   selectedPriceSegments,
   handleSelectPriceSegment,
+  handleSearchChange,
+  searchValue,
 }: Props) => (
   <Grid className={className} container spacing={4}>
+    <Grid item xs={12}>
+      <ClearableInput
+        label="Поиск по названию"
+        onChange={handleSearchChange}
+        value={searchValue}
+      />
+    </Grid>
     <Grid item xs={6}>
       <FilterPropertyList
         title="Типы студий"

@@ -13,7 +13,7 @@ import { LazyImage } from '../../LazyImage';
 import { Carousel } from '../../Carousel';
 import { floatToFraction } from '../../../lib/floatToFraction';
 import { FavoriteButton } from './FavoriteButton';
-import { getPriceSegment } from '../../../lib/getPriceSegment'
+import { getPriceSegment } from '../../../lib/getPriceSegment';
 
 const _StudioListItem = ({
   id: studioId,

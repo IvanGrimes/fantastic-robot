@@ -26,11 +26,10 @@ const fetchStudiosFlow: Epic<
       const appliedFilters = getAppliedFilters(state$.value);
 
       return fetchStudios({ ...appliedFilters, ...payload }).pipe(
-          map(fetchStudiosAsync.success),
-          catchError(error => of(fetchStudiosAsync.failure(error)))
-        )
-      }
-    )
+        map(fetchStudiosAsync.success),
+        catchError(error => of(fetchStudiosAsync.failure(error)))
+      );
+    })
   );
 
 const setFiltersFlow: Epic<

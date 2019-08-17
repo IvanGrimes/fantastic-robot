@@ -56,6 +56,10 @@ const _StudioListFilterContainer = ({
     },
     [setFilters]
   );
+  const handleSearchChange = useCallback(
+    (value: string) => setFilters({ name: value }),
+    [setFilters]
+  );
   const normalizedPriceSegmentList = useMemo(
     () =>
       filters.priceSegments.map(segment => ({
@@ -81,6 +85,8 @@ const _StudioListFilterContainer = ({
       priceSegmentList={normalizedPriceSegmentList}
       selectedPriceSegments={normalizedSelectedPriceSegment}
       handleSelectPriceSegment={handleSelectPriceSegment}
+      handleSearchChange={handleSearchChange}
+      searchValue={appliedFilters.name}
     />
   );
 };
