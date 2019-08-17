@@ -12,6 +12,7 @@ export type StudiosState = {
     list: ShortStudio[];
     listUpdateType: 'merge' | 'replace';
     hasNext: boolean;
+    isFiltering: boolean;
   };
   filters: {
     applied: {
@@ -50,6 +51,7 @@ const initialState: StudiosState = {
     list: [],
     listUpdateType: 'replace',
     hasNext: false,
+    isFiltering: false,
   },
   filters: {
     applied: {
@@ -73,6 +75,7 @@ export const studiosReducer = createReducer(initialState)
     studios: {
       ...state.studios,
       listUpdateType: payload.listUpdateType || 'merge',
+      isFiltering: Boolean(payload.isFiltering),
     },
   }))
   .handleAction(fetchStudiosAsync.success, (state, { payload }) => ({

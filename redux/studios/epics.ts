@@ -1,5 +1,11 @@
 import { Epic } from 'redux-observable';
-import { filter, switchMap, map, catchError } from 'rxjs/operators';
+import {
+  filter,
+  switchMap,
+  map,
+  catchError,
+  debounceTime,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isActionOf } from 'typesafe-actions';
 import { EpicDependencies, RootAction, RootState } from '../types';
@@ -50,12 +56,14 @@ const setFiltersFlow: Epic<
 
   return action$.pipe(
     filter(isActionOf(setFilters)),
+    debounceTime(500),
     map(() => {
       const filters = getAppliedFilters(state$.value);
 
       return fetchStudiosAsync.request({
         ...filters,
         listUpdateType: hasAppliedFilters ? 'merge' : 'replace',
+        isFiltering: true,
       });
     })
   );

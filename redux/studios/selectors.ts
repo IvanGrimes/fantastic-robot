@@ -54,3 +54,8 @@ export const getFilters = createDeepEqualSelector(
   [getFiltersState],
   state => state.data
 );
+
+export const getIsStudiosFiltering = createDeepEqualSelector(
+  [getStudios],
+  state => state.isFiltering
+);

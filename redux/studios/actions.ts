@@ -7,7 +7,10 @@ export const fetchStudiosAsync = createAsyncAction(
   '@@STUDIOS/FETCH_STUDIOS_SUCCESS',
   '@@STUDIOS/FETCH_STUDIOS_FAIL'
 )<
-  FetchStudiosInput & Partial<Pick<StudiosState['studios'], 'listUpdateType'>>,
+  FetchStudiosInput &
+    Partial<Pick<StudiosState['studios'], 'listUpdateType'>> & {
+      isFiltering?: boolean;
+    },
   ReturnType<typeof mockStudios>,
   any
 >();

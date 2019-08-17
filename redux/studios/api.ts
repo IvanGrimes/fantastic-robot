@@ -86,7 +86,7 @@ const getFilteredStudio = ({
   stationIds = [],
 }: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
   {
-    id: '65345',
+    id: Math.random().toString(),
     name: name || 'Test studio #65345',
     types: typeIds.length
       ? types.filter(({ id }) => typeIds.includes(id))

@@ -10,8 +10,6 @@ import {
 import { PriceSegment } from '../../redux/studios/types';
 import { getPriceSegment } from '../../lib/getPriceSegment';
 
-// TODO: Make fetchStudioAsync.request cancellable, before request send cancel or before set_filter action
-
 export type StudioListFilterContainerProps = ReturnType<
   typeof mapStateToProps
 > &
