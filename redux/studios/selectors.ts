@@ -43,9 +43,7 @@ export const getHasAppliedFilters = createDeepEqualSelector(
   [getAppliedFilters],
   filters =>
     Boolean(
-      filters.roomsCount.from ||
-        filters.roomsCount.to ||
-        typeof filters.favorite !== 'undefined' ||
+      typeof filters.favorite !== 'undefined' ||
         (filters.priceSegments && filters.priceSegments.length) ||
         (filters.stationIds && filters.stationIds.length) ||
         (filters.typeIds && filters.typeIds.length)

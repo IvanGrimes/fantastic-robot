@@ -83,7 +83,6 @@ const getFilteredStudio = ({
   name,
   typeIds = [],
   priceSegment = [],
-  roomsCount = {},
   stationIds = [],
 }: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
   {
@@ -93,7 +92,7 @@ const getFilteredStudio = ({
       ? types.filter(({ id }) => typeIds.includes(id))
       : types,
     favorite: false,
-    roomsCount: roomsCount.to || roomsCount.from || 2,
+    roomsCount: 4,
     stations: stationIds.length
       ? stations.filter(({ id }) => stationIds.includes(id))
       : stations,

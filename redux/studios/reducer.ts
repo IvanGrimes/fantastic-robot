@@ -18,10 +18,6 @@ export type StudiosState = {
       name: string;
       typeIds: string[];
       priceSegments: PriceSegment[];
-      roomsCount: {
-        from?: number;
-        to?: number;
-      };
       favorite?: boolean;
       stationIds: string[];
     };
@@ -29,10 +25,6 @@ export type StudiosState = {
       stations: Station[];
       types: StudioType[];
       priceSegments: PriceSegment[];
-      roomsCount: {
-        from: number;
-        to: number;
-      };
     };
   };
   favorite: {
@@ -43,17 +35,14 @@ export type StudiosState = {
   };
 };
 
-const getFilterObjectValue = (state: any, payload?: any) => {
+const getFilterObjectValue = (state: any[], payload?: any[]) => {
   if (typeof payload === 'undefined') {
     return state;
   }
-  if (payload.length === 0) {
-    return payload;
-  }
 
-  return Array.isArray(payload)
-    ? [...state, ...payload]
-    : { ...state, ...payload };
+  return state.some(item => payload.includes(item))
+    ? state.filter(item => !payload.includes(item))
+    : [...state, ...payload];
 };
 
 const initialState: StudiosState = {
@@ -65,7 +54,6 @@ const initialState: StudiosState = {
   filters: {
     applied: {
       name: '',
-      roomsCount: {},
       stationIds: [],
       typeIds: [],
       priceSegments: [],
@@ -74,10 +62,6 @@ const initialState: StudiosState = {
       stations: [],
       types: [],
       priceSegments: [1, 2, 3],
-      roomsCount: {
-        from: 0,
-        to: 0,
-      },
     },
   },
   favorite: {},
@@ -151,7 +135,10 @@ export const studiosReducer = createReducer(initialState)
         ...state.filters,
         applied: {
           ...state.filters.applied,
-          ...payload,
+          name:
+            typeof payload.name === 'string'
+              ? payload.name
+              : state.filters.applied.name,
           typeIds: getFilterObjectValue(
             state.filters.applied.typeIds,
             payload.typeIds
@@ -163,10 +150,6 @@ export const studiosReducer = createReducer(initialState)
           priceSegments: getFilterObjectValue(
             state.filters.applied.priceSegments,
             payload.priceSegment
-          ),
-          roomsCount: getFilterObjectValue(
-            state.filters.applied.roomsCount,
-            payload.roomsCount
           ),
         },
       },

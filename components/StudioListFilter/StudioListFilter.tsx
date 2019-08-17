@@ -9,13 +9,11 @@ import { FilterPropertyList } from './FilterPropertyList';
 import { Wrapper, FilterGrid, ColorCircle } from './StudioListFilter.styles';
 import { ClearableInput } from '../ClearableInput';
 
-// TODO: Make fetchStudioAsync.request cancellable, before request send cancel or before set_filter action
-
 type List = { id: string; name: string }[];
 
 type IdList = string[];
 
-type SelectHandler<T> = (id?: T) => () => void;
+type SelectHandler<T> = (id: T) => () => void;
 
 type Props = {
   className: string;

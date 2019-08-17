@@ -10,7 +10,7 @@ import {
 import { PriceSegment } from '../../redux/studios/types';
 import { getPriceSegment } from '../../lib/getPriceSegment';
 
-// TODO: Save filters into query string and parse in getInitialProps
+// TODO: Make fetchStudioAsync.request cancellable, before request send cancel or before set_filter action
 
 export type StudioListFilterContainerProps = ReturnType<
   typeof mapStateToProps
@@ -35,25 +35,21 @@ const _StudioListFilterContainer = ({
   appliedFilters,
 }: StudioListFilterContainerProps) => {
   const handleSelectType = useCallback(
-    (id?: string) => () =>
-      setFilters({ typeIds: typeof id !== 'undefined' ? [id] : id }),
+    (id: string) => () => setFilters({ typeIds: [id] }),
     [setFilters]
   );
   const handleSelectStation = useCallback(
-    (id?: string) => () =>
-      setFilters({ stationIds: typeof id !== 'undefined' ? [id] : id }),
+    (id: string) => () => setFilters({ stationIds: [id] }),
     [setFilters]
   );
   const handleSelectPriceSegment = useCallback(
-    (segment?: string) => () => {
-      const numberSegment =
-        typeof segment === 'string' ? parseInt(segment, 10) : segment;
+    (segment: string) => () => {
+      const numberSegment = parseInt(segment, 10);
 
       return setFilters({
-        priceSegment:
-          typeof numberSegment !== 'undefined' && !Number.isNaN(numberSegment)
-            ? ([numberSegment] as PriceSegment[])
-            : undefined,
+        priceSegment: !Number.isNaN(numberSegment)
+          ? ([numberSegment] as PriceSegment[])
+          : [],
       });
     },
     [setFilters]
