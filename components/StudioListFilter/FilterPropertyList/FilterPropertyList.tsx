@@ -5,8 +5,7 @@ import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
 import { ClearableInput } from '../../ClearableInput';
-
-// TODO: Make list scrollable
+import { ListGrid, ListScrollableGrid } from './FilterPropertyList.styles';
 
 const _FilterPropertyList = ({
   title,
@@ -33,19 +32,21 @@ const _FilterPropertyList = ({
       </Grid>
       <Grid container>
         <ClearableInput label="Поиск" value={search} onChange={setSearch} />
-        <Grid item xs={12}>
-          {filteredList.map(({ id, name, ...rest }) => (
-            <FilterPropertyListItem
-              key={id}
-              id={id}
-              name={name}
-              onChange={onChange}
-              isActive={selectedIds.includes(id)}
-              renderName={renderName}
-              {...rest}
-            />
-          ))}
-        </Grid>
+        <ListGrid item xs={12}>
+          <ListScrollableGrid container>
+            {filteredList.map(({ id, name, ...rest }) => (
+              <FilterPropertyListItem
+                key={id}
+                id={id}
+                name={name}
+                onChange={onChange}
+                isActive={selectedIds.includes(id)}
+                renderName={renderName}
+                {...rest}
+              />
+            ))}
+          </ListScrollableGrid>
+        </ListGrid>
       </Grid>
     </Grid>
   );

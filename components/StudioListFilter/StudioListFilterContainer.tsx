@@ -10,6 +10,8 @@ import {
 import { PriceSegment } from '../../redux/studios/types';
 import { getPriceSegment } from '../../lib/getPriceSegment';
 
+// TODO: Save filters into query string and parse in getInitialProps
+
 export type StudioListFilterContainerProps = ReturnType<
   typeof mapStateToProps
 > &

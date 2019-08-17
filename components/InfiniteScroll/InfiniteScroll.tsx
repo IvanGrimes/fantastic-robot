@@ -3,9 +3,6 @@ import debounce from 'lodash/debounce';
 import { useRouter } from 'next/router';
 import { InfiniteScrollProps } from './index';
 
-// TODO: add query on every handleNext
-// TODO: add Head changing <link rel="next" /> <link rel="prev" />
-
 export const InfiniteScroll = ({
   dataLength,
   hasMore,
