@@ -1,6 +1,6 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from "react";
 import dequal from 'dequal';
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from "@material-ui/core";
 import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
@@ -26,10 +26,17 @@ const _FilterPropertyList = ({
 
   return (
     <Grid container>
-      <Grid item xs={12}>
+      <Grid container alignItems="center" justify="space-between">
+        <Grid item xs={8}>
         <Typography variant="h6" component="span">
           {title}
         </Typography>
+        </Grid>
+        <Grid item>
+          <Button href="" onClick={onChange(selectedIds)} color="primary" size="small">
+            Очистить
+          </Button>
+        </Grid>
       </Grid>
       <Grid container>
         {searchable ? (
