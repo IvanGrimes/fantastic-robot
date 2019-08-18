@@ -33,23 +33,17 @@ const _StudioListFilterContainer = ({
   appliedFilters,
 }: StudioListFilterContainerProps) => {
   const handleSelectType = useCallback(
-    (id: string) => () => setFilters({ typeIds: [id] }),
+    (ids: string[]) => () => setFilters({ typeIds: ids }),
     [setFilters]
   );
   const handleSelectStation = useCallback(
-    (id: string) => () => setFilters({ stationIds: [id] }),
+    (ids: string[]) => () => setFilters({ stationIds: ids }),
     [setFilters]
   );
   const handleSelectPriceSegment = useCallback(
-    (segment: string) => () => {
-      const numberSegment = parseInt(segment, 10);
-
-      return setFilters({
-        priceSegment: !Number.isNaN(numberSegment)
-          ? ([numberSegment] as PriceSegment[])
-          : [],
-      });
-    },
+    (segments: PriceSegment[]) => () => setFilters({
+      priceSegment: segments,
+    }),
     [setFilters]
   );
   const handleSearchChange = useCallback(

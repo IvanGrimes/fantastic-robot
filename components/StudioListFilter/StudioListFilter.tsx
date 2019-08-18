@@ -8,6 +8,7 @@ import { animated, useSpring } from 'react-spring';
 import { FilterPropertyList } from './FilterPropertyList';
 import { Wrapper, FilterGrid, ColorCircle } from './StudioListFilter.styles';
 import { ClearableInput } from '../ClearableInput';
+import { PriceSegment } from "../../redux/studios/types";
 
 type List = { id: string; name: string }[];
 
@@ -19,13 +20,13 @@ type Props = {
   className: string;
   typeList: List;
   selectedTypesIds: IdList;
-  handleSelectType: SelectHandler<string>;
+  handleSelectType: SelectHandler<string[]>;
   stationList: List;
   selectedStationIds: IdList;
-  handleSelectStation: SelectHandler<string>;
+  handleSelectStation: SelectHandler<string[]>;
   priceSegmentList: List;
   selectedPriceSegments: IdList;
-  handleSelectPriceSegment: SelectHandler<string>;
+  handleSelectPriceSegment: SelectHandler<PriceSegment[]>;
   handleSearchChange: (value: string) => void;
   searchValue: string;
 };

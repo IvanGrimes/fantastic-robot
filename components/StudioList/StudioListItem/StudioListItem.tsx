@@ -58,7 +58,7 @@ const _StudioListItem = ({
       </Grid>
       <CardContent>
         <Grid container justify="space-between" alignItems="center" spacing={2}>
-          <Grid item xs={8} container alignItems="center" spacing={4}>
+          <Grid item xs={9} container alignItems="center" spacing={4}>
             <Grid item>
               <Typography variant="h5" component="h2">
                 {name}
@@ -92,8 +92,8 @@ const _StudioListItem = ({
               <StudioListParameters
                 parameter="station"
                 list={stations}
-                renderName={({ color, name }) => (
-                  <Station color={color}>{name}</Station>
+                renderName={({ color, name: stationName }) => (
+                  <Station color={color}>{stationName}</Station>
                 )}
               />
             </Grid>

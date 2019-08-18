@@ -19,7 +19,7 @@ const _FilterPropertyListItem = ({
       )}
     </Grid>
     <Grid item>
-      <Checkbox onChange={onChange(id)} checked={isActive} />
+      <Checkbox onChange={onChange([id])} checked={isActive} />
     </Grid>
   </Grid>
 );

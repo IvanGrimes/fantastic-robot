@@ -7,7 +7,7 @@ export type FilterPropertyListProps = {
     name: string;
   }[];
   selectedIds: string[];
-  onChange: (id: string) => () => void;
+  onChange: (id: any[]) => () => void;
   renderName?: (props: { [key: string]: any }) => ReactNode;
   searchable?: boolean;
 };
