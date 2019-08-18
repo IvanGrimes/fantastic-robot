@@ -12,7 +12,7 @@ import { StudioListItemProps } from './index';
 import { LazyImage } from '../../LazyImage';
 import { Carousel } from '../../Carousel';
 import { floatToFraction } from '../../../lib/floatToFraction';
-import { FavoriteButton } from './FavoriteButton';
+import { StudioListItemFavorite } from './StudioListItemFavorite';
 import { getPriceSegment } from '../../../lib/getPriceSegment';
 
 const _StudioListItem = ({
@@ -57,7 +57,7 @@ const _StudioListItem = ({
       </Grid>
       <CardContent>
         <Grid container justify="space-between" alignItems="center" spacing={2}>
-          <Grid item xs={6} container alignItems="center" spacing={4}>
+          <Grid item xs={8} container alignItems="center" spacing={4}>
             <Grid item>
               <Typography variant="h5" component="h2">
                 {name}
@@ -72,7 +72,7 @@ const _StudioListItem = ({
                 </Tooltip>
               </Grid>
               <Grid item>
-                <FavoriteButton id={studioId} isActive={favorite} />
+                <StudioListItemFavorite id={studioId} isActive={favorite} />
               </Grid>
             </Grid>
           </Grid>

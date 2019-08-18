@@ -19,9 +19,9 @@ const _StudioList = ({ className, error, list, loading }: Props) => {
   }
 
   return (
-    <ListGrid className={className} component="ul" container>
+    <ListGrid className={className} component="ul" container spacing={4}>
       {(loading ? loaderList : list).map(item => (
-        <ListItemGrid key={item.id} component="li" item xs={12}>
+        <ListItemGrid key={item.id} component="li" container item xl={6} lg={6} spacing={0}>
           <StudioListItem {...item} loading={loading} />
         </ListItemGrid>
       ))}

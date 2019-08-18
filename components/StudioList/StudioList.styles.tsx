@@ -8,7 +8,6 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="ul" container />
 ))`
   && {
-    margin: -${em(16)} 0;
     padding: 0 4px;
   }
 `;
