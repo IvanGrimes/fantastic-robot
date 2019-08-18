@@ -8,7 +8,7 @@ import { animated, useSpring } from 'react-spring';
 import { FilterPropertyList } from './FilterPropertyList';
 import { Wrapper, FilterGrid, ColorCircle } from './StudioListFilter.styles';
 import { ClearableInput } from '../ClearableInput';
-import { PriceSegment } from "../../redux/studios/types";
+import { PriceSegment } from '../../redux/studios/types';
 
 type List = { id: string; name: string }[];
 

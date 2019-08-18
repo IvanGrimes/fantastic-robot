@@ -41,9 +41,10 @@ const _StudioListFilterContainer = ({
     [setFilters]
   );
   const handleSelectPriceSegment = useCallback(
-    (segments: PriceSegment[]) => () => setFilters({
-      priceSegment: segments,
-    }),
+    (segments: PriceSegment[]) => () =>
+      setFilters({
+        priceSegment: segments,
+      }),
     [setFilters]
   );
   const handleSearchChange = useCallback(

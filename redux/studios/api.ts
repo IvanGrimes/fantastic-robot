@@ -96,7 +96,7 @@ const getFilteredStudio = ({
     stations: stationIds.length
       ? stations.filter(({ id }) => stationIds.includes(id))
       : stations,
-    priceSegment: (priceSegment[0]) || 2,
+    priceSegment: priceSegment[0] || 2,
     description:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
     photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
@@ -114,7 +114,7 @@ export const mockStudios = ({
 }: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean } => {
   const studios: ShortStudio[] = [];
 
-  console.log(priceSegment)
+  console.log(priceSegment);
 
   if (
     stationIds.length ||
