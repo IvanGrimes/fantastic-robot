@@ -53,7 +53,8 @@ const _StudioListFilter = ({
   const filtersAnimation = useSpring({
     maxHeight: isOpen ? filtersMaxHeightHeight : 0,
     opacity: isOpen ? 1 : 0,
-    config: { mass: 1, tension: 280, friction: 80 }});
+    config: { mass: 1, tension: 280, friction: 80 },
+  });
 
   return (
     <Wrapper>

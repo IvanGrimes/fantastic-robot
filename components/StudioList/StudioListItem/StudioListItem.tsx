@@ -7,13 +7,14 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { MeetingRoom } from '@material-ui/icons';
-import { ChipGrid, Chip, Station } from './StudioListItem.styles';
+import { Station } from './StudioListItem.styles';
 import { StudioListItemProps } from './index';
 import { LazyImage } from '../../LazyImage';
 import { Carousel } from '../../Carousel';
 import { floatToFraction } from '../../../lib/floatToFraction';
 import { StudioListItemFavorite } from './StudioListItemFavorite';
 import { getPriceSegment } from '../../../lib/getPriceSegment';
+import { StudioListParameters } from './StudioListParameters';
 
 const _StudioListItem = ({
   id: studioId,
@@ -86,18 +87,24 @@ const _StudioListItem = ({
               {description}
             </Typography>
           </Grid>
-          <Grid component="ul" item>
-            {stations.map(({ id, color, name: station }) => (
-              <Station key={id} color={color}>
-                <Typography variant="caption">{station}</Typography>
-              </Station>
-            ))}
+          <Grid container alignItems="flex-start" justify="space-between">
+            <Grid component="ul" item xs={4}>
+              <StudioListParameters
+                parameter="station"
+                list={stations}
+                renderName={({ color, name }) => (
+                  <Station color={color}>{name}</Station>
+                )}
+              />
+            </Grid>
+            <StudioListParameters
+              parameter="type"
+              list={types}
+              justify="flex-end"
+              spacing={2}
+              xs={7}
+            />
           </Grid>
-          <ChipGrid container item xs={7} justify="flex-end">
-            {types.map(({ id, name: type }) => (
-              <Chip key={id} label={type} size="small" />
-            ))}
-          </ChipGrid>
         </Grid>
       </CardContent>
     </Card>

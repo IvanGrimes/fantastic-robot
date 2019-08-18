@@ -10,7 +10,11 @@ const dispatchProps = {
   toggleFavorite: toggleFavoriteAsync.request,
 };
 
-const _StudioListItemFavoriteContainer = ({ toggleFavorite, id, isActive }: Props) => {
+const _StudioListItemFavoriteContainer = ({
+  toggleFavorite,
+  id,
+  isActive,
+}: Props) => {
   const handleClick = useCallback(() => toggleFavorite(id), [
     toggleFavorite,
     id,

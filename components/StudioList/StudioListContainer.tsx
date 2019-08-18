@@ -12,7 +12,10 @@ import {
 } from '../../redux/studios/selectors';
 import { StudioList } from './StudioList';
 import { InfiniteScroll, InfiniteScrollLoader } from '../index/Index.styles';
-import { fetchStudiosAsync } from '../../redux/studios/actions';
+import {
+  fetchStudiosAsync,
+  toggleFavoriteAsync,
+} from '../../redux/studios/actions';
 
 export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & {
@@ -28,6 +31,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   fetchStudio: fetchStudiosAsync.request,
+  toggleFavorite: toggleFavoriteAsync.request,
 };
 
 const _StudioListContainer = ({
@@ -37,6 +41,7 @@ const _StudioListContainer = ({
   fetchStudio,
   loading,
   isFiltering,
+  toggleFavorite,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const number = useMemo(
@@ -82,6 +87,7 @@ const _StudioListContainer = ({
           list={studios.list}
           error={errors.networkError}
           loading={loading && isFiltering}
+          toggleFavorite={toggleFavorite}
         />
       </InfiniteScroll>
     </Fragment>
