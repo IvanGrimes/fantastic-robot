@@ -13,6 +13,7 @@ const _FilterPropertyList = ({
   onChange,
   selectedIds,
   renderName,
+  searchable = false,
 }: FilterPropertyListProps) => {
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
@@ -31,7 +32,9 @@ const _FilterPropertyList = ({
         </Typography>
       </Grid>
       <Grid container>
-        <ClearableInput label="Поиск" value={search} onChange={setSearch} />
+        {searchable ? (
+          <ClearableInput label="Поиск" value={search} onChange={setSearch} />
+        ) : null}
         <ListGrid item xs={12}>
           <ListScrollableGrid container>
             {filteredList.map(({ id, name, ...rest }) => (

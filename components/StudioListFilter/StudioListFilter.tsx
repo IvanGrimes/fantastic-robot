@@ -84,7 +84,7 @@ const _StudioListFilter = ({
           container
           item
           spacing={4}
-          alignItems="center"
+          alignItems="flex-start"
           style={filtersAnimation}
           ref={filtersRef}
         >
@@ -112,6 +112,7 @@ const _StudioListFilter = ({
                   </Grid>
                 </Grid>
               )}
+              searchable
             />
           </Grid>
           <Grid item xs={6}>
