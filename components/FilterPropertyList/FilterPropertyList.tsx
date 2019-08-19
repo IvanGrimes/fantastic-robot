@@ -3,8 +3,8 @@ import dequal from 'dequal';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
-import { getAbsoluteString } from '../../../lib/getAbsoluteString';
-import { ClearableInput } from '../../ClearableInput';
+import { getAbsoluteString } from '../../lib/getAbsoluteString';
+import { ClearableInput } from '../ClearableInput';
 import {
   WrapperGrid,
   ListGrid,

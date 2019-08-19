@@ -5,7 +5,7 @@ import {
   Close as CloseIcon,
 } from '@material-ui/icons';
 import { animated, useSpring } from 'react-spring';
-import { FilterPropertyList } from './FilterPropertyList';
+import { FilterPropertyList } from '../FilterPropertyList';
 import {
   Wrapper,
   FilterGrid,
