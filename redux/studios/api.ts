@@ -138,7 +138,7 @@ export const mockStudios = ({
     };
   }
 
-  for (let i = (page - 1) * 5; i < page * 5; i += 1) {
+  for (let i = (page - 1) * 6; i < page * 6; i += 1) {
     studios.push({
       id: i.toString(),
       name: `Test studio #${i}`,

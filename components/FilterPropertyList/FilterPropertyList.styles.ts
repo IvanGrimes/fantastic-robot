@@ -3,6 +3,12 @@ import { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
 
+export const WrapperGrid = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    min-height: 100%;
+  }
+`;
+
 export const ListGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
     overflow: hidden;

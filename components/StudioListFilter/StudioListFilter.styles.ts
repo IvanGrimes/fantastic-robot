@@ -26,3 +26,9 @@ export const FilterGrid = styled<ComponentType<GridProps>>(Grid)`
     overflow: hidden;
   }
 `;
+
+export const FilterItemGrid = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    align-self: stretch;
+  }
+`;

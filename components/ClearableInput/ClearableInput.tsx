@@ -3,7 +3,12 @@ import { Grid, TextField, IconButton } from '@material-ui/core';
 import { ClearableInputProps } from './index';
 import { Close as CloseIcon } from '@material-ui/icons';
 
-const _ClearableInput = ({ label, onChange, value }: ClearableInputProps) => {
+const _ClearableInput = ({
+  label,
+  onChange,
+  value,
+  placeholder,
+}: ClearableInputProps) => {
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ev => onChange(ev.target.value),
     [onChange]
@@ -26,6 +31,7 @@ const _ClearableInput = ({ label, onChange, value }: ClearableInputProps) => {
         onChange={handleChange}
         value={value}
         label={label}
+        placeholder={placeholder}
         fullWidth
       />
     </Grid>

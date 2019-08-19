@@ -10,6 +10,10 @@ export type FilterPropertyListProps = {
   onChange: (id: any[]) => () => void;
   renderName?: (props: { [key: string]: any }) => ReactNode;
   searchable?: boolean;
+  searchProps?: {
+    label?: string;
+    placeholder?: string;
+  };
 };
 
 export { FilterPropertyList } from './FilterPropertyList';

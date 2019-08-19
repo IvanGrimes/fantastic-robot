@@ -5,7 +5,11 @@ import { FilterPropertyListProps } from './index';
 import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
 import { getAbsoluteString } from '../../../lib/getAbsoluteString';
 import { ClearableInput } from '../../ClearableInput';
-import { ListGrid, ListScrollableGrid } from './FilterPropertyList.styles';
+import {
+  WrapperGrid,
+  ListGrid,
+  ListScrollableGrid,
+} from './FilterPropertyList.styles';
 
 const _FilterPropertyList = ({
   title,
@@ -14,6 +18,7 @@ const _FilterPropertyList = ({
   selectedIds,
   renderName,
   searchable = false,
+  searchProps = {},
 }: FilterPropertyListProps) => {
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
@@ -25,7 +30,7 @@ const _FilterPropertyList = ({
   );
 
   return (
-    <Grid container>
+    <WrapperGrid container direction="column" justify="space-between">
       <Grid container alignItems="center" justify="space-between">
         <Grid item xs={8}>
           <Typography variant="h6" component="span">
@@ -45,7 +50,11 @@ const _FilterPropertyList = ({
       </Grid>
       <Grid container>
         {searchable ? (
-          <ClearableInput label="Поиск" value={search} onChange={setSearch} />
+          <ClearableInput
+            value={search}
+            onChange={setSearch}
+            {...searchProps}
+          />
         ) : null}
         <ListGrid item xs={12}>
           <ListScrollableGrid container>
@@ -63,7 +72,7 @@ const _FilterPropertyList = ({
           </ListScrollableGrid>
         </ListGrid>
       </Grid>
-    </Grid>
+    </WrapperGrid>
   );
 };
 

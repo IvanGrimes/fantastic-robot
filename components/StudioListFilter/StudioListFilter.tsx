@@ -6,7 +6,12 @@ import {
 } from '@material-ui/icons';
 import { animated, useSpring } from 'react-spring';
 import { FilterPropertyList } from './FilterPropertyList';
-import { Wrapper, FilterGrid, ColorCircle } from './StudioListFilter.styles';
+import {
+  Wrapper,
+  FilterGrid,
+  FilterItemGrid,
+  ColorCircle,
+} from './StudioListFilter.styles';
 import { ClearableInput } from '../ClearableInput';
 import { PriceSegment } from '../../redux/studios/types';
 
@@ -89,15 +94,23 @@ const _StudioListFilter = ({
           style={filtersAnimation}
           ref={filtersRef}
         >
-          <Grid item xs={6}>
+          <FilterItemGrid container item xs={4}>
             <FilterPropertyList
               title="Типы студий"
               list={typeList}
               selectedIds={selectedTypesIds}
               onChange={handleSelectType}
             />
-          </Grid>
-          <Grid item xs={6}>
+          </FilterItemGrid>
+          <FilterItemGrid container item xs={4}>
+            <FilterPropertyList
+              title="Ценовой сегмент"
+              list={priceSegmentList}
+              selectedIds={selectedPriceSegments}
+              onChange={handleSelectPriceSegment}
+            />
+          </FilterItemGrid>
+          <FilterItemGrid container item xs={4}>
             <FilterPropertyList
               title="Станции метро"
               list={stationList}
@@ -114,16 +127,11 @@ const _StudioListFilter = ({
                 </Grid>
               )}
               searchable
+              searchProps={{
+                placeholder: 'Поиск',
+              }}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <FilterPropertyList
-              title="Ценовой сегмент"
-              list={priceSegmentList}
-              selectedIds={selectedPriceSegments}
-              onChange={handleSelectPriceSegment}
-            />
-          </Grid>
+          </FilterItemGrid>
         </FilterGrid>
       </Grid>
     </Wrapper>
