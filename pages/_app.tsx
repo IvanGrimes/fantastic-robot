@@ -8,15 +8,15 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
-import { SEO } from '../components/SEO';
-import { theme } from '../theme';
-import { GlobalStyles } from '../components/_app';
-import { configureStore } from '../redux/store';
-import { RootState } from '../redux/types';
-import { SSRError } from '../lib/SSRError';
+import { SEO } from '../src/components/SEO';
+import { theme } from '../src/theme';
+import { GlobalStyles } from '../src/pages/_app';
+import { configureStore } from '../src/redux/store';
+import { RootState } from '../src/redux/types';
+import { SSRError } from '../src/lib/SSRError';
 
 const Layout = dynamic(() =>
-  import('../components/Layout').then(module => module.Layout as any)
+  import('../src/components/Layout').then(module => module.Layout as any)
 );
 
 class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {

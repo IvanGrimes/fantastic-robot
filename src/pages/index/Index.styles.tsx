@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   InfiniteScrollProps,
   InfiniteScroll as DefaultInfiniteScroll,
-} from '../InfiniteScroll';
+} from '../../components/InfiniteScroll';
 import React, { ComponentType } from 'react';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';

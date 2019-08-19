@@ -11,7 +11,10 @@ import {
   getStudiosLoading,
 } from '../../redux/studios/selectors';
 import { StudioList } from './StudioList';
-import { InfiniteScroll, InfiniteScrollLoader } from '../index/Index.styles';
+import {
+  InfiniteScroll,
+  InfiniteScrollLoader,
+} from '../../pages/index/Index.styles';
 import {
   fetchStudiosAsync,
   toggleFavoriteAsync,

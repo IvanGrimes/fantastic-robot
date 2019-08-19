@@ -1,10 +1,10 @@
-import { Index } from '../../../components/index';
-import { serverEpic } from '../../../lib/serverEpic';
+import { Index } from '../../../src/pages/index';
+import { serverEpic } from '../../../src/lib/serverEpic';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
-} from '../../../redux/studios/actions';
-import { SSRError } from '../../../lib/SSRError';
+} from '../../../src/redux/studios/actions';
+import { SSRError } from '../../../src/lib/SSRError';
 
 Index.getInitialProps = async ({ store, query, isServer }) => {
   if (!query.number) {

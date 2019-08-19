@@ -5,7 +5,7 @@ import { GridProps } from '@material-ui/core/Grid';
 import { getAppliedFilters } from '../../../../redux/studios/selectors';
 import { RootState } from '../../../../redux/types';
 import { setFilters } from '../../../../redux/studios/actions';
-import { ChipList, ChipListProps } from '../../../ChipList';
+import { ChipList, ChipListProps } from '../../../../components/ChipList';
 
 export type StudioListParametersContainerProps = {
   parameter: 'type' | 'station';

@@ -5,14 +5,14 @@ import {
   Close as CloseIcon,
 } from '@material-ui/icons';
 import { animated, useSpring } from 'react-spring';
-import { FilterPropertyList } from '../FilterPropertyList';
+import { PropertyList } from '../../components/PropertyList';
 import {
   Wrapper,
   FilterGrid,
   FilterItemGrid,
   ColorCircle,
 } from './StudioListFilter.styles';
-import { ClearableInput } from '../ClearableInput';
+import { ClearableInput } from '../../components/ClearableInput';
 import { PriceSegment } from '../../redux/studios/types';
 
 type List = { id: string; name: string }[];
@@ -95,7 +95,7 @@ const _StudioListFilter = ({
           ref={filtersRef}
         >
           <FilterItemGrid container item xs={4}>
-            <FilterPropertyList
+            <PropertyList
               title="Типы студий"
               list={typeList}
               selectedIds={selectedTypesIds}
@@ -103,7 +103,7 @@ const _StudioListFilter = ({
             />
           </FilterItemGrid>
           <FilterItemGrid container item xs={4}>
-            <FilterPropertyList
+            <PropertyList
               title="Ценовой сегмент"
               list={priceSegmentList}
               selectedIds={selectedPriceSegments}
@@ -111,7 +111,7 @@ const _StudioListFilter = ({
             />
           </FilterItemGrid>
           <FilterItemGrid container item xs={4}>
-            <FilterPropertyList
+            <PropertyList
               title="Станции метро"
               list={stationList}
               selectedIds={selectedStationIds}

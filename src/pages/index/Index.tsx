@@ -7,8 +7,8 @@ import {
 } from '../../redux/studios/actions';
 import { RootState } from '../../redux/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { StudioListFilter } from '../StudioListFilter';
-import { StudioList } from '../StudioList';
+import { StudioListFilter } from '../../features/StudioListFilter';
+import { StudioList } from '../../features/StudioList';
 
 const _Index = () => (
   <Container>

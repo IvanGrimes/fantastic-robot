@@ -1,17 +1,17 @@
 import React, { memo, useMemo, useState } from 'react';
 import dequal from 'dequal';
 import { Button, Grid, Typography } from '@material-ui/core';
-import { FilterPropertyListProps } from './index';
-import { FilterPropertyListItem } from './FilterPropertyListItem/FilterPropertyListItem';
+import { PropertyListProps } from './index';
+import { PropertyListItem } from './PropertyListItem';
 import { getAbsoluteString } from '../../lib/getAbsoluteString';
 import { ClearableInput } from '../ClearableInput';
 import {
   WrapperGrid,
   ListGrid,
   ListScrollableGrid,
-} from './FilterPropertyList.styles';
+} from './PropertyList.styles';
 
-const _FilterPropertyList = ({
+const _PropertyList = ({
   title,
   list,
   onChange,
@@ -19,7 +19,7 @@ const _FilterPropertyList = ({
   renderName,
   searchable = false,
   searchProps = {},
-}: FilterPropertyListProps) => {
+}: PropertyListProps) => {
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
     () =>
@@ -59,7 +59,7 @@ const _FilterPropertyList = ({
         <ListGrid item xs={12}>
           <ListScrollableGrid container>
             {filteredList.map(({ id, name, ...rest }) => (
-              <FilterPropertyListItem
+              <PropertyListItem
                 key={id}
                 id={id}
                 name={name}
@@ -76,4 +76,4 @@ const _FilterPropertyList = ({
   );
 };
 
-export const FilterPropertyList = memo(_FilterPropertyList, dequal);
+export const PropertyList = memo(_PropertyList, dequal);

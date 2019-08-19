@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type FilterPropertyListProps = {
+export type PropertyListProps = {
   title: string;
   list: {
     id: string;
@@ -16,4 +16,4 @@ export type FilterPropertyListProps = {
   };
 };
 
-export { FilterPropertyList } from './FilterPropertyList';
+export { PropertyList } from './PropertyList';

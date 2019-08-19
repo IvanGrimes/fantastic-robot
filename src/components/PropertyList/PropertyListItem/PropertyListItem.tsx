@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
-import { FilterPropertyListItemProps } from './index';
 import { Checkbox, Grid, Typography } from '@material-ui/core';
+import { PropertyListItemProps } from './index';
 
-const _FilterPropertyListItem = ({
+const _PropertyListItem = ({
   id,
   name,
   onChange,
   isActive,
   renderName,
   ...props
-}: FilterPropertyListItemProps) => (
+}: PropertyListItemProps) => (
   <Grid container justify="space-between" alignItems="center">
     <Grid item>
       {renderName ? (
@@ -24,4 +24,4 @@ const _FilterPropertyListItem = ({
   </Grid>
 );
 
-export const FilterPropertyListItem = memo(_FilterPropertyListItem);
+export const PropertyListItem = memo(_PropertyListItem);
