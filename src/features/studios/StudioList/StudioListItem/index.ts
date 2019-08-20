@@ -1,4 +1,4 @@
-import { ShortStudio } from '../../../redux/studios/types';
+import { ShortStudio } from '../../types';
 
 export type StudioListItemProps = Partial<ShortStudio> & {
   loading: boolean;

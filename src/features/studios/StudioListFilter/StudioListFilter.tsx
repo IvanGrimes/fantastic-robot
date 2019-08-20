@@ -5,15 +5,15 @@ import {
   Close as CloseIcon,
 } from '@material-ui/icons';
 import { animated, useSpring } from 'react-spring';
-import { PropertyList } from '../../components/PropertyList';
+import { PropertyList } from '../../../components/PropertyList';
 import {
   Wrapper,
   FilterGrid,
   FilterItemGrid,
   ColorCircle,
 } from './StudioListFilter.styles';
-import { ClearableInput } from '../../components/ClearableInput';
-import { PriceSegment } from '../../redux/studios/types';
+import { ClearableInput } from '../../../components/ClearableInput';
+import { PriceSegment } from '../types';
 
 type List = { id: string; name: string }[];
 
@@ -53,11 +53,11 @@ const _StudioListFilter = ({
   const [isOpen, setOpen] = useState(false);
   const handleToggleOpen = useCallback(() => setOpen(!isOpen), [isOpen]);
   const filtersRef = useRef<HTMLDivElement>(null);
-  const filtersMaxHeightHeight = filtersRef.current
+  const filtersMaxHeight = filtersRef.current
     ? filtersRef.current.scrollHeight + filtersRef.current.clientHeight / 2
     : 0;
   const filtersAnimation = useSpring({
-    maxHeight: isOpen ? filtersMaxHeightHeight : 0,
+    maxHeight: isOpen ? filtersMaxHeight : 0,
     opacity: isOpen ? 1 : 0,
     config: { mass: 1, tension: 280, friction: 55 },
   });
@@ -72,17 +72,19 @@ const _StudioListFilter = ({
           alignItems="flex-end"
           justify="space-between"
         >
-          <Grid item xs={11}>
-            <ClearableInput
-              label="Поиск по названию"
-              onChange={handleSearchChange}
-              value={searchValue}
-            />
-          </Grid>
-          <Grid item>
-            <IconButton href="" size="small" onClick={handleToggleOpen}>
-              {isOpen ? <CloseIcon /> : <FilterListIcon />}
-            </IconButton>
+          <Grid container justify="space-between" alignItems="flex-end">
+            <Grid item xs={10} sm={11}>
+              <ClearableInput
+                label="Поиск по названию"
+                onChange={handleSearchChange}
+                value={searchValue}
+              />
+            </Grid>
+            <Grid item>
+              <IconButton href="" size="small" onClick={handleToggleOpen}>
+                {isOpen ? <CloseIcon /> : <FilterListIcon />}
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
         <FilterGrid
@@ -94,7 +96,7 @@ const _StudioListFilter = ({
           style={filtersAnimation}
           ref={filtersRef}
         >
-          <FilterItemGrid container item xs={4}>
+          <FilterItemGrid container item sm={6} md={4}>
             <PropertyList
               title="Типы студий"
               list={typeList}
@@ -102,7 +104,7 @@ const _StudioListFilter = ({
               onChange={handleSelectType}
             />
           </FilterItemGrid>
-          <FilterItemGrid container item xs={4}>
+          <FilterItemGrid container item sm={6} md={4}>
             <PropertyList
               title="Ценовой сегмент"
               list={priceSegmentList}
@@ -110,7 +112,7 @@ const _StudioListFilter = ({
               onChange={handleSelectPriceSegment}
             />
           </FilterItemGrid>
-          <FilterItemGrid container item xs={4}>
+          <FilterItemGrid container item sm={6} md={4}>
             <PropertyList
               title="Станции метро"
               list={stationList}

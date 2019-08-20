@@ -3,7 +3,7 @@ import { serverEpic } from '../../../src/lib/serverEpic';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
-} from '../../../src/redux/studios/actions';
+} from '../../../src/features/studios/actions';
 import { SSRError } from '../../../src/lib/SSRError';
 
 Index.getInitialProps = async ({ store, query, isServer }) => {

@@ -1,10 +1,10 @@
 import { Store } from 'redux';
-import { RootAction, RootState } from '../redux/types';
 import { ActionsObservable, StateObservable } from 'redux-observable';
 import { Subject } from 'rxjs';
-import { rootEpic } from '../redux/rootEpic';
-import { rootApi } from '../redux/rootApi';
-import rootAction from '../redux/rootAction';
+import { RootAction, RootState } from '../model/types';
+import { rootEpic } from '../model/rootEpic';
+import { rootApi } from '../model/rootApi';
+import rootAction from '../model/rootAction';
 
 export const serverEpic = async (
   store: Store<RootState>,

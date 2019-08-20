@@ -1,4 +1,4 @@
-import { RootAction } from '../redux/types';
+import { RootAction } from '../model/types';
 
 export const parseRequestType = (
   actionType: RootAction['type']

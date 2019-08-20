@@ -1,4 +1,4 @@
-import { parseRequestType } from '../../../lib/parseActionType';
+import { parseRequestType } from '../../../utils/parseRequestType';
 import { RootAction } from '../../types';
 
 export type ErrorsState = {

@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import dequal from 'dequal';
 import { StudioListItem } from './StudioListItem';
 import { ListGrid, ListItemGrid } from './StudioList.styles';
-import { ShortStudio } from '../../redux/studios/types';
-import { toggleFavoriteAsync } from '../../redux/studios/actions';
+import { ShortStudio } from '../types';
+import { toggleFavoriteAsync } from '../actions';
 
 type Props = {
   className: string;

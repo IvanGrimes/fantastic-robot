@@ -28,9 +28,7 @@ export const ListScrollableGrid = styled<ComponentType<GridProps>>(Grid)`
     overflow-y: scroll;
     box-sizing: content-box;
     padding-right: 20px;
-    & > * {
-      margin-right: -20px;
-      width: calc(100% + 20px);
-    }
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 `;

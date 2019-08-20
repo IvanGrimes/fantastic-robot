@@ -4,11 +4,11 @@ import { Container, Grid } from '@material-ui/core';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
-} from '../../redux/studios/actions';
-import { RootState } from '../../redux/types';
+} from '../../features/studios/actions';
+import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { StudioListFilter } from '../../features/StudioListFilter';
-import { StudioList } from '../../features/StudioList';
+import { StudioListFilter } from '../../features/studios/StudioListFilter';
+import { StudioList } from '../../features/studios/StudioList';
 
 const _Index = () => (
   <Container>

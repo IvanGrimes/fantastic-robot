@@ -1,4 +1,4 @@
-import { parseRequestType } from '../../../lib/parseActionType';
+import { parseRequestType } from '../../../utils/parseRequestType';
 import { RootAction, RootState } from '../../types';
 import { createDeepEqualSelector } from '../../../lib/createDeepEqualSelector';
 

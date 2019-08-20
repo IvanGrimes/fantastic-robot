@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { LayoutProps } from './index';
 import { Wrapper, Content } from './Layout.styles';
-import { Header } from '../../features/Header';
+import { Header } from '../Header';
 
 const _Layout = ({ children }: LayoutProps) => (
   <Wrapper>

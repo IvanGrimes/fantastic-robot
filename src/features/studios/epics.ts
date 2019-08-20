@@ -8,7 +8,7 @@ import {
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isActionOf } from 'typesafe-actions';
-import { EpicDependencies, RootAction, RootState } from '../types';
+import { EpicDependencies, RootAction, RootState } from '../../model/types';
 import { getAppliedFilters, getHasAppliedFilters } from './selectors';
 
 const fetchStudiosFlow: Epic<

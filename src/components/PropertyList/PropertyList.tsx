@@ -1,15 +1,18 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import dequal from 'dequal';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { PropertyListProps } from './index';
-import { PropertyListItem } from './PropertyListItem';
-import { getAbsoluteString } from '../../lib/getAbsoluteString';
+import { getAbsoluteString } from '../../utils/getAbsoluteString';
 import { ClearableInput } from '../ClearableInput';
 import {
   WrapperGrid,
   ListGrid,
   ListScrollableGrid,
 } from './PropertyList.styles';
+import { PropertyListItem } from './PropertyListItem';
+import { ChipList } from '../ChipList';
+
+// TODO: add prop renderList and make generic interface for PropertyListItem and ChipList for polymorphism
 
 const _PropertyList = ({
   title,
@@ -19,6 +22,8 @@ const _PropertyList = ({
   renderName,
   searchable = false,
   searchProps = {},
+  variant = 'chip',
+  ...props
 }: PropertyListProps) => {
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
@@ -28,11 +33,14 @@ const _PropertyList = ({
       ),
     [list, search]
   );
+  const handleToggle = useCallback((id: string) => onChange([id])(), [
+    onChange,
+  ]);
 
   return (
-    <WrapperGrid container direction="column" justify="space-between">
+    <WrapperGrid container direction="column" {...props}>
       <Grid container alignItems="center" justify="space-between">
-        <Grid item xs={8}>
+        <Grid item>
           <Typography variant="h6" component="span">
             {title}
           </Typography>
@@ -58,17 +66,27 @@ const _PropertyList = ({
         ) : null}
         <ListGrid item xs={12}>
           <ListScrollableGrid container>
-            {filteredList.map(({ id, name, ...rest }) => (
-              <PropertyListItem
-                key={id}
-                id={id}
-                name={name}
-                onChange={onChange}
-                isActive={selectedIds.includes(id)}
+            {variant === 'chip' ? (
+              <ChipList
+                list={filteredList}
+                selectedListId={selectedIds}
+                handleToggle={handleToggle}
                 renderName={renderName}
-                {...rest}
               />
-            ))}
+            ) : null}
+            {variant === 'checkbox'
+              ? filteredList.map(({ id, name, ...rest }) => (
+                  <PropertyListItem
+                    key={id}
+                    id={id}
+                    name={name}
+                    onChange={onChange}
+                    isActive={selectedIds.includes(id)}
+                    renderName={renderName}
+                    {...rest}
+                  />
+                ))
+              : null}
           </ListScrollableGrid>
         </ListGrid>
       </Grid>

@@ -3,22 +3,19 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { RootState } from '../../redux/types';
+import { RootState } from '../../../model/types';
 import {
   getIsStudiosFiltering,
   getStudios,
   getStudiosError,
   getStudiosLoading,
-} from '../../redux/studios/selectors';
+} from '../selectors';
 import { StudioList } from './StudioList';
 import {
   InfiniteScroll,
   InfiniteScrollLoader,
-} from '../../pages/index/Index.styles';
-import {
-  fetchStudiosAsync,
-  toggleFavoriteAsync,
-} from '../../redux/studios/actions';
+} from '../../../pages/index/Index.styles';
+import { fetchStudiosAsync, toggleFavoriteAsync } from '../actions';
 
 export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & {

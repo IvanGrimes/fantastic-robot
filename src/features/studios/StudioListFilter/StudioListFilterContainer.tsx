@@ -1,14 +1,11 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
-import * as a from '../../redux/studios/actions';
+import * as a from '../actions';
 import { StudioListFilter } from './StudioListFilter';
-import { RootState } from '../../redux/types';
-import {
-  getAppliedFilters,
-  getFiltersData,
-} from '../../redux/studios/selectors';
-import { PriceSegment } from '../../redux/studios/types';
-import { getPriceSegment } from '../../lib/getPriceSegment';
+import { RootState } from '../../../model/types';
+import { getAppliedFilters, getFiltersData } from '../selectors';
+import { PriceSegment } from '../types';
+import { getPriceSegment } from '../../../utils/getPriceSegment';
 
 export type StudioListFilterContainerProps = ReturnType<
   typeof mapStateToProps

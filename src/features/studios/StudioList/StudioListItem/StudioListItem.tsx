@@ -9,11 +9,11 @@ import {
 import { MeetingRoom } from '@material-ui/icons';
 import { Station } from './StudioListItem.styles';
 import { StudioListItemProps } from './index';
-import { LazyImage } from '../../../components/LazyImage';
-import { Carousel } from '../../../components/Carousel';
-import { floatToFraction } from '../../../lib/floatToFraction';
+import { LazyImage } from '../../../../components/LazyImage';
+import { Carousel } from '../../../../components/Carousel';
+import { floatToFraction } from '../../../../utils/floatToFraction';
 import { StudioListItemFavorite } from './StudioListItemFavorite';
-import { getPriceSegment } from '../../../lib/getPriceSegment';
+import { getPriceSegment } from '../../../../utils/getPriceSegment';
 import { StudioListParameters } from './StudioListParameters';
 
 const _StudioListItem = ({

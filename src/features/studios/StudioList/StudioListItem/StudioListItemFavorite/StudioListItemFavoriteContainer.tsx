@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { StudioListItemFavoriteContainerProps } from './index';
-import { toggleFavoriteAsync } from '../../../../redux/studios/actions';
+import { toggleFavoriteAsync } from '../../../actions';
 import { StudioListItemFavorite } from './StudioListItemFavorite';
 
 type Props = typeof dispatchProps & StudioListItemFavoriteContainerProps;

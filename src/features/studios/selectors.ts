@@ -1,8 +1,8 @@
 import { getType } from 'typesafe-actions';
-import { RootState } from '../types';
-import { createRequestLoadingSelector } from '../api/loading/selectors';
+import { RootState } from '../../model/types';
+import { createRequestLoadingSelector } from '../../model/api/loading/selectors';
 import { fetchStudiosAsync, toggleFavoriteAsync } from './actions';
-import { createRequestErrorSelector } from '../api/errors/selectors';
+import { createRequestErrorSelector } from '../../model/api/errors/selectors';
 import { createDeepEqualSelector } from '../../lib/createDeepEqualSelector';
 
 export const getStudiosLoading = createRequestLoadingSelector([

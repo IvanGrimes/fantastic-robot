@@ -11,12 +11,12 @@ import { Store } from 'redux';
 import { SEO } from '../src/components/SEO';
 import { theme } from '../src/theme';
 import { GlobalStyles } from '../src/pages/_app';
-import { configureStore } from '../src/redux/store';
-import { RootState } from '../src/redux/types';
+import { configureStore } from '../src/model/store';
+import { RootState } from '../src/model/types';
 import { SSRError } from '../src/lib/SSRError';
 
 const Layout = dynamic(() =>
-  import('../src/components/Layout').then(module => module.Layout as any)
+  import('../src/features/ui/Layout').then(module => module.Layout as any)
 );
 
 class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
