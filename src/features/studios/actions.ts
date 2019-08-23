@@ -38,3 +38,10 @@ export const fetchFiltersAsync = createAsyncAction(
   '@@STUDIOS/FETCH_FILTERS_SUCCESS',
   '@@STUDIOS/FETCH_FILTERS_FAIL'
 )<undefined, Filters, any>();
+
+export const toggleFiltersVisibility = createAction(
+  '@@STUDIOS/TOGGLE_FILTERS_VISIBILITY',
+  action => (visibility: boolean) => action({ visibility })
+);
+
+export const clearFilters = createAction('@@STUDIOS/CLEAR_FILTERS');

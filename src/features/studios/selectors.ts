@@ -59,3 +59,8 @@ export const getIsStudiosFiltering = createDeepEqualSelector(
   [getStudios],
   state => state.isFiltering
 );
+
+export const getFilterVisibility = createDeepEqualSelector(
+  [getStudiosState],
+  state => state.filters.isVisible
+);

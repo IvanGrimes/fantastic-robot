@@ -12,7 +12,8 @@ export type PropertyListProps = Pick<GridProps, 'justify'> &
     selectedIds: string[];
     onChange: (id: any[]) => () => void;
     renderName?: (props: { [key: string]: any }) => ReactNode;
-    searchable?: boolean;
+    isClearable?: boolean;
+    isSearchable?: boolean;
     searchProps?: {
       label?: string;
       placeholder?: string;

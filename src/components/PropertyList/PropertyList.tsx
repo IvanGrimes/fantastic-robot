@@ -20,7 +20,8 @@ const _PropertyList = ({
   onChange,
   selectedIds,
   renderName,
-  searchable = false,
+  isClearable = false,
+  isSearchable = false,
   searchProps = {},
   variant = 'chip',
   ...props
@@ -45,19 +46,21 @@ const _PropertyList = ({
             {title}
           </Typography>
         </Grid>
-        <Grid item>
-          <Button
-            href=""
-            onClick={onChange(selectedIds)}
-            color="primary"
-            size="small"
-          >
-            Очистить
-          </Button>
-        </Grid>
+        {isClearable ? (
+          <Grid item>
+            <Button
+              onClick={onChange(selectedIds)}
+              color="primary"
+              size="small"
+              variant="outlined"
+            >
+              Очистить
+            </Button>
+          </Grid>
+        ) : null}
       </Grid>
       <Grid container>
-        {searchable ? (
+        {isSearchable ? (
           <ClearableInput
             value={search}
             onChange={setSearch}

@@ -1,85 +1,59 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { Fragment, memo, useCallback } from 'react';
+import dequal from 'dequal';
 import { connect } from 'react-redux';
-import * as a from '../actions';
-import { StudioListFilter } from './StudioListFilter';
+import { StudioListFilterProps } from './index';
+import { StudioListFilterDesktop } from './StudioListFilterDesktop';
+import { StudioListFilterMobile } from './StudioListFilterMobile';
+import { Hidden } from '../../../components/Hidden';
+import { clearFilters, toggleFiltersVisibility } from '../actions';
 import { RootState } from '../../../model/types';
-import { getAppliedFilters, getFiltersData } from '../selectors';
-import { PriceSegment } from '../types';
-import { getPriceSegment } from '../../../utils/getPriceSegment';
+import { getFilterVisibility } from '../selectors';
 
-export type StudioListFilterContainerProps = ReturnType<
-  typeof mapStateToProps
-> &
-  typeof dispatchProps & {
-    className?: string;
-  };
+// TODO: Create and connect clearFilters action
+
+type Props = StudioListFilterProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  filters: getFiltersData(state),
-  appliedFilters: getAppliedFilters(state),
+  isVisible: getFilterVisibility(state),
 });
 
 const dispatchProps = {
-  setFilters: a.setFilters,
+  handleToggleFilterVisibility: toggleFiltersVisibility,
+  handleClearFilters: clearFilters,
 };
 
 const _StudioListFilterContainer = ({
   className = '',
-  setFilters,
-  filters,
-  appliedFilters,
-}: StudioListFilterContainerProps) => {
-  const handleSelectType = useCallback(
-    (ids: string[]) => () => setFilters({ typeIds: ids }),
-    [setFilters]
+  isVisible,
+  handleToggleFilterVisibility,
+  handleClearFilters,
+}: Props) => {
+  const handleToggleVisibility = useCallback(
+    () => handleToggleFilterVisibility(!isVisible),
+    [handleToggleFilterVisibility, isVisible]
   );
-  const handleSelectStation = useCallback(
-    (ids: string[]) => () => setFilters({ stationIds: ids }),
-    [setFilters]
-  );
-  const handleSelectPriceSegment = useCallback(
-    (segments: PriceSegment[]) => () =>
-      setFilters({
-        priceSegment: segments,
-      }),
-    [setFilters]
-  );
-  const handleSearchChange = useCallback(
-    (value: string) => setFilters({ name: value }),
-    [setFilters]
-  );
-  const normalizedPriceSegmentList = useMemo(
-    () =>
-      filters.priceSegments.map(segment => ({
-        id: segment.toString(),
-        name: getPriceSegment(segment).join(''),
-      })),
-    [filters.priceSegments]
-  );
-  const normalizedSelectedPriceSegment = useMemo(
-    () => appliedFilters.priceSegments.map(id => id.toString()),
-    [appliedFilters.priceSegments]
-  );
+  const viewProps = {
+    className,
+    isVisible,
+    handleToggleVisibility,
+    handleClearFilters,
+  };
 
   return (
-    <StudioListFilter
-      className={className}
-      typeList={filters.types}
-      selectedTypesIds={appliedFilters.typeIds}
-      handleSelectType={handleSelectType}
-      stationList={filters.stations}
-      selectedStationIds={appliedFilters.stationIds}
-      handleSelectStation={handleSelectStation}
-      priceSegmentList={normalizedPriceSegmentList}
-      selectedPriceSegments={normalizedSelectedPriceSegment}
-      handleSelectPriceSegment={handleSelectPriceSegment}
-      handleSearchChange={handleSearchChange}
-      searchValue={appliedFilters.name}
-    />
+    <Fragment>
+      <Hidden smDown>
+        <StudioListFilterDesktop {...viewProps} />
+      </Hidden>
+      <Hidden mdUp>
+        <StudioListFilterMobile {...viewProps} />
+      </Hidden>
+    </Fragment>
   );
 };
 
 export const StudioListFilterContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioListFilterContainer));
+)(memo(_StudioListFilterContainer, dequal));

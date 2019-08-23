@@ -1,9 +1,11 @@
 import { createReducer } from 'typesafe-actions';
 import {
+  clearFilters,
   fetchFiltersAsync,
   fetchStudiosAsync,
   setFilters,
   toggleFavoriteAsync,
+  toggleFiltersVisibility,
 } from './actions';
 import { PriceSegment, ShortStudio, Station, StudioType } from './types';
 
@@ -15,6 +17,7 @@ export type StudiosState = {
     isFiltering: boolean;
   };
   filters: {
+    isVisible: boolean;
     applied: {
       name: string;
       typeIds: string[];
@@ -54,6 +57,7 @@ const initialState: StudiosState = {
     isFiltering: false,
   },
   filters: {
+    isVisible: false,
     applied: {
       name: '',
       stationIds: [],
@@ -163,5 +167,19 @@ export const studiosReducer = createReducer(initialState)
     filters: {
       ...state.filters,
       data: { ...state.filters.data, ...payload },
+    },
+  }))
+  .handleAction(toggleFiltersVisibility, (state, { payload }) => ({
+    ...state,
+    filters: {
+      ...state.filters,
+      isVisible: payload.visibility,
+    },
+  }))
+  .handleAction(clearFilters, state => ({
+    ...state,
+    filters: {
+      ...state.filters,
+      applied: initialState.filters.applied,
     },
   }));

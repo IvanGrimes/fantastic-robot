@@ -1,6 +1,13 @@
-import { StudioListFilterContainerProps } from './StudioListFilterContainer';
+export type StudioListFilterProps = {
+  className?: string;
+};
 
-export type StudioListFilterProps = StudioListFilterContainerProps;
+export type StudioListFilterViewProps = {
+  className: string;
+  isVisible: boolean;
+  handleToggleVisibility: () => void;
+  handleClearFilters: () => void;
+};
 
 export {
   StudioListFilterContainer as StudioListFilter,
