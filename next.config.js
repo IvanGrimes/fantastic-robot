@@ -59,10 +59,7 @@ module.exports = withOffline(
             return config;
           },
           env: {
-            SPACE_ID: process.env.SPACE_ID,
-            ACCESS_TOKEN: process.env.ACCESS_TOKEN,
-            TELEGRAM_API: process.env.TELEGRAM_API,
-            TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
+            MAPS_API_TOKEN: process.env.MAPS_API_TOKEN,
           },
           workboxOpts: {
             swDest: 'static/service-worker.js',

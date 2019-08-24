@@ -6,7 +6,7 @@ import { GridProps } from '@material-ui/core/Grid';
 
 export const HeaderGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
-    z-index: 1;
+    z-index: 200;
   }
 `;
 

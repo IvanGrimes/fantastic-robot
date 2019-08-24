@@ -17,11 +17,12 @@ const _Index = () => {
 
   return (
     <Grid container>
-      <Grid item md={8} lg={isMapVisible ? 6 : 12}>
+      <Grid item xs={12} md={8} lg={isMapVisible ? 6 : 12}>
         <StudioList listItemVariant={isMapVisible ? 'wide' : 'short'} />
       </Grid>
       <Grid
         item
+        xs={12}
         md={4}
         lg={6}
         style={

@@ -4,6 +4,11 @@
     { "src": "next.config.js", "use": "@now/next" },
     { "src": "lambdas/**/*.ts", "use": "@now/node" }
   ],
+  "build": {
+    "env": {
+      "MAPS_API_TOKEN": "@maps_api_token"
+    }
+  },
   "routes": [
     {
       "src": "/service-worker.js",

@@ -6,7 +6,7 @@ export type UIState = {
 };
 
 const initialState: UIState = {
-  isMapVisible: false,
+  isMapVisible: true,
 };
 
 export const uiReducer = createReducer(initialState).handleAction(
