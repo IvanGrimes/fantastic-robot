@@ -1,11 +1,8 @@
-export type StudioListItemFavoriteContainerProps = {
+export type StudioListItemFavoriteProps = {
   className?: string;
   id: string;
   isActive: boolean;
+  handleToggleFavorite: (id: string) => void;
 };
 
-export type StudioListItemFavoriteProps = StudioListItemFavoriteContainerProps;
-
-export {
-  StudioListItemFavoriteContainer as StudioListItemFavorite,
-} from './StudioListItemFavoriteContainer';
+export { StudioListItemFavorite } from './StudioListItemFavorite';

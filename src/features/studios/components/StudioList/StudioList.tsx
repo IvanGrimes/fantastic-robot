@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import dequal from 'dequal';
-import { StudioListItem } from './StudioListItem';
+import { StudioListItem, StudioListItemVariant } from './StudioListItem';
 import { ListGrid, ListItemGrid } from './StudioList.styles';
 import { ShortStudio } from '../../model/types';
 import { toggleFavoriteAsync } from '../../model/actions';
@@ -11,7 +11,8 @@ type Props = {
   list: ShortStudio[];
   error: string;
   loading: boolean;
-  toggleFavorite: typeof toggleFavoriteAsync.request;
+  handleToggleFavorite: typeof toggleFavoriteAsync.request;
+  listItemVariant: StudioListItemVariant;
 };
 
 const _StudioList = ({
@@ -19,7 +20,8 @@ const _StudioList = ({
   error,
   list,
   loading,
-  toggleFavorite,
+  handleToggleFavorite,
+  listItemVariant,
 }: Props) => {
   const loaderList = new Array(3).fill({});
 
@@ -27,22 +29,24 @@ const _StudioList = ({
     return <p>{error}</p>;
   }
 
+  console.log(listItemVariant === 'short' ? 4 : 12);
+
   return (
     <Container>
       <ListGrid className={className} component="ul" container spacing={4}>
         {(loading ? loaderList : list).map(item => (
           <ListItemGrid
-            key={item.id}
-            component="li"
             container
+            key={item.id}
             item
-            xs={12}
+            xs={listItemVariant === 'short' ? 3 : 12}
             spacing={0}
           >
             <StudioListItem
               {...item}
-              toggleFavorite={() => toggleFavorite(item.id)}
+              handleToggleFavorite={handleToggleFavorite}
               loading={loading}
+              variant={listItemVariant}
             />
           </ListItemGrid>
         ))}

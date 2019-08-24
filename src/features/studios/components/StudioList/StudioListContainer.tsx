@@ -16,10 +16,12 @@ import {
   InfiniteScrollLoader,
 } from '../../../../pages/index/Index.styles';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
+import { StudioListItemVariant } from './StudioListItem';
 
 export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & {
     className?: string;
+    listItemVariant: StudioListItemVariant;
   };
 
 const mapStateToProps = (state: RootState) => ({
@@ -30,18 +32,19 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  fetchStudio: fetchStudiosAsync.request,
-  toggleFavorite: toggleFavoriteAsync.request,
+  handleFetchStudio: fetchStudiosAsync.request,
+  handleToggleFavorite: toggleFavoriteAsync.request,
 };
 
 const _StudioListContainer = ({
   className = '',
   studios,
   errors,
-  fetchStudio,
+  handleFetchStudio,
   loading,
   isFiltering,
-  toggleFavorite,
+  listItemVariant,
+  handleToggleFavorite,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const number = useMemo(
@@ -49,10 +52,10 @@ const _StudioListContainer = ({
     [query.number]
   );
   const handleNext = useCallback(() => {
-    fetchStudio({
+    handleFetchStudio({
       page: number + 1,
     });
-  }, [fetchStudio, number]);
+  }, [handleFetchStudio, number]);
 
   return (
     <Fragment>
@@ -87,7 +90,8 @@ const _StudioListContainer = ({
           list={studios.list}
           error={errors.networkError}
           loading={loading && isFiltering}
-          toggleFavorite={toggleFavorite}
+          listItemVariant={listItemVariant}
+          handleToggleFavorite={handleToggleFavorite}
         />
       </InfiniteScroll>
     </Fragment>

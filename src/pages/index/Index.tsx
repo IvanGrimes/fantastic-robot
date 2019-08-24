@@ -1,6 +1,7 @@
 import React from 'react';
 import { Store } from 'redux';
 import { Grid } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
@@ -9,17 +10,33 @@ import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { StudioList } from '../../features/studios/components/StudioList';
 import { StudioListMap } from '../../features/studios/components/StudioListMap';
+import { getIsMapVisible } from '../../features/ui/model/selectors';
 
-const _Index = () => (
-  <Grid container>
-    <Grid item md={8} lg={6}>
-      <StudioList />
+const _Index = () => {
+  const isMapVisible = useSelector(getIsMapVisible);
+
+  return (
+    <Grid container>
+      <Grid item md={8} lg={isMapVisible ? 6 : 12}>
+        <StudioList listItemVariant={isMapVisible ? 'wide' : 'short'} />
+      </Grid>
+      <Grid
+        item
+        md={4}
+        lg={6}
+        style={
+          isMapVisible
+            ? {}
+            : {
+                display: 'none',
+              }
+        }
+      >
+        <StudioListMap />
+      </Grid>
     </Grid>
-    <Grid item md={4} lg={6}>
-      <StudioListMap />
-    </Grid>
-  </Grid>
-);
+  );
+};
 
 _Index.getInitialProps = async ({
   store,

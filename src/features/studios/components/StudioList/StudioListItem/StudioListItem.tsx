@@ -1,31 +1,35 @@
 import React, { memo } from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { StudioListItemProps } from './index';
-import { LazyImage } from '../../../../../components/LazyImage';
-import { Carousel } from '../../../../../components/Carousel';
-import { floatToFraction } from '../../../../../utils/floatToFraction';
-import { getDeclension } from '../../../../../utils/getDeclension';
 import {
   Card,
   CardBottomGrid,
   CardContent,
   FavoriteButton,
-  Station,
 } from './StudioListItem.styles';
-import { getPriceSegment } from '../../../../../utils/getPriceSegment';
+import { StudioListItemPhotos } from './StudioListItemPhoto';
+import { StudioListItemTitle } from './StudioListItemTitle';
+import { StudioListItemTypes } from './StudioListItemTypes';
+import { StudioListItemRooms } from './StudioListItemRooms';
+import { StudioListItemStations } from './StudioListItemStations';
+import { StudioListItemPriceSegment } from './StudioListItemPriceSegment';
 
 const _StudioListItem = ({
-  id: studioId,
-  photos,
+  variant,
+  handleToggleFavorite,
+  loading,
   name,
-  description,
-  priceSegment,
   types,
-  stations,
   roomsCount,
+  priceSegment,
+  stations,
+  photos,
   favorite,
+  description,
+  id: studioId,
 }: StudioListItemProps) => {
   if (
+    loading ||
     !studioId ||
     !photos ||
     !name ||
@@ -41,20 +45,12 @@ const _StudioListItem = ({
 
   return (
     <Grid container component={Card}>
-      <Grid item xs={4}>
+      <Grid item xs={variant === 'wide' ? 4 : 12}>
         <Grid item xs={12}>
-          <Carousel>
-            {photos.map(({ id, ratio }) => (
-              <LazyImage
-                key={id}
-                src={`https://via.placeholder.com/${id}`}
-                ratio={floatToFraction(ratio)}
-              />
-            ))}
-          </Carousel>
+          <StudioListItemPhotos photos={photos} />
         </Grid>
       </Grid>
-      <Grid container item xs={8}>
+      <Grid container item xs={variant === 'wide' ? 8 : 12}>
         <Grid
           component={CardContent}
           container
@@ -64,24 +60,19 @@ const _StudioListItem = ({
         >
           <Grid container alignItems="center" justify="space-between">
             <Grid item>
-              <Typography variant="h5" component="h2">
-                {name}
-              </Typography>
+              <StudioListItemTitle name={name} />
             </Grid>
             <Grid item>
-              <FavoriteButton id={studioId} isActive={favorite} />
+              <FavoriteButton
+                id={studioId}
+                isActive={favorite}
+                handleToggleFavorite={handleToggleFavorite}
+              />
             </Grid>
             <Grid item xs={12}>
-              <Typography component="span" variant="caption">
-                {types.map(({ name: type }) => type).join(', ')}
-              </Typography>
+              <StudioListItemTypes types={types} />
             </Grid>
-            <Grid item xs={12}>
-              <Typography component="span" variant="caption">
-                {roomsCount}{' '}
-                {getDeclension(roomsCount, ['зал', 'зала', 'залов'])}
-              </Typography>
-            </Grid>
+            <StudioListItemRooms roomsCount={roomsCount} />
           </Grid>
           <CardBottomGrid
             container
@@ -89,22 +80,10 @@ const _StudioListItem = ({
             alignItems="flex-end"
           >
             <Grid item xs={6}>
-              <Grid component="ul" container alignItems="center" spacing={1}>
-                {stations.map(({ name: station, color }) => (
-                  <Grid component="li" key={station} item>
-                    <Station color={color}>
-                      <Typography component="span" variant="caption">
-                        {station}
-                      </Typography>
-                    </Station>
-                  </Grid>
-                ))}
-              </Grid>
+              <StudioListItemStations stations={stations} />
             </Grid>
             <Grid item>
-              <Typography component="span" variant="h6">
-                {getPriceSegment(priceSegment)}
-              </Typography>
+              <StudioListItemPriceSegment priceSegment={priceSegment} />
             </Grid>
           </CardBottomGrid>
         </Grid>

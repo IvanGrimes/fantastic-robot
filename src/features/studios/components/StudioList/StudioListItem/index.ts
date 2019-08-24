@@ -1,8 +1,15 @@
 import { ShortStudio } from '../../../model/types';
 
-export type StudioListItemProps = Partial<ShortStudio> & {
+export type StudioListItemVariant = 'wide' | 'short';
+
+export type StudioListItemViewProps = Partial<ShortStudio> & {
   loading: boolean;
-  toggleFavorite: () => void;
+  handleToggleFavorite: () => void;
+  variant: StudioListItemVariant;
+};
+
+export type StudioListItemProps = StudioListItemViewProps & {
+  variant: StudioListItemVariant;
 };
 
 export { StudioListItem } from './StudioListItem';

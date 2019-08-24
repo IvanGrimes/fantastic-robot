@@ -4,7 +4,7 @@ import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
-  <Grid {...props} component="ul" container />
+  <Grid {...props} component="ul" />
 ))`
   && {
     padding: 0 4px;
@@ -13,5 +13,5 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
 `;
 
 export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
-  <Grid {...props} component="li" item xs={12} />
+  <Grid {...props} component="li" />
 ))``;
