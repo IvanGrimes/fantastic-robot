@@ -37,9 +37,9 @@ export const InnerWrapper = styled.div<{ width: number }>`
 
     return css`
       position: fixed;
-      top: 0;
+      top: 126px;
       right: 0;
-      height: 100%;
+      height: calc(100% - 126px);
       width: ${width}px;
       ${down('md')} {
         position: static;

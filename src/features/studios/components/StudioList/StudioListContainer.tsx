@@ -13,13 +13,11 @@ import {
 import { StudioList } from './StudioList';
 import { InfiniteScroll, InfiniteScrollLoader } from './StudioList.styles';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
-import { StudioListItemVariant } from './StudioListItem';
+import { StudioListProps } from './index';
 
-export type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
-  typeof dispatchProps & {
-    className?: string;
-    listItemVariant: StudioListItemVariant;
-  };
+type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
+  typeof dispatchProps &
+  StudioListProps;
 
 const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),

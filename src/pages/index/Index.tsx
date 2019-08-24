@@ -8,10 +8,9 @@ import {
 } from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { StudioList } from '../../features/studios/components/StudioList';
 import { StudioListMap } from '../../features/studios/components/StudioListMap';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
-import { ContentGrid } from './Index.styles';
+import { ContentGrid, StudioList } from './Index.styles';
 
 const _Index = () => {
   const isMapVisible = useSelector(getIsMapVisible);
