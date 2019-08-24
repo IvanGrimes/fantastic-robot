@@ -11,7 +11,9 @@ import { DeepPartial } from 'redux';
 import { mergeDeepRight } from 'ramda';
 import { useSpring } from 'react-spring';
 import throttle from 'lodash/throttle';
+import { useSelector } from 'react-redux';
 import { Paper, FilterWrapper } from './useStudioListFilterPopover.styles';
+import { getIsHeaderVisible } from '../../../ui/model/selectors';
 
 type UseStudioListFilterPopoverInput = ReactNode | ReactNodeArray;
 
@@ -33,6 +35,7 @@ export const useStudioListFilterPopover = (
     bottom: 0,
     left: 0,
   });
+  const isHeaderVisible = useSelector(getIsHeaderVisible);
   const targetRef = useRef<HTMLDivElement | null>(null);
   const mountTargetRef = useRef<HTMLElement | null>(null);
   const handleToggleFilter: HandleToggleFilter = useCallback(
@@ -44,11 +47,11 @@ export const useStudioListFilterPopover = (
 
       return setState({
         isVisible: !state.isVisible,
-        bottom,
+        bottom: isHeaderVisible ? bottom : bottom + 66,
         left,
       });
     },
-    [state]
+    [isHeaderVisible, state.isVisible]
   );
   const handleCloseFilters = useCallback(
     () => setState({ isVisible: false }),
@@ -61,7 +64,7 @@ export const useStudioListFilterPopover = (
       if (mountTarget) {
         const { left, bottom } = mountTarget.getBoundingClientRect();
 
-        setState({ left, bottom });
+        setState({ left, bottom: isHeaderVisible ? bottom : bottom + 66 });
       }
     }, 60),
     []

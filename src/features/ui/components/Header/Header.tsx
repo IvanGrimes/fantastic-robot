@@ -45,13 +45,7 @@ const _Header = ({
 }: Props) => {
   const [prevScrollY, setPrevScrollY] = useState(0);
   const headerSpring = useSpring({
-    transform: isHeaderVisible
-      ? 'translate(0px, 0px)'
-      : 'translate(0px, -66px)',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
+    top: isHeaderVisible ? '0px' : '-66px',
   });
   const hiddenMapLabelSpring = useSpring({
     opacity: isMapVisible ? 0 : 1,

@@ -25,7 +25,16 @@ export const ContentGrid = styled<ComponentType<GridProps>>(Grid)`
 export const StudioList = styled<ComponentType<StudioListProps>>(
   DefaultStudioList
 )`
-  && {
-    margin-top: 120px;
-  }
+  ${props => {
+    const { down } = getBreakpoints(props);
+
+    return css`
+      && {
+        margin-top: 120px;
+        ${down('md')} {
+          margin-top: -8px;
+        }
+      }
+    `;
+  }}
 `;

@@ -43,7 +43,7 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
 ))`
   && {
     position: relative;
-    z-index: -1;
+    z-index: 1;
     padding: 0 4px;
     margin-top: -12px;
   }
