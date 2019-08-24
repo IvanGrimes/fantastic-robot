@@ -4,7 +4,7 @@ import { StudioListItem } from './StudioListItem';
 import { ListGrid, ListItemGrid } from './StudioList.styles';
 import { ShortStudio } from '../../model/types';
 import { toggleFavoriteAsync } from '../../model/actions';
-import { Container } from '@material-ui/core';
+import { Container } from '../../../../components/Container';
 
 type Props = {
   className: string;

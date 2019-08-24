@@ -1,13 +1,8 @@
 import React, { Fragment, memo, useCallback, useState } from 'react';
-import {
-  Button,
-  Container,
-  Grid,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { Button, Grid, IconButton, Typography } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import { useSpring } from 'react-spring';
+import { Container } from '../../../../../components/Container';
 import { FilterGrid, Wrapper } from './StudioListFilterMobile.styles';
 import { BarWrapper } from '../../../../ui/components/Header/HeaderBar/HeaderBar.styles';
 import { StudioListFilterSearch } from '../StudioListFilterSearch';

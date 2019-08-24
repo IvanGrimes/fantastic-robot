@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
-import { AppBar, Container, Grid, Typography } from '@material-ui/core';
+import { AppBar, Grid, Typography } from '@material-ui/core';
 import { HeaderGrid, Toolbar } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
+import { Container } from '../../../../components/Container';
 
 const menuData = [
   {

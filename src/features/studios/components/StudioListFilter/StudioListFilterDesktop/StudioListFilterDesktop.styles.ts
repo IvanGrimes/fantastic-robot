@@ -9,7 +9,7 @@ export const Overlay = styled(animated.div)<{ isVisible: boolean }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: ${transparentize(0.6, '#000')};
+    background-color: ${transparentize(0.4, '#fff')};
     transform: translate(${isVisible ? 0 : '-10000px'}, 0);
     transition: transform 0ms ${isVisible ? 0 : 200}ms;
   `}
