@@ -36,8 +36,7 @@ const _StudioList = ({
             component="li"
             container
             item
-            xl={6}
-            lg={6}
+            xs={12}
             spacing={0}
           >
             <StudioListItem

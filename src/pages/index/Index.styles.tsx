@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import {
-  InfiniteScrollProps,
-  InfiniteScroll as DefaultInfiniteScroll,
-} from '../../components/InfiniteScroll';
 import React, { ComponentType } from 'react';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import { em } from 'polished';
 import { GridProps } from '@material-ui/core/Grid';
+import {
+  InfiniteScrollProps,
+  InfiniteScroll as DefaultInfiniteScroll,
+} from '../../components/InfiniteScroll';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
   DefaultInfiniteScroll
@@ -17,7 +17,7 @@ export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
     flex-wrap: wrap;
     width: 100%;
     overflow: hidden !important;
-    margin-top: ${em(48)};
+    margin-top: ${em(24)};
   }
 `;
 

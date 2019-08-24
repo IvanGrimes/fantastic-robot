@@ -1,20 +1,18 @@
 import React, { memo } from 'react';
-import {
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-  Tooltip,
-} from '@material-ui/core';
-import { MeetingRoom } from '@material-ui/icons';
-import { Station } from './StudioListItem.styles';
+import { Typography, Grid } from '@material-ui/core';
 import { StudioListItemProps } from './index';
 import { LazyImage } from '../../../../../components/LazyImage';
 import { Carousel } from '../../../../../components/Carousel';
 import { floatToFraction } from '../../../../../utils/floatToFraction';
-import { StudioListItemFavorite } from './StudioListItemFavorite';
+import { getDeclension } from '../../../../../utils/getDeclension';
+import {
+  Card,
+  CardBottomGrid,
+  CardContent,
+  FavoriteButton,
+  Station,
+} from './StudioListItem.styles';
 import { getPriceSegment } from '../../../../../utils/getPriceSegment';
-import { StudioListParameters } from './StudioListParameters';
 
 const _StudioListItem = ({
   id: studioId,
@@ -42,13 +40,13 @@ const _StudioListItem = ({
   }
 
   return (
-    <Card>
-      <Grid container>
+    <Grid container component={Card}>
+      <Grid item xs={4}>
         <Grid item xs={12}>
           <Carousel>
-            {photos.map(({ id, ratio }, index) => (
+            {photos.map(({ id, ratio }) => (
               <LazyImage
-                key={index}
+                key={id}
                 src={`https://via.placeholder.com/${id}`}
                 ratio={floatToFraction(ratio)}
               />
@@ -56,58 +54,62 @@ const _StudioListItem = ({
           </Carousel>
         </Grid>
       </Grid>
-      <CardContent>
-        <Grid container justify="space-between" alignItems="center" spacing={2}>
-          <Grid item xs={9} container alignItems="center" spacing={4}>
+      <Grid container item xs={8}>
+        <Grid
+          component={CardContent}
+          container
+          direction="column"
+          justify="space-between"
+          spacing={2}
+        >
+          <Grid container alignItems="center" justify="space-between">
             <Grid item>
               <Typography variant="h5" component="h2">
                 {name}
               </Typography>
             </Grid>
-            <Grid container item xs={4} alignItems="center" spacing={1}>
-              <Grid item>
-                <Tooltip title="Количество залов">
-                  <Grid container>
-                    <MeetingRoom /> <Typography>{roomsCount}</Typography>
+            <Grid item>
+              <FavoriteButton id={studioId} isActive={favorite} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="span" variant="caption">
+                {types.map(({ name: type }) => type).join(', ')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="span" variant="caption">
+                {roomsCount}{' '}
+                {getDeclension(roomsCount, ['зал', 'зала', 'залов'])}
+              </Typography>
+            </Grid>
+          </Grid>
+          <CardBottomGrid
+            container
+            justify="space-between"
+            alignItems="flex-end"
+          >
+            <Grid item xs={6}>
+              <Grid component="ul" container alignItems="center" spacing={1}>
+                {stations.map(({ name: station, color }) => (
+                  <Grid component="li" key={station} item>
+                    <Station color={color}>
+                      <Typography component="span" variant="caption">
+                        {station}
+                      </Typography>
+                    </Station>
                   </Grid>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                <StudioListItemFavorite id={studioId} isActive={favorite} />
+                ))}
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="h5" component="span">
-              {getPriceSegment(priceSegment)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="textSecondary">
-              {description}
-            </Typography>
-          </Grid>
-          <Grid container alignItems="flex-start" justify="space-between">
-            <Grid component="ul" item xs={4}>
-              <StudioListParameters
-                parameter="station"
-                list={stations}
-                renderName={({ color, name: stationName }) => (
-                  <Station color={color}>{stationName}</Station>
-                )}
-              />
+            <Grid item>
+              <Typography component="span" variant="h6">
+                {getPriceSegment(priceSegment)}
+              </Typography>
             </Grid>
-            <StudioListParameters
-              parameter="type"
-              list={types}
-              justify="flex-end"
-              spacing={2}
-              xs={7}
-            />
-          </Grid>
+          </CardBottomGrid>
         </Grid>
-      </CardContent>
-    </Card>
+      </Grid>
+    </Grid>
   );
 };
 

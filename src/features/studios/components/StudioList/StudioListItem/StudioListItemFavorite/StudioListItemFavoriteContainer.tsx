@@ -14,13 +14,20 @@ const _StudioListItemFavoriteContainer = ({
   toggleFavorite,
   id,
   isActive,
+  className = '',
 }: Props) => {
   const handleClick = useCallback(() => toggleFavorite(id), [
     toggleFavorite,
     id,
   ]);
 
-  return <StudioListItemFavorite isActive={isActive} onClick={handleClick} />;
+  return (
+    <StudioListItemFavorite
+      className={className}
+      isActive={isActive}
+      onClick={handleClick}
+    />
+  );
 };
 
 export const StudioListItemFavoriteContainer = connect(

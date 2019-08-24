@@ -10,6 +10,7 @@ export const Figure = styled.figure<{ ratio: number; isLoaded: boolean }>`
     ${!isLoaded &&
       css`
         padding-bottom: calc(100% / (${ratio}));
+        padding-right: 100%;
       `};
   `}
 `;

@@ -8,11 +8,15 @@ import {
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { StudioList } from '../../features/studios/components/StudioList';
+import { StudioListMap } from '../../features/studios/components/StudioListMap';
 
 const _Index = () => (
   <Grid container>
-    <Grid item xs={12}>
+    <Grid item md={8} lg={6}>
       <StudioList />
+    </Grid>
+    <Grid item md={4} lg={6}>
+      <StudioListMap />
     </Grid>
   </Grid>
 );
