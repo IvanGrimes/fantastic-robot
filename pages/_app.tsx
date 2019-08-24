@@ -16,7 +16,9 @@ import { RootState } from '../src/model/types';
 import { SSRError } from '../src/lib/SSRError';
 
 const Layout = dynamic(() =>
-  import('../src/features/ui/Layout').then(module => module.Layout as any)
+  import('../src/features/ui/components/Layout').then(
+    module => module.Layout as any
+  )
 );
 
 class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {

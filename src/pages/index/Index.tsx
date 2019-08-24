@@ -1,26 +1,20 @@
 import React from 'react';
 import { Store } from 'redux';
-import { Container, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
-} from '../../features/studios/actions';
+} from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { StudioListFilter } from '../../features/studios/StudioListFilter';
-import { StudioList } from '../../features/studios/StudioList';
+import { StudioList } from '../../features/studios/components/StudioList';
 
 const _Index = () => (
-  <Container>
-    <Grid container>
-      <Grid item xs={12}>
-        <StudioListFilter />
-      </Grid>
-      <Grid item xs={12}>
-        <StudioList />
-      </Grid>
+  <Grid container>
+    <Grid item xs={12}>
+      <StudioList />
     </Grid>
-  </Container>
+  </Grid>
 );
 
 _Index.getInitialProps = async ({
