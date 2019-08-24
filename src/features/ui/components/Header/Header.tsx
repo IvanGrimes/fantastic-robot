@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { AppBar, Grid, Typography } from '@material-ui/core';
+import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
+import { animated, useSpring } from 'react-spring';
 import { HeaderGrid, Toolbar } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
@@ -29,7 +30,19 @@ const menuData = [
   },
 ];
 
-const _Header = () => {
+type Props = {
+  isMapVisible: boolean;
+  handleToggleMap: () => void;
+};
+
+const _Header = ({ isMapVisible, handleToggleMap }: Props) => {
+  const hiddenMapLabelSpring = useSpring({
+    opacity: isMapVisible ? 0 : 1,
+  });
+  const visibleMapLabelSpring = useSpring({
+    opacity: isMapVisible ? 1 : 0,
+  });
+
   return (
     <HeaderGrid container>
       <Grid container>
@@ -69,7 +82,32 @@ const _Header = () => {
       </Grid>
       <Grid container>
         <HeaderBar>
-          <StudioListFilter />
+          <Grid container alignItems="center" justify="space-between">
+            <Grid item>
+              <StudioListFilter />
+            </Grid>
+            <Grid container item xs={3} alignItems="center" justify="flex-end">
+              <Typography
+                component={animated.div}
+                variant="caption"
+                style={visibleMapLabelSpring}
+              >
+                Скрыть карту
+              </Typography>
+              <Switch
+                color="default"
+                onClick={handleToggleMap}
+                checked={isMapVisible}
+              />
+              <Typography
+                component={animated.div}
+                variant="caption"
+                style={hiddenMapLabelSpring}
+              >
+                Показать карту
+              </Typography>{' '}
+            </Grid>
+          </Grid>
         </HeaderBar>
       </Grid>
     </HeaderGrid>
