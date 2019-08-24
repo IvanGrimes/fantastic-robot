@@ -11,19 +11,19 @@ import { serverEpic } from '../../lib/serverEpic';
 import { StudioList } from '../../features/studios/components/StudioList';
 import { StudioListMap } from '../../features/studios/components/StudioListMap';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
+import { ContentGrid } from './Index.styles';
 
 const _Index = () => {
   const isMapVisible = useSelector(getIsMapVisible);
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={8} lg={isMapVisible ? 6 : 12}>
+    <ContentGrid container>
+      <Grid item xs={12} md={12} lg={isMapVisible ? 6 : 12}>
         <StudioList listItemVariant={isMapVisible ? 'wide' : 'short'} />
       </Grid>
       <Grid
         item
         xs={12}
-        md={4}
         lg={6}
         style={
           isMapVisible
@@ -35,7 +35,7 @@ const _Index = () => {
       >
         <StudioListMap />
       </Grid>
-    </Grid>
+    </ContentGrid>
   );
 };
 

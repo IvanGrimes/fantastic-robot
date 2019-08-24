@@ -11,10 +11,7 @@ import {
   getStudiosLoading,
 } from '../../model/selectors';
 import { StudioList } from './StudioList';
-import {
-  InfiniteScroll,
-  InfiniteScrollLoader,
-} from '../../../../pages/index/Index.styles';
+import { InfiniteScroll, InfiniteScrollLoader } from './StudioList.styles';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
 import { StudioListItemVariant } from './StudioListItem';
 

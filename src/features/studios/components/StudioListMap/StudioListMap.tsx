@@ -2,7 +2,9 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dequal from 'dequal';
 import GoogleMapReact from 'google-map-react';
 import throttle from 'lodash/throttle';
+import { useTheme } from '@material-ui/core';
 import { MapGrid, OuterWrapper, InnerWrapper } from './StudioListMap.styles';
+import { getBreakpoints } from '../../../../theme';
 
 type Props = {
   lat: number;
@@ -13,6 +15,8 @@ type Props = {
 const MapMarker = ({ text }: Props) => <div>{text}</div>;
 
 const _StudioListMap = () => {
+  const theme = useTheme();
+  const { values } = getBreakpoints({ theme });
   const [width, setWidth] = useState(0);
   const outerWrapperRef = useRef<HTMLDivElement | null>(null);
   const handleSetWidth = useCallback(
@@ -32,11 +36,14 @@ const _StudioListMap = () => {
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
-    window.addEventListener('resize', handleSetWidth);
+    if (window.innerWidth > values.md) {
+      // eslint-disable-next-line no-undef
+      window.addEventListener('resize', handleSetWidth);
+    }
 
     // eslint-disable-next-line no-undef
     return () => window.removeEventListener('resize', handleSetWidth);
-  }, [handleSetWidth]);
+  }, [handleSetWidth, values.md]);
 
   if (!process.env.MAPS_API_TOKEN) {
     return null;

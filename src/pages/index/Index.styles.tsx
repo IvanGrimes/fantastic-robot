@@ -1,39 +1,19 @@
-import styled from 'styled-components';
-import React, { ComponentType } from 'react';
-import { CircularProgress, Grid } from '@material-ui/core';
-import { CircularProgressProps } from '@material-ui/core/CircularProgress';
-import { em } from 'polished';
+import styled, { css } from 'styled-components';
+import { ComponentType } from 'react';
+import { Grid } from '@material-ui/core';
 import { GridProps } from '@material-ui/core/Grid';
-import {
-  InfiniteScrollProps,
-  InfiniteScroll as DefaultInfiniteScroll,
-} from '../../components/InfiniteScroll';
+import { getBreakpoints } from '../../theme';
 
-export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
-  DefaultInfiniteScroll
-)`
-  && {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    overflow: hidden !important;
-    margin-top: ${em(24)};
-  }
+export const ContentGrid = styled<ComponentType<GridProps>>(Grid)`
+  ${props => {
+    const { down } = getBreakpoints(props);
+
+    return css`
+      ${down('md')} {
+        && {
+          flex-wrap: wrap-reverse;
+        }
+      }
+    `;
+  }}
 `;
-
-const LoaderGrid = styled<ComponentType<GridProps>>(props => (
-  <Grid container item xs={12} justify="center" {...props} />
-))`
-  && {
-    position: relative;
-    margin: ${em(32)} 0;
-  }
-`;
-
-export const InfiniteScrollLoader = styled<
-  ComponentType<CircularProgressProps>
->(props => (
-  <LoaderGrid>
-    <CircularProgress {...props} />
-  </LoaderGrid>
-))``;
