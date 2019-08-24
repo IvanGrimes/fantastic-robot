@@ -6,13 +6,13 @@ import { useTheme } from '@material-ui/core';
 import { MapGrid, OuterWrapper, InnerWrapper } from './StudioListMap.styles';
 import { getBreakpoints } from '../../../../theme';
 
-type Props = {
+type MapMarkerProps = {
   lat: number;
   lng: number;
   text: string;
 };
 
-const MapMarker = ({ text }: Props) => <div>{text}</div>;
+const MapMarker = ({ text }: MapMarkerProps) => <div>{text}</div>;
 
 const _StudioListMap = () => {
   const theme = useTheme();

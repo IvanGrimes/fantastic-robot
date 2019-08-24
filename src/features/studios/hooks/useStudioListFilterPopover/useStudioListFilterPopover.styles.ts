@@ -13,7 +13,7 @@ export const FilterWrapper = styled(animated.div)<{
     position: absolute;
     top: ${top + 8}px;
     left: ${left}px;
-    z-index: 1200;
+    z-index: 2000;
     transform: translate(${isVisible ? 0 : '-10000px'}, 0);
     transition: transform 0ms ${isVisible ? 0 : 200}ms;
   `}

@@ -12,6 +12,7 @@ export const MapGrid = styled<ComponentType<GridProps>>(Grid)`
       && {
         position: relative;
         min-height: 100vh;
+        z-index: 1;
         ${down('md')} {
           min-height: 40vh;
         }
@@ -37,9 +38,9 @@ export const InnerWrapper = styled.div<{ width: number }>`
 
     return css`
       position: fixed;
-      top: 126px;
+      top: 0;
       right: 0;
-      height: calc(100% - 126px);
+      height: 100%;
       width: ${width}px;
       ${down('md')} {
         position: static;

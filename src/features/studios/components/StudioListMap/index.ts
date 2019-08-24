@@ -1,3 +1,1 @@
-export type StudioListMapProps = {};
-
-export * from './StudioListMap';
+export { StudioListMap } from './StudioListMap';

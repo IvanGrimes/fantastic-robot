@@ -1,3 +1,8 @@
 import { createAction } from 'typesafe-actions';
 
-export const toggleMap = createAction('@@UI/TOGGLE_MAP');
+export const toggleMapVisibility = createAction('@@UI/TOGGLE_MAP_VISIBILITY');
+
+export const setHeaderVisibility = createAction(
+  '@@UI/SET_HEADER_VISIBILITY',
+  action => (visibility: boolean) => action({ visibility })
+);

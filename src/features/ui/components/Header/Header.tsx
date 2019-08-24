@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
 import { animated, useSpring } from 'react-spring';
-import { HeaderGrid, Toolbar } from './Header.styles';
+import { Toolbar, Wrapper } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
@@ -32,85 +32,126 @@ const menuData = [
 
 type Props = {
   isMapVisible: boolean;
+  isHeaderVisible: boolean;
   handleToggleMap: () => void;
+  handleSetHeaderVisibility: (visibility: boolean) => void;
 };
 
-const _Header = ({ isMapVisible, handleToggleMap }: Props) => {
+const _Header = ({
+  isMapVisible,
+  handleToggleMap,
+  isHeaderVisible,
+  handleSetHeaderVisibility,
+}: Props) => {
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const headerSpring = useSpring({
+    transform: isHeaderVisible
+      ? 'translate(0px, 0px)'
+      : 'translate(0px, -66px)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+  });
   const hiddenMapLabelSpring = useSpring({
     opacity: isMapVisible ? 0 : 1,
   });
   const visibleMapLabelSpring = useSpring({
     opacity: isMapVisible ? 1 : 0,
   });
+  const handleScroll = useCallback(() => {
+    // eslint-disable-next-line no-undef
+    const scrollY = window.pageYOffset;
+    const isVisible = prevScrollY > scrollY;
+
+    handleSetHeaderVisibility(isVisible);
+    setPrevScrollY(scrollY);
+  }, [handleSetHeaderVisibility, prevScrollY]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    window.addEventListener('scroll', handleScroll);
+
+    // eslint-disable-next-line no-undef
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   return (
-    <HeaderGrid container>
+    <Wrapper style={headerSpring}>
       <Grid container>
-        <AppBar color="primary" position="static">
-          <Container>
-            <Toolbar>
-              <Grid container justify="space-between" alignItems="center">
-                <Grid item>
-                  <Typography variant="h5" component="span">
-                    CodeName
-                  </Typography>
-                </Grid>
-                <Grid item container component="nav" xs={6}>
-                  <Grid
-                    item
-                    container
-                    component="ul"
-                    spacing={6}
-                    justify="flex-end"
-                  >
-                    {menuData.map(({ id, link, name }) => (
-                      <Grid key={id} item component="li">
-                        <Link
-                          href={link}
-                          MaterialLinkProps={{ color: 'inherit' }}
-                        >
-                          {name}
-                        </Link>
-                      </Grid>
-                    ))}
+        <Grid container>
+          <AppBar color="primary" position="static">
+            <Container>
+              <Toolbar>
+                <Grid container justify="space-between" alignItems="center">
+                  <Grid item>
+                    <Typography variant="h5" component="span">
+                      CodeName
+                    </Typography>
+                  </Grid>
+                  <Grid item container component="nav" xs={6}>
+                    <Grid
+                      item
+                      container
+                      component="ul"
+                      spacing={6}
+                      justify="flex-end"
+                    >
+                      {menuData.map(({ id, link, name }) => (
+                        <Grid key={id} item component="li">
+                          <Link
+                            href={link}
+                            MaterialLinkProps={{ color: 'inherit' }}
+                          >
+                            {name}
+                          </Link>
+                        </Grid>
+                      ))}
+                    </Grid>
                   </Grid>
                 </Grid>
+              </Toolbar>
+            </Container>
+          </AppBar>
+        </Grid>
+        <Grid container>
+          <HeaderBar>
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item>
+                <StudioListFilter />
               </Grid>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </Grid>
-      <Grid container>
-        <HeaderBar>
-          <Grid container alignItems="center" justify="space-between">
-            <Grid item>
-              <StudioListFilter />
-            </Grid>
-            <Grid container item xs={3} alignItems="center" justify="flex-end">
-              <Typography
-                component={animated.div}
-                variant="caption"
-                style={visibleMapLabelSpring}
+              <Grid
+                container
+                item
+                xs={3}
+                alignItems="center"
+                justify="flex-end"
               >
-                Скрыть карту
-              </Typography>
-              <Switch
-                color="default"
-                onClick={handleToggleMap}
-                checked={isMapVisible}
-              />
-              <Typography
-                component={animated.div}
-                variant="caption"
-                style={hiddenMapLabelSpring}
-              >
-                Показать карту
-              </Typography>{' '}
+                <Typography
+                  component={animated.div}
+                  variant="caption"
+                  style={visibleMapLabelSpring}
+                >
+                  Скрыть карту
+                </Typography>
+                <Switch
+                  color="default"
+                  onClick={handleToggleMap}
+                  checked={isMapVisible}
+                />
+                <Typography
+                  component={animated.div}
+                  variant="caption"
+                  style={hiddenMapLabelSpring}
+                >
+                  Показать карту
+                </Typography>{' '}
+              </Grid>
             </Grid>
-          </Grid>
-        </HeaderBar>
+          </HeaderBar>
+        </Grid>
       </Grid>
-    </HeaderGrid>
+    </Wrapper>
   );
 };
 

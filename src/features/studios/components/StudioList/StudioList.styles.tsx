@@ -42,6 +42,8 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="ul" />
 ))`
   && {
+    position: relative;
+    z-index: -1;
     padding: 0 4px;
     margin-top: -12px;
   }
