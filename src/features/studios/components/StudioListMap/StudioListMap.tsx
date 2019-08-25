@@ -75,7 +75,7 @@ const _StudioListMap = ({
   }
 
   return (
-    <MapGrid container isFullscreenMap={isFullscreenMap}>
+    <MapGrid container>
       {isFullscreenMap ? (
         <CloseButton
           variant="contained"
@@ -98,6 +98,10 @@ const _StudioListMap = ({
               lng: 30.33,
             }}
             defaultZoom={11}
+            options={{
+              fullscreenControl: false,
+              zoomControl: false,
+            }}
             onClick={isFullscreenMap ? undefined : handleSetFullscreen(true)}
           >
             <MapMarker lat={59.955413} lng={30.337844} text="My Marker" />

@@ -7,24 +7,20 @@ import { getBreakpoints } from '../../../../theme';
 
 const HEADER_HEIGHT = 60;
 
-export const MapGrid = styled<ComponentType<GridProps>>(Grid)<{
-  isFullscreenMap: boolean;
-}>`
-  ${({ isFullscreenMap, ...props }) => {
+export const MapGrid = styled<ComponentType<GridProps>>(Grid)`
+  ${props => {
     const { down } = getBreakpoints(props);
-    const offset = isFullscreenMap ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
 
     return css`
       && {
         position: relative;
-        min-height: calc(100vh - ${isFullscreenMap ? HEADER_HEIGHT : 0}px);
+        height: 100vh;
         z-index: 1;
         ${down('md')} {
-          margin-top: ${offset}px;
-          min-height: calc(40vh + ${HEADER_HEIGHT * 2}px);
+          height: 40vh;
         }
         ${down('sm')} {
-          min-height: calc(45vh + ${HEADER_HEIGHT * 2}px);
+          height: 55vh;
         }
       }
     `;
@@ -46,36 +42,23 @@ export const InnerWrapper = styled.div<{
 }>`
   ${({ isFullscreen, isHeaderVisible, width, ...props }) => {
     const { down } = getBreakpoints(props);
-    const fullscreenMobileHeight = `calc(100vh - ${HEADER_HEIGHT}px)`;
 
     return css`
       position: fixed;
-      top: ${`${
-        // eslint-disable-next-line no-nested-ternary
-        isFullscreen
-          ? HEADER_HEIGHT
-          : isHeaderVisible
-          ? HEADER_HEIGHT * 2
-          : HEADER_HEIGHT
-      }`}px;
+      top: 0;
       right: 0;
-      height: calc(
-        100% - ${isHeaderVisible ? HEADER_HEIGHT * 2 : HEADER_HEIGHT}px
-      );
+      height: 100vh;
       width: ${isFullscreen ? '100%' : `${width}px`};
       transition: width 300ms linear;
       ${down('md')} {
-        position: static;
-        height: ${isFullscreen
-          ? fullscreenMobileHeight
-          : `calc(40vh + ${HEADER_HEIGHT * 2}px)`};
+        top: -40vh;
+        height: 140vh;
         width: 100%;
-        transition: height 300ms linear;
       }
       ${down('sm')} {
-        height: ${isFullscreen
-          ? fullscreenMobileHeight
-          : `calc(45vh + ${HEADER_HEIGHT * 2}px)`};
+        top: -55vh;
+        height: 155vh;
+        width: 100%;
       }
     `;
   }}

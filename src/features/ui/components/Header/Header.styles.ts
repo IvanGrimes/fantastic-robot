@@ -33,3 +33,17 @@ export const MenuGrid = styled<ComponentType<GridProps>>(Grid)`
     `;
   }}
 `;
+
+export const MapSwitchGrid = styled<ComponentType<GridProps>>(Grid)`
+  ${props => {
+    const { down } = getBreakpoints(props);
+
+    return css`
+      && {
+        ${down('sm')} {
+          display: none;
+        }
+      }
+    `;
+  }}
+`;

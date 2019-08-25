@@ -1,11 +1,14 @@
 import React, { memo } from 'react';
 import dequal from 'dequal';
+
 import { useSpring } from 'react-spring';
+import { useTheme } from '@material-ui/core';
 import { StudioListItem, StudioListItemVariant } from './StudioListItem';
 import { Wrapper, ListGrid, ListItemGrid } from './StudioList.styles';
 import { ShortStudio } from '../../model/types';
 import { toggleFavoriteAsync } from '../../model/actions';
 import { Container } from '../../../../components/Container';
+import { getBreakpoints } from '../../../../theme';
 
 type Props = {
   className: string;
@@ -28,12 +31,18 @@ const _StudioList = ({
   isMapVisible,
   isFullscreenMap,
 }: Props) => {
-  const wrapperSpring = useSpring({
-    transform: isFullscreenMap
-      ? 'translate(-4000px, 0px)'
-      : 'translate(0px, 0px)',
-    duration: 300,
+  const theme = useTheme();
+  const breakpoints = getBreakpoints({ theme });
+  const wrapperDesktopSpring = useSpring({
+    transform: isFullscreenMap ? 'translate(-4000px, 0)' : 'translate(0px, 0)',
   });
+  const wrapperMobileSpring = useSpring({
+    transform: isFullscreenMap ? 'translate(0, 100vh)' : 'translate(0, 0vh)',
+  });
+  const isDesktop =
+    typeof window !== 'undefined'
+      ? window.innerWidth > breakpoints.values.lg
+      : true;
   const loaderList = new Array(3).fill({});
 
   if (error) {
@@ -41,7 +50,7 @@ const _StudioList = ({
   }
 
   return (
-    <Wrapper style={wrapperSpring}>
+    <Wrapper style={isDesktop ? wrapperDesktopSpring : wrapperMobileSpring}>
       <Container>
         <ListGrid
           className={className}

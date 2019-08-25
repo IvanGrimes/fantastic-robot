@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
 import { animated, useSpring } from 'react-spring';
-import { Toolbar, Wrapper, MenuGrid } from './Header.styles';
+import { Toolbar, Wrapper, MenuGrid, MapSwitchGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
@@ -130,10 +130,10 @@ const _Header = ({
               <Grid item>
                 <StudioListFilter />
               </Grid>
-              <Grid
+              <MapSwitchGrid
                 container
                 item
-                xs={3}
+                xs={5}
                 alignItems="center"
                 justify="flex-end"
               >
@@ -155,8 +155,8 @@ const _Header = ({
                   style={hiddenMapLabelSpring}
                 >
                   Показать карту
-                </Typography>{' '}
-              </Grid>
+                </Typography>
+              </MapSwitchGrid>
             </Grid>
           </HeaderBar>
         </Grid>

@@ -19,7 +19,6 @@ export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
     flex-wrap: wrap;
     width: 100%;
     overflow: hidden !important;
-    margin-top: ${em(24)};
   }
 `;
 
@@ -42,6 +41,10 @@ export const InfiniteScrollLoader = styled<
 
 export const Wrapper = styled(animated.div)`
   width: 100%;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  padding-top: ${em(24)};
 `;
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
