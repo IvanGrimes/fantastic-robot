@@ -82,24 +82,14 @@ export const InnerWrapper = styled.div<{
 `;
 
 export const CloseButton = styled<ComponentType<ButtonProps>>(Button)`
-  ${props => {
-    const { down } = getBreakpoints(props);
-
-    return css`
-      && {
-        position: absolute;
-        top: ${HEADER_HEIGHT + 10}px;
-        left: calc(-100% + 10px);
-        width: 50px;
-        height: 50px;
-        z-index: 1000;
-        padding: 0;
-        min-width: auto;
-        ${down('md')} {
-          top: 10px;
-          left: 10px;
-        }
-      }
-    `;
-  }}
+  && {
+    position: fixed;
+    top: ${HEADER_HEIGHT + 10}px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    z-index: 1000;
+    padding: 0;
+    min-width: auto;
+  }
 `;
