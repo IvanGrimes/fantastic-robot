@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
+import dequal from 'dequal';
 import { RootState } from '../../../../model/types';
 import {
   getIsFullscreenMap,
@@ -50,4 +51,4 @@ const _HeaderContainer = ({
 export const HeaderContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_HeaderContainer));
+)(memo(_HeaderContainer, dequal));

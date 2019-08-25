@@ -11,7 +11,6 @@ import {
   getStudiosLoading,
 } from '../../model/selectors';
 import { StudioList } from './StudioList';
-import { InfiniteScroll, InfiniteScrollLoader } from './StudioList.styles';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
 import { StudioListProps } from './index';
 import {
@@ -72,33 +71,17 @@ const _StudioListContainer = ({
           <link rel="next" href="/page/2" />
         )}
       </Head>
-      <InfiniteScroll
-        dataLength={studios.list.length}
+      <StudioList
+        className={className}
+        list={studios.list}
+        error={errors.networkError}
+        loading={loading && isFiltering}
+        listItemVariant={listItemVariant}
+        handleToggleFavorite={handleToggleFavorite}
+        isMapVisible={isMapVisible}
+        isFullscreenMap={isFullscreenMap}
         handleNext={handleNext}
-        loader={<InfiniteScrollLoader />}
-        endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
-        pagination={{
-          route: '/page/[number]',
-          pageNumber: '[number]',
-          withTrailingSlash: true,
-        }}
-        hasMore={!isFullscreenMap}
-      >
-        <StudioList
-          className={className}
-          list={studios.list}
-          error={errors.networkError}
-          loading={loading && isFiltering}
-          listItemVariant={listItemVariant}
-          handleToggleFavorite={handleToggleFavorite}
-          isMapVisible={isMapVisible}
-          isFullscreenMap={isFullscreenMap}
-        />
-      </InfiniteScroll>
+      />
     </Fragment>
   );
 };

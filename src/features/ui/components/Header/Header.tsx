@@ -1,11 +1,13 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
 import { animated, useSpring } from 'react-spring';
+import dequal from 'dequal';
 import { Toolbar, Wrapper, MenuGrid, MapSwitchGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
 import { Container } from '../../../../components/Container';
+import { useHideOnScroll } from '../../hooks/useHideOnScroll';
 
 const menuData = [
   {
@@ -45,9 +47,8 @@ const _Header = ({
   isHeaderVisible,
   handleSetHeaderVisibility,
   handleSetFullscreenMap,
-  isFullscreenMap,
 }: Props) => {
-  const [prevScrollY, setPrevScrollY] = useState(0);
+  useHideOnScroll({ handleSetVisibility: handleSetHeaderVisibility });
   const headerSpring = useSpring({
     top: isHeaderVisible ? '0px' : '-66px',
   });
@@ -57,18 +58,11 @@ const _Header = ({
   const visibleMapLabelSpring = useSpring({
     opacity: isMapVisible ? 1 : 0,
   });
-  const handleScroll = useCallback(() => {
-    const scrollY = window.pageYOffset;
-    const isVisible = prevScrollY > scrollY;
-
-    handleSetHeaderVisibility(isVisible);
-    setPrevScrollY(scrollY);
-  }, [handleSetHeaderVisibility, prevScrollY]);
   const handleToggleMapVisibility = useCallback(() => {
     handleSetFullscreenMap(false);
     handleSetMapVisibility(!isMapVisible);
 
-    if (window.pageYOffset === 0) {
+    if (window.pageYOffset > 0) {
       handleSetHeaderVisibility(true);
     }
   }, [
@@ -77,14 +71,6 @@ const _Header = ({
     handleSetMapVisibility,
     isMapVisible,
   ]);
-
-  useEffect(() => {
-    if (!isFullscreenMap) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll, isFullscreenMap]);
 
   return (
     <Wrapper style={headerSpring}>
@@ -165,4 +151,4 @@ const _Header = ({
   );
 };
 
-export const Header = memo(_Header);
+export const Header = memo(_Header, dequal);
