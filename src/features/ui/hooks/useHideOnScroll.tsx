@@ -1,27 +1,32 @@
 import { useCallback, useEffect, useState } from 'react';
-import throttle from 'lodash/debounce';
+import throttle from 'lodash/throttle';
+import { useSelector } from 'react-redux';
+import { getIsFullscreenMap } from '../model/selectors';
 
 export const useHideOnScroll = ({
   handleSetVisibility,
 }: {
   handleSetVisibility: (visibility: boolean) => void;
 }) => {
+  const isFullscreenMap = useSelector(getIsFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const handleScroll = useCallback(
     throttle(() => {
       const scrollY = window.pageYOffset;
 
-      if (scrollY > 100) {
-        const isVisible = prevScrollY > scrollY;
+      if (!isFullscreenMap) {
+        if (scrollY > 100) {
+          const isVisible = prevScrollY > scrollY;
 
-        handleSetVisibility(isVisible);
-        setPrevScrollY(scrollY);
-      } else {
-        handleSetVisibility(true);
-        setPrevScrollY(0);
+          handleSetVisibility(isVisible);
+          setPrevScrollY(scrollY);
+        } else {
+          handleSetVisibility(true);
+          setPrevScrollY(0);
+        }
       }
     }, 60),
-    [handleSetVisibility, prevScrollY]
+    [handleSetVisibility, prevScrollY, isFullscreenMap]
   );
 
   useEffect(() => {

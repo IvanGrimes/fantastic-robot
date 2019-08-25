@@ -71,16 +71,7 @@ const _Header = ({
   const handleToggleMapVisibility = useCallback(() => {
     handleSetFullscreenMap(false);
     handleSetMapVisibility(!isMapVisible);
-
-    if (window.pageYOffset > 0) {
-      handleSetHeaderVisibility(true);
-    }
-  }, [
-    handleSetFullscreenMap,
-    handleSetHeaderVisibility,
-    handleSetMapVisibility,
-    isMapVisible,
-  ]);
+  }, [handleSetFullscreenMap, handleSetMapVisibility, isMapVisible]);
 
   return (
     <Wrapper style={headerSpring}>

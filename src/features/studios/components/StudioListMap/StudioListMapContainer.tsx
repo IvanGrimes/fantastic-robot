@@ -68,7 +68,6 @@ const _StudioListMapContainer = ({
       handleSetHeaderVisibility(false);
     } else {
       if (window.innerWidth < breakpoints.values.lg) {
-        console.log(prevScrollY);
         window.scrollTo({ top: prevScrollY });
       }
 
@@ -76,8 +75,6 @@ const _StudioListMapContainer = ({
         html.style.overflow = 'visible';
         body.style.overflow = 'visible';
       }
-
-      handleSetHeaderVisibility(true);
     }
   }, [
     body,
