@@ -1,6 +1,7 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
+import { useTheme } from '@material-ui/core';
 import { StudioListMap } from './StudioListMap';
 import { RootState } from '../../../../model/types';
 import {
@@ -11,6 +12,7 @@ import {
   getIsFullscreenMap,
   getIsHeaderVisible,
 } from '../../../ui/model/selectors';
+import { getBreakpoints } from '../../../../theme';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -30,6 +32,9 @@ const _StudioListMapContainer = ({
   handleSetFullscreenMap,
   isHeaderVisible,
 }: Props) => {
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const theme = useTheme();
+  const breakpoints = getBreakpoints({ theme });
   const html = useMemo(
     () =>
       typeof window !== 'undefined' ? document.querySelector('html') : null,
@@ -50,21 +55,30 @@ const _StudioListMapContainer = ({
 
   useEffect(() => {
     if (isFullscreenMap) {
-      handleSetHeaderVisibility(false);
+      if (window.innerWidth < breakpoints.values.lg) {
+        setPrevScrollY(window.pageYOffset);
+        window.scrollTo({ top: 0 });
+      }
 
       if (body && html) {
         html.style.overflow = 'hidden';
         body.style.overflow = 'hidden';
       }
+
+      handleSetHeaderVisibility(false);
     } else {
-      handleSetHeaderVisibility(true);
+      if (window.innerWidth < breakpoints.values.lg) {
+        window.scrollTo({ top: prevScrollY });
+      }
 
       if (body && html) {
         html.style.overflow = 'visible';
         body.style.overflow = 'visible';
       }
+
+      handleSetHeaderVisibility(true);
     }
-  }, [body, handleSetHeaderVisibility, html, isFullscreenMap]);
+  }, [body, breakpoints.values.lg, breakpoints.values.md, handleSetHeaderVisibility, html, isFullscreenMap, prevScrollY]);
 
   return (
     <StudioListMap
