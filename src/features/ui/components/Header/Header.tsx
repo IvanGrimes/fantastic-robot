@@ -1,13 +1,16 @@
 import React, { memo, useCallback } from 'react';
-import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
+import { AppBar, Grid, Switch, Typography, Button } from '@material-ui/core';
 import { animated, useSpring } from 'react-spring';
 import dequal from 'dequal';
+import { Map as MapIcon } from '@material-ui/icons';
 import { Toolbar, Wrapper, MenuGrid, MapSwitchGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
 import { Container } from '../../../../components/Container';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { Hidden } from '../../../../components/Hidden';
+import { ClearableInput } from '../../../../components/ClearableInput';
 
 const menuData = [
   {
@@ -38,7 +41,8 @@ type Props = {
   handleSetMapVisibility: (visibility: boolean) => void;
   handleSetHeaderVisibility: (visibility: boolean) => void;
   handleSetFullscreenMap: (visibility: boolean) => void;
-  isFullscreenMap: boolean;
+  searchValue: string;
+  handleSearch: (value: string) => void;
 };
 
 const _Header = ({
@@ -47,6 +51,8 @@ const _Header = ({
   isHeaderVisible,
   handleSetHeaderVisibility,
   handleSetFullscreenMap,
+  searchValue,
+  handleSearch,
 }: Props) => {
   useHideOnScroll({ handleSetVisibility: handleSetHeaderVisibility });
   const headerSpring = useSpring({
@@ -58,6 +64,10 @@ const _Header = ({
   const visibleMapLabelSpring = useSpring({
     opacity: isMapVisible ? 1 : 0,
   });
+  const handleSetFullscreenMapOn = useCallback(
+    () => handleSetFullscreenMap(true),
+    [handleSetFullscreenMap]
+  );
   const handleToggleMapVisibility = useCallback(() => {
     handleSetFullscreenMap(false);
     handleSetMapVisibility(!isMapVisible);
@@ -80,12 +90,35 @@ const _Header = ({
             <Container>
               <Toolbar>
                 <Grid container justify="space-between" alignItems="center">
-                  <Grid item>
-                    <Typography variant="h5" component="span">
-                      CodeName
-                    </Typography>
+                  <Grid container item xs={9} md={7} alignItems="center">
+                    <Grid item>
+                      <Hidden xsDown>
+                        <Typography
+                          variant="h5"
+                          component="span"
+                          style={{ marginRight: '16px' }}
+                        >
+                          CodeName
+                        </Typography>
+                      </Hidden>
+                    </Grid>
+                    <Grid item xs={10} sm={8} md={7}>
+                      <ClearableInput
+                        variant="filled"
+                        InputLabelProps={{ style: { display: 'none' } }}
+                        InputProps={{
+                          inputProps: {
+                            style: {
+                              padding: '10px',
+                            },
+                          },
+                        }}
+                        onChange={handleSearch}
+                        value={searchValue}
+                      />
+                    </Grid>
                   </Grid>
-                  <MenuGrid item container component="nav" xs={6}>
+                  <MenuGrid item container component="nav" md={5}>
                     <Grid
                       item
                       container
@@ -105,6 +138,16 @@ const _Header = ({
                       ))}
                     </Grid>
                   </MenuGrid>
+                  <Hidden mdUp>
+                    <Button
+                      variant="outlined"
+                      color="inherit"
+                      size="small"
+                      onClick={handleSetFullscreenMapOn}
+                    >
+                      <MapIcon />
+                    </Button>
+                  </Hidden>
                 </Grid>
               </Toolbar>
             </Container>

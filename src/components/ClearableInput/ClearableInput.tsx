@@ -8,6 +8,9 @@ const _ClearableInput = ({
   onChange,
   value,
   placeholder,
+  variant = 'standard',
+  InputLabelProps = {},
+  InputProps = {},
 }: ClearableInputProps) => {
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ev => onChange(ev.target.value),
@@ -21,12 +24,15 @@ const _ClearableInput = ({
   return (
     <Grid container item xs={12}>
       <TextField
+        variant={variant as any}
+        InputLabelProps={InputLabelProps}
         InputProps={{
           endAdornment: (
-            <IconButton href="" size="small" onClick={handleClear}>
+            <IconButton size="small" onClick={handleClear}>
               <CloseIcon />
             </IconButton>
           ),
+          ...InputProps,
         }}
         onChange={handleChange}
         value={value}

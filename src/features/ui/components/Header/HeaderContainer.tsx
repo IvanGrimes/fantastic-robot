@@ -1,31 +1,30 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
 import { RootState } from '../../../../model/types';
-import {
-  getIsFullscreenMap,
-  getIsHeaderVisible,
-  getIsMapVisible,
-} from '../../model/selectors';
+import { getIsHeaderVisible, getIsMapVisible } from '../../model/selectors';
 import {
   setFullscreenMap,
   setHeaderVisibility,
   setMapVisibility,
 } from '../../model/actions';
 import { Header } from './Header';
+import { setFilters } from '../../../studios/model/actions';
+import { getAppliedFilters } from '../../../studios/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   isMapVisible: getIsMapVisible(state),
   isHeaderVisible: getIsHeaderVisible(state),
-  isFullscreenMap: getIsFullscreenMap(state),
+  nameFilter: getAppliedFilters(state).name,
 });
 
 const dispatchProps = {
   handleSetMapVisibility: setMapVisibility,
   handleSetHeaderVisibility: setHeaderVisibility,
   handleSetFullscreenMap: setFullscreenMap,
+  handleSetFilters: setFilters,
 };
 
 const _HeaderContainer = ({
@@ -34,8 +33,14 @@ const _HeaderContainer = ({
   handleSetHeaderVisibility,
   isHeaderVisible,
   handleSetFullscreenMap,
-  isFullscreenMap,
+  handleSetFilters,
+  nameFilter,
 }: Props) => {
+  const handleSearch = useCallback(
+    (value: string) => handleSetFilters({ name: value }),
+    [handleSetFilters]
+  );
+
   return (
     <Header
       isMapVisible={isMapVisible}
@@ -43,7 +48,8 @@ const _HeaderContainer = ({
       handleSetHeaderVisibility={handleSetHeaderVisibility}
       isHeaderVisible={isHeaderVisible}
       handleSetFullscreenMap={handleSetFullscreenMap}
-      isFullscreenMap={isFullscreenMap}
+      searchValue={nameFilter}
+      handleSearch={handleSearch}
     />
   );
 };

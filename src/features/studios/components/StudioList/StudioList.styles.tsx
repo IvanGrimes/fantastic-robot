@@ -45,6 +45,7 @@ export const Wrapper = styled(animated.div)`
   position: relative;
   z-index: 2;
   padding-top: ${em(24)};
+  min-height: 100vh;
 `;
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
