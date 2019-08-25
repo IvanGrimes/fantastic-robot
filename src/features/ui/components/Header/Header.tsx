@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { AppBar, Grid, Switch, Typography } from '@material-ui/core';
 import { animated, useSpring } from 'react-spring';
-import { Toolbar, Wrapper } from './Header.styles';
+import { Toolbar, Wrapper, MenuGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
@@ -99,7 +99,7 @@ const _Header = ({
                       CodeName
                     </Typography>
                   </Grid>
-                  <Grid item container component="nav" xs={6}>
+                  <MenuGrid item container component="nav" xs={6}>
                     <Grid
                       item
                       container
@@ -118,7 +118,7 @@ const _Header = ({
                         </Grid>
                       ))}
                     </Grid>
-                  </Grid>
+                  </MenuGrid>
                 </Grid>
               </Toolbar>
             </Container>

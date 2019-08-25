@@ -55,7 +55,7 @@ const _StudioListMapContainer = ({
 
   useEffect(() => {
     if (isFullscreenMap) {
-      if (window.innerWidth < breakpoints.values.lg) {
+      if (window.innerWidth < breakpoints.values.lg && window.pageYOffset > 0) {
         setPrevScrollY(window.pageYOffset);
         window.scrollTo({ top: 0 });
       }
@@ -68,6 +68,7 @@ const _StudioListMapContainer = ({
       handleSetHeaderVisibility(false);
     } else {
       if (window.innerWidth < breakpoints.values.lg) {
+        console.log(prevScrollY);
         window.scrollTo({ top: prevScrollY });
       }
 
@@ -78,7 +79,14 @@ const _StudioListMapContainer = ({
 
       handleSetHeaderVisibility(true);
     }
-  }, [body, breakpoints.values.lg, breakpoints.values.md, handleSetHeaderVisibility, html, isFullscreenMap, prevScrollY]);
+  }, [
+    body,
+    breakpoints.values.lg,
+    handleSetHeaderVisibility,
+    html,
+    isFullscreenMap,
+    prevScrollY,
+  ]);
 
   return (
     <StudioListMap
