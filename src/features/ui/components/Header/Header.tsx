@@ -33,15 +33,19 @@ const menuData = [
 type Props = {
   isMapVisible: boolean;
   isHeaderVisible: boolean;
-  handleToggleMap: () => void;
+  handleSetMapVisibility: (visibility: boolean) => void;
   handleSetHeaderVisibility: (visibility: boolean) => void;
+  handleSetFullscreenMap: (visibility: boolean) => void;
+  isFullscreenMap: boolean;
 };
 
 const _Header = ({
   isMapVisible,
-  handleToggleMap,
+  handleSetMapVisibility,
   isHeaderVisible,
   handleSetHeaderVisibility,
+  handleSetFullscreenMap,
+  isFullscreenMap,
 }: Props) => {
   const [prevScrollY, setPrevScrollY] = useState(0);
   const headerSpring = useSpring({
@@ -54,21 +58,33 @@ const _Header = ({
     opacity: isMapVisible ? 1 : 0,
   });
   const handleScroll = useCallback(() => {
-    // eslint-disable-next-line no-undef
     const scrollY = window.pageYOffset;
     const isVisible = prevScrollY > scrollY;
 
     handleSetHeaderVisibility(isVisible);
     setPrevScrollY(scrollY);
   }, [handleSetHeaderVisibility, prevScrollY]);
+  const handleToggleMapVisibility = useCallback(() => {
+    handleSetFullscreenMap(false);
+    handleSetMapVisibility(!isMapVisible);
+
+    if (window.pageYOffset === 0) {
+      handleSetHeaderVisibility(true);
+    }
+  }, [
+    handleSetFullscreenMap,
+    handleSetHeaderVisibility,
+    handleSetMapVisibility,
+    isMapVisible,
+  ]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
-    window.addEventListener('scroll', handleScroll);
+    if (!isFullscreenMap) {
+      window.addEventListener('scroll', handleScroll);
+    }
 
-    // eslint-disable-next-line no-undef
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, [handleScroll, isFullscreenMap]);
 
   return (
     <Wrapper style={headerSpring}>
@@ -130,7 +146,7 @@ const _Header = ({
                 </Typography>
                 <Switch
                   color="default"
-                  onClick={handleToggleMap}
+                  onClick={handleToggleMapVisibility}
                   checked={isMapVisible}
                 />
                 <Typography

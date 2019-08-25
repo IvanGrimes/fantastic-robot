@@ -14,6 +14,10 @@ import { StudioList } from './StudioList';
 import { InfiniteScroll, InfiniteScrollLoader } from './StudioList.styles';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
 import { StudioListProps } from './index';
+import {
+  getIsMapVisible,
+  getIsFullscreenMap,
+} from '../../../ui/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -24,6 +28,8 @@ const mapStateToProps = (state: RootState) => ({
   errors: getStudiosError(state),
   loading: getStudiosLoading(state),
   isFiltering: getIsStudiosFiltering(state),
+  isMapVisible: getIsMapVisible(state),
+  isFullscreenMap: getIsFullscreenMap(state),
 });
 
 const dispatchProps = {
@@ -40,6 +46,8 @@ const _StudioListContainer = ({
   isFiltering,
   listItemVariant,
   handleToggleFavorite,
+  isMapVisible,
+  isFullscreenMap,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const number = useMemo(
@@ -78,7 +86,7 @@ const _StudioListContainer = ({
           pageNumber: '[number]',
           withTrailingSlash: true,
         }}
-        hasMore
+        hasMore={!isFullscreenMap}
       >
         <StudioList
           className={className}
@@ -87,6 +95,8 @@ const _StudioListContainer = ({
           loading={loading && isFiltering}
           listItemVariant={listItemVariant}
           handleToggleFavorite={handleToggleFavorite}
+          isMapVisible={isMapVisible}
+          isFullscreenMap={isFullscreenMap}
         />
       </InfiniteScroll>
     </Fragment>

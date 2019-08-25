@@ -114,8 +114,6 @@ export const mockStudios = ({
 }: FetchStudiosInput): { studios: ShortStudio[]; hasNext: boolean } => {
   const studios: ShortStudio[] = [];
 
-  console.log(priceSegment);
-
   if (
     stationIds.length ||
     roomsCount.from ||

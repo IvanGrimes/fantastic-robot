@@ -2,7 +2,8 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dequal from 'dequal';
 import GoogleMapReact from 'google-map-react';
 import throttle from 'lodash/throttle';
-import { useTheme } from '@material-ui/core';
+import { useTheme, IconButton } from '@material-ui/core';
+import { Close as CloseIcon } from '@material-ui/icons';
 import { MapGrid, OuterWrapper, InnerWrapper } from './StudioListMap.styles';
 import { getBreakpoints } from '../../../../theme';
 
@@ -14,7 +15,17 @@ type MapMarkerProps = {
 
 const MapMarker = ({ text }: MapMarkerProps) => <div>{text}</div>;
 
-const _StudioListMap = () => {
+type Props = {
+  isFullscreenMap: boolean;
+  handleFullscreenMapOn: () => void;
+  handleFullscreenMapOff: () => void;
+};
+
+const _StudioListMap = ({
+  isFullscreenMap,
+  handleFullscreenMapOn,
+  handleFullscreenMapOff,
+}: Props) => {
   const theme = useTheme();
   const { values } = getBreakpoints({ theme });
   const [width, setWidth] = useState(0);
@@ -29,19 +40,26 @@ const _StudioListMap = () => {
     }, 60),
     []
   );
+  const handleSetFullscreen = useCallback(
+    (value: boolean) => () => {
+      if (value) {
+        handleFullscreenMapOn();
+      } else {
+        handleFullscreenMapOff();
+      }
+    },
+    [handleFullscreenMapOn, handleFullscreenMapOff]
+  );
 
   useEffect(() => {
     handleSetWidth();
   }, [handleSetWidth]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
     if (window.innerWidth > values.md) {
-      // eslint-disable-next-line no-undef
       window.addEventListener('resize', handleSetWidth);
     }
 
-    // eslint-disable-next-line no-undef
     return () => window.removeEventListener('resize', handleSetWidth);
   }, [handleSetWidth, values.md]);
 
@@ -51,8 +69,16 @@ const _StudioListMap = () => {
 
   return (
     <MapGrid container>
+      {isFullscreenMap ? (
+        <IconButton
+          onClick={handleSetFullscreen(false)}
+          style={{ zIndex: 2000 }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
       <OuterWrapper ref={outerWrapperRef}>
-        <InnerWrapper width={width}>
+        <InnerWrapper isFullscreen={isFullscreenMap} width={width}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: process.env.MAPS_API_TOKEN }}
             defaultCenter={{
@@ -60,6 +86,7 @@ const _StudioListMap = () => {
               lng: 30.33,
             }}
             defaultZoom={11}
+            onClick={isFullscreenMap ? undefined : handleSetFullscreen(true)}
           >
             <MapMarker lat={59.955413} lng={30.337844} text="My Marker" />
           </GoogleMapReact>

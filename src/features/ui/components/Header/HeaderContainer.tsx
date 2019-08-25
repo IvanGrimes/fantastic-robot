@@ -1,8 +1,16 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../model/types';
-import { getIsHeaderVisible, getIsMapVisible } from '../../model/selectors';
-import { setHeaderVisibility, toggleMapVisibility } from '../../model/actions';
+import {
+  getIsFullscreenMap,
+  getIsHeaderVisible,
+  getIsMapVisible,
+} from '../../model/selectors';
+import {
+  setFullscreenMap,
+  setHeaderVisibility,
+  setMapVisibility,
+} from '../../model/actions';
 import { Header } from './Header';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
@@ -10,25 +18,31 @@ type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 const mapStateToProps = (state: RootState) => ({
   isMapVisible: getIsMapVisible(state),
   isHeaderVisible: getIsHeaderVisible(state),
+  isFullscreenMap: getIsFullscreenMap(state),
 });
 
 const dispatchProps = {
-  handleToggleMap: toggleMapVisibility,
+  handleSetMapVisibility: setMapVisibility,
   handleSetHeaderVisibility: setHeaderVisibility,
+  handleSetFullscreenMap: setFullscreenMap,
 };
 
 const _HeaderContainer = ({
   isMapVisible,
-  handleToggleMap,
+  handleSetMapVisibility,
   handleSetHeaderVisibility,
   isHeaderVisible,
+  handleSetFullscreenMap,
+  isFullscreenMap,
 }: Props) => {
   return (
     <Header
       isMapVisible={isMapVisible}
-      handleToggleMap={handleToggleMap}
+      handleSetMapVisibility={handleSetMapVisibility}
       handleSetHeaderVisibility={handleSetHeaderVisibility}
       isHeaderVisible={isHeaderVisible}
+      handleSetFullscreenMap={handleSetFullscreenMap}
+      isFullscreenMap={isFullscreenMap}
     />
   );
 };

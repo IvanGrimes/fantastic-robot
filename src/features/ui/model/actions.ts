@@ -1,8 +1,16 @@
 import { createAction } from 'typesafe-actions';
 
-export const toggleMapVisibility = createAction('@@UI/TOGGLE_MAP_VISIBILITY');
+export const setMapVisibility = createAction(
+  '@@UI/SET_MAP_VISIBILITY',
+  action => (visibility: boolean) => action({ visibility })
+);
 
 export const setHeaderVisibility = createAction(
   '@@UI/SET_HEADER_VISIBILITY',
+  action => (visibility: boolean) => action({ visibility })
+);
+
+export const setFullscreenMap = createAction(
+  '@@UI/SET_FULLSCREEN_MAP',
   action => (visibility: boolean) => action({ visibility })
 );

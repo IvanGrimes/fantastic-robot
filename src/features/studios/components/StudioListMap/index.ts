@@ -1,1 +1,3 @@
-export { StudioListMap } from './StudioListMap';
+export {
+  StudioListMapContainer as StudioListMap,
+} from './StudioListMapContainer';

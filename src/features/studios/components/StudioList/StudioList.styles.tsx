@@ -1,13 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import React, { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { em } from 'polished';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';
+import { animated } from 'react-spring';
 import {
   InfiniteScroll as DefaultInfiniteScroll,
   InfiniteScrollProps,
 } from '../../../../components/InfiniteScroll';
+import { getBreakpoints } from '../../../../theme';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
   DefaultInfiniteScroll
@@ -38,15 +40,32 @@ export const InfiniteScrollLoader = styled<
   </LoaderGrid>
 ))``;
 
+export const Wrapper = styled(animated.div)`
+  width: 100%;
+`;
+
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="ul" />
-))`
-  && {
-    position: relative;
-    z-index: 1;
-    padding: 0 4px;
-    margin-top: -12px;
-  }
+))<{ isMapVisible: boolean }>`
+  ${({ isMapVisible, ...props }) => {
+    const { down } = getBreakpoints(props);
+
+    return css`
+      && {
+        max-width: 100%;
+        margin-top: 102px;
+        position: relative;
+        z-index: 1;
+        padding: 0 4px;
+        ${isMapVisible &&
+          css`
+            ${down('md')} {
+              margin-top: -8px;
+            }
+          `}
+      }
+    `;
+  }}
 `;
 
 export const ListItemGrid = styled<ComponentType<GridProps>>(props => (

@@ -35,8 +35,11 @@ export const OuterWrapper = styled.div`
   height: 100%;
 `;
 
-export const InnerWrapper = styled.div<{ width: number }>`
-  ${({ width, ...props }) => {
+export const InnerWrapper = styled.div<{
+  width: number;
+  isFullscreen: boolean;
+}>`
+  ${({ isFullscreen, width, ...props }) => {
     const { down } = getBreakpoints(props);
 
     return css`
@@ -44,14 +47,16 @@ export const InnerWrapper = styled.div<{ width: number }>`
       top: 0;
       right: 0;
       height: 100%;
-      width: ${width}px;
+      width: ${isFullscreen ? '100%' : `${width}px`};
+      transition: width 300ms linear;
       ${down('md')} {
         position: static;
-        min-height: calc(40vh + ${HEADER_HEIGHT}px);
+        height: ${isFullscreen ? '100vh' : `calc(40vh + ${HEADER_HEIGHT}px)`};
         width: 100%;
+        transition: height 300ms linear;
       }
       ${down('sm')} {
-        min-height: calc(45vh + ${HEADER_HEIGHT}px);
+        height: ${isFullscreen ? '100vh' : `calc(45vh + ${HEADER_HEIGHT}px)`};
       }
     `;
   }}
