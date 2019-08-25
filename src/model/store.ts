@@ -24,7 +24,7 @@ export const configureStore = (initialState: RootState) => {
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(middleware)
+    composeWithDevTools({ trace: true })(middleware)
   );
 
   epicMiddleware.run(rootEpic);

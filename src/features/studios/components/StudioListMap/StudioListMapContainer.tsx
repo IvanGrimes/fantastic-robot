@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/core';
 import { StudioListMap } from './StudioListMap';
 import { RootState } from '../../../../model/types';
-import {
-  setFullscreenMap,
-  setHeaderVisibility,
-} from '../../../ui/model/actions';
+import { setFullscreenMap } from '../../../ui/model/actions';
 import {
   getIsFullscreenMap,
   getIsHeaderVisible,
@@ -22,13 +19,11 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  handleSetHeaderVisibility: setHeaderVisibility,
   handleSetFullscreenMap: setFullscreenMap,
 };
 
 const _StudioListMapContainer = ({
   isFullscreenMap,
-  handleSetHeaderVisibility,
   handleSetFullscreenMap,
   isHeaderVisible,
 }: Props) => {
@@ -64,8 +59,6 @@ const _StudioListMapContainer = ({
         html.style.overflow = 'hidden';
         body.style.overflow = 'hidden';
       }
-
-      handleSetHeaderVisibility(false);
     } else {
       if (window.innerWidth < breakpoints.values.lg) {
         window.scrollTo({ top: prevScrollY });
@@ -76,14 +69,7 @@ const _StudioListMapContainer = ({
         body.style.overflow = 'visible';
       }
     }
-  }, [
-    body,
-    breakpoints.values.lg,
-    handleSetHeaderVisibility,
-    html,
-    isFullscreenMap,
-    prevScrollY,
-  ]);
+  }, [body, breakpoints.values.lg, html, isFullscreenMap, prevScrollY]);
 
   return (
     <StudioListMap

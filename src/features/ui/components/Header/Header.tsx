@@ -1,9 +1,14 @@
 import React, { memo, useCallback } from 'react';
 import { AppBar, Grid, Switch, Typography, Button } from '@material-ui/core';
-import { animated, useSpring } from 'react-spring';
 import dequal from 'dequal';
 import { Map as MapIcon } from '@material-ui/icons';
-import { Toolbar, Wrapper, MenuGrid, MapSwitchGrid } from './Header.styles';
+import {
+  Toolbar,
+  Wrapper,
+  MenuGrid,
+  MapSwitchGrid,
+  HideableTypography,
+} from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { StudioListFilter } from '../../../studios/components/StudioListFilter';
@@ -55,15 +60,6 @@ const _Header = ({
   handleSearch,
 }: Props) => {
   useHideOnScroll({ handleSetVisibility: handleSetHeaderVisibility });
-  const headerSpring = useSpring({
-    top: isHeaderVisible ? '0px' : '-66px',
-  });
-  const hiddenMapLabelSpring = useSpring({
-    opacity: isMapVisible ? 0 : 1,
-  });
-  const visibleMapLabelSpring = useSpring({
-    opacity: isMapVisible ? 1 : 0,
-  });
   const handleSetFullscreenMapOn = useCallback(
     () => handleSetFullscreenMap(true),
     [handleSetFullscreenMap]
@@ -74,7 +70,7 @@ const _Header = ({
   }, [handleSetFullscreenMap, handleSetMapVisibility, isMapVisible]);
 
   return (
-    <Wrapper style={headerSpring}>
+    <Wrapper isHeaderVisible={isHeaderVisible}>
       <Grid container>
         <Grid container>
           <AppBar color="primary" position="static">
@@ -157,25 +153,17 @@ const _Header = ({
                 alignItems="center"
                 justify="flex-end"
               >
-                <Typography
-                  component={animated.div}
-                  variant="caption"
-                  style={visibleMapLabelSpring}
-                >
+                <HideableTypography variant="caption" isVisible={isMapVisible}>
                   Скрыть карту
-                </Typography>
+                </HideableTypography>
                 <Switch
                   color="default"
                   onClick={handleToggleMapVisibility}
                   checked={isMapVisible}
                 />
-                <Typography
-                  component={animated.div}
-                  variant="caption"
-                  style={hiddenMapLabelSpring}
-                >
+                <HideableTypography variant="caption" isVisible={!isMapVisible}>
                   Показать карту
-                </Typography>
+                </HideableTypography>
               </MapSwitchGrid>
             </Grid>
           </HeaderBar>

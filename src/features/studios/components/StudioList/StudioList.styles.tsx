@@ -4,7 +4,6 @@ import { GridProps } from '@material-ui/core/Grid';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { em } from 'polished';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';
-import { animated } from 'react-spring';
 import {
   InfiniteScroll as DefaultInfiniteScroll,
   InfiniteScrollProps,
@@ -39,13 +38,24 @@ export const InfiniteScrollLoader = styled<
   </LoaderGrid>
 ))``;
 
-export const Wrapper = styled(animated.div)`
-  width: 100%;
-  background-color: #fff;
-  position: relative;
-  z-index: 2;
-  padding-top: ${em(24)};
-  min-height: 100vh;
+export const Wrapper = styled.div<{ isVisible: boolean }>`
+  ${({ isVisible, ...props }) => {
+    const { down } = getBreakpoints(props);
+
+    return css`
+      width: 100%;
+      background-color: #fff;
+      position: relative;
+      z-index: 2;
+      padding-top: ${em(24)};
+      min-height: 100vh;
+      transform: translate(${isVisible ? '0px, 0' : '-4000px, 0'});
+      transition: transform 300ms ${isVisible ? 'ease-out' : 'ease-in'};
+      ${down('md')} {
+        transform: translate(${isVisible ? '0, 0px' : '0, 1000px'});
+      }
+    `;
+  }}
 `;
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (

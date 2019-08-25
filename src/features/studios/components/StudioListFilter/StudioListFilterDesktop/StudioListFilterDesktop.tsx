@@ -1,6 +1,5 @@
 import React, { Fragment, memo, useMemo } from 'react';
 import { Button, Grid, Portal } from '@material-ui/core';
-import { useSpring } from 'react-spring';
 import { useStudioListFilterPopover } from '../../../hooks/useStudioListFilterPopover';
 import { StudioListFilterStation } from '../StudioListFilterStation';
 import { StudioListFilterType } from '../StudioListFilterType';
@@ -34,12 +33,11 @@ const _StudioListFilterDesktop = () => {
     isStationFilterVisible ||
     isTypeFilterVisible ||
     isPriceSegmentFilterVisible;
-  const overlaySpring = useSpring({ opacity: isAnyFilterVisible ? 1 : 0 });
 
   return (
     <Fragment>
       <Portal container={layout}>
-        <Overlay style={overlaySpring} isVisible={isAnyFilterVisible} />
+        <Overlay isVisible={isAnyFilterVisible} />
       </Portal>
       <Grid container spacing={2} alignItems="center">
         <Grid item>

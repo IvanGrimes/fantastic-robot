@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 import { DeepPartial } from 'redux';
 import { mergeDeepRight } from 'ramda';
-import { useSpring } from 'react-spring';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
 import { Paper, FilterWrapper } from './useStudioListFilterPopover.styles';
@@ -85,9 +84,6 @@ export const useStudioListFilterPopover = (
     },
     [handleCloseFilters]
   );
-  const targetSpring = useSpring({
-    opacity: state.isVisible ? 1 : 0,
-  });
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -103,7 +99,6 @@ export const useStudioListFilterPopover = (
     state.isVisible,
     handleToggleFilter,
     <FilterWrapper
-      style={targetSpring}
       isVisible={state.isVisible}
       top={state.bottom}
       left={state.left}

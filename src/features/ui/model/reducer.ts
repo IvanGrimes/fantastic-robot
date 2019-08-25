@@ -29,4 +29,5 @@ export const uiReducer = createReducer(initialState)
   .handleAction(setFullscreenMap, (state, { payload }) => ({
     ...state,
     isFullscreenMap: payload.visibility,
+    isHeaderVisible: !payload.visibility,
   }));
