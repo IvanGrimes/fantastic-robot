@@ -2,9 +2,14 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dequal from 'dequal';
 import GoogleMapReact from 'google-map-react';
 import throttle from 'lodash/throttle';
-import { useTheme, IconButton } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
-import { MapGrid, OuterWrapper, InnerWrapper } from './StudioListMap.styles';
+import {
+  MapGrid,
+  OuterWrapper,
+  InnerWrapper,
+  CloseButton,
+} from './StudioListMap.styles';
 import { getBreakpoints } from '../../../../theme';
 
 type MapMarkerProps = {
@@ -17,6 +22,7 @@ const MapMarker = ({ text }: MapMarkerProps) => <div>{text}</div>;
 
 type Props = {
   isFullscreenMap: boolean;
+  isHeaderVisible: boolean;
   handleFullscreenMapOn: () => void;
   handleFullscreenMapOff: () => void;
 };
@@ -25,6 +31,7 @@ const _StudioListMap = ({
   isFullscreenMap,
   handleFullscreenMapOn,
   handleFullscreenMapOff,
+  isHeaderVisible,
 }: Props) => {
   const theme = useTheme();
   const { values } = getBreakpoints({ theme });
@@ -68,17 +75,22 @@ const _StudioListMap = ({
   }
 
   return (
-    <MapGrid container>
+    <MapGrid container isFullscreenMap={isFullscreenMap}>
       {isFullscreenMap ? (
-        <IconButton
+        <CloseButton
+          variant="contained"
+          color="secondary"
           onClick={handleSetFullscreen(false)}
-          style={{ zIndex: 2000 }}
         >
           <CloseIcon />
-        </IconButton>
+        </CloseButton>
       ) : null}
       <OuterWrapper ref={outerWrapperRef}>
-        <InnerWrapper isFullscreen={isFullscreenMap} width={width}>
+        <InnerWrapper
+          isFullscreen={isFullscreenMap}
+          isHeaderVisible={isHeaderVisible}
+          width={width}
+        >
           <GoogleMapReact
             bootstrapURLKeys={{ key: process.env.MAPS_API_TOKEN }}
             defaultCenter={{
