@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { StudioListMap } from './StudioListMap';
@@ -25,6 +25,15 @@ const _StudioListMapContainer = ({
   handleSetHeaderVisibility,
   handleSetFullscreenMap,
 }: Props) => {
+  const html = useMemo(
+    () =>
+      typeof window !== 'undefined' ? document.querySelector('html') : null,
+    []
+  );
+  const body = useMemo(
+    () => (typeof window !== 'undefined' ? document.body : null),
+    []
+  );
   const handleFullscreenMapOn = useCallback(
     () => handleSetFullscreenMap(true),
     [handleSetFullscreenMap]
@@ -37,10 +46,20 @@ const _StudioListMapContainer = ({
   useEffect(() => {
     if (isFullscreenMap) {
       handleSetHeaderVisibility(false);
+
+      if (body && html) {
+        html.style.overflow = 'hidden';
+        body.style.overflow = 'hidden';
+      }
     } else {
       handleSetHeaderVisibility(true);
+
+      if (body && html) {
+        html.style.overflow = 'visible';
+        body.style.overflow = 'visible';
+      }
     }
-  }, [handleSetHeaderVisibility, isFullscreenMap]);
+  }, [body, handleSetHeaderVisibility, html, isFullscreenMap]);
 
   return (
     <StudioListMap

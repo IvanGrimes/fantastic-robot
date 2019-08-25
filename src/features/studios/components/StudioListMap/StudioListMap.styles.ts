@@ -4,7 +4,7 @@ import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
 import { getBreakpoints } from '../../../../theme';
 
-const HEADER_HEIGHT = 68;
+const HEADER_HEIGHT = 60;
 
 export const MapGrid = styled<ComponentType<GridProps>>(Grid)`
   ${props => {
