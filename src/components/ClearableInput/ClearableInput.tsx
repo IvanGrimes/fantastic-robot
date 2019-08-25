@@ -24,11 +24,12 @@ const _ClearableInput = ({
   return (
     <Grid container item xs={12}>
       <TextField
+        color="inherit"
         variant={variant as any}
         InputLabelProps={InputLabelProps}
         InputProps={{
           endAdornment: (
-            <IconButton size="small" onClick={handleClear}>
+            <IconButton size="small" color="inherit" onClick={handleClear}>
               <CloseIcon />
             </IconButton>
           ),

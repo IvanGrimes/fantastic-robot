@@ -97,11 +97,13 @@ const _Header = ({
                           inputProps: {
                             style: {
                               padding: '10px',
+                              color: '#fff',
                             },
                           },
                         }}
                         onChange={handleSearch}
                         value={searchValue}
+                        placeholder="Поиск по названию"
                       />
                     </Grid>
                   </Grid>
