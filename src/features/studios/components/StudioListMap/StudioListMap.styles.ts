@@ -36,20 +36,18 @@ export const OuterWrapper = styled.div`
 `;
 
 export const InnerWrapper = styled.div<{
-  width: number;
   isFullscreen: boolean;
   isHeaderVisible: boolean;
 }>`
-  ${({ isFullscreen, isHeaderVisible, width, ...props }) => {
+  ${({ isFullscreen, isHeaderVisible, ...props }) => {
     const { down } = getBreakpoints(props);
 
     return css`
       position: fixed;
       top: 0;
-      right: 0;
+      left: 0;
       height: 100vh;
-      width: ${isFullscreen ? '100%' : `${width}px`};
-      transition: width 300ms linear;
+      width: calc(100% + 50vw);
       ${down('md')} {
         top: -40vh;
         height: 140vh;
