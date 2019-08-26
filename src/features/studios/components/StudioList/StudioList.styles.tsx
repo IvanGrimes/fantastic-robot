@@ -48,7 +48,7 @@ export const Wrapper = styled.div<{ isVisible: boolean }>`
       position: relative;
       z-index: 2;
       padding-top: ${em(24)};
-      min-height: 100vh;
+      min-height: 100%;
       transform: translate(${isVisible ? '0px, 0' : '-4000px, 0'});
       transition: transform 300ms ${isVisible ? 'ease-out' : 'ease-in'};
       ${down('md')} {
@@ -67,7 +67,6 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
     return css`
       && {
         max-width: 100%;
-        margin-top: 102px;
         position: relative;
         z-index: 1;
         padding: 0 4px;

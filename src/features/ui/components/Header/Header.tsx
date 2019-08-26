@@ -2,6 +2,7 @@ import React, { memo, useCallback } from 'react';
 import { AppBar, Grid, Switch, Typography, Button } from '@material-ui/core';
 import dequal from 'dequal';
 import { Map as MapIcon } from '@material-ui/icons';
+import debounce from 'lodash/debounce';
 import {
   Toolbar,
   Wrapper,
@@ -64,10 +65,13 @@ const _Header = ({
     () => handleSetFullscreenMap(true),
     [handleSetFullscreenMap]
   );
-  const handleToggleMapVisibility = useCallback(() => {
-    handleSetFullscreenMap(false);
-    handleSetMapVisibility(!isMapVisible);
-  }, [handleSetFullscreenMap, handleSetMapVisibility, isMapVisible]);
+  const handleToggleMapVisibility = useCallback(
+    debounce(() => {
+      handleSetMapVisibility(!isMapVisible);
+      handleSetFullscreenMap(false);
+    }, 250),
+    [handleSetFullscreenMap, handleSetMapVisibility, isMapVisible]
+  );
 
   return (
     <Wrapper isHeaderVisible={isHeaderVisible}>
@@ -162,6 +166,7 @@ const _Header = ({
                   color="default"
                   onClick={handleToggleMapVisibility}
                   checked={isMapVisible}
+                  disableRipple
                 />
                 <HideableTypography variant="caption" isVisible={!isMapVisible}>
                   Показать карту

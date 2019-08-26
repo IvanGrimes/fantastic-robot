@@ -17,3 +17,27 @@ export const ContentGrid = styled<ComponentType<GridProps>>(Grid)`
     `;
   }}
 `;
+
+export const StudioListGrid = styled<ComponentType<GridProps>>(Grid)<{
+  isMapVisible: boolean;
+}>`
+  ${({ isMapVisible }) => {
+    return css`
+      && {
+      margin-top: 120px;
+      ${!isMapVisible &&
+        css`
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: calc(100% + 40px);
+          max-width: 100%;
+          flex-basis: 100%;
+        `}
+
+        }
+      }
+    `;
+  }}
+`;

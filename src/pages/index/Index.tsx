@@ -1,7 +1,7 @@
 import React from 'react';
 import { Store } from 'redux';
-import { Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { Grid } from '@material-ui/core';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
@@ -10,7 +10,7 @@ import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { StudioListMap } from '../../features/studios/components/StudioListMap';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
-import { ContentGrid } from './Index.styles';
+import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studios/components/StudioList';
 
 const _Index = () => {
@@ -18,21 +18,10 @@ const _Index = () => {
 
   return (
     <ContentGrid container>
-      <Grid item xs={12} md={12} lg={isMapVisible ? 6 : 12}>
+      <StudioListGrid item xs={12} md={12} lg={6} isMapVisible={isMapVisible}>
         <StudioList listItemVariant={isMapVisible ? 'wide' : 'short'} />
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={6}
-        style={
-          isMapVisible
-            ? {}
-            : {
-                display: 'none',
-              }
-        }
-      >
+      </StudioListGrid>
+      <Grid item xs={12} lg={6}>
         <StudioListMap />
       </Grid>
     </ContentGrid>
