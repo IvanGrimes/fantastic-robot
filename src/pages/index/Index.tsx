@@ -2,16 +2,28 @@ import React from 'react';
 import { Store } from 'redux';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
+import dynamic from 'next/dynamic';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
 } from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { StudioListMap } from '../../features/studios/components/StudioListMap';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
-import { StudioList } from '../../features/studios/components/StudioList';
+import { StudioListProps } from '../../features/studios/components/StudioList';
+
+const StudioListMap = dynamic<{}>(() =>
+  import('../../features/studios/components/StudioListMap').then(
+    module => module.StudioListMap
+  )
+);
+
+const StudioList = dynamic<StudioListProps>(() =>
+  import('../../features/studios/components/StudioList').then(
+    module => module.StudioList
+  )
+);
 
 const _Index = () => {
   const isMapVisible = useSelector(getIsMapVisible);

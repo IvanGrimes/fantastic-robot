@@ -43,7 +43,6 @@ module.exports = withOffline(
         withOptimizedImages({
           target: 'serverless',
           analyzeBrowser: Boolean(process.env.BUNDLE_ANALYZE),
-          exportTrailingSlash: false,
           bundleAnalyzerConfig: {
             browser: {
               analyzerMode: 'static',
