@@ -1,18 +1,10 @@
 import React, { memo, useCallback } from 'react';
-import { AppBar, Grid, Switch, Typography, Button } from '@material-ui/core';
+import { AppBar, Grid, Typography, Button } from '@material-ui/core';
 import dequal from 'dequal';
 import { Map as MapIcon } from '@material-ui/icons';
-import debounce from 'lodash/debounce';
-import {
-  Toolbar,
-  Wrapper,
-  MenuGrid,
-  MapSwitchGrid,
-  HideableTypography,
-} from './Header.styles';
+import { Toolbar, Wrapper, MenuGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
-import { StudioListFilter } from '../../../studios/components/StudioListFilter';
 import { Container } from '../../../../components/Container';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
 import { Hidden } from '../../../../components/Hidden';
@@ -42,9 +34,7 @@ const menuData = [
 ];
 
 type Props = {
-  isMapVisible: boolean;
   isHeaderVisible: boolean;
-  handleSetMapVisibility: (visibility: boolean) => void;
   handleSetHeaderVisibility: (visibility: boolean) => void;
   handleSetFullscreenMap: (visibility: boolean) => void;
   searchValue: string;
@@ -52,8 +42,6 @@ type Props = {
 };
 
 const _Header = ({
-  isMapVisible,
-  handleSetMapVisibility,
   isHeaderVisible,
   handleSetHeaderVisibility,
   handleSetFullscreenMap,
@@ -64,13 +52,6 @@ const _Header = ({
   const handleSetFullscreenMapOn = useCallback(
     () => handleSetFullscreenMap(true),
     [handleSetFullscreenMap]
-  );
-  const handleToggleMapVisibility = useCallback(
-    debounce(() => {
-      handleSetMapVisibility(!isMapVisible);
-      handleSetFullscreenMap(false);
-    }, 250),
-    [handleSetFullscreenMap, handleSetMapVisibility, isMapVisible]
   );
 
   return (
@@ -147,33 +128,7 @@ const _Header = ({
           </AppBar>
         </Grid>
         <Grid container>
-          <HeaderBar>
-            <Grid container alignItems="center" justify="space-between">
-              <Grid item>
-                <StudioListFilter />
-              </Grid>
-              <MapSwitchGrid
-                container
-                item
-                xs={5}
-                alignItems="center"
-                justify="flex-end"
-              >
-                <HideableTypography variant="caption" isVisible={isMapVisible}>
-                  Скрыть карту
-                </HideableTypography>
-                <Switch
-                  color="default"
-                  onClick={handleToggleMapVisibility}
-                  checked={isMapVisible}
-                  disableRipple
-                />
-                <HideableTypography variant="caption" isVisible={!isMapVisible}>
-                  Показать карту
-                </HideableTypography>
-              </MapSwitchGrid>
-            </Grid>
-          </HeaderBar>
+          <HeaderBar />
         </Grid>
       </Grid>
     </Wrapper>

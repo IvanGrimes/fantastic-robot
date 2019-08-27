@@ -1,9 +1,8 @@
-import { Grid, Toolbar as DefaultToolbar, Typography } from '@material-ui/core';
+import { Grid, Toolbar as DefaultToolbar } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 import { ComponentType } from 'react';
 import { ToolbarProps } from '@material-ui/core/Toolbar';
 import { GridProps } from '@material-ui/core/Grid';
-import { TypographyProps } from '@material-ui/core/Typography';
 import { getBreakpoints } from '../../../../theme';
 
 export const Wrapper = styled.div<{ isHeaderVisible: boolean }>`
@@ -38,27 +37,4 @@ export const MenuGrid = styled<ComponentType<GridProps>>(Grid)`
       }
     `;
   }}
-`;
-
-export const MapSwitchGrid = styled<ComponentType<GridProps>>(Grid)`
-  ${props => {
-    const { down } = getBreakpoints(props);
-
-    return css`
-      && {
-        ${down('sm')} {
-          display: none;
-        }
-      }
-    `;
-  }}
-`;
-
-export const HideableTypography = styled<ComponentType<TypographyProps>>(
-  Typography
-)<{ isVisible: boolean }>`
-  ${({ isVisible }) => css`
-    opacity: ${isVisible ? 1 : 0};
-    transition: opacity 150ms linear;
-  `}
 `;

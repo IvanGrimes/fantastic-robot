@@ -1,7 +1,1 @@
-import { ReactNode, ReactNodeArray } from 'react';
-
-export type HeaderBarProps = {
-  children: ReactNode | ReactNodeArray;
-};
-
-export * from './HeaderBar';
+export { HeaderBarContainer as HeaderBar } from './HeaderBarContainer';
