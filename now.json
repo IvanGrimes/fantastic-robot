@@ -33,11 +33,6 @@
     {
       "src": "^/sitemap.xml$",
       "dest": "/lambdas/sitemap.ts"
-    },
-    {
-      "src": "/(((?!\\?|#|\\.|_next).)*((?!\\?|/|#|\\.).))",
-      "status": 301,
-      "headers": { "Location": "/$1/" }
     }
   ]
 }
