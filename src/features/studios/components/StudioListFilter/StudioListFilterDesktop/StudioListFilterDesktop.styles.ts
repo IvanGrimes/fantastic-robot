@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
-import { animated } from 'react-spring';
 import { transparentize } from 'polished';
 
-export const Overlay = styled(animated.div)<{ isVisible: boolean }>`
+export const Overlay = styled.div<{ isVisible: boolean }>`
   ${({ isVisible }) => css`
     position: fixed;
     top: 0;
