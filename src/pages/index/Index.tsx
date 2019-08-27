@@ -11,17 +11,11 @@ import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
-import { StudioListProps } from '../../features/studios/components/StudioList';
+import { StudioList } from '../../features/studios/components/StudioList';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studios/components/StudioListMap').then(
     module => module.StudioListMap
-  )
-);
-
-const StudioList = dynamic<StudioListProps>(() =>
-  import('../../features/studios/components/StudioList').then(
-    module => module.StudioList
   )
 );
 

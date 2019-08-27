@@ -10,6 +10,7 @@ import {
   getIsHeaderVisible,
 } from '../../../ui/model/selectors';
 import { getBreakpoints } from '../../../../theme';
+import { usePrevious } from '../../../../hooks/usePrevious';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -27,6 +28,7 @@ const _StudioListMapContainer = ({
   handleSetFullscreenMap,
   isHeaderVisible,
 }: Props) => {
+  const prevIsFullscreenMap = usePrevious(isFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const theme = useTheme();
   const breakpoints = getBreakpoints({ theme });
@@ -63,7 +65,7 @@ const _StudioListMapContainer = ({
   }, [body, breakpoints.values.lg, html, isFullscreenMap]);
 
   useEffect(() => {
-    if (!isFullscreenMap) {
+    if (prevIsFullscreenMap && !isFullscreenMap) {
       if (window.innerWidth < breakpoints.values.lg) {
         window.scrollTo({ top: prevScrollY });
       }
@@ -73,7 +75,7 @@ const _StudioListMapContainer = ({
         body.style.overflow = 'visible';
       }
     }
-  }, [body, breakpoints.values.lg, html, isFullscreenMap, prevScrollY]);
+  }, [body, breakpoints.values.lg, html, isFullscreenMap, prevIsFullscreenMap, prevScrollY]);
 
   return (
     <StudioListMap
