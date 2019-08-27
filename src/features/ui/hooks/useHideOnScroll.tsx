@@ -18,10 +18,14 @@ export const useHideOnScroll = ({
         if (scrollY > 100) {
           const isVisible = prevScrollY > scrollY;
 
-          handleSetVisibility(isVisible);
+          window.requestAnimationFrame(() => {
+            handleSetVisibility(isVisible);
+          });
           setPrevScrollY(scrollY);
         } else {
-          handleSetVisibility(true);
+          window.requestAnimationFrame(() => {
+            handleSetVisibility(true);
+          });
           setPrevScrollY(0);
         }
       }

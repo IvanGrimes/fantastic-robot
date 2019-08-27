@@ -33,11 +33,13 @@ const _StudioListMap = ({
   const outerWrapperRef = useRef<HTMLDivElement | null>(null);
   const handleSetFullscreen = useCallback(
     (value: boolean) => () => {
-      if (value) {
-        handleFullscreenMapOn();
-      } else {
-        handleFullscreenMapOff();
-      }
+      window.requestAnimationFrame(() => {
+        if (value) {
+          handleFullscreenMapOn();
+        } else {
+          handleFullscreenMapOff();
+        }
+      });
     },
     [handleFullscreenMapOn, handleFullscreenMapOff]
   );

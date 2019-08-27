@@ -54,7 +54,9 @@ const _StudioListMapContainer = ({
     if (isFullscreenMap) {
       if (window.innerWidth < breakpoints.values.lg) {
         setPrevScrollY(window.pageYOffset);
-        window.scrollTo({ top: 0 });
+        window.requestAnimationFrame(() => {
+          window.scrollTo({ top: 0 });
+        });
       }
 
       if (body && html) {
@@ -75,7 +77,14 @@ const _StudioListMapContainer = ({
         body.style.overflow = 'visible';
       }
     }
-  }, [body, breakpoints.values.lg, html, isFullscreenMap, prevIsFullscreenMap, prevScrollY]);
+  }, [
+    body,
+    breakpoints.values.lg,
+    html,
+    isFullscreenMap,
+    prevIsFullscreenMap,
+    prevScrollY,
+  ]);
 
   return (
     <StudioListMap

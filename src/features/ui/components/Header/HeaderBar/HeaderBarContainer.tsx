@@ -25,8 +25,12 @@ const _HeaderBarContainer = ({
 }: Props) => {
   const handleToggleMapVisibility = useCallback(
     debounce(() => {
-      handleSetMapVisibility(!isMapVisible);
-      handleSetFullscreenMap(false);
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          handleSetMapVisibility(!isMapVisible);
+          handleSetFullscreenMap(false);
+        });
+      });
     }, 250),
     [handleSetMapVisibility, isMapVisible]
   );
