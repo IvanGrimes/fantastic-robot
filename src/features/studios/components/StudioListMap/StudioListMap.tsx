@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import dequal from 'dequal';
 import GoogleMapReact from 'google-map-react';
 import { Close as CloseIcon } from '@material-ui/icons';
@@ -8,6 +8,7 @@ import {
   InnerWrapper,
   CloseButton,
 } from './StudioListMap.styles';
+import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
 
 type MapMarkerProps = {
   lat: number;
@@ -31,18 +32,8 @@ const _StudioListMap = ({
   isHeaderVisible,
 }: Props) => {
   const outerWrapperRef = useRef<HTMLDivElement | null>(null);
-  const handleSetFullscreen = useCallback(
-    (value: boolean) => () => {
-      window.requestAnimationFrame(() => {
-        if (value) {
-          handleFullscreenMapOn();
-        } else {
-          handleFullscreenMapOff();
-        }
-      });
-    },
-    [handleFullscreenMapOn, handleFullscreenMapOff]
-  );
+  const fullscreenMapOn = useRequestAnimationFrame(handleFullscreenMapOn);
+  const fullscreenMapOff = useRequestAnimationFrame(handleFullscreenMapOff);
 
   if (!process.env.MAPS_API_TOKEN) {
     return null;
@@ -54,7 +45,7 @@ const _StudioListMap = ({
         <CloseButton
           variant="contained"
           color="secondary"
-          onClick={handleSetFullscreen(false)}
+          onClick={fullscreenMapOff}
         >
           <CloseIcon />
         </CloseButton>
@@ -75,7 +66,7 @@ const _StudioListMap = ({
               fullscreenControl: false,
               zoomControl: false,
             }}
-            onClick={isFullscreenMap ? undefined : handleSetFullscreen(true)}
+            onClick={isFullscreenMap ? undefined : fullscreenMapOn}
           >
             <MapMarker lat={59.955413} lng={30.337844} text="My Marker" />
           </GoogleMapReact>

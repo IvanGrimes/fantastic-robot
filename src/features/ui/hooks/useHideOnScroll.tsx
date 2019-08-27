@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
 import { getIsFullscreenMap } from '../model/selectors';
+import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 
 export const useHideOnScroll = ({
   handleSetVisibility,
@@ -10,6 +11,7 @@ export const useHideOnScroll = ({
 }) => {
   const isFullscreenMap = useSelector(getIsFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
+  const setVisibility = useRequestAnimationFrame(handleSetVisibility);
   const handleScroll = useCallback(
     throttle(() => {
       const scrollY = window.pageYOffset;
@@ -18,14 +20,10 @@ export const useHideOnScroll = ({
         if (scrollY > 100) {
           const isVisible = prevScrollY > scrollY;
 
-          window.requestAnimationFrame(() => {
-            handleSetVisibility(isVisible);
-          });
+          setVisibility(isVisible);
           setPrevScrollY(scrollY);
         } else {
-          window.requestAnimationFrame(() => {
-            handleSetVisibility(true);
-          });
+          setVisibility(true);
           setPrevScrollY(0);
         }
       }

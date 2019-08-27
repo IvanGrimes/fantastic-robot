@@ -6,6 +6,7 @@ import { HeaderBar } from './HeaderBar';
 import { RootState } from '../../../../../model/types';
 import { getIsMapVisible } from '../../../model/selectors';
 import { setFullscreenMap, setMapVisibility } from '../../../model/actions';
+import { useRequestAnimationFrame } from '../../../../../hooks/useRequestAnimationFrame';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -25,20 +26,19 @@ const _HeaderBarContainer = ({
 }: Props) => {
   const handleToggleMapVisibility = useCallback(
     debounce(() => {
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          handleSetMapVisibility(!isMapVisible);
-          handleSetFullscreenMap(false);
-        });
-      });
+      handleSetMapVisibility(!isMapVisible);
+      handleSetFullscreenMap(false);
     }, 250),
     [handleSetMapVisibility, isMapVisible]
+  );
+  const toggleMapVisibility = useRequestAnimationFrame(
+    handleToggleMapVisibility
   );
 
   return (
     <HeaderBar
       isMapVisible={isMapVisible}
-      handleToggleMapVisibility={handleToggleMapVisibility}
+      handleToggleMapVisibility={toggleMapVisibility}
     />
   );
 };

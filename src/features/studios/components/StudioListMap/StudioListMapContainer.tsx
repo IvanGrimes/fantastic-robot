@@ -11,6 +11,7 @@ import {
 } from '../../../ui/model/selectors';
 import { getBreakpoints } from '../../../../theme';
 import { usePrevious } from '../../../../hooks/usePrevious';
+import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -49,14 +50,15 @@ const _StudioListMapContainer = ({
     () => handleSetFullscreenMap(false),
     [handleSetFullscreenMap]
   );
+  const scrollToTop = useRequestAnimationFrame(() =>
+    window.scrollTo({ top: 0 })
+  );
 
   useEffect(() => {
     if (isFullscreenMap) {
       if (window.innerWidth < breakpoints.values.lg) {
         setPrevScrollY(window.pageYOffset);
-        window.requestAnimationFrame(() => {
-          window.scrollTo({ top: 0 });
-        });
+        scrollToTop();
       }
 
       if (body && html) {
@@ -64,7 +66,7 @@ const _StudioListMapContainer = ({
         body.style.overflow = 'hidden';
       }
     }
-  }, [body, breakpoints.values.lg, html, isFullscreenMap]);
+  }, [body, breakpoints.values.lg, html, isFullscreenMap, scrollToTop]);
 
   useEffect(() => {
     if (prevIsFullscreenMap && !isFullscreenMap) {
