@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
-import { AppBar, Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
 import dequal from 'dequal';
 import { Map as MapIcon } from '@material-ui/icons';
-import { Toolbar, Wrapper, MenuGrid } from './Header.styles';
+import { Toolbar, Wrapper, AppBar, MenuGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
 import { Container } from '../../../../components/Container';

@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@material-ui/core';
 import { getIsFullscreenMap } from '../model/selectors';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
+import { getBreakpoints } from '../../../theme';
 
 export const useHideOnScroll = ({
   handleSetVisibility,
 }: {
   handleSetVisibility: (visibility: boolean) => void;
 }) => {
+  const theme = useTheme();
+  const breakpoints = getBreakpoints({ theme });
   const isFullscreenMap = useSelector(getIsFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const setVisibility = useRequestAnimationFrame(handleSetVisibility);
@@ -16,7 +20,7 @@ export const useHideOnScroll = ({
     throttle(() => {
       const scrollY = window.pageYOffset;
 
-      if (!isFullscreenMap) {
+      if (!isFullscreenMap && window.innerWidth < breakpoints.values.md) {
         if (scrollY > 100) {
           const isVisible = prevScrollY > scrollY;
 
@@ -28,7 +32,7 @@ export const useHideOnScroll = ({
         }
       }
     }, 60),
-    [handleSetVisibility, prevScrollY, isFullscreenMap]
+    [handleSetVisibility, prevScrollY, isFullscreenMap, breakpoints.values.md]
   );
 
   useEffect(() => {

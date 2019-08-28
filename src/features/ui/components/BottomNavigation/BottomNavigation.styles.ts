@@ -1,23 +1,60 @@
 import styled, { css } from 'styled-components';
 import { ComponentType } from 'react';
-import { ContainerProps } from '@material-ui/core/Container';
-import { Container } from '@material-ui/core';
+import {
+  BottomNavigation as DefaultBottomNavigation,
+  BottomNavigationAction as DefaultBottomNavigationAction,
+} from '@material-ui/core';
+import { BottomNavigationProps } from '@material-ui/core/BottomNavigation';
+import { BottomNavigationActionProps } from '@material-ui/core/BottomNavigationAction';
+import { transparentize } from 'polished';
+import { getShadows } from '../../../../theme/shadows';
+import { getBreakpoints, getPrimaryPalette } from '../../../../theme';
 
-export const Wrapper = styled<ComponentType<ContainerProps>>(Container)<{
+export const BottomNavigation = styled<ComponentType<BottomNavigationProps>>(
+  DefaultBottomNavigation
+)<{
   isVisible: boolean;
 }>`
-  ${({ isVisible }) => css`
-    && {
-      position: fixed;
-      max-width: 100%;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      background-color: grey;
-      z-index: 6;
-      transform: translate(${isVisible ? '0, 0px' : '0, 100px'});
-      transition: transform 300ms ${isVisible ? 'ease-in' : 'ease-out'};
-    }
-  `}
+  ${({ isVisible, ...props }) => {
+    const { down } = getBreakpoints(props);
+    const shadows = getShadows(props);
+
+    return css`
+      && {
+        display: none;
+        position: fixed;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        max-width: 100%;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 6;
+        will-change: transform;
+        transform: translate(${isVisible ? '0, 0px' : '0, 100px'});
+        transition: transform 300ms ${isVisible ? 'ease-in' : 'ease-out'};
+        box-shadow: ${shadows[2]};
+        ${down('sm')} {
+          display: flex;
+        }
+      }
+    `;
+  }}}
+`;
+
+export const BottomNavigationAction = styled<
+  ComponentType<BottomNavigationActionProps>
+>(DefaultBottomNavigationAction)<{ isActive: boolean }>`
+  ${({ isActive, ...props }) => {
+    const { main } = getPrimaryPalette(props);
+
+    return (
+      isActive &&
+      css`
+        && {
+          color: ${transparentize(0.15, main)};
+        }
+      `
+    );
+  }}
 `;
