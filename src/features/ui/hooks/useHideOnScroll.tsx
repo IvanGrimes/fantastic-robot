@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/core';
+import throttle from 'lodash/throttle';
 import { getIsFullscreenMap } from '../model/selectors';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { getBreakpoints } from '../../../theme';
+import { usePrevious } from '../../../hooks/usePrevious';
 
 export const useHideOnScroll = ({
   handleSetVisibility,
@@ -14,25 +15,40 @@ export const useHideOnScroll = ({
   const theme = useTheme();
   const breakpoints = getBreakpoints({ theme });
   const isFullscreenMap = useSelector(getIsFullscreenMap);
+  const prevIsFullscreenMap = usePrevious(isFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
-  const setVisibility = useRequestAnimationFrame(handleSetVisibility);
+  const handleSetVisibilityAndPrevScroll = useCallback(
+    (visibility, scrollY) => {
+      handleSetVisibility(visibility);
+      setPrevScrollY(scrollY);
+    },
+    [handleSetVisibility]
+  );
+  const setVisibilityAndPrevScroll = useRequestAnimationFrame(
+    handleSetVisibilityAndPrevScroll
+  );
   const handleScroll = useCallback(
     throttle(() => {
       const scrollY = window.pageYOffset;
 
-      if (!isFullscreenMap && window.innerWidth < breakpoints.values.md) {
+      if (window.innerWidth < breakpoints.values.md) {
         if (scrollY > 100) {
           const isVisible = prevScrollY > scrollY;
 
-          setVisibility(isVisible);
+          setVisibilityAndPrevScroll(prevIsFullscreenMap || isVisible, scrollY);
           setPrevScrollY(scrollY);
         } else {
-          setVisibility(true);
-          setPrevScrollY(0);
+          setVisibilityAndPrevScroll(!isFullscreenMap, 0);
         }
       }
-    }, 60),
-    [handleSetVisibility, prevScrollY, isFullscreenMap, breakpoints.values.md]
+    }, 0),
+    [
+      breakpoints.values.md,
+      prevScrollY,
+      setVisibilityAndPrevScroll,
+      prevIsFullscreenMap,
+      isFullscreenMap,
+    ]
   );
 
   useEffect(() => {
