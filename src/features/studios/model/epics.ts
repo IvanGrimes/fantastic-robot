@@ -62,7 +62,7 @@ const setFiltersFlow: Epic<
 
       return fetchStudiosAsync.request({
         ...filters,
-        priceSegment: filters.priceSegments,
+        priceSegments: filters.priceSegments,
         listUpdateType: hasAppliedFilters ? 'merge' : 'replace',
         isFiltering: true,
       });

@@ -21,7 +21,7 @@ const _StudioListItem = ({
   name,
   types,
   roomsCount,
-  priceSegment,
+  priceSegments,
   stations,
   photos,
   favorite,
@@ -34,7 +34,7 @@ const _StudioListItem = ({
     !photos ||
     !name ||
     !description ||
-    !priceSegment ||
+    !priceSegments ||
     !types ||
     !stations ||
     !roomsCount ||
@@ -83,7 +83,7 @@ const _StudioListItem = ({
               <StudioListItemStations stations={stations} />
             </Grid>
             <Grid item>
-              <StudioListItemPriceSegment priceSegment={priceSegment} />
+              <StudioListItemPriceSegment priceSegment={priceSegments} />
             </Grid>
           </CardBottomGrid>
         </Grid>

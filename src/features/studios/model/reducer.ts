@@ -153,7 +153,7 @@ export const studiosReducer = createReducer(initialState)
           ),
           priceSegments: getFilterObjectValue(
             state.filters.applied.priceSegments,
-            payload.priceSegment
+            payload.priceSegments
           ),
         },
       },

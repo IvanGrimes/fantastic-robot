@@ -41,7 +41,7 @@ export type FetchStudiosInput = {
   page?: number;
   name?: string;
   typeIds?: string[];
-  priceSegment?: PriceSegment[];
+  priceSegments?: PriceSegment[];
   roomsCount?: {
     from?: number;
     to?: number;
@@ -82,7 +82,7 @@ export const fetchFilters = () =>
 const getFilteredStudio = ({
   name,
   typeIds = [],
-  priceSegment = [],
+  priceSegments = [],
   stationIds = [],
 }: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
   {
@@ -96,7 +96,7 @@ const getFilteredStudio = ({
     stations: stationIds.length
       ? stations.filter(({ id }) => stationIds.includes(id))
       : stations,
-    priceSegment: priceSegment[0] || 2,
+    priceSegments: priceSegments[0] || 2,
     description:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
     photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
@@ -107,7 +107,7 @@ export const mockStudios = ({
   page = 1,
   stationIds = [],
   roomsCount = {},
-  priceSegment = [],
+  priceSegments = [],
   name = '',
   favorite,
   typeIds = [],
@@ -118,7 +118,7 @@ export const mockStudios = ({
     stationIds.length ||
     roomsCount.from ||
     roomsCount.to ||
-    priceSegment.length ||
+    priceSegments.length ||
     name ||
     typeIds.length ||
     typeof favorite !== 'undefined'
@@ -128,7 +128,7 @@ export const mockStudios = ({
         name,
         typeIds,
         roomsCount,
-        priceSegment,
+        priceSegments,
         stationIds,
         favorite,
       }),
@@ -141,7 +141,7 @@ export const mockStudios = ({
       id: i.toString(),
       name: `Test studio #${i}`,
       photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
-      priceSegment: (Math.floor(Math.random() * 3) + 1) as 1 | 2 | 3,
+      priceSegments: (Math.floor(Math.random() * 3) + 1) as 1 | 2 | 3,
       roomsCount: Math.floor(Math.random() * 10) + 1,
       description:
         'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
@@ -166,8 +166,9 @@ export const mockStudios = ({
   return { studios, hasNext: true };
 };
 
-export const fetchStudios = (input: FetchStudiosInput) =>
-  from(
+export const fetchStudios = (input: FetchStudiosInput) => {
+  console.log(input);
+  return from(
     new Promise<ReturnType<typeof mockStudios>>(resolve => {
       setTimeout(
         () => {
@@ -177,6 +178,7 @@ export const fetchStudios = (input: FetchStudiosInput) =>
       );
     })
   );
+};
 
 export const toggleFavorite = (id: string) =>
   from(

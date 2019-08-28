@@ -20,7 +20,7 @@ export type PriceSegment = 1 | 2 | 3;
 export type ShortStudio = {
   id: string;
   name: string;
-  priceSegment: PriceSegment;
+  priceSegments: PriceSegment;
   stations: Station[];
   types: StudioType[];
   roomsCount: number;

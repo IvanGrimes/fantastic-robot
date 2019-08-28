@@ -6,18 +6,47 @@ import dynamic from 'next/dynamic';
 import {
   fetchFiltersAsync,
   fetchStudiosAsync,
+  setFilters,
 } from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studios/components/StudioList';
+import { parseFilters } from '../../features/studios/components/StudioListFilter/StudioListFilterContainer';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studios/components/StudioListMap').then(
     module => module.StudioListMap
   )
 );
+
+type IndexGetInitialProps = (ctx: {
+  page?: number;
+  store: Store<RootState>;
+  query: { [key: string]: string };
+  isServer: boolean;
+  asPath: string;
+}) => Promise<{}>;
+
+export const getInitialProps: IndexGetInitialProps = async ({
+  asPath,
+  page = 1,
+  store,
+}) => {
+  const appliedFilters = parseFilters(asPath);
+  const hasFilters = Object.values(appliedFilters).length;
+
+  if (hasFilters) {
+    store.dispatch(setFilters(appliedFilters));
+  }
+
+  await serverEpic(store, fetchStudiosAsync.request({ page }));
+
+  await serverEpic(store, fetchFiltersAsync.request());
+
+  return {};
+};
 
 const _Index = () => {
   const isMapVisible = useSelector(getIsMapVisible);
@@ -34,18 +63,6 @@ const _Index = () => {
   );
 };
 
-_Index.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState>;
-  query: { [key: string]: string };
-  isServer: boolean;
-}) => {
-  await serverEpic(store, fetchStudiosAsync.request({ page: 1 }));
-
-  await serverEpic(store, fetchFiltersAsync.request());
-
-  return {};
-};
+_Index.getInitialProps = getInitialProps;
 
 export const Index = _Index;

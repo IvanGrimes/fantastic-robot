@@ -1,12 +1,9 @@
-import { Index } from '../../../src/pages/index';
-import { serverEpic } from '../../../src/lib/serverEpic';
-import {
-  fetchFiltersAsync,
-  fetchStudiosAsync,
-} from '../../../src/features/studios/model/actions';
+import { Index, getInitialProps } from '../../../src/pages/index';
 import { SSRError } from '../../../src/lib/SSRError';
 
-Index.getInitialProps = async ({ store, query, isServer }) => {
+Index.getInitialProps = async ctx => {
+  const { query, isServer } = ctx;
+
   if (!query.number) {
     return {};
   }
@@ -20,15 +17,10 @@ Index.getInitialProps = async ({ store, query, isServer }) => {
           `Parameter number should be a type of "number", but got: ${typeof number}`
         );
       }
-      await serverEpic(store, fetchStudiosAsync.request({ page: number }));
 
-      await serverEpic(store, fetchFiltersAsync.request());
+      await getInitialProps({ ...ctx, page: number });
     } catch (e) {
       throw new SSRError({ statusCode: 404 });
-
-      return {
-        statusCode: 404,
-      };
     }
   }
 

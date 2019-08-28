@@ -26,11 +26,11 @@ export const setFilters = createAction(
   action => ({
     roomsCount,
     typeIds,
-    priceSegment,
+    priceSegments,
     stationIds,
     ...rest
   }: Omit<Omit<FetchStudiosInput, 'page'>, 'favorite'>) =>
-    action({ roomsCount, typeIds, priceSegment, stationIds, ...rest })
+    action({ roomsCount, typeIds, priceSegments, stationIds, ...rest })
 );
 
 export const fetchFiltersAsync = createAsyncAction(

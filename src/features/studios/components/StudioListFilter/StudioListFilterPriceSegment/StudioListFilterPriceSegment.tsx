@@ -43,7 +43,7 @@ const _StudioListFilterPriceSegment = ({
   const onChange = useCallback(
     (segments: PriceSegment[]) => () =>
       handleChange({
-        priceSegment: segments,
+        priceSegments: segments,
       }),
     [handleChange]
   );
