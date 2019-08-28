@@ -1,5 +1,26 @@
 import { useRef, useCallback, useEffect } from 'react';
 
+type RequestIdleCallbackHandle = any;
+
+type RequestIdleCallbackOptions = {
+  timeout: number;
+};
+
+type RequestIdleCallbackDeadline = {
+  readonly didTimeout: boolean;
+  timeRemaining: () => number;
+};
+
+declare global {
+  interface Window {
+    requestIdleCallback: (
+      callback: (deadline: RequestIdleCallbackDeadline) => void,
+      opts?: RequestIdleCallbackOptions
+    ) => RequestIdleCallbackHandle;
+    cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
+  }
+}
+
 const isBrowser = typeof window !== 'undefined';
 
 export const useRequestIdleCallback = (
@@ -9,8 +30,7 @@ export const useRequestIdleCallback = (
   const flush = useCallback(
     () =>
       requestId.current && isBrowser
-        ? // @ts-ignore
-          window.cancelIdleCallback(requestId.current)
+        ? window.cancelIdleCallback(requestId.current)
         : undefined,
     []
   );
@@ -19,7 +39,6 @@ export const useRequestIdleCallback = (
       if (isBrowser) {
         flush();
 
-        // @ts-ignore
         requestId.current = window.requestIdleCallback(() => callback(...args));
       }
     },
