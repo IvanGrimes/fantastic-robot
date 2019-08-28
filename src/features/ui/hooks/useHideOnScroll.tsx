@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/core';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import { getIsFullscreenMap } from '../model/selectors';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { getBreakpoints } from '../../../theme';
@@ -28,7 +28,7 @@ export const useHideOnScroll = ({
     handleSetVisibilityAndPrevScroll
   );
   const handleScroll = useCallback(
-    throttle(() => {
+    debounce(() => {
       const scrollY = window.pageYOffset;
 
       if (window.innerWidth < breakpoints.values.md) {
@@ -41,7 +41,7 @@ export const useHideOnScroll = ({
           setVisibilityAndPrevScroll(!isFullscreenMap, 0);
         }
       }
-    }, 0),
+    }, 100),
     [
       breakpoints.values.md,
       prevScrollY,
