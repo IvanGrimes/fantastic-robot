@@ -7,5 +7,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
+  display: flex;
   min-height: 100vh;
 `;
