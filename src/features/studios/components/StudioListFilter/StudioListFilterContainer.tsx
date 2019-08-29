@@ -51,7 +51,7 @@ export const parseFilters = (asPath: string) => {
   return filters ? JSON.parse(filters) : {};
 };
 
-const getAsPathWithFilters = (
+export const getAsPathWithFilters = (
   asPath: string,
   appliedFilters: Props['appliedFilters']
 ) => {
