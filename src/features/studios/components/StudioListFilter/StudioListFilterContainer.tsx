@@ -61,8 +61,11 @@ export const getAsPathWithFilters = (
     prevFilters,
     getNonEmptyValues(appliedFilters)
   );
+  const hasFilters = Object.values(getNonEmptyValues(appliedFilters)).length;
 
-  return `${absAsPath}?filters=${JSON.stringify(nextFilters)}`;
+  return hasFilters
+    ? `${absAsPath}?filters=${JSON.stringify(nextFilters)}`
+    : absAsPath;
 };
 
 const _StudioListFilterContainer = ({
