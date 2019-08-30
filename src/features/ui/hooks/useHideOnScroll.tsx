@@ -56,4 +56,12 @@ export const useHideOnScroll = ({
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  useEffect(() => {
+    if (isFullscreenMap) {
+      handleSetVisibility(false);
+    } else {
+      handleSetVisibility(true);
+    }
+  }, [handleSetVisibility, isFullscreenMap]);
 };
