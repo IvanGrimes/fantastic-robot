@@ -6,14 +6,9 @@ import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
 type Props = {
   list: ShortStudio[];
   previewId: string | null;
-  handleToggleStudioMapPreview: (id: string) => () => void;
 };
 
-const _StudioMapPreviewList = ({
-  list,
-  previewId,
-  handleToggleStudioMapPreview,
-}: Props) => {
+const _StudioMapPreviewList = ({ list, previewId }: Props) => {
   return (
     <Fragment>
       {list.map(({ id, ...item }) => {
@@ -24,9 +19,6 @@ const _StudioMapPreviewList = ({
             key={id}
             item={{ id, ...item }}
             isActive={isActive}
-            handleClose={
-              isActive ? handleToggleStudioMapPreview(id) : undefined
-            }
           />
         );
       })}

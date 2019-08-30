@@ -139,6 +139,8 @@ export const mockStudios = ({
   }
 
   for (let i = (page - 1) * 6; i < page * 6; i += 1) {
+    // @ts-ignore
+    // @ts-ignore
     studios.push({
       id: i.toString(),
       name: `Test studio #${i}`,
@@ -162,8 +164,10 @@ export const mockStudios = ({
             ]
           : [types[Math.floor(Math.random() * 3)]],
       favorite: Boolean(i % 2),
-      lat: 59.955413,
-      lng: 30.337844,
+      // @ts-ignore
+      lat: parseFloat(`59.9${i + (Math.random() * 100).toFixed() * i}13`),
+      // @ts-ignore
+      lng: parseFloat(`30.${i + (Math.random() * 10).toFixed() * i * 4}3344`),
     });
   }
 

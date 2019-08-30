@@ -6,14 +6,10 @@ import { StudioListItem } from '../../../StudioList/StudioListItem';
 
 const _StudioMapPreviewListItem = ({
   isActive,
-  handleClose,
   item,
 }: StudioMapPreviewListItemProps) => {
   return (
     <Wrapper isVisible={isActive}>
-      <button type="button" onClick={handleClose}>
-        close
-      </button>
       <StudioListItem
         loading={false}
         handleToggleFavorite={() => {}}

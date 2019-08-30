@@ -4,8 +4,16 @@ import { connect } from 'react-redux';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPinListItemCommonProps } from './index';
 import { setStudioMapPreview } from '../../../model/actions';
+import { RootState } from '../../../../../model/types';
+import { getStudioMapPreview } from '../../../model/selectors';
 
-type Props = StudioMapPinListItemCommonProps & typeof dispatchProps;
+type Props = StudioMapPinListItemCommonProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof dispatchProps;
+
+const mapStateToProps = (state: RootState) => ({
+  previewId: getStudioMapPreview(state),
+});
 
 const dispatchProps = {
   handleSetStudioMapPreview: setStudioMapPreview,
@@ -16,6 +24,7 @@ const _StudioMapPinListItemContainer = ({
   handleSetStudioMapPreview,
   lat,
   lng,
+  previewId,
 }: Props) => {
   const handleTogglePreview = useCallback(() => handleSetStudioMapPreview(id), [
     handleSetStudioMapPreview,
@@ -28,11 +37,12 @@ const _StudioMapPinListItemContainer = ({
       lat={lat}
       lng={lng}
       handleTogglePreview={handleTogglePreview}
+      isActive={id === previewId}
     />
   );
 };
 
 export const StudioMapPinListItemContainer = connect(
-  null,
+  mapStateToProps,
   dispatchProps
 )(memo(_StudioMapPinListItemContainer, dequal));
