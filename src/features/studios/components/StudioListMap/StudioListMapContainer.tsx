@@ -11,12 +11,14 @@ import {
 } from '../../../ui/model/selectors';
 import { getBreakpoints } from '../../../../theme';
 import { usePrevious } from '../../../../hooks/usePrevious';
+import { getStudios } from '../../model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   isFullscreenMap: getIsFullscreenMap(state),
   isHeaderVisible: getIsHeaderVisible(state),
+  studios: getStudios(state).list,
 });
 
 const dispatchProps = {
@@ -27,6 +29,7 @@ const _StudioListMapContainer = ({
   isFullscreenMap,
   handleSetFullscreenMap,
   isHeaderVisible,
+  studios,
 }: Props) => {
   const prevIsFullscreenMap = usePrevious(isFullscreenMap);
   const [prevScrollY, setPrevScrollY] = useState(0);
@@ -90,6 +93,7 @@ const _StudioListMapContainer = ({
       handleFullscreenMapOn={handleFullscreenMapOn}
       handleFullscreenMapOff={handleFullscreenMapOff}
       isHeaderVisible={isHeaderVisible}
+      studios={studios}
     />
   );
 };

@@ -27,4 +27,6 @@ export type ShortStudio = {
   photos: Image[];
   description: string;
   favorite: boolean;
+  lat: number;
+  lng: number;
 };

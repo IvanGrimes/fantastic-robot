@@ -1,6 +1,7 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 import { FetchStudiosInput, mockStudios, Filters } from './api';
 import { StudiosState } from './reducer';
+import { ShortStudio } from './types';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@STUDIOS/FETCH_STUDIOS_REQUEST',
@@ -40,3 +41,8 @@ export const fetchFiltersAsync = createAsyncAction(
 )<undefined, Filters, any>();
 
 export const clearFilters = createAction('@@STUDIOS/CLEAR_FILTERS');
+
+export const setStudioMapPreview = createAction(
+  '@@STUDIOS/SET_STUDIO_MAP_PREVIEW',
+  action => (id: ShortStudio['id']) => action({ id })
+);

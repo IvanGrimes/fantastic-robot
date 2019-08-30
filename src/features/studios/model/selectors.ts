@@ -59,3 +59,13 @@ export const getIsStudiosFiltering = createDeepEqualSelector(
   [getStudios],
   state => state.isFiltering
 );
+
+export const getStudioMap = createDeepEqualSelector(
+  [getStudiosState],
+  state => state.map
+);
+
+export const getStudioMapPreview = createDeepEqualSelector(
+  [getStudioMap],
+  state => state.preview
+);

@@ -100,6 +100,8 @@ const getFilteredStudio = ({
     description:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
     photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
+    lat: 59.955413,
+    lng: 30.337844,
   },
 ];
 
@@ -160,6 +162,8 @@ export const mockStudios = ({
             ]
           : [types[Math.floor(Math.random() * 3)]],
       favorite: Boolean(i % 2),
+      lat: 59.955413,
+      lng: 30.337844,
     });
   }
 

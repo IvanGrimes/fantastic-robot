@@ -9,20 +9,15 @@ import {
   CloseButton,
 } from './StudioListMap.styles';
 import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
-
-type MapMarkerProps = {
-  lat: number;
-  lng: number;
-  text: string;
-};
-
-const MapMarker = ({ text }: MapMarkerProps) => <div>{text}</div>;
+import { StudioMapPinListItem } from './StudioMapPinListItem';
+import { ShortStudio } from '../../model/types';
 
 type Props = {
   isFullscreenMap: boolean;
   isHeaderVisible: boolean;
   handleFullscreenMapOn: () => void;
   handleFullscreenMapOff: () => void;
+  studios: ShortStudio[];
 };
 
 const _StudioListMap = ({
@@ -30,6 +25,7 @@ const _StudioListMap = ({
   handleFullscreenMapOn,
   handleFullscreenMapOff,
   isHeaderVisible,
+  studios,
 }: Props) => {
   const outerWrapperRef = useRef<HTMLDivElement | null>(null);
   const fullscreenMapOn = useRequestAnimationFrame(handleFullscreenMapOn);
@@ -68,7 +64,9 @@ const _StudioListMap = ({
             }}
             onClick={isFullscreenMap ? undefined : fullscreenMapOn}
           >
-            <MapMarker lat={59.955413} lng={30.337844} text="My Marker" />
+            {studios.map(({ id, lat, lng }) => (
+              <StudioMapPinListItem id={id} lat={lat} lng={lng} />
+            ))}
           </GoogleMapReact>
         </InnerWrapper>
       </OuterWrapper>

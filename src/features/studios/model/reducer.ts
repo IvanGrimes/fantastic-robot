@@ -4,10 +4,11 @@ import {
   fetchFiltersAsync,
   fetchStudiosAsync,
   setFilters,
+  setStudioMapPreview,
   toggleFavoriteAsync,
 } from './actions';
 import { PriceSegment, ShortStudio, Station, StudioType } from './types';
-
+// TODO: Split studios feature into studiosList, studiosMap, studiosFilter
 export type StudiosState = {
   studios: {
     list: ShortStudio[];
@@ -34,6 +35,9 @@ export type StudiosState = {
       loading?: boolean;
       error?: any;
     };
+  };
+  map: {
+    preview: ShortStudio['id'] | null;
   };
 };
 
@@ -68,6 +72,9 @@ const initialState: StudiosState = {
     },
   },
   favorite: {},
+  map: {
+    preview: null,
+  },
 };
 
 export const studiosReducer = createReducer(initialState)
@@ -171,5 +178,12 @@ export const studiosReducer = createReducer(initialState)
     filters: {
       ...state.filters,
       applied: state.filters.applied,
+    },
+  }))
+  .handleAction(setStudioMapPreview, (state, { payload }) => ({
+    ...state,
+    map: {
+      ...state.map,
+      preview: state.map.preview === payload.id ? null : payload.id,
     },
   }));
