@@ -11,6 +11,7 @@ import {
 import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { ShortStudio } from '../../model/types';
+import { StudioMapPreviewList } from './StudioMapPreviewList';
 
 type Props = {
   isFullscreenMap: boolean;
@@ -67,6 +68,7 @@ const _StudioListMap = ({
             {studios.map(({ id, lat, lng }) => (
               <StudioMapPinListItem id={id} lat={lat} lng={lng} />
             ))}
+            <StudioMapPreviewList />
           </GoogleMapReact>
         </InnerWrapper>
       </OuterWrapper>

@@ -9,8 +9,8 @@ type Props = StudioMapPinListItemCommonProps & {
 };
 
 const _StudioMapPinListItem = ({ lat, lng, handleTogglePreview }: Props) => {
-  // @ts-ignore
   return (
+    // @ts-ignore
     <IconButton lat={lat} lng={lng} onClick={handleTogglePreview}>
       <PersonPin />
     </IconButton>
