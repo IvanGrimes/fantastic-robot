@@ -6,6 +6,7 @@ import { StudioMapPinListItemCommonProps } from './index';
 import { setStudioMapPreview } from '../../../model/actions';
 import { RootState } from '../../../../../model/types';
 import { getStudioMapPreview } from '../../../model/selectors';
+import { setFullscreenMap } from '../../../../ui/model/actions';
 
 type Props = StudioMapPinListItemCommonProps &
   ReturnType<typeof mapStateToProps> &
@@ -17,19 +18,21 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   handleSetStudioMapPreview: setStudioMapPreview,
+  handleSetFullscreenMap: setFullscreenMap,
 };
 
 const _StudioMapPinListItemContainer = ({
   id,
   handleSetStudioMapPreview,
+  handleSetFullscreenMap,
   lat,
   lng,
   previewId,
 }: Props) => {
-  const handleTogglePreview = useCallback(() => handleSetStudioMapPreview(id), [
-    handleSetStudioMapPreview,
-    id,
-  ]);
+  const handleTogglePreview = useCallback(() => {
+    handleSetStudioMapPreview(id);
+    handleSetFullscreenMap(true);
+  }, [handleSetStudioMapPreview, handleSetFullscreenMap, id]);
 
   return (
     <StudioMapPinListItem

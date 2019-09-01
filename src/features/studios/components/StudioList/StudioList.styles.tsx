@@ -71,6 +71,7 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
         position: relative;
         z-index: 1;
         padding: 0 4px;
+        margin: -8px 0 0 0;
         ${isMapVisible &&
           css`
             ${down('md')} {

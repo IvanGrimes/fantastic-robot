@@ -1,7 +1,8 @@
-import React, { Fragment, memo } from 'react';
+import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { ShortStudio } from '../../../model/types';
 import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
+import { useRequestIdleCallback } from '../../../../../hooks/useRequestIdleCallback';
 
 type Props = {
   list: ShortStudio[];
@@ -9,7 +10,14 @@ type Props = {
 };
 
 const _StudioMapPreviewList = ({ list, previewId }: Props) => {
-  return (
+  const [render, setRender] = useState(false);
+  const handleRender = useRequestIdleCallback(() => setRender(true));
+
+  useEffect(() => {
+    handleRender();
+  }, [handleRender]);
+
+  return render ? (
     <Fragment>
       {list.map(({ id, ...item }) => {
         const isActive = previewId === id;
@@ -23,7 +31,7 @@ const _StudioMapPreviewList = ({ list, previewId }: Props) => {
         );
       })}
     </Fragment>
-  );
+  ) : null;
 };
 
 export const StudioMapPreviewList = memo(_StudioMapPreviewList, dequal);

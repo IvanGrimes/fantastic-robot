@@ -68,8 +68,8 @@ const _StudioListMap = ({
             {studios.map(({ id, lat, lng }) => (
               <StudioMapPinListItem id={id} lat={lat} lng={lng} />
             ))}
-            <StudioMapPreviewList />
           </GoogleMapReact>
+          <StudioMapPreviewList />
         </InnerWrapper>
       </OuterWrapper>
     </MapGrid>

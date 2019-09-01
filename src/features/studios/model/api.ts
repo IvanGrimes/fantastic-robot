@@ -175,7 +175,6 @@ export const mockStudios = ({
 };
 
 export const fetchStudios = (input: FetchStudiosInput) => {
-  console.log(input);
   return from(
     new Promise<ReturnType<typeof mockStudios>>(resolve => {
       setTimeout(

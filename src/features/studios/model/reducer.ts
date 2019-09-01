@@ -8,7 +8,7 @@ import {
   toggleFavoriteAsync,
 } from './actions';
 import { PriceSegment, ShortStudio, Station, StudioType } from './types';
-// TODO: Split studios feature into studiosList, studiosMap, studiosFilter
+
 export type StudiosState = {
   studios: {
     list: ShortStudio[];
