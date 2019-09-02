@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { CardProps } from '@material-ui/core/Card';
 import { CardContentProps } from '@material-ui/core/CardContent';
-import { getShadows } from '../../../../../theme/shadows';
+import { getShadows } from '../../../../theme/shadows';
 import {
   StudioListItemFavorite,
   StudioListItemFavoriteProps,

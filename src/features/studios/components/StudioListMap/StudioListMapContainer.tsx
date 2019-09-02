@@ -11,7 +11,7 @@ import {
 } from '../../../ui/model/selectors';
 import { getBreakpoints } from '../../../../theme';
 import { usePrevious } from '../../../../hooks/usePrevious';
-import { getStudios } from '../../model/selectors';
+import { getStudios } from '../../../studioList/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 

@@ -2,10 +2,10 @@ import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
 import { GridProps } from '@material-ui/core/Grid';
-import { getAppliedFilters } from '../../../../model/selectors';
-import { RootState } from '../../../../../../model/types';
-import { setFilters } from '../../../../model/actions';
-import { ChipList, ChipListProps } from '../../../../../../components/ChipList';
+import { getAppliedFilters } from '../../../../studios/model/selectors';
+import { RootState } from '../../../../../model/types';
+import { setFilters } from '../../../../studios/model/actions';
+import { ChipList, ChipListProps } from '../../../../../components/ChipList';
 
 export type StudioListParametersContainerProps = {
   parameter: 'type' | 'station';

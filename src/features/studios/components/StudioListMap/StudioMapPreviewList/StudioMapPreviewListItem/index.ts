@@ -1,5 +1,5 @@
-import { ShortStudio } from '../../../../model/types';
-import { StudioListItemProps } from '../../../StudioList/StudioListItem';
+import { StudioListItemProps } from '../../../../../studioList/components/StudioListItem';
+import { ShortStudio } from '../../../../../studioList/model/types';
 
 export type StudioMapPreviewListItemProps = Pick<
   StudioListItemProps,

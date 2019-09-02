@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { StudioListItemPriceSegmentProps } from './index';
-import { getPriceSegment } from '../../../../../../utils/getPriceSegment';
+import { getPriceSegment } from '../../../../../utils/getPriceSegment';
 
 const _StudioListItemPriceSegment = ({
   priceSegment,

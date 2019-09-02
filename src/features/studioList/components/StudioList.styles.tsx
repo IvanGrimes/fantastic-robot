@@ -7,8 +7,8 @@ import { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import {
   InfiniteScroll as DefaultInfiniteScroll,
   InfiniteScrollProps,
-} from '../../../../components/InfiniteScroll';
-import { getBreakpoints } from '../../../../theme';
+} from '../../../components/InfiniteScroll';
+import { getBreakpoints } from '../../../theme';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
   DefaultInfiniteScroll

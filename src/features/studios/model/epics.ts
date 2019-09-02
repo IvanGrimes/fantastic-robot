@@ -1,42 +1,15 @@
 import { Epic } from 'redux-observable';
 import {
-  filter,
-  switchMap,
-  map,
   catchError,
   debounceTime,
+  filter,
+  map,
+  switchMap,
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isActionOf } from 'typesafe-actions';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
 import { getAppliedFilters, getHasAppliedFilters } from './selectors';
-
-const fetchStudiosFlow: Epic<
-  RootAction,
-  RootAction,
-  RootState,
-  EpicDependencies
-> = (
-  action$,
-  state$,
-  {
-    api: { fetchStudios },
-    actions: {
-      dataActions: { fetchStudiosAsync },
-    },
-  }
-) =>
-  action$.pipe(
-    filter(isActionOf(fetchStudiosAsync.request)),
-    switchMap(({ payload }) => {
-      const appliedFilters = getAppliedFilters(state$.value);
-
-      return fetchStudios({ ...appliedFilters, ...payload }).pipe(
-        map(fetchStudiosAsync.success),
-        catchError(error => of(fetchStudiosAsync.failure(error)))
-      );
-    })
-  );
 
 const setFiltersFlow: Epic<
   RootAction,
@@ -48,7 +21,8 @@ const setFiltersFlow: Epic<
   state$,
   {
     actions: {
-      dataActions: { setFilters, fetchStudiosAsync },
+      dataActions: { setFilters },
+      studioListActions: { fetchStudiosAsync },
     },
   }
 ) => {
@@ -69,33 +43,6 @@ const setFiltersFlow: Epic<
     })
   );
 };
-
-const addFavoriteFlow: Epic<
-  RootAction,
-  RootAction,
-  RootState,
-  EpicDependencies
-> = (
-  action$,
-  _state$,
-  {
-    api: { toggleFavorite },
-    actions: {
-      dataActions: { toggleFavoriteAsync },
-    },
-  }
-) =>
-  action$.pipe(
-    filter(isActionOf(toggleFavoriteAsync.request)),
-    switchMap(({ payload }) =>
-      toggleFavorite(payload).pipe(
-        map(({ id }) => toggleFavoriteAsync.success(id)),
-        catchError(error =>
-          of(toggleFavoriteAsync.failure({ id: payload, error: error.message }))
-        )
-      )
-    )
-  );
 
 const fetchFiltersFlow: Epic<
   RootAction,
@@ -122,9 +69,4 @@ const fetchFiltersFlow: Epic<
     )
   );
 
-export const studiosEpic = [
-  fetchStudiosFlow,
-  addFavoriteFlow,
-  setFiltersFlow,
-  fetchFiltersFlow,
-];
+export const studiosEpic = [setFiltersFlow, fetchFiltersFlow];

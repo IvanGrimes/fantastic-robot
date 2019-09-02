@@ -6,8 +6,8 @@ import { RootState } from '../../../../../model/types';
 import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
 import * as a from '../../../model/actions';
 import { getPriceSegment } from '../../../../../utils/getPriceSegment';
-import { PriceSegment } from '../../../model/types';
 import { StudioListFilterPriceSegmentProps } from './index';
+import { PriceSegment } from '../../../../studioList/model/types';
 
 type Props = StudioListFilterPriceSegmentProps &
   ReturnType<typeof mapStateToProps> &

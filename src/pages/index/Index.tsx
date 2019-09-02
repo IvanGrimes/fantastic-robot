@@ -5,15 +5,15 @@ import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import {
   fetchFiltersAsync,
-  fetchStudiosAsync,
   setFilters,
 } from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
-import { StudioList } from '../../features/studios/components/StudioList';
+import { StudioList } from '../../features/studioList/components';
 import { parseFilters } from '../../features/studios/components/StudioListFilter/StudioListFilterContainer';
+import { fetchStudiosAsync } from '../../features/studioList/model/actions';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studios/components/StudioListMap').then(

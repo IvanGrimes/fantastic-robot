@@ -1,4 +1,4 @@
-import { ShortStudio } from '../../../model/types';
+import { ShortStudio } from '../../model/types';
 
 export type StudioListItemVariant = 'wide' | 'short';
 

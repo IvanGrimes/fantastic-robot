@@ -2,13 +2,12 @@ import React, { memo, useEffect } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { getStudioMapPreview, getStudios } from '../../../model/selectors';
+import { getStudioMapPreview } from '../../../model/selectors';
 import { RootState } from '../../../../../model/types';
-import {
-  setStudioMapPreview,
-  toggleFavoriteAsync,
-} from '../../../model/actions';
+import { setStudioMapPreview } from '../../../model/actions';
 import { getIsFullscreenMap } from '../../../../ui/model/selectors';
+import { toggleFavoriteAsync } from '../../../../studioList/model/actions';
+import { getStudios } from '../../../../studioList/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 

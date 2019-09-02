@@ -10,8 +10,8 @@ import {
 } from './StudioListMap.styles';
 import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
-import { ShortStudio } from '../../model/types';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
+import { ShortStudio } from '../../../studioList/model/types';
 
 type Props = {
   isFullscreenMap: boolean;

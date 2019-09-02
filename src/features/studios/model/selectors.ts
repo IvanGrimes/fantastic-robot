@@ -1,28 +1,8 @@
-import { getType } from 'typesafe-actions';
 import { RootState } from '../../../model/types';
-import { createRequestLoadingSelector } from '../../../model/api/loading/selectors';
-import { fetchStudiosAsync, toggleFavoriteAsync } from './actions';
-import { createRequestErrorSelector } from '../../../model/api/errors/selectors';
 import { createDeepEqualSelector } from '../../../lib/createDeepEqualSelector';
-
-export const getStudiosLoading = createRequestLoadingSelector([
-  getType(fetchStudiosAsync.request),
-]);
-
-export const getStudiosError = createRequestErrorSelector(
-  getType(fetchStudiosAsync.request)
-);
+import { getStudios } from '../../studioList/model/selectors';
 
 const getStudiosState = (state: RootState) => state.studios;
-
-export const getStudios = createDeepEqualSelector(
-  [getStudiosState],
-  state => state.studios
-);
-
-export const getToggleFavoriteError = createRequestErrorSelector(
-  getType(toggleFavoriteAsync.request)
-);
 
 const getFiltersState = createDeepEqualSelector(
   [getStudiosState],

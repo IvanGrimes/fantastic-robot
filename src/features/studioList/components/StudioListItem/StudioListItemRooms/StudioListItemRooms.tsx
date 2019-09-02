@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { StudioListItemRoomsProps } from './index';
-import { getDeclension } from '../../../../../../utils/getDeclension';
+import { getDeclension } from '../../../../../utils/getDeclension';
 
 const _StudioListItemRooms = ({ roomsCount }: StudioListItemRoomsProps) => {
   if (!roomsCount) {

@@ -3,20 +3,19 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { RootState } from '../../../../model/types';
+import { RootState } from '../../../model/types';
 import {
   getIsStudiosFiltering,
-  getStudios,
-  getStudiosError,
-  getStudiosLoading,
-} from '../../model/selectors';
+
+} from '../../studios/model/selectors';
 import { StudioList } from './StudioList';
-import { fetchStudiosAsync, toggleFavoriteAsync } from '../../model/actions';
 import { StudioListProps } from './index';
 import {
   getIsMapVisible,
   getIsFullscreenMap,
-} from '../../../ui/model/selectors';
+} from '../../ui/model/selectors';
+import { fetchStudiosAsync, toggleFavoriteAsync } from '../model/actions';
+import { getStudios, getStudiosError, getStudiosLoading } from '../model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &

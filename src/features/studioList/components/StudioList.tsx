@@ -8,9 +8,9 @@ import {
   InfiniteScroll,
   InfiniteScrollLoader,
 } from './StudioList.styles';
-import { ShortStudio } from '../../model/types';
-import { toggleFavoriteAsync } from '../../model/actions';
-import { Container } from '../../../../components/Container';
+import { Container } from '../../../components/Container';
+import { toggleFavoriteAsync } from '../model/actions';
+import { ShortStudio } from '../model/types';
 
 type Props = {
   className: string;
