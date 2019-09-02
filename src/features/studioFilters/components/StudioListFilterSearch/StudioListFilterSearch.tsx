@@ -27,6 +27,7 @@ const _StudioListFilterSearch = ({ handleChange, value }: Props) => {
       label="Поиск по названию"
       onChange={onChange}
       value={value}
+      debounce={{ wait: 500 }}
     />
   );
 };

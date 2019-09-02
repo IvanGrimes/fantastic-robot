@@ -89,6 +89,7 @@ const _Header = ({
                         onChange={handleSearch}
                         value={searchValue}
                         placeholder="Поиск по названию"
+                        debounce={{ wait: 500 }}
                       />
                     </Grid>
                   </Grid>

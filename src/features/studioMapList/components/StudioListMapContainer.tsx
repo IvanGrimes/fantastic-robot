@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/core';
 import { StudioListMap } from './StudioListMap';
 import { RootState } from '../../../model/types';
-import {
-  getIsHeaderVisible,
-} from '../../ui/model/selectors';
+import { getIsHeaderVisible } from '../../ui/model/selectors';
 import { getBreakpoints } from '../../../theme';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { getStudios } from '../../studioList/model/selectors';
