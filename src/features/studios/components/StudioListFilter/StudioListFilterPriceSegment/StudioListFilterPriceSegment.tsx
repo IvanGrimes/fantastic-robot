@@ -7,10 +7,10 @@ import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
 import * as a from '../../../model/actions';
 import { getPriceSegment } from '../../../../../utils/getPriceSegment';
 import { PriceSegment } from '../../../model/types';
+import { StudioListFilterPriceSegmentProps } from './index';
 
-export type StudioListFilterPriceSegmentProps = {
-  isClearable?: boolean;
-} & ReturnType<typeof mapStateToProps> &
+type Props = StudioListFilterPriceSegmentProps &
+  ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
@@ -23,11 +23,12 @@ const dispatchProps = {
 };
 
 const _StudioListFilterPriceSegment = ({
+  className = '',
   list,
   selectedIds,
   handleChange,
   isClearable = true,
-}: StudioListFilterPriceSegmentProps) => {
+}: Props) => {
   const normalizedPriceSegmentList = useMemo(
     () =>
       list.map(segment => ({
@@ -50,6 +51,7 @@ const _StudioListFilterPriceSegment = ({
 
   return (
     <PropertyList
+      className={className}
       title="Ценовой сегмент"
       list={normalizedPriceSegmentList}
       selectedIds={normalizedSelectedPriceSegment}

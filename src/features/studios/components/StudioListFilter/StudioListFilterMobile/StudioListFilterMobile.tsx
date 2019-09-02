@@ -8,12 +8,16 @@ import {
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import { Container } from '../../../../../components/Container';
-import { FilterGrid, Wrapper } from './StudioListFilterMobile.styles';
+import {
+  FilterGrid,
+  Wrapper,
+  StudioListFilterStation,
+  StudioListFilterPriceSegment,
+  StudioListFilterType,
+  GridWithMargin,
+} from './StudioListFilterMobile.styles';
 import { BarWrapper } from '../../../../ui/components/Header/HeaderBar/HeaderBar.styles';
 import { StudioListFilterSearch } from '../StudioListFilterSearch';
-import { StudioListFilterStation } from '../StudioListFilterStation';
-import { StudioListFilterType } from '../StudioListFilterType';
-import { StudioListFilterPriceSegment } from '../StudioListFilterPriceSegment';
 
 type Props = {
   className: string;
@@ -44,16 +48,16 @@ const _StudioListFilterMobile = ({ className, handleClearFilters }: Props) => {
             <BarWrapper>
               <Container>
                 <Grid container justify="space-between" alignItems="center">
-                  <Grid item>
+                  <GridWithMargin item>
                     <IconButton onClick={handleToggleVisibility}>
                       <CloseIcon />
                     </IconButton>
-                  </Grid>
-                  <Grid item>
+                  </GridWithMargin>
+                  <GridWithMargin item>
                     <Typography component="span" variant="subtitle1">
                       Фильтры
                     </Typography>
-                  </Grid>
+                  </GridWithMargin>
                   <Grid item>
                     <Button variant="outlined" onClick={handleClearFilters}>
                       Очистить

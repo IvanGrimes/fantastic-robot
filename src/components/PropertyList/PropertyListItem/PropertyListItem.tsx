@@ -10,7 +10,7 @@ const _PropertyListItem = ({
   renderName,
   ...props
 }: PropertyListItemProps) => (
-  <Grid container justify="space-between" alignItems="center">
+  <Grid container justify="space-between" alignItems="center" spacing={2}>
     <Grid item>
       {renderName ? (
         renderName({ id, name, isActive, ...props })

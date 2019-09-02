@@ -4,7 +4,7 @@ export type StudioListItemVariant = 'wide' | 'short';
 
 export type StudioListItemViewProps = Partial<ShortStudio> & {
   loading: boolean;
-  handleToggleFavorite: () => void;
+  handleToggleFavorite: (id: string) => void;
   variant: StudioListItemVariant;
 };
 

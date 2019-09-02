@@ -17,7 +17,7 @@ export const StudioListItemFavorite = ({
     handleToggleFavorite,
     id,
   ]);
-
+  console.log();
   return (
     <Tooltip
       title={isActive ? 'Удалить из избранного' : 'Добавить в избранное'}

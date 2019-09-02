@@ -4,6 +4,18 @@ import { PaperProps } from '@material-ui/core/Paper';
 import { Grid, Paper } from '@material-ui/core';
 import { GridProps } from '@material-ui/core/Grid';
 import { em } from 'polished';
+import {
+  StudioListFilterStation as DefaultStudioListFilterStation,
+  StudioListFilterStationProps,
+} from '../StudioListFilterStation';
+import {
+  StudioListFilterType as DefaultStudioListFilterType,
+  StudioListFilterTypeProps,
+} from '../StudioListFilterType';
+import {
+  StudioListFilterPriceSegment as DefaultStudioListFilterPriceSegment,
+  StudioListFilterPriceSegmentProps,
+} from '../StudioListFilterPriceSegment';
 
 export const Wrapper = styled<ComponentType<PaperProps>>(Paper)<{
   isVisible: boolean;
@@ -25,8 +37,40 @@ export const Wrapper = styled<ComponentType<PaperProps>>(Paper)<{
   `}
 `;
 
+export const GridWithMargin = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    margin-left: -16px;
+  }
+`;
+
 export const FilterGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
     margin-top: ${em(16)};
   }
+`;
+
+const filterMarginCss = css`
+  && {
+    margin: 8px 0;
+  }
+`;
+
+export const StudioListFilterStation = styled<
+  ComponentType<StudioListFilterStationProps>
+>(DefaultStudioListFilterStation)`
+  && {
+    margin: 32px 0 0 0;
+  }
+`;
+
+export const StudioListFilterType = styled<
+  ComponentType<StudioListFilterTypeProps>
+>(DefaultStudioListFilterType)`
+  ${filterMarginCss}
+`;
+
+export const StudioListFilterPriceSegment = styled<
+  ComponentType<StudioListFilterPriceSegmentProps>
+>(DefaultStudioListFilterPriceSegment)`
+  ${filterMarginCss}
 `;

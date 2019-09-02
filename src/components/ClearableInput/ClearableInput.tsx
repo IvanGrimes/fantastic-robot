@@ -33,6 +33,9 @@ const _ClearableInput = ({
               <CloseIcon />
             </IconButton>
           ),
+          style: {
+            paddingRight: '5px',
+          },
           ...InputProps,
         }}
         onChange={handleChange}

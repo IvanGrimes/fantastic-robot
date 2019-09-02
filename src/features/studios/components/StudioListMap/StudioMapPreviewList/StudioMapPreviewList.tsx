@@ -3,13 +3,18 @@ import dequal from 'dequal';
 import { ShortStudio } from '../../../model/types';
 import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
 import { useRequestIdleCallback } from '../../../../../hooks/useRequestIdleCallback';
+import { StudioListItemProps } from '../../StudioList/StudioListItem';
 
-type Props = {
+type Props = Pick<StudioListItemProps, 'handleToggleFavorite'> & {
   list: ShortStudio[];
   previewId: string | null;
 };
 
-const _StudioMapPreviewList = ({ list, previewId }: Props) => {
+const _StudioMapPreviewList = ({
+  list,
+  previewId,
+  handleToggleFavorite,
+}: Props) => {
   const [render, setRender] = useState(false);
   const handleRender = useRequestIdleCallback(() => setRender(true));
 
@@ -27,6 +32,7 @@ const _StudioMapPreviewList = ({ list, previewId }: Props) => {
             key={id}
             item={{ id, ...item }}
             isActive={isActive}
+            handleToggleFavorite={handleToggleFavorite}
           />
         );
       })}

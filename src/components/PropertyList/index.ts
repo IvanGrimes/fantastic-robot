@@ -4,6 +4,7 @@ import { GridProps } from '@material-ui/core/Grid';
 export type PropertyListProps = Pick<GridProps, 'justify'> &
   Pick<GridProps, 'alignItems'> &
   Pick<GridProps, 'direction'> & {
+    className?: string;
     title: string;
     list: {
       id: string;

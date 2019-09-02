@@ -9,6 +9,12 @@ export const WrapperGrid = styled<ComponentType<GridProps>>(Grid)`
   }
 `;
 
+export const SearchGrid = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    margin-top: 12px;
+  }
+`;
+
 export const ListGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
     overflow: hidden;

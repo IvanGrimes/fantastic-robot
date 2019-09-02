@@ -7,10 +7,10 @@ import { RootState } from '../../../../../model/types';
 import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
 import * as a from '../../../model/actions';
 import { ColorCircle } from './StudioListFilterStation.styles';
+import { StudioListFilterStationProps } from './index';
 
-export type StudioListFilterStationProps = {
-  isClearable?: boolean;
-} & ReturnType<typeof mapStateToProps> &
+type Props = StudioListFilterStationProps &
+  ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
@@ -23,11 +23,12 @@ const dispatchProps = {
 };
 
 const _StudioListFilterStation = ({
+  className = '',
   list,
   selectedIds,
   handleChange,
   isClearable = true,
-}: StudioListFilterStationProps) => {
+}: Props) => {
   const onChange = useCallback(
     (id: any[]) => () => handleChange({ stationIds: id }),
     [handleChange]
@@ -35,6 +36,7 @@ const _StudioListFilterStation = ({
 
   return (
     <PropertyList
+      className={className}
       title="Станции метро"
       list={list}
       selectedIds={selectedIds}

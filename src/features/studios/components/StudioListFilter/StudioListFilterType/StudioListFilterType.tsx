@@ -5,10 +5,10 @@ import { PropertyList } from '../../../../../components/PropertyList';
 import { RootState } from '../../../../../model/types';
 import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
 import * as a from '../../../model/actions';
+import { StudioListFilterTypeProps } from './index';
 
-export type StudioListFilterTypeProps = { isClearable?: boolean } & ReturnType<
-  typeof mapStateToProps
-> &
+export type Props = StudioListFilterTypeProps &
+  ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
@@ -21,11 +21,12 @@ const dispatchProps = {
 };
 
 const _StudioListFilterType = ({
+  className = '',
   list,
   selectedIds,
   handleChange,
   isClearable = true,
-}: StudioListFilterTypeProps) => {
+}: Props) => {
   const onChange = useCallback(
     (id: any[]) => () => handleChange({ typeIds: id }),
     [handleChange]
@@ -33,6 +34,7 @@ const _StudioListFilterType = ({
 
   return (
     <PropertyList
+      className={className}
       title="Типы студий"
       list={list}
       selectedIds={selectedIds}

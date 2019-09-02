@@ -6,6 +6,7 @@ import { getAbsoluteString } from '../../utils/getAbsoluteString';
 import { ClearableInput } from '../ClearableInput';
 import {
   WrapperGrid,
+  SearchGrid,
   ListGrid,
   ListScrollableGrid,
 } from './PropertyList.styles';
@@ -15,6 +16,7 @@ import { ChipList } from '../ChipList';
 // TODO: add prop renderList and make generic interface for PropertyListItem and ChipList for polymorphism
 
 const _PropertyList = ({
+  className = '',
   title,
   list,
   onChange,
@@ -39,8 +41,8 @@ const _PropertyList = ({
   ]);
 
   return (
-    <WrapperGrid container direction="column" {...props}>
-      <Grid container alignItems="center" justify="space-between">
+    <WrapperGrid className={className} container direction="column" {...props}>
+      <Grid container alignItems="center" justify="space-between" spacing={2}>
         <Grid item>
           <Typography variant="h6" component="span">
             {title}
@@ -61,11 +63,13 @@ const _PropertyList = ({
       </Grid>
       <Grid container>
         {isSearchable ? (
-          <ClearableInput
-            value={search}
-            onChange={setSearch}
-            {...searchProps}
-          />
+          <SearchGrid item xs={12}>
+            <ClearableInput
+              value={search}
+              onChange={setSearch}
+              {...searchProps}
+            />
+          </SearchGrid>
         ) : null}
         <ListGrid item xs={12}>
           <ListScrollableGrid container>

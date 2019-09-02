@@ -6,8 +6,7 @@ import * as a from '../../../model/actions';
 import { getAppliedFilters } from '../../../model/selectors';
 import { ClearableInput } from '../../../../../components/ClearableInput';
 
-export type StudioListFilterSearchProps = ReturnType<typeof mapStateToProps> &
-  typeof dispatchProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   value: getAppliedFilters(state).name,
@@ -17,16 +16,14 @@ const dispatchProps = {
   handleChange: a.setFilters,
 };
 
-const _StudioListFilterSearch = ({
-  handleChange,
-  value,
-}: StudioListFilterSearchProps) => {
+const _StudioListFilterSearch = ({ handleChange, value }: Props) => {
   const onChange = useCallback((name: string) => handleChange({ name }), [
     handleChange,
   ]);
 
   return (
     <ClearableInput
+      variant="standard"
       label="Поиск по названию"
       onChange={onChange}
       value={value}
