@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import dequal from 'dequal';
 import { RootState } from '../../../../model/types';
 import { getIsHeaderVisible } from '../../model/selectors';
-import { setFullscreenMap, setHeaderVisibility } from '../../model/actions';
+import { setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
 import { setFilters } from '../../../studioFilters/model/actions';
 import { getAppliedFilters } from '../../../studioFilters/model/selectors';
+import { setFullscreen } from '../../../studioMapList/model/actions';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -17,7 +18,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   handleSetHeaderVisibility: setHeaderVisibility,
-  handleSetFullscreenMap: setFullscreenMap,
+  handleSetFullscreenMap: setFullscreen,
   handleSetFilters: setFilters,
 };
 

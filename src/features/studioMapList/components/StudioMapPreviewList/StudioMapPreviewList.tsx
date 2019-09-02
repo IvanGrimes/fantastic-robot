@@ -1,9 +1,9 @@
 import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
-import { useRequestIdleCallback } from '../../../../../hooks/useRequestIdleCallback';
-import { StudioListItemProps } from '../../../../studioList/components/StudioListItem';
-import { ShortStudio } from '../../../../studioList/model/types';
+import { useRequestIdleCallback } from '../../../../hooks/useRequestIdleCallback';
+import { StudioListItemProps } from '../../../studioList/components/StudioListItem';
+import { ShortStudio } from '../../../studioList/model/types';
 
 type Props = Pick<StudioListItemProps, 'handleToggleFavorite'> & {
   list: ShortStudio[];

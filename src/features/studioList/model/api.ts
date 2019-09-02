@@ -1,5 +1,5 @@
 import { from } from 'rxjs';
-import { FetchStudiosInput, mockStudios } from '../../studios/model/api';
+import { FetchStudiosInput, mockStudios } from '../../../mocks/mockStudios';
 
 export const fetchStudios = (input: FetchStudiosInput) => {
   return from(

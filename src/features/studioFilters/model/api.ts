@@ -5,7 +5,7 @@ import {
   Filters,
   stations,
   types,
-} from '../../studios/model/api';
+} from '../../../mocks/mockStudios';
 
 export const fetchFilters = () =>
   from(

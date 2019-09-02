@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { Button, Grid } from '@material-ui/core';
 import { ButtonProps } from '@material-ui/core/Button';
-import { getBreakpoints } from '../../../../theme';
+import { getBreakpoints } from '../../../theme';
 
 const HEADER_HEIGHT = 60;
 

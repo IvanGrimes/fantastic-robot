@@ -3,22 +3,21 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPinListItemCommonProps } from './index';
-import { setStudioMapPreview } from '../../../model/actions';
-import { RootState } from '../../../../../model/types';
-import { getStudioMapPreview } from '../../../model/selectors';
-import { setFullscreenMap } from '../../../../ui/model/actions';
+import { RootState } from '../../../../model/types';
+import { getPreviewStudio } from '../../model/selectors';
+import { setFullscreen, setPreviewStudio } from '../../model/actions';
 
 type Props = StudioMapPinListItemCommonProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  previewId: getStudioMapPreview(state),
+  previewId: getPreviewStudio(state),
 });
 
 const dispatchProps = {
-  handleSetStudioMapPreview: setStudioMapPreview,
-  handleSetFullscreenMap: setFullscreenMap,
+  handleSetStudioMapPreview: setPreviewStudio,
+  handleSetFullscreenMap: setFullscreen,
 };
 
 const _StudioMapPinListItemContainer = ({

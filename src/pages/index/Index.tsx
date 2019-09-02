@@ -5,7 +5,6 @@ import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
-import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { parseFilters } from '../../features/studioFilters/components/StudioListFilterContainer';
@@ -14,9 +13,10 @@ import {
   fetchFiltersAsync,
   setFilters,
 } from '../../features/studioFilters/model/actions';
+import { getIsEnabled } from '../../features/studioMapList/model/selectors';
 
 const StudioListMap = dynamic<{}>(() =>
-  import('../../features/studios/components/StudioListMap').then(
+  import('../../features/studioMapList/components').then(
     module => module.StudioListMap
   )
 );
@@ -49,12 +49,18 @@ export const getInitialProps: IndexGetInitialProps = async ({
 };
 
 const _Index = () => {
-  const isMapVisible = useSelector(getIsMapVisible);
+  const isMapListEnabled = useSelector(getIsEnabled);
 
   return (
     <ContentGrid container>
-      <StudioListGrid item xs={12} md={12} lg={6} isMapVisible={isMapVisible}>
-        <StudioList listItemVariant={isMapVisible ? 'wide' : 'short'} />
+      <StudioListGrid
+        item
+        xs={12}
+        md={12}
+        lg={6}
+        isMapListEnabled={isMapListEnabled}
+      >
+        <StudioList listItemVariant={isMapListEnabled ? 'wide' : 'short'} />
       </StudioListGrid>
       <Grid item xs={12} lg={6}>
         <StudioListMap />

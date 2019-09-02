@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import dequal from 'dequal';
 import { StudioMapPreviewListItemProps } from './index';
 import { Wrapper } from './StudioMapPreviewListItem.styles';
-import { StudioListItem } from '../../../../../studioList/components/StudioListItem';
+import { StudioListItem } from '../../../../studioList/components/StudioListItem';
 
 const _StudioMapPreviewListItem = ({
   isActive,

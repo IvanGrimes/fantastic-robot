@@ -9,11 +9,11 @@ import { Container } from '../../../../../components/Container';
 import { StudioListFilter } from '../../../../studioFilters/components';
 
 type Props = {
-  isMapVisible: boolean;
+  isMapListEnabled: boolean;
   handleToggleMapVisibility: () => void;
 };
 
-const _HeaderBar = ({ isMapVisible, handleToggleMapVisibility }: Props) => {
+const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
   const filters = useMemo(() => <StudioListFilter />, []);
 
   return (
@@ -29,16 +29,22 @@ const _HeaderBar = ({ isMapVisible, handleToggleMapVisibility }: Props) => {
               alignItems="center"
               justify="flex-end"
             >
-              <HideableTypography variant="caption" isVisible={isMapVisible}>
+              <HideableTypography
+                variant="caption"
+                isVisible={isMapListEnabled}
+              >
                 Скрыть карту
               </HideableTypography>
               <Switch
                 color="default"
                 onClick={handleToggleMapVisibility}
-                checked={isMapVisible}
+                checked={isMapListEnabled}
                 disableRipple
               />
-              <HideableTypography variant="caption" isVisible={!isMapVisible}>
+              <HideableTypography
+                variant="caption"
+                isVisible={!isMapListEnabled}
+              >
                 Показать карту
               </HideableTypography>
             </MapSwitchGrid>

@@ -8,13 +8,13 @@ import {
   InnerWrapper,
   CloseButton,
 } from './StudioListMap.styles';
-import { useRequestAnimationFrame } from '../../../../hooks/useRequestAnimationFrame';
+import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { ShortStudio } from '../../../studioList/model/types';
+import { ShortStudio } from '../../studioList/model/types';
 
 type Props = {
-  isFullscreenMap: boolean;
+  isMapListFullscreen: boolean;
   isHeaderVisible: boolean;
   handleFullscreenMapOn: () => void;
   handleFullscreenMapOff: () => void;
@@ -22,7 +22,7 @@ type Props = {
 };
 
 const _StudioListMap = ({
-  isFullscreenMap,
+  isMapListFullscreen,
   handleFullscreenMapOn,
   handleFullscreenMapOff,
   isHeaderVisible,
@@ -38,7 +38,7 @@ const _StudioListMap = ({
 
   return (
     <MapGrid container>
-      {isFullscreenMap ? (
+      {isMapListFullscreen ? (
         <CloseButton
           variant="contained"
           color="secondary"
@@ -49,7 +49,7 @@ const _StudioListMap = ({
       ) : null}
       <OuterWrapper ref={outerWrapperRef}>
         <InnerWrapper
-          isFullscreen={isFullscreenMap}
+          isFullscreen={isMapListFullscreen}
           isHeaderVisible={isHeaderVisible}
         >
           <GoogleMapReact
@@ -64,7 +64,7 @@ const _StudioListMap = ({
               zoomControl: false,
               gestureHandling: 'greedy',
             }}
-            onClick={isFullscreenMap ? undefined : fullscreenMapOn}
+            onClick={isMapListFullscreen ? undefined : fullscreenMapOn}
           >
             {studios.map(({ id, lat, lng }) => (
               <StudioMapPinListItem id={id} lat={lat} lng={lng} />

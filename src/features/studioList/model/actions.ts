@@ -1,11 +1,11 @@
 import { createAsyncAction } from 'typesafe-actions';
-import { FetchStudiosInput, mockStudios } from '../../studios/model/api';
+import { FetchStudiosInput, mockStudios } from '../../../mocks/mockStudios';
 import { StudioListState } from './reducer';
 
 export const fetchStudiosAsync = createAsyncAction(
-  '@@STUDIOS/FETCH_STUDIOS_REQUEST',
-  '@@STUDIOS/FETCH_STUDIOS_SUCCESS',
-  '@@STUDIOS/FETCH_STUDIOS_FAIL'
+  '@@studioList/FETCH_STUDIOS_REQUEST',
+  '@@studioList/FETCH_STUDIOS_SUCCESS',
+  '@@studioList/FETCH_STUDIOS_FAIL'
 )<
   FetchStudiosInput &
     Partial<Pick<StudioListState, 'listUpdateType'>> & {
@@ -16,7 +16,7 @@ export const fetchStudiosAsync = createAsyncAction(
 >();
 
 export const toggleFavoriteAsync = createAsyncAction(
-  '@@STUDIOS/TOGGLE_FAVORITE_REQUEST',
-  '@@STUDIOS/TOGGLE_FAVORITE_SUCCESS',
-  '@@STUDIOS/TOGGLE_FAVORITE_FAIL'
+  '@@studioList/TOGGLE_FAVORITE_REQUEST',
+  '@@studioList/TOGGLE_FAVORITE_SUCCESS',
+  '@@studioList/TOGGLE_FAVORITE_FAIL'
 )<string, string, { id: string; error: any }, { id: string }>();

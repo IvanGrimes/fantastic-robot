@@ -3,8 +3,8 @@ import {
   ShortStudio,
   Station,
   StudioType,
-} from '../../studioList/model/types';
-import { getFilteredStudio } from '../../studioFilters/model/api';
+} from '../features/studioList/model/types';
+import { getFilteredStudio } from '../features/studioFilters/model/api';
 
 export const stations: Station[] = [
   {

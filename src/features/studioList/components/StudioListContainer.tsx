@@ -6,7 +6,6 @@ import Head from 'next/head';
 import { RootState } from '../../../model/types';
 import { StudioList } from './StudioList';
 import { StudioListProps } from './index';
-import { getIsMapVisible, getIsFullscreenMap } from '../../ui/model/selectors';
 import { fetchStudiosAsync, toggleFavoriteAsync } from '../model/actions';
 import {
   getIsStudiosFiltering,
@@ -14,6 +13,10 @@ import {
   getStudiosError,
   getStudiosLoading,
 } from '../model/selectors';
+import {
+  getIsFullscreen,
+  getIsEnabled,
+} from '../../studioMapList/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -24,8 +27,8 @@ const mapStateToProps = (state: RootState) => ({
   errors: getStudiosError(state),
   loading: getStudiosLoading(state),
   isFiltering: getIsStudiosFiltering(state),
-  isMapVisible: getIsMapVisible(state),
-  isFullscreenMap: getIsFullscreenMap(state),
+  isMapListEnabled: getIsEnabled(state),
+  isMapListFullscreen: getIsFullscreen(state),
 });
 
 const dispatchProps = {
@@ -42,8 +45,8 @@ const _StudioListContainer = ({
   isFiltering,
   listItemVariant,
   handleToggleFavorite,
-  isMapVisible,
-  isFullscreenMap,
+  isMapListEnabled,
+  isMapListFullscreen,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const number = useMemo(
@@ -75,8 +78,8 @@ const _StudioListContainer = ({
         loading={loading && isFiltering}
         listItemVariant={listItemVariant}
         handleToggleFavorite={handleToggleFavorite}
-        isMapVisible={isMapVisible}
-        isFullscreenMap={isFullscreenMap}
+        isMapListEnabled={isMapListEnabled}
+        isMapListFullscreen={isMapListFullscreen}
         handleNext={handleNext}
       />
     </Fragment>

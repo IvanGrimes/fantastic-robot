@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { getBreakpoints } from '../../../../../../theme';
+import { getBreakpoints } from '../../../../../theme';
 
 export const Wrapper = styled.div<{ isVisible: boolean }>`
   ${({ isVisible, ...props }) => {

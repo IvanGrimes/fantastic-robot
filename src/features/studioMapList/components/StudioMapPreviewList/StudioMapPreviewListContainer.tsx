@@ -2,23 +2,22 @@ import React, { memo, useEffect } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { getStudioMapPreview } from '../../../model/selectors';
-import { RootState } from '../../../../../model/types';
-import { setStudioMapPreview } from '../../../model/actions';
-import { getIsFullscreenMap } from '../../../../ui/model/selectors';
-import { toggleFavoriteAsync } from '../../../../studioList/model/actions';
-import { getStudios } from '../../../../studioList/model/selectors';
+import { getIsFullscreen, getPreviewStudio } from '../../model/selectors';
+import { RootState } from '../../../../model/types';
+import { toggleFavoriteAsync } from '../../../studioList/model/actions';
+import { getStudios } from '../../../studioList/model/selectors';
+import { setPreviewStudio } from '../../model/actions';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state).list,
-  previewId: getStudioMapPreview(state),
-  isFullscreenMap: getIsFullscreenMap(state),
+  previewId: getPreviewStudio(state),
+  isMapListFullscreen: getIsFullscreen(state),
 });
 
 const dispatchProps = {
-  handleSetStudioMapPreview: setStudioMapPreview,
+  handleSetStudioMapPreview: setPreviewStudio,
   handleToggleFavorite: toggleFavoriteAsync.request,
 };
 
@@ -26,14 +25,14 @@ const _StudioMapPreviewListContainer = ({
   studios,
   previewId,
   handleSetStudioMapPreview,
-  isFullscreenMap,
+  isMapListFullscreen,
   handleToggleFavorite,
 }: Props) => {
   useEffect(() => {
-    if (!isFullscreenMap && previewId) {
+    if (!isMapListFullscreen && previewId) {
       handleSetStudioMapPreview(previewId);
     }
-  }, [handleSetStudioMapPreview, isFullscreenMap, previewId]);
+  }, [handleSetStudioMapPreview, isMapListFullscreen, previewId]);
 
   return (
     <StudioMapPreviewList

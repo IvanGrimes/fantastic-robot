@@ -4,32 +4,35 @@ import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 import { HeaderBar } from './HeaderBar';
 import { RootState } from '../../../../../model/types';
-import { getIsMapVisible } from '../../../model/selectors';
-import { setFullscreenMap, setMapVisibility } from '../../../model/actions';
 import { useRequestAnimationFrame } from '../../../../../hooks/useRequestAnimationFrame';
+import {
+  setFullscreen,
+  setIsEnable,
+} from '../../../../studioMapList/model/actions';
+import { getIsEnabled } from '../../../../studioMapList/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  isMapVisible: getIsMapVisible(state),
+  isMapListEnabled: getIsEnabled(state),
 });
 
 const dispatchProps = {
-  handleSetMapVisibility: setMapVisibility,
-  handleSetFullscreenMap: setFullscreenMap,
+  handleSetMapVisibility: setIsEnable,
+  handleSetFullscreenMap: setFullscreen,
 };
 
 const _HeaderBarContainer = ({
-  isMapVisible,
+  isMapListEnabled,
   handleSetMapVisibility,
   handleSetFullscreenMap,
 }: Props) => {
   const handleToggleMapVisibility = useCallback(
     debounce(() => {
-      handleSetMapVisibility(!isMapVisible);
+      handleSetMapVisibility(!isMapListEnabled);
       handleSetFullscreenMap(false);
     }, 250),
-    [handleSetMapVisibility, isMapVisible]
+    [handleSetMapVisibility, isMapListEnabled]
   );
   const toggleMapVisibility = useRequestAnimationFrame(
     handleToggleMapVisibility
@@ -37,7 +40,7 @@ const _HeaderBarContainer = ({
 
   return (
     <HeaderBar
-      isMapVisible={isMapVisible}
+      isMapListEnabled={isMapListEnabled}
       handleToggleMapVisibility={toggleMapVisibility}
     />
   );

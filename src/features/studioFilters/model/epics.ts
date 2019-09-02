@@ -1,14 +1,22 @@
 import { Epic } from 'redux-observable';
-import { EpicDependencies, RootAction, RootState } from '../../../model/types';
-import { catchError, debounceTime, filter, map, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { of } from 'rxjs';
+import { EpicDependencies, RootAction, RootState } from '../../../model/types';
 import { getAppliedFilters, getHasAppliedFilters } from './selectors';
 
-export const fetchFiltersFlow: Epic<RootAction,
+export const fetchFiltersFlow: Epic<
+  RootAction,
   RootAction,
   RootState,
-  EpicDependencies> = (
+  EpicDependencies
+> = (
   action$,
   _state$,
   {
@@ -16,23 +24,24 @@ export const fetchFiltersFlow: Epic<RootAction,
     actions: {
       studioFiltersActions: { fetchFiltersAsync },
     },
-  },
+  }
 ) =>
   action$.pipe(
     filter(isActionOf(fetchFiltersAsync.request)),
     switchMap(() =>
-      fetchFilters()
-        .pipe(
-          map(fetchFiltersAsync.success),
-          catchError(error => of(fetchFiltersAsync.failure(error))),
-        ),
-    ),
+      fetchFilters().pipe(
+        map(fetchFiltersAsync.success),
+        catchError(error => of(fetchFiltersAsync.failure(error)))
+      )
+    )
   );
 
-export const setFiltersFlow: Epic<RootAction,
+export const setFiltersFlow: Epic<
+  RootAction,
   RootAction,
   RootState,
-  EpicDependencies> = (
+  EpicDependencies
+> = (
   action$,
   state$,
   {
@@ -40,7 +49,7 @@ export const setFiltersFlow: Epic<RootAction,
       studioFiltersActions: { setFilters },
       studioListActions: { fetchStudiosAsync },
     },
-  },
+  }
 ) => {
   const hasAppliedFilters = getHasAppliedFilters(state$.value);
 
@@ -53,13 +62,11 @@ export const setFiltersFlow: Epic<RootAction,
       return fetchStudiosAsync.request({
         ...filters,
         priceSegments: filters.priceSegments,
-        listUpdateType: hasAppliedFilters
-          ? 'merge'
-          : 'replace',
+        listUpdateType: hasAppliedFilters ? 'merge' : 'replace',
         isFiltering: true,
       });
-    }),
+    })
   );
 };
 
-export const studioFiltersEpic = [ fetchFiltersFlow, setFiltersFlow ];
+export const studioFiltersEpic = [fetchFiltersFlow, setFiltersFlow];

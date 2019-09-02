@@ -1,14 +1,14 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
-import { FetchStudiosInput, Filters } from '../../studios/model/api';
+import { FetchStudiosInput, Filters } from '../../../mocks/mockStudios';
 
 export const fetchFiltersAsync = createAsyncAction(
-  '@@STUDIOS/FETCH_FILTERS_REQUEST',
-  '@@STUDIOS/FETCH_FILTERS_SUCCESS',
-  '@@STUDIOS/FETCH_FILTERS_FAIL'
+  '@@studioFilters/FETCH_FILTERS_REQUEST',
+  '@@studioFilters/FETCH_FILTERS_SUCCESS',
+  '@@studioFilters/FETCH_FILTERS_FAIL'
 )<undefined, Filters, any>();
 
 export const setFilters = createAction(
-  '@@STUDIOS/SET_FILTERS',
+  '@@studioFilters/SET_FILTERS',
   action => ({
     roomsCount,
     typeIds,
@@ -19,4 +19,4 @@ export const setFilters = createAction(
     action({ roomsCount, typeIds, priceSegments, stationIds, ...rest })
 );
 
-export const clearFilters = createAction('@@STUDIOS/CLEAR_FILTERS');
+export const clearFilters = createAction('@@studioFilters/CLEAR_FILTERS');

@@ -19,8 +19,8 @@ type Props = {
   loading: boolean;
   handleToggleFavorite: typeof toggleFavoriteAsync.request;
   listItemVariant: StudioListItemVariant;
-  isMapVisible: boolean;
-  isFullscreenMap: boolean;
+  isMapListEnabled: boolean;
+  isMapListFullscreen: boolean;
   handleNext: () => void;
 };
 
@@ -31,8 +31,8 @@ const _StudioList = ({
   loading,
   handleToggleFavorite,
   listItemVariant,
-  isMapVisible,
-  isFullscreenMap,
+  isMapListEnabled,
+  isMapListFullscreen,
   handleNext,
 }: Props) => {
   const loaderList = new Array(3).fill({});
@@ -42,7 +42,7 @@ const _StudioList = ({
   }
 
   return (
-    <Wrapper isVisible={!isFullscreenMap}>
+    <Wrapper isVisible={!isMapListFullscreen}>
       <InfiniteScroll
         dataLength={list.length}
         handleNext={handleNext}
@@ -57,7 +57,7 @@ const _StudioList = ({
           pageNumber: '[number]',
           withTrailingSlash: true,
         }}
-        hasMore={!isFullscreenMap}
+        hasMore={!isMapListFullscreen}
       >
         <Container>
           <ListGrid
@@ -65,7 +65,7 @@ const _StudioList = ({
             component="ul"
             container
             spacing={4}
-            isMapVisible={isMapVisible}
+            isMapListEnabled={isMapListEnabled}
           >
             {(loading ? loaderList : list).map(item => (
               <ListItemGrid

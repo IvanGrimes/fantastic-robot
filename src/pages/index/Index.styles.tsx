@@ -19,13 +19,13 @@ export const ContentGrid = styled<ComponentType<GridProps>>(Grid)`
 `;
 
 export const StudioListGrid = styled<ComponentType<GridProps>>(Grid)<{
-  isMapVisible: boolean;
+  isMapListEnabled: boolean;
 }>`
-  ${({ isMapVisible }) => {
+  ${({ isMapListEnabled }) => {
     return css`
       && {
       margin-top: 120px;
-      ${!isMapVisible &&
+      ${!isMapListEnabled &&
         css`
           position: absolute;
           top: 0;

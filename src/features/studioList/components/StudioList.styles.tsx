@@ -61,8 +61,8 @@ export const Wrapper = styled.div<{ isVisible: boolean }>`
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="ul" />
-))<{ isMapVisible: boolean }>`
-  ${({ isMapVisible, ...props }) => {
+))<{ isMapListEnabled: boolean }>`
+  ${({ isMapListEnabled, ...props }) => {
     const { down } = getBreakpoints(props);
 
     return css`
@@ -72,7 +72,7 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
         z-index: 1;
         padding: 0 4px;
         margin: -8px 0 0 0;
-        ${isMapVisible &&
+        ${isMapListEnabled &&
           css`
             ${down('md')} {
               margin-top: -8px;

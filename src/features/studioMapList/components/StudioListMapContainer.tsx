@@ -3,35 +3,35 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/core';
 import { StudioListMap } from './StudioListMap';
-import { RootState } from '../../../../model/types';
-import { setFullscreenMap } from '../../../ui/model/actions';
+import { RootState } from '../../../model/types';
 import {
-  getIsFullscreenMap,
   getIsHeaderVisible,
-} from '../../../ui/model/selectors';
-import { getBreakpoints } from '../../../../theme';
-import { usePrevious } from '../../../../hooks/usePrevious';
-import { getStudios } from '../../../studioList/model/selectors';
+} from '../../ui/model/selectors';
+import { getBreakpoints } from '../../../theme';
+import { usePrevious } from '../../../hooks/usePrevious';
+import { getStudios } from '../../studioList/model/selectors';
+import { setFullscreen } from '../model/actions';
+import { getIsFullscreen } from '../model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  isFullscreenMap: getIsFullscreenMap(state),
+  isMapListFullscreen: getIsFullscreen(state),
   isHeaderVisible: getIsHeaderVisible(state),
   studios: getStudios(state).list,
 });
 
 const dispatchProps = {
-  handleSetFullscreenMap: setFullscreenMap,
+  handleSetFullscreenMap: setFullscreen,
 };
 
 const _StudioListMapContainer = ({
-  isFullscreenMap,
+  isMapListFullscreen,
   handleSetFullscreenMap,
   isHeaderVisible,
   studios,
 }: Props) => {
-  const prevIsFullscreenMap = usePrevious(isFullscreenMap);
+  const previsMapListFullscreen = usePrevious(isMapListFullscreen);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const theme = useTheme();
   const breakpoints = getBreakpoints({ theme });
@@ -54,7 +54,7 @@ const _StudioListMapContainer = ({
   );
 
   useEffect(() => {
-    if (isFullscreenMap) {
+    if (isMapListFullscreen) {
       if (window.innerWidth < breakpoints.values.lg) {
         setPrevScrollY(window.pageYOffset);
         window.scrollTo({ top: 0 });
@@ -65,10 +65,10 @@ const _StudioListMapContainer = ({
         body.style.overflow = 'hidden';
       }
     }
-  }, [body, breakpoints.values.lg, html, isFullscreenMap]);
+  }, [body, breakpoints.values.lg, html, isMapListFullscreen]);
 
   useEffect(() => {
-    if (prevIsFullscreenMap && !isFullscreenMap) {
+    if (previsMapListFullscreen && !isMapListFullscreen) {
       if (window.innerWidth < breakpoints.values.lg) {
         window.scrollTo({ top: prevScrollY });
       }
@@ -82,14 +82,14 @@ const _StudioListMapContainer = ({
     body,
     breakpoints.values.lg,
     html,
-    isFullscreenMap,
-    prevIsFullscreenMap,
+    isMapListFullscreen,
+    previsMapListFullscreen,
     prevScrollY,
   ]);
 
   return (
     <StudioListMap
-      isFullscreenMap={isFullscreenMap}
+      isMapListFullscreen={isMapListFullscreen}
       handleFullscreenMapOn={handleFullscreenMapOn}
       handleFullscreenMapOff={handleFullscreenMapOff}
       isHeaderVisible={isHeaderVisible}

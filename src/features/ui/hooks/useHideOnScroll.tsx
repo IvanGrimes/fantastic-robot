@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/core';
 import debounce from 'lodash/debounce';
-import { getIsFullscreenMap } from '../model/selectors';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { getBreakpoints } from '../../../theme';
 import { usePrevious } from '../../../hooks/usePrevious';
+import { getIsFullscreen } from '../../studioMapList/model/selectors';
 
 export const useHideOnScroll = ({
   handleSetVisibility,
@@ -14,8 +14,8 @@ export const useHideOnScroll = ({
 }) => {
   const theme = useTheme();
   const breakpoints = getBreakpoints({ theme });
-  const isFullscreenMap = useSelector(getIsFullscreenMap);
-  const prevIsFullscreenMap = usePrevious(isFullscreenMap);
+  const isMapListFullscreen = useSelector(getIsFullscreen);
+  const previsMapListFullscreen = usePrevious(isMapListFullscreen);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const handleSetVisibilityAndPrevScroll = useCallback(
     (visibility, scrollY) => {
@@ -35,10 +35,13 @@ export const useHideOnScroll = ({
         if (scrollY > 100) {
           const isVisible = prevScrollY > scrollY;
 
-          setVisibilityAndPrevScroll(prevIsFullscreenMap || isVisible, scrollY);
+          setVisibilityAndPrevScroll(
+            previsMapListFullscreen || isVisible,
+            scrollY
+          );
           setPrevScrollY(scrollY);
         } else {
-          setVisibilityAndPrevScroll(!isFullscreenMap, 0);
+          setVisibilityAndPrevScroll(!isMapListFullscreen, 0);
         }
       }
     }, 100),
@@ -46,8 +49,8 @@ export const useHideOnScroll = ({
       breakpoints.values.md,
       prevScrollY,
       setVisibilityAndPrevScroll,
-      prevIsFullscreenMap,
-      isFullscreenMap,
+      previsMapListFullscreen,
+      isMapListFullscreen,
     ]
   );
 
@@ -58,10 +61,10 @@ export const useHideOnScroll = ({
   }, [handleScroll]);
 
   useEffect(() => {
-    if (isFullscreenMap) {
+    if (isMapListFullscreen) {
       handleSetVisibility(false);
     } else {
       handleSetVisibility(true);
     }
-  }, [handleSetVisibility, isFullscreenMap]);
+  }, [handleSetVisibility, isMapListFullscreen]);
 };
