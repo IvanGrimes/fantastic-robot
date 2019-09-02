@@ -3,7 +3,7 @@ import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { of } from 'rxjs';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
-import { getAppliedFilters } from '../../studios/model/selectors';
+import { getAppliedFilters } from '../../studioFilters/model/selectors';
 
 export const fetchStudiosFlow: Epic<
   RootAction,

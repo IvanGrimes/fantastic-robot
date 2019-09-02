@@ -1,5 +1,9 @@
 import { combineEpics } from 'redux-observable';
-import { studiosEpic } from '../features/studios/model/epics';
 import { studioListEpic } from '../features/studioList/model/epics';
+import { studioFiltersEpic } from '../features/studioFilters/model/epics';
 
-export const rootEpic = combineEpics(...studiosEpic, ...studioListEpic);
+export const rootEpic = combineEpics(
+  ...studioFiltersEpic,
+  ...studioListEpic,
+  ...studioFiltersEpic
+);

@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
-import { Container } from '../../../../../components/Container';
+import { Container } from '../../../../components/Container';
 import {
   FilterGrid,
   Wrapper,
@@ -16,7 +16,7 @@ import {
   StudioListFilterType,
   GridWithMargin,
 } from './StudioListFilterMobile.styles';
-import { BarWrapper } from '../../../../ui/components/Header/HeaderBar/HeaderBar.styles';
+import { BarWrapper } from '../../../ui/components/Header/HeaderBar/HeaderBar.styles';
 import { StudioListFilterSearch } from '../StudioListFilterSearch';
 
 type Props = {

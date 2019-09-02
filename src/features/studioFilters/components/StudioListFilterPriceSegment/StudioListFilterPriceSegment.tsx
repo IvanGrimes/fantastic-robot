@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { PropertyList } from '../../../../../components/PropertyList';
-import { RootState } from '../../../../../model/types';
-import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
-import * as a from '../../../model/actions';
-import { getPriceSegment } from '../../../../../utils/getPriceSegment';
+import { PropertyList } from '../../../../components/PropertyList';
+import { RootState } from '../../../../model/types';
+import { getPriceSegment } from '../../../../utils/getPriceSegment';
 import { StudioListFilterPriceSegmentProps } from './index';
-import { PriceSegment } from '../../../../studioList/model/types';
+import { PriceSegment } from '../../../studioList/model/types';
+import { setFilters } from '../../model/actions';
+import { getAppliedFilters, getFiltersData } from '../../model/selectors';
 
 type Props = StudioListFilterPriceSegmentProps &
   ReturnType<typeof mapStateToProps> &
@@ -19,7 +19,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  handleChange: a.setFilters,
+  handleChange: setFilters,
 };
 
 const _StudioListFilterPriceSegment = ({

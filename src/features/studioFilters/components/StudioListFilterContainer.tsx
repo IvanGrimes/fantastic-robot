@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import { parse } from 'qs';
 import { mergeDeepRight } from 'ramda';
 import { StudioListFilterProps } from './index';
-import { clearFilters } from '../../model/actions';
 import { StudioListFilter } from './StudioListFilter';
-import { RootState } from '../../../../model/types';
-import { getAppliedFilters } from '../../model/selectors';
-import { usePrevious } from '../../../../hooks/usePrevious';
+import { RootState } from '../../../model/types';
+import { usePrevious } from '../../../hooks/usePrevious';
+import { clearFilters } from '../model/actions';
+import { getAppliedFilters } from '../model/selectors';
 
 type Props = StudioListFilterProps &
   ReturnType<typeof mapStateToProps> &

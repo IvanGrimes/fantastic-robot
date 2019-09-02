@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
-import { PropertyList } from '../../../../../components/PropertyList';
-import { RootState } from '../../../../../model/types';
-import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
-import * as a from '../../../model/actions';
+import { PropertyList } from '../../../../components/PropertyList';
+import { RootState } from '../../../../model/types';
 import { StudioListFilterTypeProps } from './index';
+import { setFilters } from '../../model/actions';
+import { getAppliedFilters, getFiltersData } from '../../model/selectors';
 
 export type Props = StudioListFilterTypeProps &
   ReturnType<typeof mapStateToProps> &
@@ -17,7 +17,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  handleChange: a.setFilters,
+  handleChange: setFilters,
 };
 
 const _StudioListFilterType = ({

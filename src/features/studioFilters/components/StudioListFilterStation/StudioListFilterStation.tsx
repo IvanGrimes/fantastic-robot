@@ -2,12 +2,12 @@ import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { Grid, Typography } from '@material-ui/core';
-import { PropertyList } from '../../../../../components/PropertyList';
-import { RootState } from '../../../../../model/types';
-import { getAppliedFilters, getFiltersData } from '../../../model/selectors';
-import * as a from '../../../model/actions';
+import { PropertyList } from '../../../../components/PropertyList';
+import { RootState } from '../../../../model/types';
 import { ColorCircle } from './StudioListFilterStation.styles';
 import { StudioListFilterStationProps } from './index';
+import { setFilters } from '../../model/actions';
+import { getAppliedFilters, getFiltersData } from '../../model/selectors';
 
 type Props = StudioListFilterStationProps &
   ReturnType<typeof mapStateToProps> &
@@ -19,7 +19,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  handleChange: a.setFilters,
+  handleChange: setFilters,
 };
 
 const _StudioListFilterStation = ({

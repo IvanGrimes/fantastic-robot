@@ -5,7 +5,7 @@ import { InfiniteScrollProps } from './index';
 import {
   getAsPathWithFilters,
   parseFilters,
-} from '../../features/studios/components/StudioListFilter/StudioListFilterContainer';
+} from '../../features/studioFilters/components/StudioListFilterContainer';
 
 export const InfiniteScroll = ({
   dataLength,

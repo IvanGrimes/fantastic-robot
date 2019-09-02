@@ -6,7 +6,7 @@ import {
   MapSwitchGrid,
 } from './HeaderBar.styles';
 import { Container } from '../../../../../components/Container';
-import { StudioListFilter } from '../../../../studios/components/StudioListFilter';
+import { StudioListFilter } from '../../../../studioFilters/components';
 
 type Props = {
   isMapVisible: boolean;

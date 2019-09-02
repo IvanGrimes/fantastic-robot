@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { FetchStudiosInput, mockStudios } from '../../studios/model/api';
-import { StudiosState } from '../../studios/model/reducer';
+import { StudioListState } from './reducer';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@STUDIOS/FETCH_STUDIOS_REQUEST',
@@ -8,7 +8,7 @@ export const fetchStudiosAsync = createAsyncAction(
   '@@STUDIOS/FETCH_STUDIOS_FAIL'
 )<
   FetchStudiosInput &
-    Partial<Pick<StudiosState['studios'], 'listUpdateType'>> & {
+    Partial<Pick<StudioListState, 'listUpdateType'>> & {
       isFiltering?: boolean;
     },
   ReturnType<typeof mockStudios>,

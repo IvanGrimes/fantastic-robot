@@ -20,3 +20,7 @@ export const getStudios = createDeepEqualSelector(
 export const getToggleFavoriteError = createRequestErrorSelector(
   getType(toggleFavoriteAsync.request)
 );
+export const getIsStudiosFiltering = createDeepEqualSelector(
+  [getStudios],
+  state => state.isFiltering
+);

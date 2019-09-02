@@ -1,12 +1,12 @@
-import { from } from 'rxjs';
 import {
   PriceSegment,
   ShortStudio,
   Station,
   StudioType,
 } from '../../studioList/model/types';
+import { getFilteredStudio } from '../../studioFilters/model/api';
 
-const stations: Station[] = [
+export const stations: Station[] = [
   {
     id: '3.161',
     name: 'Электрозаводская',
@@ -27,7 +27,7 @@ const stations: Station[] = [
   },
 ];
 
-const types: StudioType[] = [
+export const types: StudioType[] = [
   {
     id: '1',
     name: 'Test type #1',
@@ -64,51 +64,6 @@ export type Filters = {
     to: number;
   };
 };
-
-export const fetchFilters = () =>
-  from(
-    new Promise<Filters>(resolve =>
-      setTimeout(
-        () =>
-          resolve({
-            stations,
-            types,
-            priceSegments: [1, 2, 3],
-            roomsCount: {
-              from: 2,
-              to: 12,
-            },
-          }),
-        typeof window !== 'undefined' ? 1000 : 0
-      )
-    )
-  );
-
-const getFilteredStudio = ({
-  name,
-  typeIds = [],
-  priceSegments = [],
-  stationIds = [],
-}: Omit<FetchStudiosInput, 'page'>): ShortStudio[] => [
-  {
-    id: Math.random().toString(),
-    name: name || 'Test studio #65345',
-    types: typeIds.length
-      ? types.filter(({ id }) => typeIds.includes(id))
-      : types,
-    favorite: false,
-    roomsCount: 4,
-    stations: stationIds.length
-      ? stations.filter(({ id }) => stationIds.includes(id))
-      : stations,
-    priceSegments: priceSegments[0] || 2,
-    description:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
-    photos: new Array(5).fill({ id: '1920x1080', ratio: 16.9 }),
-    lat: 59.955413,
-    lng: 30.337844,
-  },
-];
 
 export const mockStudios = ({
   page = 1,

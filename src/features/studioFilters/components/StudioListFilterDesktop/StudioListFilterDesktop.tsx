@@ -1,6 +1,6 @@
 import React, { Fragment, memo, useMemo } from 'react';
 import { Button, Grid, Portal } from '@material-ui/core';
-import { useStudioListFilterPopover } from '../../../hooks/useStudioListFilterPopover';
+import { useStudioListFilterPopover } from '../../hooks/useStudioListFilterPopover';
 import { StudioListFilterStation } from '../StudioListFilterStation';
 import { StudioListFilterType } from '../StudioListFilterType';
 import { StudioListFilterPriceSegment } from '../StudioListFilterPriceSegment';

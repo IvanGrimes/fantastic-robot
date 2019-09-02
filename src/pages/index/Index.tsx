@@ -3,17 +3,17 @@ import { Store } from 'redux';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
-import {
-  fetchFiltersAsync,
-  setFilters,
-} from '../../features/studios/model/actions';
 import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { getIsMapVisible } from '../../features/ui/model/selectors';
 import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studioList/components';
-import { parseFilters } from '../../features/studios/components/StudioListFilter/StudioListFilterContainer';
+import { parseFilters } from '../../features/studioFilters/components/StudioListFilterContainer';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
+import {
+  fetchFiltersAsync,
+  setFilters,
+} from '../../features/studioFilters/model/actions';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studios/components/StudioListMap').then(

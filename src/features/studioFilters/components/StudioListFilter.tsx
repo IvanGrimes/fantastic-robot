@@ -1,7 +1,7 @@
 import React, { Fragment, memo } from 'react';
 import dequal from 'dequal';
 import { StudioListFilterMobile } from './StudioListFilterMobile';
-import { Hidden } from '../../../../components/Hidden';
+import { Hidden } from '../../../components/Hidden';
 import { StudioListFilterDesktop } from './StudioListFilterDesktop';
 
 export type StudioListFilterProps = {

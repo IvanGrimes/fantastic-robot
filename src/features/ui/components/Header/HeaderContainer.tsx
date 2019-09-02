@@ -5,8 +5,8 @@ import { RootState } from '../../../../model/types';
 import { getIsHeaderVisible } from '../../model/selectors';
 import { setFullscreenMap, setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
-import { setFilters } from '../../../studios/model/actions';
-import { getAppliedFilters } from '../../../studios/model/selectors';
+import { setFilters } from '../../../studioFilters/model/actions';
+import { getAppliedFilters } from '../../../studioFilters/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
