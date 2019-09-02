@@ -62,6 +62,7 @@ const _StudioListMap = ({
             options={{
               fullscreenControl: false,
               zoomControl: false,
+              gestureHandling: 'greedy',
             }}
             onClick={isFullscreenMap ? undefined : fullscreenMapOn}
           >
