@@ -45,12 +45,12 @@ const _StudioListItem = ({
 
   return (
     <Grid container component={Card}>
-      <Grid item xs={variant === 'wide' ? 4 : 12}>
+      <Grid item sm={variant === 'wide' ? 4 : 12} xs={12}>
         <Grid item xs={12}>
           <StudioListItemPhotos photos={photos} />
         </Grid>
       </Grid>
-      <Grid container item xs={variant === 'wide' ? 8 : 12}>
+      <Grid container item sm={variant === 'wide' ? 8 : 12} xs={12}>
         <Grid
           component={CardContent}
           container

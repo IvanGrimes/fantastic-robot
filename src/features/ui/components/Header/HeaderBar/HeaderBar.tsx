@@ -1,5 +1,6 @@
-import React, { memo, useMemo } from 'react';
-import { Grid, Switch } from '@material-ui/core';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import { Grid, Switch, useTheme } from '@material-ui/core';
+import throttle from 'lodash/throttle';
 import {
   BarWrapper,
   HideableTypography,
@@ -7,6 +8,7 @@ import {
 } from './HeaderBar.styles';
 import { Container } from '../../../../../components/Container';
 import { StudioListFilter } from '../../../../studioFilters/components';
+import { getBreakpoints } from '../../../../../theme';
 
 type Props = {
   isMapListEnabled: boolean;
@@ -15,6 +17,22 @@ type Props = {
 
 const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
   const filters = useMemo(() => <StudioListFilter />, []);
+  const theme = useTheme();
+  const breakpoints = getBreakpoints({ theme });
+  const handleResize = useCallback(
+    throttle(() => {
+      if (!isMapListEnabled && window.innerWidth < breakpoints.values.md) {
+        handleToggleMapVisibility();
+      }
+    }, 100),
+    [breakpoints.values.md, handleToggleMapVisibility, isMapListEnabled]
+  );
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [handleResize]);
 
   return (
     <Grid container>

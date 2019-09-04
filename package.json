@@ -19,6 +19,7 @@
   "dependencies": {
     "@material-ui/core": "^4.1.3",
     "@material-ui/icons": "^4.2.1",
+    "@material-ui/lab": "^4.0.0-alpha.25",
     "@material-ui/styles": "^4.2.0",
     "@now/next": "^0.5.4",
     "@now/node": "^0.11.1",

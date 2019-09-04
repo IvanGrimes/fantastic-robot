@@ -72,8 +72,11 @@ const _StudioList = ({
                 container
                 key={item.id}
                 item
-                xs={listItemVariant === 'short' ? 3 : 12}
+                lg={listItemVariant === 'short' ? 3 : 12}
+                md={listItemVariant === 'short' ? 4 : 12}
+                xs={12}
                 spacing={0}
+                variant={listItemVariant}
               >
                 <StudioListItem
                   {...item}

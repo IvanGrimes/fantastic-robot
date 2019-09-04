@@ -9,6 +9,7 @@ import {
   InfiniteScrollProps,
 } from '../../../components/InfiniteScroll';
 import { getBreakpoints } from '../../../theme';
+import { StudioListItemProps } from './StudioListItem';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
   DefaultInfiniteScroll
@@ -85,4 +86,14 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
 
 export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="li" />
-))``;
+))<{ variant: StudioListItemProps['variant'] }>`
+  ${({ variant }) => css`
+    && {
+      ${variant === 'wide' &&
+        css`
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        `}
+    }
+  `}
+`;
