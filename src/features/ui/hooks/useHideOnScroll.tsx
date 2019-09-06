@@ -8,14 +8,16 @@ import { usePrevious } from '../../../hooks/usePrevious';
 import { getIsFullscreen } from '../../studioMapList/model/selectors';
 
 export const useHideOnScroll = ({
+  isVisible,
   handleSetVisibility,
 }: {
+  isVisible: boolean;
   handleSetVisibility: (visibility: boolean) => void;
 }) => {
   const theme = useTheme();
   const breakpoints = getBreakpoints({ theme });
   const isMapListFullscreen = useSelector(getIsFullscreen);
-  const previsMapListFullscreen = usePrevious(isMapListFullscreen);
+  const prevIsMapListFullscreen = usePrevious(isMapListFullscreen);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const handleSetVisibilityAndPrevScroll = useCallback(
     (visibility, scrollY) => {
@@ -33,10 +35,10 @@ export const useHideOnScroll = ({
 
       if (window.innerWidth < breakpoints.values.md) {
         if (scrollY > 100) {
-          const isVisible = prevScrollY > scrollY;
+          const shouldVisible = prevScrollY > scrollY;
 
           setVisibilityAndPrevScroll(
-            previsMapListFullscreen || isVisible,
+            prevIsMapListFullscreen || shouldVisible,
             scrollY
           );
           setPrevScrollY(scrollY);
@@ -49,16 +51,28 @@ export const useHideOnScroll = ({
       breakpoints.values.md,
       prevScrollY,
       setVisibilityAndPrevScroll,
-      previsMapListFullscreen,
+      prevIsMapListFullscreen,
       isMapListFullscreen,
     ]
+  );
+  const handleResize = useCallback(
+    debounce(() => {
+      if (window.innerWidth > breakpoints.values.md && !isVisible) {
+        setVisibilityAndPrevScroll(true, 0);
+      }
+    }, 150),
+    [breakpoints.values.md, isVisible, setVisibilityAndPrevScroll]
   );
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize, handleScroll]);
 
   useEffect(() => {
     if (isMapListFullscreen) {

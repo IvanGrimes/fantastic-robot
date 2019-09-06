@@ -42,7 +42,10 @@ const _BottomNavigation = ({
   isBottomNavigationVisible,
   handleSetBottomNavigationVisibility,
 }: Props) => {
-  useHideOnScroll({ handleSetVisibility: handleSetBottomNavigationVisibility });
+  useHideOnScroll({
+    isVisible: isBottomNavigationVisible,
+    handleSetVisibility: handleSetBottomNavigationVisibility,
+  });
   const { route } = useRouter();
 
   return (

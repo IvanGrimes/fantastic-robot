@@ -8,21 +8,35 @@ import {
 } from '@material-ui/core';
 import { CardProps } from '@material-ui/core/Card';
 import { CardContentProps } from '@material-ui/core/CardContent';
+import DefaultContentLoader, {
+  IContentLoaderProps,
+} from 'react-content-loader';
 import { getShadows } from '../../../../theme/shadows';
 import {
   StudioListItemFavorite,
   StudioListItemFavoriteProps,
 } from './StudioListItemFavorite';
 
-export const Card = styled<ComponentType<CardProps>>(DefaultCard)`
-  ${props => {
+export const Card = styled<ComponentType<CardProps>>(DefaultCard)<{
+  isDisabled: boolean;
+}>`
+  ${({ isDisabled, ...props }) => {
     const shadows = getShadows(props);
 
     return css`
       && {
-        &:hover {
-          box-shadow: ${shadows[5]};
-        }
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        ${isDisabled
+          ? css`
+              cursor: default;
+            `
+          : css`
+              &:hover {
+                box-shadow: ${shadows[5]};
+              }
+            `}
       }
     `;
   }}
@@ -48,4 +62,10 @@ export const CardBottomGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
     margin-bottom: -8px;
   }
+`;
+
+export const ContentLoader = styled<ComponentType<IContentLoaderProps>>(
+  DefaultContentLoader
+)`
+  ${({ width, height }) => css({ width, height })}
 `;

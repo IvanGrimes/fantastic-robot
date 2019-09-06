@@ -35,7 +35,7 @@ const _StudioList = ({
   isMapListFullscreen,
   handleNext,
 }: Props) => {
-  const loaderList = new Array(3).fill({});
+  const loaderList = new Array(8).fill({});
 
   if (error) {
     return <p>{error}</p>;

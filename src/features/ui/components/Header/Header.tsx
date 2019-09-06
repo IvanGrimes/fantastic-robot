@@ -48,7 +48,10 @@ const _Header = ({
   searchValue,
   handleSearch,
 }: Props) => {
-  useHideOnScroll({ handleSetVisibility: handleSetHeaderVisibility });
+  useHideOnScroll({
+    isVisible: isHeaderVisible,
+    handleSetVisibility: handleSetHeaderVisibility,
+  });
   const handleSetFullscreenMapOn = useCallback(
     () => handleSetFullscreenMap(true),
     [handleSetFullscreenMap]

@@ -8,7 +8,7 @@ export const fetchStudios = (input: FetchStudiosInput) => {
         () => {
           resolve(mockStudios(input));
         },
-        typeof window !== 'undefined' ? 3000 : 0
+        typeof window !== 'undefined' ? 300000 : 0
       );
     })
   );

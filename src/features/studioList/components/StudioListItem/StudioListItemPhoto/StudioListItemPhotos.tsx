@@ -7,10 +7,6 @@ import { floatToFraction } from '../../../../../utils/floatToFraction';
 import { StudioListItemPhotosProps } from './index';
 
 const _StudioListItemPhotos = ({ photos }: StudioListItemPhotosProps) => {
-  if (!photos) {
-    return null;
-  }
-
   return (
     <Grid container>
       <Grid item xs={12}>
