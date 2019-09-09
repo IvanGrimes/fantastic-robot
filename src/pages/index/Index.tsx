@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Store } from 'redux';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
@@ -14,6 +14,7 @@ import {
   setFilters,
 } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
+import { fetchStudiosExternal } from '../../features/studioList/model/api';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -50,6 +51,10 @@ export const getInitialProps: IndexGetInitialProps = async ({
 
 const _Index = () => {
   const isMapListEnabled = useSelector(getIsEnabled);
+
+  useEffect(() => {
+    fetchStudiosExternal();
+  }, []);
 
   return (
     <ContentGrid container>

@@ -1,5 +1,6 @@
 import { from } from 'rxjs';
 import { FetchStudiosInput, mockStudios } from '../../../mocks/mockStudios';
+import { axios } from '../../../lib/axios';
 
 export const fetchStudios = (input: FetchStudiosInput) => {
   return from(
@@ -27,3 +28,6 @@ export const toggleFavorite = (id: string) =>
       return { id: _id };
     })
   );
+
+export const fetchStudiosExternal = () =>
+  axios.get(`/api/studio/filter?size=10&page=1`).then(res => console.log(res));

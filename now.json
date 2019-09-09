@@ -6,10 +6,16 @@
   ],
   "build": {
     "env": {
-      "MAPS_API_TOKEN": "@maps_api_token"
+      "MAPS_API_TOKEN": "@maps_api_token",
+      "API_TARGET": "@api_target",
+      "API_AUTH": "@api_auth"
     }
   },
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/lambdas/proxy.ts"
+    },
     {
       "src": "/service-worker.js",
       "dest": "/_next/static/service-worker.js",
