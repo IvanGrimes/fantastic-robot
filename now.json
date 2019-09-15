@@ -13,7 +13,7 @@
   },
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/proxy/(.*)",
       "dest": "/lambdas/proxy.ts"
     },
     {

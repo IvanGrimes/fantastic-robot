@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 import { StudioListMap } from './StudioListMap';
 import { RootState } from '../../../model/types';
 import { getIsHeaderVisible } from '../../ui/model/selectors';
@@ -10,6 +10,7 @@ import { usePrevious } from '../../../hooks/usePrevious';
 import { getStudios } from '../../studioList/model/selectors';
 import { setFullscreen } from '../model/actions';
 import { getIsFullscreen } from '../model/selectors';
+import { Theme } from '../../../theme/types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -31,7 +32,7 @@ const _StudioListMapContainer = ({
 }: Props) => {
   const previsMapListFullscreen = usePrevious(isMapListFullscreen);
   const [prevScrollY, setPrevScrollY] = useState(0);
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
   const html = useMemo(
     () =>

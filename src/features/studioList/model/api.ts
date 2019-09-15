@@ -30,4 +30,4 @@ export const toggleFavorite = (id: string) =>
   );
 
 export const fetchStudiosExternal = () =>
-  axios.get(`/api/studio/filter?size=10&page=1`).then(res => console.log(res));
+  axios.get(`/api/studio/filter?page=1&size=10`).then(res => console.log(res));

@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
-import { Grid, Switch, useTheme } from '@material-ui/core';
+import { Grid, Switch } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
 import {
   BarWrapper,
@@ -9,6 +10,7 @@ import {
 import { Container } from '../../../../../components/Container';
 import { StudioListFilter } from '../../../../studioFilters/components';
 import { getBreakpoints } from '../../../../../theme';
+import { Theme } from '../../../../../theme/types';
 
 type Props = {
   isMapListEnabled: boolean;
@@ -17,7 +19,7 @@ type Props = {
 
 const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
   const filters = useMemo(() => <StudioListFilter />, []);
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
   const handleResize = useCallback(
     throttle(() => {

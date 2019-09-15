@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 import debounce from 'lodash/debounce';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { getBreakpoints } from '../../../theme';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { getIsFullscreen } from '../../studioMapList/model/selectors';
+import { Theme } from '../../../theme/types';
 
 export const useHideOnScroll = ({
   isVisible,
@@ -14,7 +15,7 @@ export const useHideOnScroll = ({
   isVisible: boolean;
   handleSetVisibility: (visibility: boolean) => void;
 }) => {
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
   const isMapListFullscreen = useSelector(getIsFullscreen);
   const prevIsMapListFullscreen = usePrevious(isMapListFullscreen);
