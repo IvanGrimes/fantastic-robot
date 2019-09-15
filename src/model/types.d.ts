@@ -20,3 +20,5 @@ declare module 'typesafe-actions' {
     RootState: RootState;
   }
 }
+
+export type CityType = 'moscow';

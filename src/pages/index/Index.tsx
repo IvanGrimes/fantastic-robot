@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Store } from 'redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
@@ -14,7 +14,7 @@ import {
   setFilters,
 } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
-import { fetchStudiosExternal } from '../../features/studioList/model/api';
+import { fetchMetroListAsync } from '../../features/studioData/model/actions';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -51,10 +51,11 @@ export const getInitialProps: IndexGetInitialProps = async ({
 
 const _Index = () => {
   const isMapListEnabled = useSelector(getIsEnabled);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchStudiosExternal();
-  }, []);
+    dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+  }, [dispatch]);
 
   return (
     <ContentGrid container>

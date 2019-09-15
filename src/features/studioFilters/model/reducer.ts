@@ -6,7 +6,7 @@ import {
 } from '../../studioList/model/types';
 import { clearFilters, fetchFiltersAsync, setFilters } from './actions';
 
-export type StudioFiltersType = {
+export type StudioFiltersState = {
   data: {
     stations: Station[];
     types: StudioType[];
@@ -21,7 +21,7 @@ export type StudioFiltersType = {
   };
 };
 
-const initialState: StudioFiltersType = {
+const initialState: StudioFiltersState = {
   applied: {
     name: '',
     stationIds: [],
