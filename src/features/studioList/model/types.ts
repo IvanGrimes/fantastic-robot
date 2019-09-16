@@ -1,3 +1,18 @@
+import { CityType } from '../../../model/types';
+
+export type FetchStudioListInput = {
+  name?: string;
+  city: CityType;
+  equipments?: string[];
+  interiors?: string[];
+  page?: number;
+  size?: number;
+  map?: {
+    topLeft: string;
+    bottomRight: string;
+  };
+};
+
 export type Station = {
   id: string;
   name: string;

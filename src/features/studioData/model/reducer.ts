@@ -14,6 +14,13 @@ export const studioDataReducer = createReducer(initialState).handleAction(
   fetchMetroListAsync.success,
   (state, { payload }) => ({
     ...state,
-    metroList: payload.list,
+    // eslint-disable-next-line camelcase
+    metroList: payload.list.map(({ hex_color, stations, ...line }) => ({
+      stations: stations.map(station => ({
+        color: hex_color,
+        ...station,
+      })),
+      ...line,
+    })),
   })
 );
