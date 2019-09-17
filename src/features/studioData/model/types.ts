@@ -28,3 +28,11 @@ export type MetroLine = Omit<
 export type MetroStation = MetroStationResponse & {
   color: MetroLineResponse['hex_color'];
 };
+
+export type ConfigObjectProperty = 'context' | 'equipment' | 'interior';
+
+export type ConfigObject = {
+  [key in ConfigObjectProperty]: [ConfigObjectValue?];
+};
+
+export type ConfigObjectValue = { id: string; value: string };

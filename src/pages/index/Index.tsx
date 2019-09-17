@@ -14,7 +14,10 @@ import {
   setFilters,
 } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
-import { fetchMetroListAsync } from '../../features/studioData/model/actions';
+import {
+  fetchConfigAsync,
+  fetchMetroListAsync,
+} from '../../features/studioData/model/actions';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -55,6 +58,7 @@ const _Index = () => {
 
   useEffect(() => {
     dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+    dispatch(fetchConfigAsync.request());
   }, [dispatch]);
 
   return (

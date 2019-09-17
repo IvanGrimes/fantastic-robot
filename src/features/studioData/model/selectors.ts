@@ -1,6 +1,6 @@
 import { getType } from 'typesafe-actions';
 import { createRequestLoadingSelector } from '../../../model/api/loading/selectors';
-import { fetchMetroListAsync } from './actions';
+import { fetchConfigAsync, fetchMetroListAsync } from './actions';
 import { RootState } from '../../../model/types';
 import { createDeepEqualSelector } from '../../../lib/createDeepEqualSelector';
 
@@ -13,4 +13,13 @@ export const getMetroListLoading = createRequestLoadingSelector([
 export const getMetroList = createDeepEqualSelector(
   [getState],
   state => state.metroList
+);
+
+export const getConfigLoading = createRequestLoadingSelector([
+  getType(fetchConfigAsync.request),
+]);
+
+export const getConfig = createDeepEqualSelector(
+  [getState],
+  state => state.config
 );

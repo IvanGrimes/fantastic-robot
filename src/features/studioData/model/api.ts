@@ -1,8 +1,13 @@
 import { axios } from '../../../lib/axios';
-import { MetroListResponse } from './types';
+import { ConfigObject, MetroListResponse } from './types';
 import { CityType } from '../../../model/types';
 
 export const fetchMetroList = ({ city }: { city: CityType }) =>
-  axios.get(`/api/metro?cityId=${city}`).then(response => {
-    return response.data as MetroListResponse;
-  });
+  axios
+    .get(`/api/metro?cityId=${city}`)
+    .then(response => response.data as MetroListResponse);
+
+export const fetchConfig = () =>
+  axios
+    .get('/api/siteconfig/all')
+    .then(response => response.data as ConfigObject);

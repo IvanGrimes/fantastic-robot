@@ -4,7 +4,7 @@ import { catchError, filter, switchMap, map } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
 
-export const fetchMetroListFlow: Epic<
+const fetchMetroListFlow: Epic<
   RootAction,
   RootAction,
   RootState,
@@ -29,4 +29,29 @@ export const fetchMetroListFlow: Epic<
     )
   );
 
-export const studioDataEpic = [fetchMetroListFlow];
+const fetchConfigFlow: Epic<
+  RootAction,
+  RootAction,
+  RootState,
+  EpicDependencies
+> = (
+  action$,
+  _state$,
+  {
+    api: { fetchConfig },
+    actions: {
+      studioDataActions: { fetchConfigAsync },
+    },
+  }
+) =>
+  action$.pipe(
+    filter(isActionOf(fetchConfigAsync.request)),
+    switchMap(() =>
+      from(fetchConfig()).pipe(
+        map(data => fetchConfigAsync.success({ config: data })),
+        catchError(error => of(fetchConfigAsync.failure(error)))
+      )
+    )
+  );
+
+export const studioDataEpic = [fetchMetroListFlow, fetchConfigFlow];
