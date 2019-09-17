@@ -1,25 +1,23 @@
 import defaultAxios from 'axios';
 import btoa from 'btoa';
 
-// TODO: Later move into lambdas/proxy.ts
+if (!process.env.API_ENDPOINT) {
+  throw new Error('You should define API_ENDPOINT env variable');
+}
 
-export const axios = defaultAxios.create({
+export const axiosServer = defaultAxios.create({
+  baseURL: process.env.API_ENDPOINT,
   auth: {
     username: 'devuser36',
     password: 'devuser36',
   },
 });
 
-axios.interceptors.request.use(config => {
+axiosServer.interceptors.request.use(config => {
   if (!process.env.API_AUTH) {
     throw new Error('You should define API_AUTH env variable');
   }
-
   const nextConfig = config;
-
-  if (nextConfig.url) {
-    nextConfig.url = nextConfig.url.replace('/api', '/proxy/API/V1');
-  }
 
   if (!nextConfig.headers) {
     nextConfig.headers = {};

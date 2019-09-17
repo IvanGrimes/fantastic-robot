@@ -1,20 +1,8 @@
-export type MetroListResponse = MetroLineResponse[];
-
-export type MetroLineResponse = {
-  id: string;
-  // eslint-disable-next-line camelcase
-  hex_color: string;
-  name: string;
-  stations: MetroStationResponse[];
-};
-
-export type MetroStationResponse = {
-  id: string;
-  order: number;
-  name: string;
-  lat: number;
-  lng: number;
-};
+import { ConfigObjectResponse } from '../../../controllers/config/list';
+import {
+  MetroLineResponse,
+  MetroStationResponse,
+} from '../../../controllers/metro/list';
 
 export type MetroList = MetroLine[];
 
@@ -29,10 +17,4 @@ export type MetroStation = MetroStationResponse & {
   color: MetroLineResponse['hex_color'];
 };
 
-export type ConfigObjectProperty = 'context' | 'equipment' | 'interior';
-
-export type ConfigObject = {
-  [key in ConfigObjectProperty]: [ConfigObjectValue?];
-};
-
-export type ConfigObjectValue = { id: string; value: string };
+export type ConfigObject = ConfigObjectResponse;

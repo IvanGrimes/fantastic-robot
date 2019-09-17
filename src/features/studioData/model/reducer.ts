@@ -1,5 +1,5 @@
 import { createReducer } from 'typesafe-actions';
-import { ConfigObject, MetroList } from './types';
+import { MetroList, ConfigObject } from './types';
 import { fetchConfigAsync, fetchMetroListAsync } from './actions';
 
 export type DataReducer = {

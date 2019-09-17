@@ -2,19 +2,25 @@
   "version": 2,
   "builds": [
     { "src": "next.config.js", "use": "@now/next" },
-    { "src": "lambdas/**/*.ts", "use": "@now/node" }
+    { "src": "src/controllers/**/*.ts", "use": "@now/node" }
   ],
   "build": {
     "env": {
       "MAPS_API_TOKEN": "@maps_api_token",
-      "API_TARGET": "@api_target",
+      "API_ENDPOINT": "@api_endpoint",
       "API_AUTH": "@api_auth"
     }
   },
   "routes": [
     {
-      "src": "/proxy/(.*)",
-      "dest": "/lambdas/proxy.ts"
+      "src": "^/sitemap.xml$",
+      "methods": ["GET"],
+      "dest": "/src/controllers/sitemap.ts"
+    },
+    {
+      "src": "^/controllers/(.*[^/]+)$",
+      "methods": ["POST", "GET"],
+      "dest": "/src/controllers/$1.ts"
     },
     {
       "src": "/service-worker.js",
@@ -37,11 +43,7 @@
       }
     },
     {
-      "src": "^/sitemap.xml$",
-      "dest": "/lambdas/sitemap.ts"
-    },
-    {
-      "src": "/(((?!\\?|#|\\.|_next).)*((?!\\?|/|#|\\.).))",
+      "src": "/(((?!\\?|#|\\.|_next|api).)*((?!\\?|/|#|\\.).))",
       "status": 301,
       "headers": { "Location": "/$1/" }
     }
