@@ -4,11 +4,13 @@
     { "src": "next.config.js", "use": "@now/next" },
     { "src": "src/controllers/**/*.ts", "use": "@now/node" }
   ],
+  "env": {
+    "API_ENDPOINT": "@api_endpoint",
+    "API_AUTH": "@api_auth"
+  },
   "build": {
     "env": {
-      "MAPS_API_TOKEN": "@maps_api_token",
-      "API_ENDPOINT": "@api_endpoint",
-      "API_AUTH": "@api_auth"
+      "MAPS_API_TOKEN": "@maps_api_token"
     }
   },
   "routes": [
