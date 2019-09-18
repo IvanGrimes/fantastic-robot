@@ -5,7 +5,6 @@ import { studioFiltersEpic } from '../features/studioFilters/model/epics';
 
 export const rootEpic = combineEpics(
   ...studioDataEpic,
-  ...studioFiltersEpic,
   ...studioListEpic,
   ...studioFiltersEpic
 );

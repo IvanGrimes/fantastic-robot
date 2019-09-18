@@ -11,7 +11,7 @@ import {
 import {
   StudioListFilterInterior as DefaultStudioListFilterType,
   StudioListFilterTypeProps,
-} from '../StudioListFilterType';
+} from '../StudioListFilterInterior';
 import {
   StudioListFilterPriceSegment as DefaultStudioListFilterPriceSegment,
   StudioListFilterPriceSegmentProps,

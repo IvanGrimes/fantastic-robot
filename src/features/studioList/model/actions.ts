@@ -11,9 +11,9 @@ export const fetchStudiosAsync = createAsyncAction(
 )<StudiosInput, Await<ReturnType<typeof fetchStudios>>, any>();
 
 export const fetchFilterStudiosAsync = createAsyncAction(
-  '@@studioList/FETCH_STUDIOS_REQUEST',
-  '@@studioList/FETCH_STUDIOS_SUCCESS',
-  '@@studioList/FETCH_STUDIOS_FAIL'
+  '@@studioList/FETCH_FILTER_STUDIOS_REQUEST',
+  '@@studioList/FETCH_FILTER_STUDIOS_SUCCESS',
+  '@@studioList/FETCH_FILTER_STUDIOS_FAIL'
 )<
   Pick<FilterStudiosInput, 'city'> & Pick<FilterStudiosInput, 'page'>,
   Await<ReturnType<typeof fetchFilterStudios>>,

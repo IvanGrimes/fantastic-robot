@@ -19,7 +19,7 @@ const _ChipList = ({
     spacing={2}
     {...props}
   >
-    {list.map(item => (
+    {list.map((item: any) => (
       <ChipListItem
         key={item.id}
         {...item}

@@ -22,8 +22,8 @@ export const studioDataReducer = createReducer(initialState)
     ...state,
     metroList: payload.list
       // eslint-disable-next-line camelcase
-      .map(({ hex_color, name, stations, ...line }) => ({
-        stations: stations.map(station => ({
+      .map(({ hex_color, stations, ...line }) => ({
+        stations: stations.map(({ name, ...station }) => ({
           color: hex_color,
           value: name,
           ...station,
@@ -31,11 +31,7 @@ export const studioDataReducer = createReducer(initialState)
         ...line,
       }))
       .reduce<MetroStation[]>((acc, line) => [...acc, ...line.stations], [])
-      .sort(
-        (a, b) =>
-          a.value.toLowerCase().charCodeAt(0) -
-          b.value.toLowerCase().charCodeAt(0)
-      ),
+      .sort((a, b) => a.value.localeCompare(b.value)),
   }))
   .handleAction(fetchConfigAsync.success, (state, { payload }) => ({
     ...state,

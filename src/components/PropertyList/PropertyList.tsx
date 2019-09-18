@@ -1,6 +1,7 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { Button, Grid, Typography } from '@material-ui/core';
+import debounce from 'lodash/debounce';
 import { PropertyListProps } from './index';
 import { getAbsoluteString } from '../../utils/getAbsoluteString';
 import { ClearableInput } from '../ClearableInput';
@@ -28,17 +29,25 @@ const _PropertyList = ({
   variant = 'chip',
   ...props
 }: PropertyListProps) => {
+  const [filteredList, setFilteredList] = useState(list);
   const [search, setSearch] = useState('');
-  const filteredList = useMemo(
-    () =>
-      list.filter(({ value }) =>
-        getAbsoluteString(value).includes(getAbsoluteString(search))
-      ),
-    [list, search]
-  );
   const handleToggle = useCallback((id: string) => onChange([id])(), [
     onChange,
   ]);
+
+  useEffect(() => {
+    const filterList = debounce(() =>
+      setFilteredList(
+        list.filter(
+          item =>
+            item &&
+            getAbsoluteString(item.value).includes(getAbsoluteString(search))
+        )
+      )
+    );
+
+    filterList();
+  }, [filteredList, list, search]);
 
   return (
     <WrapperGrid className={className} container direction="column" {...props}>
@@ -73,7 +82,7 @@ const _PropertyList = ({
         ) : null}
         <ListGrid item xs={12}>
           <ListScrollableGrid container>
-            {variant === 'chip' ? (
+            {variant === 'chip' && filteredList.length ? (
               <ChipList
                 list={filteredList}
                 selectedListId={selectedIds}
@@ -82,17 +91,25 @@ const _PropertyList = ({
               />
             ) : null}
             {variant === 'checkbox'
-              ? filteredList.map(({ id, value, ...rest }) => (
-                  <PropertyListItem
-                    key={id}
-                    id={id}
-                    name={value}
-                    onChange={onChange}
-                    isActive={selectedIds.includes(id)}
-                    renderValue={renderValue}
-                    {...rest}
-                  />
-                ))
+              ? filteredList.map(item => {
+                  if (item) {
+                    const { id, value, ...rest } = item;
+
+                    return (
+                      <PropertyListItem
+                        key={id}
+                        id={id}
+                        name={value}
+                        onChange={onChange}
+                        isActive={selectedIds.includes(id)}
+                        renderValue={renderValue}
+                        {...rest}
+                      />
+                    );
+                  }
+
+                  return null;
+                })
               : null}
           </ListScrollableGrid>
         </ListGrid>

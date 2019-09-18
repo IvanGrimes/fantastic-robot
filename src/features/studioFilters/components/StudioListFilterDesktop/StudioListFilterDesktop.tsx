@@ -2,7 +2,7 @@ import React, { Fragment, memo, useMemo } from 'react';
 import { Button, Grid, Portal } from '@material-ui/core';
 import { useStudioListFilterPopover } from '../../hooks/useStudioListFilterPopover';
 import { StudioListFilterStation } from '../StudioListFilterStation';
-import { StudioListFilterInterior } from '../StudioListFilterType';
+import { StudioListFilterInterior } from '../StudioListFilterInterior';
 import { StudioListFilterPriceSegment } from '../StudioListFilterPriceSegment';
 import { Overlay } from './StudioListFilterDesktop.styles';
 
