@@ -13,17 +13,25 @@ export const axiosServer = defaultAxios.create({
   },
 });
 
-axiosServer.interceptors.request.use(config => {
+axiosServer.interceptors.request.use(request => {
   if (!process.env.API_AUTH) {
     throw new Error('You should define API_AUTH env variable');
   }
-  const nextConfig = config;
+  const nextRequest = request;
 
-  if (!nextConfig.headers) {
-    nextConfig.headers = {};
+  if (!nextRequest.headers) {
+    nextRequest.headers = {};
   }
 
-  nextConfig.headers.Authorization = btoa(process.env.API_AUTH);
+  nextRequest.headers.Authorization = btoa(process.env.API_AUTH);
 
-  return config;
+  return nextRequest;
+});
+
+axiosServer.interceptors.response.use(response => {
+  const nextResponse = response;
+
+  nextResponse.headers['Cache-Control'] = 's-maxage=300';
+
+  return nextResponse;
 });
