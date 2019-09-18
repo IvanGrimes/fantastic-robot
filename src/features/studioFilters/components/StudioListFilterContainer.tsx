@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { parse } from 'qs';
 import { mergeDeepRight } from 'ramda';
 import { StudioListFilterProps } from './index';
 import { StudioListFilter } from './StudioListFilter';
@@ -10,6 +9,8 @@ import { RootState } from '../../../model/types';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { clearFilters } from '../model/actions';
 import { getFilters } from '../model/selectors';
+import { getNonEmptyValues } from '../utils/getNonEmptyValues';
+import { parseFilters } from '../utils/parseFilters';
 
 type Props = StudioListFilterProps &
   ReturnType<typeof mapStateToProps> &
@@ -23,33 +24,7 @@ const dispatchProps = {
   handleClearFilters: clearFilters,
 };
 
-const getNonEmptyValues = (target: object) =>
-  Object.entries(target)
-    .filter(([_, value]) => {
-      if (Array.isArray(value)) {
-        return Boolean(value.length);
-      }
-      if (value.toString() === '[object Object]') {
-        return Boolean(Object.values(value).length);
-      }
-
-      return Boolean(value);
-    })
-    .reduce(
-      (acc, [prop, value]) => ({
-        ...acc,
-        [prop]: value,
-      }),
-      {}
-    );
-
 const getAbsAsPath = (asPath: string) => asPath.split('?')[0];
-
-export const parseFilters = (asPath: string) => {
-  const { filters } = parse(asPath.split('?')[1]);
-
-  return filters ? JSON.parse(filters) : {};
-};
 
 export const getAsPathWithFilters = (
   asPath: string,

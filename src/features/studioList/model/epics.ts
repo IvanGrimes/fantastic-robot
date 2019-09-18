@@ -4,6 +4,7 @@ import { isActionOf } from 'typesafe-actions';
 import { from, of } from 'rxjs';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
 import { getFilters } from '../../studioFilters/model/selectors';
+import { getNonEmptyValues } from '../../studioFilters/utils/getNonEmptyValues';
 
 export const fetchStudiosFlow: Epic<
   RootAction,
@@ -49,6 +50,21 @@ export const fetchFilterStudiosFlow: Epic<
     filter(isActionOf(fetchFilterStudiosAsync.request)),
     switchMap(({ payload }) => {
       const filters = getFilters(state$.value);
+      const filterQuery = Object.entries(
+        getNonEmptyValues({ ...payload, ...filters })
+      )
+        .reduce<string[]>(
+          (acc, [prop, value]) => [
+            ...acc,
+            Array.isArray(value)
+              ? `${prop}=${value.join(';')}`
+              : `${prop}=${value}`,
+          ],
+          []
+        )
+        .join('&');
+
+      console.log(filterQuery);
 
       return from(fetchFilterStudios({ ...payload, ...filters })).pipe(
         map(fetchFilterStudiosAsync.success),

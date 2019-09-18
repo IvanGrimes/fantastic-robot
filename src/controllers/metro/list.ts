@@ -1,5 +1,4 @@
 import { NowRequest, NowResponse } from '@now/node/dist';
-import { stringify } from 'querystring';
 import { axiosServer } from '../../lib/axios.server';
 
 export type MetroListResponse = MetroLineResponse[];
@@ -21,7 +20,10 @@ export type MetroStationResponse = {
 };
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const { data } = await axiosServer.get(`/metro?${stringify(req.query)}`);
+  const { city, ...query } = req.query;
+  const { data } = await axiosServer.get(`/metro`, {
+    params: { cityId: city, ...query },
+  });
 
   res.json(data);
 };

@@ -7,7 +7,6 @@ import { RootState } from '../../model/types';
 import { serverEpic } from '../../lib/serverEpic';
 import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studioList/components';
-import { parseFilters } from '../../features/studioFilters/components/StudioListFilterContainer';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
 import { setFilters } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
@@ -15,6 +14,7 @@ import {
   fetchConfigAsync,
   fetchMetroListAsync,
 } from '../../features/studioData/model/actions';
+import { parseFilters } from '../../features/studioFilters/utils/parseFilters';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(

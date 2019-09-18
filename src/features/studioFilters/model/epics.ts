@@ -21,9 +21,12 @@ export const setFiltersFlow: Epic<
   action$.pipe(
     filter(isActionOf(setFilters)),
     debounceTime(500),
-    map(() => {
-      return fetchFilterStudiosAsync.request({ page: 1, city: 'moscow' });
-    })
+    map(() =>
+      fetchFilterStudiosAsync.request({
+        page: 1,
+        city: 'moscow',
+      })
+    )
   );
 
 export const studioFiltersEpic = [setFiltersFlow];

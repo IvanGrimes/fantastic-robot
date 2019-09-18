@@ -1,5 +1,4 @@
 import { NowRequest, NowResponse } from '@now/node/dist';
-import { stringify } from 'querystring';
 import { axiosServer } from '../../lib/axios.server';
 import { StudiosResponse } from './types';
 import { CityType } from '../../model/types';
@@ -19,10 +18,12 @@ export type FilterStudiosInput = {
 };
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const { city: cityId, ...query } = req.query;
-  const params = { cityId, ...query };
+  const { city, ...query } = req.query;
+
   const data = await axiosServer
-    .get<StudiosResponse>(`/studio/filter?${stringify(params)}`)
+    .get<StudiosResponse>(`/studio/filter`, {
+      params: { cityId: city, ...query },
+    })
     .then(response => response.data);
 
   res.json(data);

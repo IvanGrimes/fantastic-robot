@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "regions": ["hel1"],
+  "regions": ["bru"],
   "builds": [
     { "src": "next.config.js", "use": "@now/next" },
     { "src": "src/controllers/**/*.ts", "use": "@now/node" }

@@ -5,7 +5,7 @@ import { MetroListResponse } from '../../../controllers/metro/list';
 
 export const fetchMetroList = ({ city }: { city: CityType }) =>
   axiosClient
-    .get<MetroListResponse>(`/controllers/metro/list?cityId=${city}`)
+    .get<MetroListResponse>(`/controllers/metro/list`, { params: { city } })
     .then(response => response.data);
 
 export const fetchConfig = () =>
