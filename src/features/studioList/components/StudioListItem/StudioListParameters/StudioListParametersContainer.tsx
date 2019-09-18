@@ -5,7 +5,7 @@ import { GridProps } from '@material-ui/core/Grid';
 import { RootState } from '../../../../../model/types';
 import { ChipList, ChipListProps } from '../../../../../components/ChipList';
 import { setFilters } from '../../../../studioFilters/model/actions';
-import { getAppliedFilters } from '../../../../studioFilters/model/selectors';
+import { getFilters } from '../../../../studioFilters/model/selectors';
 
 export type StudioListParametersContainerProps = {
   parameter: 'type' | 'station';
@@ -16,7 +16,7 @@ export type StudioListParametersContainerProps = {
   GridProps;
 
 const mapStateToProps = (state: RootState) => ({
-  appliedFilters: getAppliedFilters(state),
+  appliedFilters: getFilters(state),
 });
 
 const dispatchProps = {

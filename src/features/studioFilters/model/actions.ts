@@ -1,22 +1,11 @@
-import { createAction, createAsyncAction } from 'typesafe-actions';
-import { FetchStudiosInput, Filters } from '../../../mocks/mockStudios';
-
-export const fetchFiltersAsync = createAsyncAction(
-  '@@studioFilters/FETCH_FILTERS_REQUEST',
-  '@@studioFilters/FETCH_FILTERS_SUCCESS',
-  '@@studioFilters/FETCH_FILTERS_FAIL'
-)<undefined, Filters, any>();
+import { createAction } from 'typesafe-actions';
+import { FilterStudiosInput } from '../../../controllers/studio/filter';
 
 export const setFilters = createAction(
   '@@studioFilters/SET_FILTERS',
-  action => ({
-    roomsCount,
-    typeIds,
-    priceSegments,
-    stationIds,
-    ...rest
-  }: Omit<Omit<FetchStudiosInput, 'page'>, 'favorite'>) =>
-    action({ roomsCount, typeIds, priceSegments, stationIds, ...rest })
+  action => (
+    payload: Omit<Omit<Omit<FilterStudiosInput, 'page'>, 'size'>, 'city'>
+  ) => action(payload)
 );
 
 export const clearFilters = createAction('@@studioFilters/CLEAR_FILTERS');

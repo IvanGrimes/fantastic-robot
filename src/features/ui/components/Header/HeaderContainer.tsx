@@ -6,14 +6,14 @@ import { getIsHeaderVisible } from '../../model/selectors';
 import { setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
 import { setFilters } from '../../../studioFilters/model/actions';
-import { getAppliedFilters } from '../../../studioFilters/model/selectors';
+import { getFilters } from '../../../studioFilters/model/selectors';
 import { setFullscreen } from '../../../studioMapList/model/actions';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   isHeaderVisible: getIsHeaderVisible(state),
-  nameFilter: getAppliedFilters(state).name,
+  nameFilter: getFilters(state).name,
 });
 
 const dispatchProps = {

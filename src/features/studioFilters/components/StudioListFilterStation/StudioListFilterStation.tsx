@@ -7,7 +7,7 @@ import { RootState } from '../../../../model/types';
 import { ColorCircle } from './StudioListFilterStation.styles';
 import { StudioListFilterStationProps } from './index';
 import { setFilters } from '../../model/actions';
-import { getAppliedFilters, getFiltersData } from '../../model/selectors';
+import { getFilters, getFiltersData } from '../../model/selectors';
 
 type Props = StudioListFilterStationProps &
   ReturnType<typeof mapStateToProps> &
@@ -15,7 +15,7 @@ type Props = StudioListFilterStationProps &
 
 const mapStateToProps = (state: RootState) => ({
   list: getFiltersData(state).stations,
-  selectedIds: getAppliedFilters(state).stationIds,
+  selectedIds: getFilters(state).stationIds,
 });
 
 const dispatchProps = {

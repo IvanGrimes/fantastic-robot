@@ -9,14 +9,14 @@ import { StudioListFilter } from './StudioListFilter';
 import { RootState } from '../../../model/types';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { clearFilters } from '../model/actions';
-import { getAppliedFilters } from '../model/selectors';
+import { getFilters } from '../model/selectors';
 
 type Props = StudioListFilterProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  appliedFilters: getAppliedFilters(state),
+  appliedFilters: getFilters(state),
 });
 
 const dispatchProps = {

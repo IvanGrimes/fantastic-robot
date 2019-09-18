@@ -7,7 +7,7 @@ import { getPriceSegment } from '../../../../utils/getPriceSegment';
 import { StudioListFilterPriceSegmentProps } from './index';
 import { PriceSegment } from '../../../studioList/model/types';
 import { setFilters } from '../../model/actions';
-import { getAppliedFilters, getFiltersData } from '../../model/selectors';
+import { getFilters, getFiltersData } from '../../model/selectors';
 
 type Props = StudioListFilterPriceSegmentProps &
   ReturnType<typeof mapStateToProps> &
@@ -15,7 +15,7 @@ type Props = StudioListFilterPriceSegmentProps &
 
 const mapStateToProps = (state: RootState) => ({
   list: getFiltersData(state).priceSegments,
-  selectedIds: getAppliedFilters(state).priceSegments,
+  selectedIds: getFilters(state).priceSegments,
 });
 
 const dispatchProps = {

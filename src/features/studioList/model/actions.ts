@@ -1,17 +1,22 @@
 import { createAsyncAction } from 'typesafe-actions';
-import { FetchStudiosInput, mockStudios } from '../../../mocks/mockStudios';
-import { StudioListState } from './reducer';
+import { StudiosInput } from '../../../controllers/studio/list';
+import { fetchFilterStudios, fetchStudios } from './api';
+import { Await } from '../../../utils/Await';
+import { FilterStudiosInput } from '../../../controllers/studio/filter';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_STUDIOS_REQUEST',
   '@@studioList/FETCH_STUDIOS_SUCCESS',
   '@@studioList/FETCH_STUDIOS_FAIL'
+)<StudiosInput, Await<ReturnType<typeof fetchStudios>>, any>();
+
+export const fetchFilterStudiosAsync = createAsyncAction(
+  '@@studioList/FETCH_STUDIOS_REQUEST',
+  '@@studioList/FETCH_STUDIOS_SUCCESS',
+  '@@studioList/FETCH_STUDIOS_FAIL'
 )<
-  FetchStudiosInput &
-    Partial<Pick<StudioListState, 'listUpdateType'>> & {
-      isFiltering?: boolean;
-    },
-  ReturnType<typeof mockStudios>,
+  Pick<FilterStudiosInput, 'city'> & Pick<FilterStudiosInput, 'page'>,
+  Await<ReturnType<typeof fetchFilterStudios>>,
   any
 >();
 

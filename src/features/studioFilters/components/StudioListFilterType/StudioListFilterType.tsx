@@ -5,7 +5,7 @@ import { PropertyList } from '../../../../components/PropertyList';
 import { RootState } from '../../../../model/types';
 import { StudioListFilterTypeProps } from './index';
 import { setFilters } from '../../model/actions';
-import { getAppliedFilters, getFiltersData } from '../../model/selectors';
+import { getFilters, getFiltersData } from '../../model/selectors';
 
 export type Props = StudioListFilterTypeProps &
   ReturnType<typeof mapStateToProps> &
@@ -13,7 +13,7 @@ export type Props = StudioListFilterTypeProps &
 
 const mapStateToProps = (state: RootState) => ({
   list: getFiltersData(state).types,
-  selectedIds: getAppliedFilters(state).typeIds,
+  selectedIds: getFilters(state).typeIds,
 });
 
 const dispatchProps = {

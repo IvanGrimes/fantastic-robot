@@ -1,40 +1,8 @@
 import { Epic } from 'redux-observable';
-import {
-  catchError,
-  debounceTime,
-  filter,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
-import { of } from 'rxjs';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
-import { getAppliedFilters, getHasAppliedFilters } from './selectors';
-
-export const fetchFiltersFlow: Epic<
-  RootAction,
-  RootAction,
-  RootState,
-  EpicDependencies
-> = (
-  action$,
-  _state$,
-  {
-    api: { fetchFilters },
-    actions: {
-      studioFiltersActions: { fetchFiltersAsync },
-    },
-  }
-) =>
-  action$.pipe(
-    filter(isActionOf(fetchFiltersAsync.request)),
-    switchMap(() =>
-      fetchFilters().pipe(
-        map(fetchFiltersAsync.success),
-        catchError(error => of(fetchFiltersAsync.failure(error)))
-      )
-    )
-  );
+import { getFilters, getHasFilters } from './selectors';
 
 export const setFiltersFlow: Epic<
   RootAction,
@@ -51,13 +19,13 @@ export const setFiltersFlow: Epic<
     },
   }
 ) => {
-  const hasAppliedFilters = getHasAppliedFilters(state$.value);
+  const hasAppliedFilters = getHasFilters(state$.value);
 
   return action$.pipe(
     filter(isActionOf(setFilters)),
     debounceTime(500),
     map(() => {
-      const filters = getAppliedFilters(state$.value);
+      const filters = getFilters(state$.value);
 
       return fetchStudiosAsync.request({
         ...filters,
@@ -69,4 +37,4 @@ export const setFiltersFlow: Epic<
   );
 };
 
-export const studioFiltersEpic = [fetchFiltersFlow, setFiltersFlow];
+export const studioFiltersEpic = [setFiltersFlow];

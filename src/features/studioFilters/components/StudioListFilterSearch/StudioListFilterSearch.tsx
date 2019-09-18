@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { RootState } from '../../../../model/types';
 import { ClearableInput } from '../../../../components/ClearableInput';
 import { setFilters } from '../../model/actions';
-import { getAppliedFilters } from '../../model/selectors';
+import { getFilters } from '../../model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  value: getAppliedFilters(state).name,
+  value: getFilters(state).name,
 });
 
 const dispatchProps = {

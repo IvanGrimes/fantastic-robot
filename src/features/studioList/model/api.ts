@@ -1,18 +1,20 @@
 import { from } from 'rxjs';
-import { FetchStudiosInput, mockStudios } from '../../../mocks/mockStudios';
+import { stringify } from 'qs';
+import { FilterStudiosInput } from '../../../controllers/studio/filter';
+import { axiosClient } from '../../../lib/axios.client';
+import { StudiosInput } from '../../../controllers/studio/list';
+import { StudiosResponse } from '../../../controllers/studio/types';
 
-export const fetchStudios = (input: FetchStudiosInput) => {
-  return from(
-    new Promise<ReturnType<typeof mockStudios>>(resolve => {
-      setTimeout(
-        () => {
-          resolve(mockStudios(input));
-        },
-        typeof window !== 'undefined' ? 300000 : 0
-      );
-    })
-  );
-};
+export const fetchStudios = (input: StudiosInput) =>
+  axiosClient
+    .get<StudiosResponse>(`/controllers/list?${stringify(input)}`)
+    .then(({ data }) => data);
+
+export const fetchFilterStudios = (input: FilterStudiosInput) =>
+  axiosClient
+    .get<StudiosResponse>(`/controllers/filter?${stringify(input)}`)
+    .then(({ data }) => data);
+
 export const toggleFavorite = (id: string) =>
   from(
     new Promise<{ id: string; success: boolean }>(resolve => {

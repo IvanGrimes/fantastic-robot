@@ -1,9 +1,9 @@
 import { Epic } from 'redux-observable';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
-import { getAppliedFilters } from '../../studioFilters/model/selectors';
+import { getFilters } from '../../studioFilters/model/selectors';
 
 export const fetchStudiosFlow: Epic<
   RootAction,
@@ -12,7 +12,7 @@ export const fetchStudiosFlow: Epic<
   EpicDependencies
 > = (
   action$,
-  state$,
+  _state$,
   {
     api: { fetchStudios },
     actions: {
@@ -22,12 +22,37 @@ export const fetchStudiosFlow: Epic<
 ) =>
   action$.pipe(
     filter(isActionOf(fetchStudiosAsync.request)),
-    switchMap(({ payload }) => {
-      const appliedFilters = getAppliedFilters(state$.value);
-
-      return fetchStudios({ ...appliedFilters, ...payload }).pipe(
+    switchMap(({ payload }) =>
+      from(fetchStudios(payload)).pipe(
         map(fetchStudiosAsync.success),
         catchError(error => of(fetchStudiosAsync.failure(error)))
+      )
+    )
+  );
+
+export const fetchFilterStudiosFlow: Epic<
+  RootAction,
+  RootAction,
+  RootState,
+  EpicDependencies
+> = (
+  action$,
+  state$,
+  {
+    api: { fetchFilterStudios },
+    actions: {
+      studioListActions: { fetchFilterStudiosAsync },
+    },
+  }
+) =>
+  action$.pipe(
+    filter(isActionOf(fetchFilterStudiosAsync.request)),
+    switchMap(({ payload }) => {
+      const filters = getFilters(state$.value);
+
+      return from(fetchFilterStudios({ ...payload, ...filters })).pipe(
+        map(fetchFilterStudiosAsync.success),
+        catchError(error => of(fetchFilterStudiosAsync.failure(error)))
       );
     })
   );
@@ -59,4 +84,8 @@ export const addFavoriteFlow: Epic<
     )
   );
 
-export const studioListEpic = [fetchStudiosFlow, addFavoriteFlow];
+export const studioListEpic = [
+  fetchStudiosFlow,
+  fetchFilterStudiosFlow,
+  addFavoriteFlow,
+];

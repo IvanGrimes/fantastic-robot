@@ -1,38 +1,19 @@
 import { createReducer } from 'typesafe-actions';
-import {
-  PriceSegment,
-  Station,
-  StudioType,
-} from '../../studioList/model/types';
-import { clearFilters, fetchFiltersAsync, setFilters } from './actions';
+import { clearFilters, setFilters } from './actions';
+import { FilterStudiosInput } from '../../../controllers/studio/filter';
 
-export type StudioFiltersState = {
-  data: {
-    stations: Station[];
-    types: StudioType[];
-    priceSegments: PriceSegment[];
-  };
-  applied: {
-    name: string;
-    typeIds: string[];
-    priceSegments: PriceSegment[];
-    favorite?: boolean;
-    stationIds: string[];
-  };
-};
+export type StudioFiltersState = Required<
+  Omit<Omit<Omit<FilterStudiosInput, 'page'>, 'city'>, 'size'>
+>;
 
 const initialState: StudioFiltersState = {
-  applied: {
-    name: '',
-    stationIds: [],
-    typeIds: [],
-    priceSegments: [],
-  },
-  data: {
-    stations: [],
-    types: [],
-    priceSegments: [1, 2, 3],
-  },
+  bottomRight: '',
+  topLeft: '',
+  equipments: [],
+  interiors: [],
+  name: '',
+  priceSegments: [],
+  stations: [],
 };
 
 const getFilterObjectValue = (state: any[], payload?: any[]) => {
@@ -49,27 +30,14 @@ export const studioFiltersReducer = createReducer(initialState)
   .handleAction(setFilters, (state, { payload }) => {
     return {
       ...state,
-      applied: {
-        ...state.applied,
-        name:
-          typeof payload.name === 'string' ? payload.name : state.applied.name,
-        typeIds: getFilterObjectValue(state.applied.typeIds, payload.typeIds),
-        stationIds: getFilterObjectValue(
-          state.applied.stationIds,
-          payload.stationIds
-        ),
-        priceSegments: getFilterObjectValue(
-          state.applied.priceSegments,
-          payload.priceSegments
-        ),
-      },
+      name: typeof payload.name === 'string' ? payload.name : state.name,
+      stations: getFilterObjectValue(state.stations, payload.stations),
+      equipments: getFilterObjectValue(state.equipments, payload.equipments),
+      interiors: getFilterObjectValue(state.interiors, payload.interiors),
+      priceSegments: getFilterObjectValue(
+        state.priceSegments,
+        payload.priceSegments
+      ),
     };
   })
-  .handleAction(fetchFiltersAsync.success, (state, { payload }) => ({
-    ...state,
-    data: { ...state.data, ...payload },
-  }))
-  .handleAction(clearFilters, state => ({
-    ...state,
-    applied: initialState.applied,
-  }));
+  .handleAction(clearFilters, () => initialState);
