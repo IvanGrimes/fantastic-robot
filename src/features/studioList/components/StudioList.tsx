@@ -20,6 +20,7 @@ type Props = {
   isMapListEnabled: boolean;
   isMapListFullscreen: boolean;
   handleNext: () => void;
+  hasNext: boolean;
 };
 
 const _StudioList = ({
@@ -31,6 +32,7 @@ const _StudioList = ({
   isMapListEnabled,
   isMapListFullscreen,
   handleNext,
+  hasNext,
 }: Props) => {
   const loaderList = new Array(8).fill({});
 
@@ -54,7 +56,7 @@ const _StudioList = ({
           pageNumber: '[number]',
           withTrailingSlash: true,
         }}
-        hasMore={!isMapListFullscreen}
+        hasMore={hasNext && !isMapListFullscreen}
       >
         <Container>
           <ListGrid

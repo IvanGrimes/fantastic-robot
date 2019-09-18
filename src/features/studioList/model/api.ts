@@ -5,8 +5,17 @@ import { StudiosInput } from '../../../controllers/studio/list';
 import { StudiosResponse } from '../../../controllers/studio/types';
 
 export const fetchStudios = (input: StudiosInput) => {
+  console.log(
+    axiosClient.get<StudiosResponse>(
+      `/controllers/studio/list?${stringify(input)}`
+    )
+  );
   return axiosClient
     .get<StudiosResponse>(`/controllers/studio/list?${stringify(input)}`)
+    .then(res => {
+      console.log(res);
+      return res;
+    })
     .then(({ data }) => data);
 };
 

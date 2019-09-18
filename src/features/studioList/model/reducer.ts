@@ -6,7 +6,7 @@ export type StudioListState = StudiosResponse;
 
 const initialState: StudioListState = {
   studios: [],
-  hasNext: false,
+  hasNext: true,
 };
 
 export const studioListReducer = createReducer(initialState).handleAction(

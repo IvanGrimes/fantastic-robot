@@ -8,6 +8,7 @@ import { StudioList } from './StudioList';
 import { StudioListProps } from './index';
 import { fetchStudiosAsync } from '../model/actions';
 import {
+  getHasNext,
   getStudios,
   getStudiosError,
   getStudiosLoading,
@@ -29,6 +30,7 @@ const mapStateToProps = (state: RootState) => ({
   isFiltering: getHasFilters(state),
   isMapListEnabled: getIsEnabled(state),
   isMapListFullscreen: getIsFullscreen(state),
+  hasNext: getHasNext(state),
 });
 
 const dispatchProps = {
@@ -45,6 +47,7 @@ const _StudioListContainer = ({
   listItemVariant,
   isMapListEnabled,
   isMapListFullscreen,
+  hasNext,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const number = useMemo(
@@ -79,6 +82,7 @@ const _StudioListContainer = ({
         isMapListEnabled={isMapListEnabled}
         isMapListFullscreen={isMapListFullscreen}
         handleNext={handleNext}
+        hasNext={hasNext}
       />
     </Fragment>
   );

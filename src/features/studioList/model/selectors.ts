@@ -1,7 +1,7 @@
 import { getType } from 'typesafe-actions';
 import { createDeepEqualSelector } from '../../../lib/createDeepEqualSelector';
 import { createRequestErrorSelector } from '../../../model/api/errors/selectors';
-import { fetchStudiosAsync, toggleFavoriteAsync } from './actions';
+import { fetchStudiosAsync } from './actions';
 import { createRequestLoadingSelector } from '../../../model/api/loading/selectors';
 import { RootState } from '../../../model/types';
 
@@ -17,6 +17,5 @@ export const getStudios = createDeepEqualSelector(
   [getStudiosState],
   state => state.studios
 );
-export const getToggleFavoriteError = createRequestErrorSelector(
-  getType(toggleFavoriteAsync.request)
-);
+
+export const getHasNext = (state: RootState) => getStudiosState(state).hasNext;
