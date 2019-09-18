@@ -2,12 +2,14 @@ import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { StudioListItemTypesProps } from './index';
 
-const _StudioListItemTypes = ({ types }: StudioListItemTypesProps) => (
+const _StudioListItemInteriors = ({
+  interiorIds,
+}: StudioListItemTypesProps) => (
   <Grid container>
     <Typography component="span" variant="caption">
-      {types.map(({ name: type }) => type).join(', ')}
+      {interiorIds.map(id => id).join(', ')}
     </Typography>
   </Grid>
 );
 
-export const StudioListItemTypes = memo(_StudioListItemTypes);
+export const StudioListItemInteriors = memo(_StudioListItemInteriors);

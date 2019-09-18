@@ -6,13 +6,15 @@ export type PropertyListProps = Pick<GridProps, 'justify'> &
   Pick<GridProps, 'direction'> & {
     className?: string;
     title: string;
-    list: {
-      id: string;
-      name: string;
-    }[];
+    list:
+      | {
+          id: string;
+          value: string;
+        }[]
+      | [];
     selectedIds: string[];
     onChange: (id: any[]) => () => void;
-    renderName?: (props: { [key: string]: any }) => ReactNode;
+    renderValue?: (props: { [key: string]: any }) => ReactNode;
     isClearable?: boolean;
     isSearchable?: boolean;
     searchProps?: {

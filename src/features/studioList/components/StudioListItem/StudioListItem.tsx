@@ -2,21 +2,16 @@ import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
 import ContentLoader from 'react-content-loader';
 import { StudioListItemProps } from './index';
-import {
-  Card,
-  CardBottomGrid,
-  CardContent,
-  FavoriteButton,
-} from './StudioListItem.styles';
+import { Card, CardBottomGrid, CardContent } from './StudioListItem.styles';
 import { StudioListItemPhotos } from './StudioListItemPhoto';
 import { StudioListItemTitle } from './StudioListItemTitle';
-import { StudioListItemTypes } from './StudioListItemTypes';
+import { StudioListItemInteriors } from './StudioListItemTypes';
 import { StudioListItemRooms } from './StudioListItemRooms';
 import { StudioListItemStations } from './StudioListItemStations';
-import { StudioListItemPriceSegment } from './StudioListItemPriceSegment';
+import { StudioListItemPriceType } from './StudioListItemPriceSegment';
 
 const _StudioListItem = (props: StudioListItemProps) => {
-  const { variant, handleToggleFavorite } = props;
+  const { variant } = props;
 
   return (
     <Card isDisabled={props.loading}>
@@ -30,7 +25,7 @@ const _StudioListItem = (props: StudioListItemProps) => {
               <rect x="0" y="0" rx="0" ry="0" width="100%" height="200px" />
             </ContentLoader>
           ) : (
-            <StudioListItemPhotos photos={props.photos} />
+            <StudioListItemPhotos photoIds={props.photoIds} />
           )}
         </Grid>
       </Grid>
@@ -56,30 +51,13 @@ const _StudioListItem = (props: StudioListItemProps) => {
                 <StudioListItemTitle name={props.name} />
               )}
             </Grid>
-            <Grid item>
-              {props.loading ? (
-                <ContentLoader
-                  width={30}
-                  height={20}
-                  style={{ height: '20px' }}
-                >
-                  <rect x="0" y="0" rx="0" ry="0" width="100%" height="20px" />
-                </ContentLoader>
-              ) : (
-                <FavoriteButton
-                  id={props.id}
-                  isActive={props.favorite}
-                  handleToggleFavorite={handleToggleFavorite}
-                />
-              )}
-            </Grid>
             <Grid item xs={12}>
               {props.loading ? (
                 <ContentLoader height={18} style={{ height: '18px' }}>
                   <rect x="0" y="0" rx="0" ry="0" width="40%" height="18px" />
                 </ContentLoader>
               ) : (
-                <StudioListItemTypes types={props.types} />
+                <StudioListItemInteriors interiorIds={props.interiorIds} />
               )}
             </Grid>
             {props.loading ? (
@@ -87,7 +65,7 @@ const _StudioListItem = (props: StudioListItemProps) => {
                 <rect x="0" y="0" rx="0" ry="0" width="60.75%" height="18px" />
               </ContentLoader>
             ) : (
-              <StudioListItemRooms roomsCount={props.roomsCount} />
+              <StudioListItemRooms stationIds={props.stationIds} />
             )}
           </Grid>
           <CardBottomGrid
@@ -108,7 +86,7 @@ const _StudioListItem = (props: StudioListItemProps) => {
                   />
                 </ContentLoader>
               ) : (
-                <StudioListItemStations stations={props.stations} />
+                <StudioListItemStations stationIds={props.stationIds} />
               )}
             </Grid>
             <Grid item>
@@ -128,9 +106,7 @@ const _StudioListItem = (props: StudioListItemProps) => {
                   />
                 </ContentLoader>
               ) : (
-                <StudioListItemPriceSegment
-                  priceSegment={props.priceSegments}
-                />
+                <StudioListItemPriceType priceType={props.priceType} />
               )}
             </Grid>
           </CardBottomGrid>

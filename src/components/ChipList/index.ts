@@ -4,11 +4,11 @@ import { GridProps } from '@material-ui/core/Grid';
 export type ChipListProps = GridProps & {
   list: {
     id: string;
-    name: string;
+    value: string;
   }[];
   selectedListId: string[];
   handleToggle: (id: string) => void;
-  renderName?: (props: { [key: string]: any }) => ReactNode;
+  renderValue?: (props: { [key: string]: any }) => ReactNode;
 };
 
 export { ChipList } from './ChipList';

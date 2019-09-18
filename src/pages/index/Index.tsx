@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Store } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
@@ -9,10 +9,7 @@ import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { parseFilters } from '../../features/studioFilters/components/StudioListFilterContainer';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
-import {
-  fetchFiltersAsync,
-  setFilters,
-} from '../../features/studioFilters/model/actions';
+import { setFilters } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
 import {
   fetchConfigAsync,
@@ -45,21 +42,15 @@ export const getInitialProps: IndexGetInitialProps = async ({
     store.dispatch(setFilters(appliedFilters));
   }
 
-  await serverEpic(store, fetchStudiosAsync.request({ page }));
-
-  await serverEpic(store, fetchFiltersAsync.request());
+  await serverEpic(store, fetchStudiosAsync.request({ page, city: 'moscow' }));
+  await serverEpic(store, fetchMetroListAsync.request({ city: 'moscow' }));
+  await serverEpic(store, fetchConfigAsync.request());
 
   return {};
 };
 
 const _Index = () => {
   const isMapListEnabled = useSelector(getIsEnabled);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
-    dispatch(fetchConfigAsync.request());
-  }, [dispatch]);
 
   return (
     <ContentGrid container>

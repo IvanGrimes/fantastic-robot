@@ -4,13 +4,15 @@ import dequal from 'dequal';
 import { Station } from './StudioListItemStations.styles';
 import { StudioListItemStationsProps } from './index';
 
-const _StudioListItemStations = ({ stations }: StudioListItemStationsProps) => (
+const _StudioListItemStations = ({
+  stationIds,
+}: StudioListItemStationsProps) => (
   <Grid container component="ul" alignItems="center" spacing={1}>
-    {stations.map(({ name: station, color }) => (
-      <Grid component="li" key={station} item>
-        <Station color={color}>
+    {stationIds.map(id => (
+      <Grid component="li" key={id} item>
+        <Station color="red">
           <Typography component="span" variant="caption">
-            {station}
+            {id}
           </Typography>
         </Station>
       </Grid>

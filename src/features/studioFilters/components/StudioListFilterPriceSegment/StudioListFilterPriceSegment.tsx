@@ -5,17 +5,18 @@ import { PropertyList } from '../../../../components/PropertyList';
 import { RootState } from '../../../../model/types';
 import { getPriceSegment } from '../../../../utils/getPriceSegment';
 import { StudioListFilterPriceSegmentProps } from './index';
-import { PriceSegment } from '../../../studioList/model/types';
 import { setFilters } from '../../model/actions';
-import { getFilters, getFiltersData } from '../../model/selectors';
+import { getFilters } from '../../model/selectors';
+import { getConfig } from '../../../studioData/model/selectors';
+import { PriceType } from '../../../studioData/model/types';
 
 type Props = StudioListFilterPriceSegmentProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  list: getFiltersData(state).priceSegments,
-  selectedIds: getFilters(state).priceSegments,
+  list: getConfig(state).price,
+  selectedIds: getFilters(state).priceTypes,
 });
 
 const dispatchProps = {
@@ -33,7 +34,7 @@ const _StudioListFilterPriceSegment = ({
     () =>
       list.map(segment => ({
         id: segment.toString(),
-        name: getPriceSegment(segment).join(''),
+        value: getPriceSegment(segment).join(''),
       })),
     [list]
   );
@@ -42,9 +43,9 @@ const _StudioListFilterPriceSegment = ({
     [selectedIds]
   );
   const onChange = useCallback(
-    (segments: PriceSegment[]) => () =>
+    (segments: PriceType[]) => () =>
       handleChange({
-        priceSegments: segments,
+        priceTypes: segments,
       }),
     [handleChange]
   );

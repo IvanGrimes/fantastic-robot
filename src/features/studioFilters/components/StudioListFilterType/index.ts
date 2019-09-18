@@ -3,4 +3,4 @@ export type StudioListFilterTypeProps = {
   isClearable?: boolean;
 };
 
-export * from './StudioListFilterType';
+export * from './StudioListFilterInterior';

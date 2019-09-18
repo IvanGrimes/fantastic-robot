@@ -3,10 +3,11 @@ import { Grid, Typography } from '@material-ui/core';
 import { StudioListItemRoomsProps } from './index';
 import { getDeclension } from '../../../../../utils/getDeclension';
 
-const _StudioListItemRooms = ({ roomsCount }: StudioListItemRoomsProps) => (
+const _StudioListItemRooms = ({ stationIds }: StudioListItemRoomsProps) => (
   <Grid container>
     <Typography component="span" variant="caption">
-      {roomsCount} {getDeclension(roomsCount, ['зал', 'зала', 'залов'])}
+      {stationIds.length}{' '}
+      {getDeclension(stationIds.length, ['зал', 'зала', 'залов'])}
     </Typography>
   </Grid>
 );

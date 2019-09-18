@@ -2,7 +2,7 @@ import { NowRequest, NowResponse } from '@now/node/dist';
 import { axiosServer } from '../../lib/axios.server';
 
 export type ConfigObjectResponse = {
-  [key in ConfigObjectPropertyResponse]: [ConfigObjectValueResponse?];
+  [key in ConfigObjectPropertyResponse]: ConfigObjectValueResponse[] | [];
 };
 
 export type ConfigObjectPropertyResponse = 'context' | 'equipment' | 'interior';

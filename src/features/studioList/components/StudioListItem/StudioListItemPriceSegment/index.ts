@@ -1,7 +1,8 @@
 import { StudioListItemProps } from '../index';
 
-export type StudioListItemPriceSegmentProps = {
-  priceSegment: StudioListItemProps['priceSegments'];
-};
+export type StudioListItemPriceSegmentProps = Pick<
+  StudioListItemProps,
+  'priceType'
+>;
 
-export * from './StudioListItemPriceSegment';
+export * from './StudioListItemPriceType';

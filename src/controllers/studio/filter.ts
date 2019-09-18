@@ -3,7 +3,7 @@ import { stringify } from 'querystring';
 import { axiosServer } from '../../lib/axios.server';
 import { StudiosResponse } from './types';
 import { CityType } from '../../model/types';
-import { PriceSegment } from '../../features/studioList/model/types';
+import { PriceType } from '../../features/studioData/model/types';
 
 export type FilterStudiosInput = {
   city: CityType;
@@ -15,7 +15,7 @@ export type FilterStudiosInput = {
   topLeft?: string;
   bottomRight?: string;
   stations?: string[];
-  priceSegments?: PriceSegment[];
+  priceTypes?: PriceType[];
 };
 
 export default async (req: NowRequest, res: NowResponse) => {

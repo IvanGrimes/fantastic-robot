@@ -6,9 +6,8 @@ import Head from 'next/head';
 import { RootState } from '../../../model/types';
 import { StudioList } from './StudioList';
 import { StudioListProps } from './index';
-import { fetchStudiosAsync, toggleFavoriteAsync } from '../model/actions';
+import { fetchStudiosAsync } from '../model/actions';
 import {
-  getIsStudiosFiltering,
   getStudios,
   getStudiosError,
   getStudiosLoading,
@@ -17,6 +16,7 @@ import {
   getIsFullscreen,
   getIsEnabled,
 } from '../../studioMapList/model/selectors';
+import { getHasFilters } from '../../studioFilters/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -26,14 +26,13 @@ const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),
   errors: getStudiosError(state),
   loading: getStudiosLoading(state),
-  isFiltering: getIsStudiosFiltering(state),
+  isFiltering: getHasFilters(state),
   isMapListEnabled: getIsEnabled(state),
   isMapListFullscreen: getIsFullscreen(state),
 });
 
 const dispatchProps = {
   handleFetchStudio: fetchStudiosAsync.request,
-  handleToggleFavorite: toggleFavoriteAsync.request,
 };
 
 const _StudioListContainer = ({
@@ -44,7 +43,6 @@ const _StudioListContainer = ({
   loading,
   isFiltering,
   listItemVariant,
-  handleToggleFavorite,
   isMapListEnabled,
   isMapListFullscreen,
 }: StudioListContainerProps) => {
@@ -55,6 +53,7 @@ const _StudioListContainer = ({
   );
   const handleNext = useCallback(() => {
     handleFetchStudio({
+      city: 'moscow',
       page: number + 1,
     });
   }, [handleFetchStudio, number]);
@@ -73,11 +72,10 @@ const _StudioListContainer = ({
       </Head>
       <StudioList
         className={className}
-        list={studios.list}
+        list={studios}
         error={errors.networkError}
         loading={loading && isFiltering}
         listItemVariant={listItemVariant}
-        handleToggleFavorite={handleToggleFavorite}
         isMapListEnabled={isMapListEnabled}
         isMapListFullscreen={isMapListFullscreen}
         handleNext={handleNext}

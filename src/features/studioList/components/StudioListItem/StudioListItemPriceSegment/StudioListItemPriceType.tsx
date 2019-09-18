@@ -3,14 +3,14 @@ import { Grid, Typography } from '@material-ui/core';
 import { StudioListItemPriceSegmentProps } from './index';
 import { getPriceSegment } from '../../../../../utils/getPriceSegment';
 
-const _StudioListItemPriceSegment = ({
-  priceSegment,
+const _StudioListItemPriceType = ({
+  priceType,
 }: StudioListItemPriceSegmentProps) => (
   <Grid item>
     <Typography component="span" variant="h6">
-      {getPriceSegment(priceSegment)}
+      {getPriceSegment(priceType)}
     </Typography>
   </Grid>
 );
 
-export const StudioListItemPriceSegment = memo(_StudioListItemPriceSegment);
+export const StudioListItemPriceType = memo(_StudioListItemPriceType);

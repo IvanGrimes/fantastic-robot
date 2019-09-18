@@ -9,7 +9,7 @@ export type StudioItemResponse = {
   interiorIds: string[];
   photoIds: string[];
   stationIds: string[];
-  priceType: 1 | 2 | 3;
+  priceType: '1' | '2' | '3';
   location: {
     lon: number;
     lat: number;

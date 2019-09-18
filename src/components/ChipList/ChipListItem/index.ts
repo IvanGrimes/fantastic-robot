@@ -1,7 +1,7 @@
 import { ChipListProps } from '../index';
 
 export type ChipListItemProps = ChipListProps['list'][number] &
-  Pick<ChipListProps, 'renderName'> & {
+  Pick<ChipListProps, 'renderValue'> & {
     handleToggle: () => void;
     isActive: boolean;
   };

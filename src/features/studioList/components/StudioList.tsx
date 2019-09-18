@@ -9,15 +9,13 @@ import {
   InfiniteScrollLoader,
 } from './StudioList.styles';
 import { Container } from '../../../components/Container';
-import { toggleFavoriteAsync } from '../model/actions';
-import { ShortStudio } from '../model/types';
+import { StudioItemResponse } from '../../../controllers/studio/types';
 
 type Props = {
   className: string;
-  list: ShortStudio[];
+  list: StudioItemResponse[];
   error: string;
   loading: boolean;
-  handleToggleFavorite: typeof toggleFavoriteAsync.request;
   listItemVariant: StudioListItemVariant;
   isMapListEnabled: boolean;
   isMapListFullscreen: boolean;
@@ -29,7 +27,6 @@ const _StudioList = ({
   error,
   list,
   loading,
-  handleToggleFavorite,
   listItemVariant,
   isMapListEnabled,
   isMapListFullscreen,
@@ -80,7 +77,6 @@ const _StudioList = ({
               >
                 <StudioListItem
                   {...item}
-                  handleToggleFavorite={handleToggleFavorite}
                   loading={loading}
                   variant={listItemVariant}
                 />

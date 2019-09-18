@@ -1,7 +1,7 @@
 import { StudioListItemProps } from '../index';
 
 export type StudioListItemTypesProps = Required<
-  Pick<StudioListItemProps, 'types'>
+  Pick<StudioListItemProps, 'interiorIds'>
 >;
 
-export * from './StudioListItemTypes';
+export * from './StudioListItemInteriors';

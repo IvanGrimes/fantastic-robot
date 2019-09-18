@@ -1,13 +1,9 @@
-import { StudioListItemProps } from '../../../../studioList/components/StudioListItem';
-import { ShortStudio } from '../../../../studioList/model/types';
+import { StudioItemResponse } from '../../../../../controllers/studio/types';
 
-export type StudioMapPreviewListItemProps = Pick<
-  StudioListItemProps,
-  'handleToggleFavorite'
-> & {
+export type StudioMapPreviewListItemProps = {
   isActive: boolean;
   handleClose?: () => void;
-  item: ShortStudio;
+  item: StudioItemResponse;
 };
 
 export * from './StudioMapPreviewListItem';

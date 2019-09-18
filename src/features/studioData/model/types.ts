@@ -13,8 +13,11 @@ export type MetroLine = Omit<
   stations: MetroStation[];
 };
 
-export type MetroStation = MetroStationResponse & {
+export type MetroStation = Omit<MetroStationResponse, 'name'> & {
   color: MetroLineResponse['hex_color'];
+  value: MetroStationResponse['name'];
 };
 
 export type ConfigObject = ConfigObjectResponse;
+
+export type PriceType = '1' | '2' | '3';

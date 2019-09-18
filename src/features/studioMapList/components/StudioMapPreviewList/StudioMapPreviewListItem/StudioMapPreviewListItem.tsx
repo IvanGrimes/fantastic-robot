@@ -7,16 +7,10 @@ import { StudioListItem } from '../../../../studioList/components/StudioListItem
 const _StudioMapPreviewListItem = ({
   isActive,
   item,
-  handleToggleFavorite,
 }: StudioMapPreviewListItemProps) => {
   return (
     <Wrapper isVisible={isActive}>
-      <StudioListItem
-        loading={false}
-        handleToggleFavorite={handleToggleFavorite}
-        variant="wide"
-        {...item}
-      />
+      <StudioListItem loading={false} variant="wide" {...item} />
     </Wrapper>
   );
 };

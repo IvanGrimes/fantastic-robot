@@ -6,16 +6,16 @@ export const ChipListItem = ({
   handleToggle,
   id,
   isActive,
-  name,
-  renderName,
+  value,
+  renderValue,
   ...props
 }: ChipListItemProps) => (
   <Grid item>
     <Chip
       label={
-        renderName
-          ? renderName({ handleToggle, id, isActive, name, ...props })
-          : name
+        renderValue
+          ? renderValue({ handleToggle, id, isActive, value, ...props })
+          : value
       }
       component="button"
       type="button"

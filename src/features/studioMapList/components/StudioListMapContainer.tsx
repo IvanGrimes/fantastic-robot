@@ -17,7 +17,7 @@ type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 const mapStateToProps = (state: RootState) => ({
   isMapListFullscreen: getIsFullscreen(state),
   isHeaderVisible: getIsHeaderVisible(state),
-  studios: getStudios(state).list,
+  studios: getStudios(state),
 });
 
 const dispatchProps = {

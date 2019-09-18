@@ -11,14 +11,14 @@ import {
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { ShortStudio } from '../../studioList/model/types';
+import { StudioItemResponse } from '../../../controllers/studio/types';
 
 type Props = {
   isMapListFullscreen: boolean;
   isHeaderVisible: boolean;
   handleFullscreenMapOn: () => void;
   handleFullscreenMapOff: () => void;
-  studios: ShortStudio[];
+  studios: StudioItemResponse[];
 };
 
 const _StudioListMap = ({
@@ -66,8 +66,12 @@ const _StudioListMap = ({
             }}
             onClick={isMapListFullscreen ? undefined : fullscreenMapOn}
           >
-            {studios.map(({ id, lat, lng }) => (
-              <StudioMapPinListItem id={id} lat={lat} lng={lng} />
+            {studios.map(({ id, location }) => (
+              <StudioMapPinListItem
+                id={id}
+                lat={location.lat}
+                lng={location.lon}
+              />
             ))}
           </GoogleMapReact>
           <StudioMapPreviewList />

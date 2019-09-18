@@ -2,7 +2,6 @@ import { Epic } from 'redux-observable';
 import { debounceTime, filter, map } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { EpicDependencies, RootAction, RootState } from '../../../model/types';
-import { getFilters, getHasFilters } from './selectors';
 
 export const setFiltersFlow: Epic<
   RootAction,
@@ -11,30 +10,20 @@ export const setFiltersFlow: Epic<
   EpicDependencies
 > = (
   action$,
-  state$,
+  _state$,
   {
     actions: {
       studioFiltersActions: { setFilters },
-      studioListActions: { fetchStudiosAsync },
+      studioListActions: { fetchFilterStudiosAsync },
     },
   }
-) => {
-  const hasAppliedFilters = getHasFilters(state$.value);
-
-  return action$.pipe(
+) =>
+  action$.pipe(
     filter(isActionOf(setFilters)),
     debounceTime(500),
     map(() => {
-      const filters = getFilters(state$.value);
-
-      return fetchStudiosAsync.request({
-        ...filters,
-        priceSegments: filters.priceSegments,
-        listUpdateType: hasAppliedFilters ? 'merge' : 'replace',
-        isFiltering: true,
-      });
+      return fetchFilterStudiosAsync.request({ page: 1, city: 'moscow' });
     })
   );
-};
 
 export const studioFiltersEpic = [setFiltersFlow];

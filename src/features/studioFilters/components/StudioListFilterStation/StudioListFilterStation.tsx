@@ -7,15 +7,16 @@ import { RootState } from '../../../../model/types';
 import { ColorCircle } from './StudioListFilterStation.styles';
 import { StudioListFilterStationProps } from './index';
 import { setFilters } from '../../model/actions';
-import { getFilters, getFiltersData } from '../../model/selectors';
+import { getFilters } from '../../model/selectors';
+import { getMetroList } from '../../../studioData/model/selectors';
 
 type Props = StudioListFilterStationProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  list: getFiltersData(state).stations,
-  selectedIds: getFilters(state).stationIds,
+  list: getMetroList(state),
+  selectedIds: getFilters(state).stations,
 });
 
 const dispatchProps = {
@@ -30,7 +31,7 @@ const _StudioListFilterStation = ({
   isClearable = true,
 }: Props) => {
   const onChange = useCallback(
-    (id: any[]) => () => handleChange({ stationIds: id }),
+    (id: any[]) => () => handleChange({ stations: id }),
     [handleChange]
   );
 
@@ -41,7 +42,7 @@ const _StudioListFilterStation = ({
       list={list}
       selectedIds={selectedIds}
       onChange={onChange}
-      renderName={({ color, name }) => (
+      renderValue={({ color, name }) => (
         <Grid container alignItems="center" spacing={1}>
           <Grid item>
             <ColorCircle color={color} />

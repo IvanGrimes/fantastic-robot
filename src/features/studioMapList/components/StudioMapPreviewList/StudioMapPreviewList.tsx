@@ -2,19 +2,14 @@ import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
 import { useRequestIdleCallback } from '../../../../hooks/useRequestIdleCallback';
-import { StudioListItemProps } from '../../../studioList/components/StudioListItem';
-import { ShortStudio } from '../../../studioList/model/types';
+import { StudioItemResponse } from '../../../../controllers/studio/types';
 
-type Props = Pick<StudioListItemProps, 'handleToggleFavorite'> & {
-  list: ShortStudio[];
+type Props = {
+  list: StudioItemResponse[];
   previewId: string | null;
 };
 
-const _StudioMapPreviewList = ({
-  list,
-  previewId,
-  handleToggleFavorite,
-}: Props) => {
+const _StudioMapPreviewList = ({ list, previewId }: Props) => {
   const [render, setRender] = useState(false);
   const handleRender = useRequestIdleCallback(() => setRender(true));
 
@@ -32,7 +27,6 @@ const _StudioMapPreviewList = ({
             key={id}
             item={{ id, ...item }}
             isActive={isActive}
-            handleToggleFavorite={handleToggleFavorite}
           />
         );
       })}

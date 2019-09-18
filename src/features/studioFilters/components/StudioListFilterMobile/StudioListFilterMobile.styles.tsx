@@ -9,7 +9,7 @@ import {
   StudioListFilterStationProps,
 } from '../StudioListFilterStation';
 import {
-  StudioListFilterType as DefaultStudioListFilterType,
+  StudioListFilterInterior as DefaultStudioListFilterType,
   StudioListFilterTypeProps,
 } from '../StudioListFilterType';
 import {

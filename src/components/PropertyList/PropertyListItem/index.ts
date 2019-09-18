@@ -5,7 +5,7 @@ export type PropertyListItemProps = {
   name: string;
   onChange: (id: string[]) => () => void;
   isActive: boolean;
-  renderName?: (props: { [key: string]: any }) => ReactNode;
+  renderValue?: (props: { [key: string]: any }) => ReactNode;
 };
 
 export { PropertyListItem } from './PropertyListItem';

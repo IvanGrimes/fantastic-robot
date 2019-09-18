@@ -7,13 +7,13 @@ const _PropertyListItem = ({
   name,
   onChange,
   isActive,
-  renderName,
+  renderValue,
   ...props
 }: PropertyListItemProps) => (
   <Grid container justify="space-between" alignItems="center" spacing={2}>
     <Grid item>
-      {renderName ? (
-        renderName({ id, name, isActive, ...props })
+      {renderValue ? (
+        renderValue({ id, name, isActive, ...props })
       ) : (
         <Typography>{name}</Typography>
       )}

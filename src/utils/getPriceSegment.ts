@@ -1,2 +1,2 @@
-export const getPriceSegment = (priceSegment = 0) =>
-  new Array(priceSegment).fill('$');
+export const getPriceSegment = (priceType = '0') =>
+  new Array(priceType).fill('$');

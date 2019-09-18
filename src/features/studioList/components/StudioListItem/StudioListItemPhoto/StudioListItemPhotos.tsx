@@ -6,16 +6,16 @@ import { LazyImage } from '../../../../../components/LazyImage';
 import { floatToFraction } from '../../../../../utils/floatToFraction';
 import { StudioListItemPhotosProps } from './index';
 
-const _StudioListItemPhotos = ({ photos }: StudioListItemPhotosProps) => {
+const _StudioListItemPhotos = ({ photoIds }: StudioListItemPhotosProps) => {
   return (
     <Grid container>
       <Grid item xs={12}>
         <Carousel>
-          {photos.map(({ id, ratio }) => (
+          {photoIds.map(id => (
             <LazyImage
               key={id}
-              src={`https://via.placeholder.com/${id}`}
-              ratio={floatToFraction(ratio)}
+              src="https://via.placeholder.com/1920x1080"
+              ratio={floatToFraction(16.9)}
             />
           ))}
         </Carousel>

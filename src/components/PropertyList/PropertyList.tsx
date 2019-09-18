@@ -21,7 +21,7 @@ const _PropertyList = ({
   list,
   onChange,
   selectedIds,
-  renderName,
+  renderValue,
   isClearable = false,
   isSearchable = false,
   searchProps = {},
@@ -31,8 +31,8 @@ const _PropertyList = ({
   const [search, setSearch] = useState('');
   const filteredList = useMemo(
     () =>
-      list.filter(({ name }) =>
-        getAbsoluteString(name).includes(getAbsoluteString(search))
+      list.filter(({ value }) =>
+        getAbsoluteString(value).includes(getAbsoluteString(search))
       ),
     [list, search]
   );
@@ -78,18 +78,18 @@ const _PropertyList = ({
                 list={filteredList}
                 selectedListId={selectedIds}
                 handleToggle={handleToggle}
-                renderName={renderName}
+                renderValue={renderValue}
               />
             ) : null}
             {variant === 'checkbox'
-              ? filteredList.map(({ id, name, ...rest }) => (
+              ? filteredList.map(({ id, value, ...rest }) => (
                   <PropertyListItem
                     key={id}
                     id={id}
-                    name={name}
+                    name={value}
                     onChange={onChange}
                     isActive={selectedIds.includes(id)}
-                    renderName={renderName}
+                    renderValue={renderValue}
                     {...rest}
                   />
                 ))

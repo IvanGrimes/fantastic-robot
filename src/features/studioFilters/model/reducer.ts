@@ -12,7 +12,7 @@ const initialState: StudioFiltersState = {
   equipments: [],
   interiors: [],
   name: '',
-  priceSegments: [],
+  priceTypes: [],
   stations: [],
 };
 
@@ -34,10 +34,7 @@ export const studioFiltersReducer = createReducer(initialState)
       stations: getFilterObjectValue(state.stations, payload.stations),
       equipments: getFilterObjectValue(state.equipments, payload.equipments),
       interiors: getFilterObjectValue(state.interiors, payload.interiors),
-      priceSegments: getFilterObjectValue(
-        state.priceSegments,
-        payload.priceSegments
-      ),
+      priceTypes: getFilterObjectValue(state.priceTypes, payload.priceTypes),
     };
   })
   .handleAction(clearFilters, () => initialState);

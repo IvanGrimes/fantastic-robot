@@ -8,7 +8,7 @@ const _ChipList = ({
   list,
   selectedListId,
   handleToggle,
-  renderName,
+  renderValue,
   ...props
 }: ChipListProps) => (
   <Grid
@@ -25,7 +25,7 @@ const _ChipList = ({
         {...item}
         handleToggle={() => handleToggle(item.id)}
         isActive={selectedListId.includes(item.id)}
-        renderName={renderName}
+        renderValue={renderValue}
       />
     ))}
   </Grid>

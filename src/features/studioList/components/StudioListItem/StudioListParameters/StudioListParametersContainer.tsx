@@ -8,15 +8,18 @@ import { setFilters } from '../../../../studioFilters/model/actions';
 import { getFilters } from '../../../../studioFilters/model/selectors';
 
 export type StudioListParametersContainerProps = {
-  parameter: 'type' | 'station';
+  parameter: keyof Omit<
+    Omit<Omit<ReturnType<typeof getFilters>, 'name'>, 'bottomRight'>,
+    'topLeft'
+  >;
 } & ReturnType<typeof mapStateToProps> &
   Pick<ChipListProps, 'list'> &
-  Pick<ChipListProps, 'renderName'> &
+  Pick<ChipListProps, 'renderValue'> &
   typeof dispatchProps &
   GridProps;
 
 const mapStateToProps = (state: RootState) => ({
-  appliedFilters: getFilters(state),
+  filters: getFilters(state),
 });
 
 const dispatchProps = {
@@ -26,20 +29,19 @@ const dispatchProps = {
 const _StudioListParametersContainer = ({
   handleSetFilters,
   list,
-  appliedFilters,
+  filters,
   parameter,
   ...props
 }: StudioListParametersContainerProps) => {
-  const property = `${parameter}Ids` as 'typeIds' | 'stationIds';
   const handleToggleType = useCallback(
-    (id: string) => handleSetFilters({ [property]: [id] }),
-    [handleSetFilters, property]
+    (id: string) => handleSetFilters({ [parameter]: [id] }),
+    [handleSetFilters, parameter]
   );
 
   return (
     <ChipList
       list={list}
-      selectedListId={appliedFilters[property]}
+      selectedListId={filters[parameter]}
       handleToggle={handleToggleType}
       {...props}
     />

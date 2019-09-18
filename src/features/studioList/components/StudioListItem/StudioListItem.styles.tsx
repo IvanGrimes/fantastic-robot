@@ -12,10 +12,6 @@ import DefaultContentLoader, {
   IContentLoaderProps,
 } from 'react-content-loader';
 import { getShadows } from '../../../../theme/shadows';
-import {
-  StudioListItemFavorite,
-  StudioListItemFavoriteProps,
-} from './StudioListItemFavorite';
 
 export const Card = styled<ComponentType<CardProps>>(DefaultCard)<{
   isDisabled: boolean;
@@ -47,14 +43,6 @@ export const CardContent = styled<ComponentType<CardContentProps>>(
 )`
   && {
     cursor: pointer;
-  }
-`;
-
-export const FavoriteButton = styled<
-  ComponentType<StudioListItemFavoriteProps>
->(StudioListItemFavorite)`
-  && {
-    margin-right: -4px;
   }
 `;
 

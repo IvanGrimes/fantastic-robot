@@ -11,7 +11,7 @@ export const getHasFilters = createDeepEqualSelector([getFilters], filters =>
   Boolean(
     filters.name ||
       filters.stations.length ||
-      filters.priceSegments.length ||
+      filters.priceTypes.length ||
       filters.equipments.length ||
       filters.interiors.length ||
       filters.bottomRight ||

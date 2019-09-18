@@ -24,7 +24,7 @@ export const fetchStudiosFlow: Epic<
     filter(isActionOf(fetchStudiosAsync.request)),
     switchMap(({ payload }) =>
       from(fetchStudios(payload)).pipe(
-        map(fetchStudiosAsync.success),
+        map(data => fetchStudiosAsync.success(data)),
         catchError(error => of(fetchStudiosAsync.failure(error)))
       )
     )
@@ -57,35 +57,4 @@ export const fetchFilterStudiosFlow: Epic<
     })
   );
 
-export const addFavoriteFlow: Epic<
-  RootAction,
-  RootAction,
-  RootState,
-  EpicDependencies
-> = (
-  action$,
-  _state$,
-  {
-    api: { toggleFavorite },
-    actions: {
-      studioListActions: { toggleFavoriteAsync },
-    },
-  }
-) =>
-  action$.pipe(
-    filter(isActionOf(toggleFavoriteAsync.request)),
-    switchMap(({ payload }) =>
-      toggleFavorite(payload).pipe(
-        map(({ id }) => toggleFavoriteAsync.success(id)),
-        catchError(error =>
-          of(toggleFavoriteAsync.failure({ id: payload, error: error.message }))
-        )
-      )
-    )
-  );
-
-export const studioListEpic = [
-  fetchStudiosFlow,
-  fetchFilterStudiosFlow,
-  addFavoriteFlow,
-];
+export const studioListEpic = [fetchStudiosFlow, fetchFilterStudiosFlow];

@@ -1,21 +1,22 @@
-import { ShortStudio } from '../../model/types';
+import { StudioItemResponse } from '../../../../controllers/studio/types';
 
 export type StudioListItemVariant = 'wide' | 'short';
 
-type StudioListItemLoading = Partial<ShortStudio> & {
+type StudioListItemLoading = Partial<StudioItemResponse> & {
   loading: true;
 };
 
-type StudioListItem = Required<ShortStudio> & {
+type StudioListItemType = Required<StudioItemResponse> & {
   loading: false;
 };
 
 type StudioListItemPersist = {
-  handleToggleFavorite: (id: string) => void;
   variant: StudioListItemVariant;
 };
 
-export type StudioListItemViewProps = (StudioListItemLoading | StudioListItem) &
+export type StudioListItemViewProps = (
+  | StudioListItemLoading
+  | StudioListItemType) &
   StudioListItemPersist;
 
 export type StudioListItemProps = StudioListItemViewProps & {

@@ -2,7 +2,7 @@ import React, { Fragment, memo, useMemo } from 'react';
 import { Button, Grid, Portal } from '@material-ui/core';
 import { useStudioListFilterPopover } from '../../hooks/useStudioListFilterPopover';
 import { StudioListFilterStation } from '../StudioListFilterStation';
-import { StudioListFilterType } from '../StudioListFilterType';
+import { StudioListFilterInterior } from '../StudioListFilterType';
 import { StudioListFilterPriceSegment } from '../StudioListFilterPriceSegment';
 import { Overlay } from './StudioListFilterDesktop.styles';
 
@@ -16,11 +16,11 @@ const _StudioListFilterDesktop = () => {
     isTypeFilterVisible,
     handleToggleType,
     typeFilter,
-  ] = useStudioListFilterPopover(<StudioListFilterType />);
+  ] = useStudioListFilterPopover(<StudioListFilterInterior />);
   const [
     isPriceSegmentFilterVisible,
     handleTogglePriceSegment,
-    priceSegmentFilter,
+    priceTypeFilter,
   ] = useStudioListFilterPopover(<StudioListFilterPriceSegment />);
   const layout = useMemo(
     () =>
@@ -58,7 +58,7 @@ const _StudioListFilterDesktop = () => {
       </Grid>
       {stationFilter}
       {typeFilter}
-      {priceSegmentFilter}
+      {priceTypeFilter}
     </Fragment>
   );
 };

@@ -5,22 +5,23 @@ import { PropertyList } from '../../../../components/PropertyList';
 import { RootState } from '../../../../model/types';
 import { StudioListFilterTypeProps } from './index';
 import { setFilters } from '../../model/actions';
-import { getFilters, getFiltersData } from '../../model/selectors';
+import { getFilters } from '../../model/selectors';
+import { getConfig } from '../../../studioData/model/selectors';
 
 export type Props = StudioListFilterTypeProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  list: getFiltersData(state).types,
-  selectedIds: getFilters(state).typeIds,
+  list: getConfig(state).interior,
+  selectedIds: getFilters(state).interiors,
 });
 
 const dispatchProps = {
   handleChange: setFilters,
 };
 
-const _StudioListFilterType = ({
+const _StudioListFilterInterior = ({
   className = '',
   list,
   selectedIds,
@@ -28,7 +29,7 @@ const _StudioListFilterType = ({
   isClearable = true,
 }: Props) => {
   const onChange = useCallback(
-    (id: any[]) => () => handleChange({ typeIds: id }),
+    (id: any[]) => () => handleChange({ interiors: id }),
     [handleChange]
   );
 
@@ -44,7 +45,7 @@ const _StudioListFilterType = ({
   );
 };
 
-export const StudioListFilterType = connect(
+export const StudioListFilterInterior = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioListFilterType, dequal));
+)(memo(_StudioListFilterInterior, dequal));
