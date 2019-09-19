@@ -78,7 +78,7 @@ const _StudioListItem = (
                 <rect x="0" y="0" rx="0" ry="0" width="60.75%" height="18px" />
               </ContentLoader>
             ) : (
-              <StudioListItemRooms stationIds={props.stationIds} />
+              <StudioListItemRooms roomsCount={props.roomsCount} />
             )}
           </Grid>
           <CardBottomGrid

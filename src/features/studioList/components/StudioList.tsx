@@ -9,11 +9,11 @@ import {
   InfiniteScrollLoader,
 } from './StudioList.styles';
 import { Container } from '../../../components/Container';
-import { StudioItemResponse } from '../../../controllers/studio/types';
+import { StudioItem } from '../model/api';
 
 type Props = {
   className: string;
-  list: StudioItemResponse[];
+  list: StudioItem[];
   error: string;
   loading: boolean;
   listItemVariant: StudioListItemVariant;

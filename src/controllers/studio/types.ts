@@ -10,6 +10,7 @@ export type StudioItemResponse = {
   photoIds: string[];
   stationIds: string[];
   priceType: '1' | '2' | '3';
+  roomNumber: number;
   location: {
     lon: number;
     lat: number;

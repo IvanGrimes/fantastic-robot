@@ -2,10 +2,10 @@ import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
 import { useRequestIdleCallback } from '../../../../hooks/useRequestIdleCallback';
-import { StudioItemResponse } from '../../../../controllers/studio/types';
+import { StudioItem } from '../../../studioList/model/api';
 
 type Props = {
-  list: StudioItemResponse[];
+  list: StudioItem[];
   previewId: string | null;
 };
 

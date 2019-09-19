@@ -1,12 +1,12 @@
-import { StudioItemResponse } from '../../../../controllers/studio/types';
+import { StudioItem } from '../../model/api';
 
 export type StudioListItemVariant = 'wide' | 'short';
 
-type StudioListItemLoading = Partial<StudioItemResponse> & {
+type StudioListItemLoading = Partial<StudioItem> & {
   loading: true;
 };
 
-type StudioListItemType = Required<StudioItemResponse> & {
+type StudioListItemType = Required<StudioItem> & {
   loading: false;
 };
 

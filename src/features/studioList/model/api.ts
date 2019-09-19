@@ -1,14 +1,25 @@
 import { FilterStudiosInput } from '../../../controllers/studio/filter';
 import { axiosClient } from '../../../lib/axios.client';
 import { StudiosInput } from '../../../controllers/studio/list';
-import { StudiosResponse } from '../../../controllers/studio/types';
+import {
+  StudioItemResponse,
+  StudiosResponse,
+} from '../../../controllers/studio/types';
+
+export type Studios = Omit<StudiosResponse, 'studios'> & {
+  studios: StudioItem[];
+};
+
+export type StudioItem = Omit<StudioItemResponse, 'roomNumber'> & {
+  roomsCount: StudioItemResponse['roomNumber'];
+};
 
 export const fetchStudios = (params: StudiosInput) =>
   axiosClient
-    .get<StudiosResponse>(`/controllers/studio/list`, { params })
+    .get<Studios>(`/controllers/studio/list`, { params })
     .then(({ data }) => data);
 
 export const fetchFilterStudios = (params: FilterStudiosInput) =>
   axiosClient
-    .get<StudiosResponse>(`/controllers/studio/filter`, { params })
+    .get<Studios>(`/controllers/studio/filter`, { params })
     .then(({ data }) => data);

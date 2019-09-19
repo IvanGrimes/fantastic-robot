@@ -1,9 +1,9 @@
-import { StudioItemResponse } from '../../../../../controllers/studio/types';
+import { StudioItem } from '../../../../studioList/model/api';
 
 export type StudioMapPreviewListItemProps = {
   isActive: boolean;
   handleClose?: () => void;
-  item: StudioItemResponse;
+  item: StudioItem;
 };
 
 export * from './StudioMapPreviewListItem';

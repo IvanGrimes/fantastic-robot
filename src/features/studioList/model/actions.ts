@@ -3,6 +3,7 @@ import { StudiosInput } from '../../../controllers/studio/list';
 import { fetchFilterStudios, fetchStudios } from './api';
 import { Await } from '../../../utils/Await';
 import { FilterStudiosInput } from '../../../controllers/studio/filter';
+import { StudioListState } from './reducer';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_STUDIOS_REQUEST',
@@ -15,7 +16,9 @@ export const fetchFilterStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_FILTER_STUDIOS_SUCCESS',
   '@@studioList/FETCH_FILTER_STUDIOS_FAIL'
 )<
-  Pick<FilterStudiosInput, 'city'> & Pick<FilterStudiosInput, 'page'>,
+  Pick<FilterStudiosInput, 'city'> &
+    Pick<FilterStudiosInput, 'page'> &
+    Pick<StudioListState, 'updateStrategy'>,
   Await<ReturnType<typeof fetchFilterStudios>>,
   any
 >();

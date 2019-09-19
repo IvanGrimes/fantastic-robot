@@ -11,14 +11,14 @@ import {
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { StudioItemResponse } from '../../../controllers/studio/types';
+import { StudioItem } from '../../studioList/model/api';
 
 type Props = {
   isMapListFullscreen: boolean;
   isHeaderVisible: boolean;
   handleFullscreenMapOn: () => void;
   handleFullscreenMapOff: () => void;
-  studios: StudioItemResponse[];
+  studios: StudioItem[];
 };
 
 const _StudioListMap = ({

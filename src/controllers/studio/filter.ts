@@ -24,7 +24,14 @@ export default async (req: NowRequest, res: NowResponse) => {
     .get<StudiosResponse>(`/studio/filter`, {
       params: { cityId: city, ...query },
     })
-    .then(response => response.data);
+    .then(response => response.data)
+    .then(({ studios, ...rest }) => ({
+      studios: studios.map(({ roomNumber, ...studio }) => ({
+        roomsCount: roomNumber,
+        ...studio,
+      })),
+      ...rest,
+    }));
 
   res.json(data);
 };
