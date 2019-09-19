@@ -14,7 +14,13 @@ import { StudioListItemStateProps } from './StudioListItemContainer';
 const _StudioListItem = (
   props: StudioListItemProps & StudioListItemStateProps
 ) => {
-  const { variant, metroList, isMetroListLoading } = props;
+  const {
+    variant,
+    metroList,
+    isMetroListLoading,
+    config,
+    isConfigLoading,
+  } = props;
 
   return (
     <Card isDisabled={props.loading}>
@@ -60,7 +66,11 @@ const _StudioListItem = (
                   <rect x="0" y="0" rx="0" ry="0" width="40%" height="18px" />
                 </ContentLoader>
               ) : (
-                <StudioListItemInteriors interiorIds={props.interiorIds} />
+                <StudioListItemInteriors
+                  interiorIds={props.interiorIds}
+                  list={config.interior}
+                  isLoading={isConfigLoading}
+                />
               )}
             </Grid>
             {props.loading ? (
