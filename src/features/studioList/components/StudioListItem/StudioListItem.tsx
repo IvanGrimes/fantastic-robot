@@ -9,9 +9,12 @@ import { StudioListItemInteriors } from './StudioListItemTypes';
 import { StudioListItemRooms } from './StudioListItemRooms';
 import { StudioListItemStations } from './StudioListItemStations';
 import { StudioListItemPriceType } from './StudioListItemPriceSegment';
+import { StudioListItemStateProps } from './StudioListItemContainer';
 
-const _StudioListItem = (props: StudioListItemProps) => {
-  const { variant } = props;
+const _StudioListItem = (
+  props: StudioListItemProps & StudioListItemStateProps
+) => {
+  const { variant, metroList, isMetroListLoading } = props;
 
   return (
     <Card isDisabled={props.loading}>
@@ -86,7 +89,11 @@ const _StudioListItem = (props: StudioListItemProps) => {
                   />
                 </ContentLoader>
               ) : (
-                <StudioListItemStations stationIds={props.stationIds} />
+                <StudioListItemStations
+                  isLoading={isMetroListLoading}
+                  list={metroList}
+                  stationIds={props.stationIds}
+                />
               )}
             </Grid>
             <Grid item>

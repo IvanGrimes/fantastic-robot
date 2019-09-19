@@ -2,12 +2,12 @@ import { createReducer } from 'typesafe-actions';
 import { ConfigObject, PriceType, MetroStation } from './types';
 import { fetchConfigAsync, fetchMetroListAsync } from './actions';
 
-export type DataReducer = {
+export type DataState = {
   metroList: MetroStation[] | [];
   config: ConfigObject & { price: PriceType[] };
 };
 
-const initialState: DataReducer = {
+const initialState: DataState = {
   metroList: [],
   config: {
     context: [],
@@ -24,7 +24,8 @@ export const studioDataReducer = createReducer(initialState)
       // eslint-disable-next-line camelcase
       .map(({ hex_color, stations, ...line }) => ({
         stations: stations.map(({ name, ...station }) => ({
-          color: hex_color,
+          // eslint-disable-next-line camelcase
+          color: `#${hex_color}`,
           value: name,
           ...station,
         })),

@@ -23,4 +23,6 @@ export type StudioListItemProps = StudioListItemViewProps & {
   variant: StudioListItemVariant;
 };
 
-export { StudioListItem } from './StudioListItem';
+export {
+  StudioListItemContainer as StudioListItem,
+} from './StudioListItemContainer';
