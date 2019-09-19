@@ -1,6 +1,6 @@
 import defaultAxios from 'axios';
 import btoa from 'btoa';
-import { getNonEmptyValues } from '../features/studioFilters/utils/getNonEmptyValues';
+import { paramsSerializer } from './paramsSerializer';
 
 if (!process.env.API_ENDPOINT) {
   throw new Error('You should define API_ENDPOINT env variable');
@@ -12,18 +12,7 @@ export const axiosServer = defaultAxios.create({
     username: 'devuser36',
     password: 'devuser36',
   },
-  paramsSerializer: params =>
-    Object.entries(getNonEmptyValues(params))
-      .reduce<string[]>(
-        (acc, [prop, value]) => [
-          ...acc,
-          Array.isArray(value)
-            ? `${prop}=${value.join(';')}`
-            : `${prop}=${value}`,
-        ],
-        []
-      )
-      .join('&'),
+  paramsSerializer,
 });
 
 axiosServer.interceptors.request.use(request => {
