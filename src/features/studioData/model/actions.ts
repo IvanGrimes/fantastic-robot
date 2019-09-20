@@ -1,7 +1,7 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { ConfigObject } from './types';
 import { CityType } from '../../../model/types';
-import { MetroListResponse } from '../../../controllers/metro/list';
+import { MetroListResponse } from './api';
 
 export const fetchMetroListAsync = createAsyncAction(
   '@@studioData/FETCH_METRO_LIST_REQUEST',

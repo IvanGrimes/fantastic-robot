@@ -12,12 +12,12 @@ import {
   getStudios,
   getStudiosError,
   getStudiosLoading,
+  getFilterStudiosLoading,
 } from '../model/selectors';
 import {
   getIsFullscreen,
   getIsEnabled,
 } from '../../studioMapList/model/selectors';
-import { getHasFilters } from '../../studioFilters/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -27,7 +27,7 @@ const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),
   errors: getStudiosError(state),
   loading: getStudiosLoading(state),
-  isFiltering: getHasFilters(state),
+  isFiltering: getFilterStudiosLoading(state),
   isMapListEnabled: getIsEnabled(state),
   isMapListFullscreen: getIsFullscreen(state),
   hasNext: getHasNext(state),
@@ -50,24 +50,24 @@ const _StudioListContainer = ({
   hasNext,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
-  const number = useMemo(
+  const pageNumber = useMemo(
     () => (query.number ? parseInt(query.number as string, 10) : 1),
     [query.number]
   );
   const handleNext = useCallback(() => {
     handleFetchStudio({
       city: 'moscow',
-      page: number + 1,
+      page: pageNumber + 1,
     });
-  }, [handleFetchStudio, number]);
+  }, [handleFetchStudio, pageNumber]);
 
   return (
     <Fragment>
       <Head>
-        {number !== 1 ? (
+        {pageNumber !== 1 ? (
           <Fragment>
-            <link rel="prev" href={`/page/${number - 1}`} />
-            <link rel="next" href={`/page/${number + 1}`} />
+            <link rel="prev" href={`/page/${pageNumber - 1}`} />
+            <link rel="next" href={`/page/${pageNumber + 1}`} />
           </Fragment>
         ) : (
           <link rel="next" href="/page/2" />
@@ -77,7 +77,7 @@ const _StudioListContainer = ({
         className={className}
         list={studios}
         error={errors.networkError}
-        loading={loading && isFiltering}
+        loading={(pageNumber === 1 && loading) || isFiltering}
         listItemVariant={listItemVariant}
         isMapListEnabled={isMapListEnabled}
         isMapListFullscreen={isMapListFullscreen}

@@ -3,27 +3,31 @@
   "regions": ["bru"],
   "builds": [
     { "src": "next.config.js", "use": "@now/next" },
-    { "src": "src/controllers/**/*.ts", "use": "@now/node" }
+    { "src": "src/lambdas/**/*.ts", "use": "@now/node" }
   ],
   "env": {
     "API_ENDPOINT": "@api_endpoint",
-    "API_AUTH": "@api_auth"
+    "API_AUTH_USER": "@api_auth_user",
+    "API_AUTH_PASSWORD": "@api_auth_password"
   },
   "build": {
     "env": {
-      "MAPS_API_TOKEN": "@maps_api_token"
+      "MAPS_API_TOKEN": "@maps_api_token",
+      "API_ENDPOINT": "@api_endpoint",
+      "API_AUTH_USER": "@api_auth_user",
+      "API_AUTH_PASSWORD": "@api_auth_password"
     }
   },
   "routes": [
     {
-      "src": "^/sitemap.xml$",
-      "methods": ["GET"],
-      "dest": "/src/controllers/sitemap.ts"
+      "src": "/proxy/(.*)",
+      "methods": ["GET", "POST"],
+      "dest": "/src/lambdas/proxy.ts"
     },
     {
-      "src": "^/controllers/(.*[^/]+)$",
-      "methods": ["POST", "GET"],
-      "dest": "/src/controllers/$1.ts"
+      "src": "^/sitemap.xml$",
+      "methods": ["GET"],
+      "dest": "/src/lambdas/sitemap.ts"
     },
     {
       "src": "/service-worker.js",
@@ -46,7 +50,7 @@
       }
     },
     {
-      "src": "/(((?!\\?|#|\\.|_next|controllers).)*((?!\\?|/|#|\\.).))",
+      "src": "/(((?!\\?|#|\\.|_next|proxy).)*((?!\\?|/|#|\\.).))",
       "status": 301,
       "headers": { "Location": "/$1/" }
     }

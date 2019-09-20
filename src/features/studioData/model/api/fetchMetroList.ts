@@ -1,5 +1,5 @@
-import { NowRequest, NowResponse } from '@now/node/dist';
-import { axiosServer } from '../../lib/axios.server';
+import { CityType } from '../../../../model/types';
+import { axiosClient } from '../../../../lib/axios.client';
 
 export type MetroListResponse = MetroLineResponse[];
 
@@ -19,11 +19,6 @@ export type MetroStationResponse = {
   lng: number;
 };
 
-export default async (req: NowRequest, res: NowResponse) => {
-  const { city, ...query } = req.query;
-  const { data } = await axiosServer.get(`/metro`, {
-    params: { cityId: city, ...query },
-  });
-
-  res.json(data);
-};
+export const fetchMetroList = ({ city }: { city: CityType }) => axiosClient
+  .get<MetroListResponse>(`/api/metro`, { params: { cityId: city } })
+  .then(response => response.data);

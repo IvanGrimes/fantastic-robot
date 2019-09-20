@@ -1,8 +1,8 @@
-import { ConfigObjectResponse } from '../../../controllers/config/list';
 import {
-  MetroLineResponse,
   MetroStationResponse,
-} from '../../../controllers/metro/list';
+  MetroLineResponse,
+  ConfigObjectResponse,
+} from './api';
 
 export type MetroList = MetroLine[];
 

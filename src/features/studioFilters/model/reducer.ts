@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { clearFilters, setFilters } from './actions';
-import { FilterStudiosInput } from '../../../controllers/studio/filter';
+import { FilterStudiosInput } from '../../studioList/model/api';
 
 export type StudioFiltersState = Required<
   Omit<Omit<Omit<FilterStudiosInput, 'page'>, 'city'>, 'size'>

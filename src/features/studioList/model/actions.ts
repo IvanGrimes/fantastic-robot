@@ -1,9 +1,12 @@
 import { createAsyncAction } from 'typesafe-actions';
-import { StudiosInput } from '../../../controllers/studio/list';
-import { fetchFilterStudios, fetchStudios } from './api';
 import { Await } from '../../../utils/Await';
-import { FilterStudiosInput } from '../../../controllers/studio/filter';
 import { StudioListState } from './reducer';
+import {
+  fetchFilterStudios,
+  fetchStudios,
+  FilterStudiosInput,
+  StudiosInput,
+} from './api';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_STUDIOS_REQUEST',
