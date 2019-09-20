@@ -5,17 +5,12 @@ import { mergeIdWithConfig } from '../../../utils/mergeIdWithConfig';
 
 const _StudioListItemInteriors = ({
   interiorIds,
-  isLoading,
   list,
 }: StudioListItemTypesProps) => {
   const interiorList = useMemo(
     () => mergeIdWithConfig<typeof list[number]>(interiorIds, list),
     [interiorIds, list]
   );
-
-  if (isLoading) {
-    return <span>Interiors is loading</span>;
-  }
 
   return (
     <Grid container>

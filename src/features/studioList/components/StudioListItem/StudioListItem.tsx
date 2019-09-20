@@ -61,7 +61,7 @@ const _StudioListItem = (
               )}
             </Grid>
             <Grid item xs={12}>
-              {props.loading ? (
+              {props.loading || isConfigLoading ? (
                 <ContentLoader height={18} style={{ height: '18px' }}>
                   <rect x="0" y="0" rx="0" ry="0" width="40%" height="18px" />
                 </ContentLoader>
@@ -69,7 +69,6 @@ const _StudioListItem = (
                 <StudioListItemInteriors
                   interiorIds={props.interiorIds}
                   list={config.interior}
-                  isLoading={isConfigLoading}
                 />
               )}
             </Grid>
@@ -87,7 +86,7 @@ const _StudioListItem = (
             alignItems="flex-end"
           >
             <Grid item xs={6}>
-              {props.loading ? (
+              {props.loading || isMetroListLoading ? (
                 <ContentLoader height={42} style={{ height: '42px' }}>
                   <rect
                     x="0"
@@ -100,7 +99,6 @@ const _StudioListItem = (
                 </ContentLoader>
               ) : (
                 <StudioListItemStations
-                  isLoading={isMetroListLoading}
                   list={metroList}
                   stationIds={props.stationIds}
                 />

@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
+import dequal from 'dequal';
 import { Container } from '../../../../components/Container';
 import {
   FilterGrid,
@@ -81,4 +82,4 @@ const _StudioListFilterMobile = ({ className, handleClearFilters }: Props) => {
   );
 };
 
-export const StudioListFilterMobile = memo(_StudioListFilterMobile);
+export const StudioListFilterMobile = memo(_StudioListFilterMobile, dequal);

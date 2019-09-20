@@ -6,7 +6,6 @@ import { StudioListItemStationsProps } from './index';
 import { mergeIdWithConfig } from '../../../utils/mergeIdWithConfig';
 
 const _StudioListItemStations = ({
-  isLoading,
   list,
   stationIds,
 }: StudioListItemStationsProps) => {
@@ -14,10 +13,6 @@ const _StudioListItemStations = ({
     () => mergeIdWithConfig<typeof list[number]>(stationIds, list),
     [list, stationIds]
   );
-
-  if (isLoading) {
-    return <span>Loading metro list...</span>;
-  }
 
   return (
     <Grid container component="ul" alignItems="center" spacing={1}>
