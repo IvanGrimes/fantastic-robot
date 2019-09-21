@@ -19,6 +19,7 @@ export type MetroStationResponse = {
   lng: number;
 };
 
-export const fetchMetroList = ({ city }: { city: CityType }) => axiosClient
-  .get<MetroListResponse>(`/api/metro`, { params: { cityId: city } })
-  .then(response => response.data);
+export const fetchMetroList = ({ city }: { city: CityType }) =>
+  axiosClient
+    .get<MetroListResponse>(`/api/metro`, { params: { cityId: city } })
+    .then(response => response.data);

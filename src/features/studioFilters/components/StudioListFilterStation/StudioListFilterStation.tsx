@@ -34,6 +34,19 @@ const _StudioListFilterStation = ({
     (id: any[]) => () => handleChange({ stations: id }),
     [handleChange]
   );
+  const renderValue = useCallback(
+    ({ color, name }) => (
+      <Grid container alignItems="center" spacing={1}>
+        <Grid item>
+          <ColorCircle color={color} />
+        </Grid>
+        <Grid item>
+          <Typography>{name}</Typography>
+        </Grid>
+      </Grid>
+    ),
+    []
+  );
 
   return (
     <PropertyList
@@ -42,16 +55,7 @@ const _StudioListFilterStation = ({
       list={list}
       selectedIds={selectedIds}
       onChange={onChange}
-      renderValue={({ color, name }) => (
-        <Grid container alignItems="center" spacing={1}>
-          <Grid item>
-            <ColorCircle color={color} />
-          </Grid>
-          <Grid item>
-            <Typography>{name}</Typography>
-          </Grid>
-        </Grid>
-      )}
+      renderValue={renderValue}
       isSearchable
       isClearable={isClearable}
       searchProps={{

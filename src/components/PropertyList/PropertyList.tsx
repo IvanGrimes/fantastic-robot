@@ -36,18 +36,20 @@ const _PropertyList = ({
   ]);
 
   useEffect(() => {
-    const filterList = debounce(() =>
-      setFilteredList(
-        list.filter(
-          item =>
-            item &&
-            getAbsoluteString(item.value).includes(getAbsoluteString(search))
-        )
-      )
+    const filterList = debounce(
+      () =>
+        setFilteredList(
+          list.filter(
+            item =>
+              item &&
+              getAbsoluteString(item.value).includes(getAbsoluteString(search))
+          )
+        ),
+      100
     );
 
     filterList();
-  }, [filteredList, list, search]);
+  }, [list, search]);
 
   return (
     <WrapperGrid className={className} container direction="column" {...props}>
