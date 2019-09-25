@@ -9,7 +9,7 @@ import {
   InfiniteScrollLoader,
 } from './StudioList.styles';
 import { Container } from '../../../components/Container';
-import { StudioItem } from '../model/api';
+import { StudioItem } from '../model/types';
 
 type Props = {
   className: string;

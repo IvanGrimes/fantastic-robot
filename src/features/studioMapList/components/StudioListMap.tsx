@@ -11,7 +11,7 @@ import {
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { StudioMapPinListItem } from './StudioMapPinListItem';
 import { StudioMapPreviewList } from './StudioMapPreviewList';
-import { StudioItem } from '../../studioList/model/api';
+import { StudioItem } from '../../studioList/model/types';
 
 type Props = {
   isMapListFullscreen: boolean;

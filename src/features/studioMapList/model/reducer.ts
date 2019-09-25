@@ -7,11 +7,13 @@ export type StudioMapListState = {
   isFullscreen: boolean;
   preview: ShortStudio['id'] | null;
 };
+
 const initialState: StudioMapListState = {
   isEnabled: true,
   isFullscreen: false,
   preview: null,
 };
+
 export const studioMapListReducer = createReducer(initialState)
   .handleAction(setIsEnable, (state, { payload: { isEnabled } }) => ({
     ...state,

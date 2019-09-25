@@ -21,14 +21,6 @@ export type StudioItemResponse = {
   };
 };
 
-export type Studios = Omit<StudiosResponse, 'studios'> & {
-  studios: StudioItem[];
-};
-
-export type StudioItem = Omit<StudioItemResponse, 'roomNumber'> & {
-  roomsCount: StudioItemResponse['roomNumber'];
-};
-
 export type FilterStudiosInput = {
   city: CityType;
   page: number;
@@ -46,6 +38,8 @@ export const fetchFilterStudios = (params: FilterStudiosInput) => {
   const { city: cityId, ...query } = params;
 
   return axiosClient
-    .get<Studios>(`/api/studio/filter`, { params: { cityId, ...query } })
+    .get<StudiosResponse>(`/api/studio/filter`, {
+      params: { cityId, ...query },
+    })
     .then(({ data }) => data);
 };

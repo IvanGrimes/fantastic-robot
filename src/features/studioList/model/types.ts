@@ -1,5 +1,6 @@
 import { CityType } from '../../../model/types';
 import { PriceType } from '../../studioData/model/types';
+import { StudioItemResponse, StudiosResponse } from './api';
 
 export type FetchStudioListInput = {
   name?: string;
@@ -43,4 +44,12 @@ export type ShortStudio = {
   favorite: boolean;
   lat: number;
   lng: number;
+};
+
+export type Studios = Omit<StudiosResponse, 'studios'> & {
+  studios: StudioItem[];
+};
+
+export type StudioItem = Omit<StudioItemResponse, 'roomNumber'> & {
+  roomsCount: StudioItemResponse['roomNumber'];
 };

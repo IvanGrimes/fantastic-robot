@@ -1,4 +1,4 @@
-import { StudioItem } from '../../model/api';
+import { StudioItem } from '../../model/types';
 
 export type StudioListItemVariant = 'wide' | 'short';
 

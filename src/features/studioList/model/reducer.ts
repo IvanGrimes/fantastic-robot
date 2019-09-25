@@ -1,6 +1,7 @@
 import { createReducer } from 'typesafe-actions';
 import { fetchFilterStudiosAsync, fetchStudiosAsync } from './actions';
-import { Studios } from './api';
+import { StudiosResponse } from './api';
+import { Studios } from './types';
 
 export type StudioListState = Studios & {
   updateStrategy: 'merge' | 'replace';
@@ -12,10 +13,16 @@ const initialState: StudioListState = {
   updateStrategy: 'merge',
 };
 
+const mapStudios = (studios: StudiosResponse['studios']) =>
+  studios.map(({ roomNumber, ...studio }) => ({
+    roomsCount: roomNumber,
+    ...studio,
+  }));
+
 export const studioListReducer = createReducer(initialState)
   .handleAction(fetchStudiosAsync.success, (state, { payload }) => ({
     ...state,
-    studios: [...state.studios, ...payload.studios],
+    studios: [...state.studios, ...mapStudios(payload.studios)],
     hasNext: payload.hasNext,
   }))
   .handleAction(fetchFilterStudiosAsync.request, (state, { payload }) => ({
@@ -24,5 +31,5 @@ export const studioListReducer = createReducer(initialState)
   }))
   .handleAction(fetchFilterStudiosAsync.success, (state, { payload }) => ({
     ...state,
-    studios: payload.studios,
+    studios: mapStudios(payload.studios),
   }));

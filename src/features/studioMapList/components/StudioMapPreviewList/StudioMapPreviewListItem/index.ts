@@ -1,4 +1,4 @@
-import { StudioItem } from '../../../../studioList/model/api';
+import { StudioItem } from '../../../../studioList/model/types';
 
 export type StudioMapPreviewListItemProps = {
   isActive: boolean;
