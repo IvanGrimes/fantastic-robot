@@ -37,7 +37,7 @@ export const getInitialProps: IndexGetInitialProps = async ({
 }) => {
   const appliedFilters = parseFilters(asPath);
   const hasFilters = Object.values(appliedFilters).length;
-
+  // TODO: Fix filters
   if (hasFilters) {
     store.dispatch(setFilters(appliedFilters));
   }

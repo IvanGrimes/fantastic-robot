@@ -56,10 +56,11 @@ const _StudioListFilterContainer = ({
 
   useEffect(() => {
     if (prevAppliedFilters !== appliedFilters) {
-      push(`${route}`, getAsPathWithFilters(asPath, appliedFilters), {
-        query,
-        shallow: true,
-      });
+      window.history.pushState(
+        'filter',
+        'filter',
+        getAsPathWithFilters(asPath, appliedFilters)
+      );
     }
   }, [
     appliedFilters,
