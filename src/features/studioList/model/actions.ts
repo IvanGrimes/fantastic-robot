@@ -6,7 +6,7 @@ import {
   fetchStudios,
   FilterStudiosInput,
   StudiosInput,
-} from './api';
+} from './services';
 
 export const fetchStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_STUDIOS_REQUEST',

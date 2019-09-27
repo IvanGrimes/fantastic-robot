@@ -1,25 +1,13 @@
 import { applyMiddleware, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { EpicDependencies, RootAction, RootState } from './types';
+import createSagaMiddleware from 'redux-saga';
+import { RootState } from './types';
 import { rootReducer } from './rootReducer';
-import { rootEpic } from './rootEpic';
-import { rootApi } from './rootApi';
-import rootAction from './rootAction';
+import { rootSaga } from './rootSaga';
 
 export const configureStore = (initialState: RootState) => {
-  const epicMiddleware = createEpicMiddleware<
-    RootAction,
-    RootAction,
-    RootState,
-    EpicDependencies
-  >({
-    dependencies: {
-      api: rootApi,
-      actions: rootAction,
-    },
-  });
-  const middleware = applyMiddleware(epicMiddleware);
+  const sagaMiddleware = createSagaMiddleware();
+  const middleware = applyMiddleware(sagaMiddleware);
 
   const store = createStore(
     rootReducer,
@@ -27,7 +15,7 @@ export const configureStore = (initialState: RootState) => {
     composeWithDevTools({ trace: true })(middleware)
   );
 
-  epicMiddleware.run(rootEpic);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;
 };

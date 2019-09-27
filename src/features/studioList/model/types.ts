@@ -1,6 +1,6 @@
 import { CityType } from '../../../model/types';
 import { PriceType } from '../../studioData/model/types';
-import { StudioItemResponse, StudiosResponse } from './api';
+import { StudioItemResponse, StudiosResponse } from './services';
 
 export type FetchStudioListInput = {
   name?: string;

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
-import { serverEpic } from '../../lib/serverEpic';
 import { ContentGrid, StudioListGrid } from './Index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
@@ -37,14 +36,15 @@ export const getInitialProps: IndexGetInitialProps = async ({
 }) => {
   const appliedFilters = parseFilters(asPath);
   const hasFilters = Object.values(appliedFilters).length;
-  // TODO: Fix filters
+
   if (hasFilters) {
     store.dispatch(setFilters(appliedFilters));
+  } else {
+    store.dispatch(fetchStudiosAsync.request({ page, city: 'moscow' }));
   }
 
-  await serverEpic(store, fetchStudiosAsync.request({ page, city: 'moscow' }));
-  await serverEpic(store, fetchMetroListAsync.request({ city: 'moscow' }));
-  await serverEpic(store, fetchConfigAsync.request());
+  store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+  store.dispatch(fetchConfigAsync.request());
 
   return {};
 };

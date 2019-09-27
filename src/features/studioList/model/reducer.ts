@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { fetchFilterStudiosAsync, fetchStudiosAsync } from './actions';
-import { StudiosResponse } from './api';
+import { StudiosResponse } from './services';
 import { Studios } from './types';
 
 export type StudioListState = Studios & {
@@ -32,4 +32,5 @@ export const studioListReducer = createReducer(initialState)
   .handleAction(fetchFilterStudiosAsync.success, (state, { payload }) => ({
     ...state,
     studios: mapStudios(payload.studios),
+    hasNext: payload.hasNext,
   }));

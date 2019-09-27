@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions';
-import { FilterStudiosInput } from '../../studioList/model/api';
+import { FilterStudiosInput } from '../../studioList/model/services';
 
 export const setFilters = createAction(
   '@@studioFilters/SET_FILTERS',

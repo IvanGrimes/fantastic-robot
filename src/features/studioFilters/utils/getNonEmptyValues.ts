@@ -1,4 +1,4 @@
-export const getNonEmptyValues = (target: object) =>
+export const getNonEmptyValues = <T extends object>(target: object): T =>
   Object.entries(target)
     .filter(([_, value]) => {
       if (Array.isArray(value)) {
@@ -10,10 +10,10 @@ export const getNonEmptyValues = (target: object) =>
 
       return Boolean(value);
     })
-    .reduce(
+    .reduce<T>(
       (acc, [prop, value]) => ({
         ...acc,
         [prop]: value,
       }),
-      {}
+      {} as T
     );

@@ -2,7 +2,7 @@ import {
   MetroStationResponse,
   MetroLineResponse,
   ConfigObjectResponse,
-} from './api';
+} from './services';
 
 export type MetroList = MetroLine[];
 

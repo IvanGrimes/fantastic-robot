@@ -8,6 +8,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
+import withReduxSaga from 'next-redux-saga';
 import { SEO } from '../src/components/SEO';
 import { theme } from '../src/theme';
 import { GlobalStyles } from '../src/pages/_app';
@@ -90,4 +91,4 @@ class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
   }
 }
 
-export default withRedux(configureStore)(MyApp);
+export default withRedux(configureStore)(withReduxSaga(MyApp));
