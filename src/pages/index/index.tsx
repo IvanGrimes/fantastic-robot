@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
-import { ContentGrid, StudioListGrid } from './Index.styles';
+import { ContentGrid, StudioListGrid } from './index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
 import { setFilters } from '../../features/studioFilters/model/actions';
