@@ -31,20 +31,22 @@ type IndexGetInitialProps = (ctx: {
 
 export const getInitialProps: IndexGetInitialProps = async ({
   asPath,
-  page = 1,
+  query,
   store,
 }) => {
   const appliedFilters = parseFilters(asPath);
-  const hasFilters = Object.values(appliedFilters).length;
+  const hasFilters = Boolean(Object.values(appliedFilters).length);
+  const pageNumber = parseInt(query.page, 10);
+  const page = Number.isNaN(pageNumber) ? 1 : pageNumber;
+
+  store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+  store.dispatch(fetchConfigAsync.request());
 
   if (hasFilters) {
     store.dispatch(setFilters(appliedFilters));
   } else {
     store.dispatch(fetchStudiosAsync.request({ page, city: 'moscow' }));
   }
-
-  store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
-  store.dispatch(fetchConfigAsync.request());
 
   return {};
 };

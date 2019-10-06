@@ -16,15 +16,16 @@ const _StudioListItemStations = ({
 
   return (
     <Grid container component="ul" alignItems="center" spacing={1}>
-      {stationIds.map(id => (
-        <Grid component="li" key={id} item>
-          <Station color={stations[id].color}>
-            <Typography component="span" variant="caption">
-              {stations[id].value}
-            </Typography>
-          </Station>
-        </Grid>
-      ))}
+      {stationIds &&
+        stationIds.map(id => (
+          <Grid component="li" key={id} item>
+            <Station color={stations[id].color}>
+              <Typography component="span" variant="caption">
+                {stations[id].value}
+              </Typography>
+            </Station>
+          </Grid>
+        ))}
     </Grid>
   );
 };

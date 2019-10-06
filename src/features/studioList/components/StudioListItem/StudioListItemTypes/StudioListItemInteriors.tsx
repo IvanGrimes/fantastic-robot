@@ -15,7 +15,8 @@ const _StudioListItemInteriors = ({
   return (
     <Grid container>
       <Typography component="span" variant="caption">
-        {interiorIds.map(id => interiorList[id].value).join(', ')}
+        {interiorIds &&
+          interiorIds.map(id => interiorList[id].value).join(', ')}
       </Typography>
     </Grid>
   );

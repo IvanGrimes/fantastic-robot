@@ -9,15 +9,17 @@ import { StudioListItemPhotosProps } from './index';
 const _StudioListItemPhotos = ({ photoIds }: StudioListItemPhotosProps) => (
   <Grid container>
     <Grid item xs={12}>
-      <Carousel>
-        {photoIds.map(id => (
-          <LazyImage
-            key={id}
-            src="https://via.placeholder.com/1920x1080"
-            ratio={floatToFraction(16.9)}
-          />
-        ))}
-      </Carousel>
+      {photoIds ? (
+        <Carousel>
+          {photoIds.map(id => (
+            <LazyImage
+              key={id}
+              src="https://via.placeholder.com/1920x1080"
+              ratio={floatToFraction(16.9)}
+            />
+          ))}
+        </Carousel>
+      ) : null}
     </Grid>
   </Grid>
 );
