@@ -1,5 +1,5 @@
-import { Index, getInitialProps } from '../../../src/pages/index';
-import { SSRError } from '../../../src/lib/SSRError';
+import { Index, getInitialProps } from '../../src/pages/index';
+import { SSRError } from '../../src/lib/SSRError';
 
 Index.getInitialProps = async ctx => {
   const { query, isServer } = ctx;
