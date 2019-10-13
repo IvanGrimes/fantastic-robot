@@ -1,3 +1,1 @@
-export {
-  StudioCalendar as Calendar,
-} from '../../features/studioCalendar/components';
+export { Calendar } from './Calendar';
