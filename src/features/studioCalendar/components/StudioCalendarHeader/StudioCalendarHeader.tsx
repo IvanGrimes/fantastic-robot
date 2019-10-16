@@ -3,8 +3,8 @@ import { StudioCalendarContext } from '../StudioCalendarContainer';
 
 export const StudioCalendarHeader = () => {
   const {
-    previousRange,
-    nextRange,
+    previousViewRange,
+    nextViewRange,
     from,
     to,
     step,
@@ -21,11 +21,11 @@ export const StudioCalendarHeader = () => {
       <button type="button" onClick={previousMonth}>
         previous month
       </button>
-      <button type="button" onClick={previousRange}>
+      <button type="button" onClick={previousViewRange}>
         previous range
       </button>
       {step === 0 ? from.toString() : `${from} --- ${to}`}
-      <button type="button" onClick={nextRange}>
+      <button type="button" onClick={nextViewRange}>
         next range
       </button>
       <button type="button" onClick={nextMonth}>
