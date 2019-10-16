@@ -1,11 +1,27 @@
 import React from 'react';
+import { Cell } from './StudioCalendarBodyCell.styles';
 
 type StudioCalendarBodyCellProps = {
-  timestamp: number;
+  data: {
+    year: number;
+    month: number;
+    day: number;
+    hours: number;
+    minutes: number;
+    timestamp: number;
+  };
+  selectTime: (timestamp: number) => () => void;
+  selected: boolean;
 };
 
 export const StudioCalendarBodyCell = ({
-  timestamp,
+  data,
+  selectTime,
+  selected,
 }: StudioCalendarBodyCellProps) => {
-  return <td>{timestamp}</td>;
+  return (
+    <Cell selected={selected} onClick={selectTime(data.timestamp)}>
+      {data.timestamp}
+    </Cell>
+  );
 };

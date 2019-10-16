@@ -1,6 +1,6 @@
 export { useModel } from './useModel';
 
-type Handler = () => void;
+type Handler<T = any> = (...args: T[]) => void;
 
 export type DateRangeState = {
   from: Date;
@@ -13,7 +13,11 @@ export type DateRangeState = {
     day: number;
     hours: number;
     minutes: number;
+    timestamp: number;
   }[][];
+  select: {
+    [key: string]: number[];
+  };
 };
 
 export type DateRangeHandlers = {
@@ -22,4 +26,5 @@ export type DateRangeHandlers = {
   nextViewRange: Handler;
   previousMonth: Handler;
   nextMonth: Handler;
+  selectTime: Handler<number>;
 };

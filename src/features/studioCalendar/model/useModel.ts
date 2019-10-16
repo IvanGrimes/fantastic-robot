@@ -19,6 +19,10 @@ export const useModel = (): [DateRangeState, DateRangeHandlers] => {
     []
   );
   const nextMonth = useCallback(() => dispatch(actions.setMonth('next')), []);
+  const selectTime = useCallback(
+    (timestamp: number) => dispatch(actions.selectTime(timestamp)),
+    []
+  );
 
   return [
     state,
@@ -28,6 +32,7 @@ export const useModel = (): [DateRangeState, DateRangeHandlers] => {
       nextViewRange,
       previousMonth,
       nextMonth,
+      selectTime,
     },
   ];
 };
