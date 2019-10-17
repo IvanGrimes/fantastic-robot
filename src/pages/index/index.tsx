@@ -51,7 +51,7 @@ export const getInitialProps: IndexGetInitialProps = async ({
   return {};
 };
 
-const _Index = () => {
+export const Index = () => {
   const isMapListEnabled = useSelector(getIsEnabled);
 
   return (
@@ -72,6 +72,4 @@ const _Index = () => {
   );
 };
 
-_Index.getInitialProps = getInitialProps;
-
-export const Index = _Index;
+Index.getInitialProps = getInitialProps;

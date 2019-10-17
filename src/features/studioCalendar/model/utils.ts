@@ -14,7 +14,7 @@ const truncateTimeUnit = (unit: Units) => {
     get = getDate;
   }
 
-  return (date: Date, amount: number) => set(date, get(date) - amount);
+  return (date: Date | number, amount: number) => set(date, get(date) - amount);
 };
 
 export const truncateMonths = truncateTimeUnit('month');

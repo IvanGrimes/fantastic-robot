@@ -3,10 +3,10 @@ export { useModel } from './useModel';
 type Handler<T = any> = (...args: T[]) => void;
 
 export type DateRangeState = {
-  from: Date;
-  to: Date;
+  from: number;
+  to: number;
   step: 0 | 2;
-  range: Date[];
+  range: number[];
   grid: {
     year: number;
     month: number;

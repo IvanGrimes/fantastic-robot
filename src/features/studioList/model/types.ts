@@ -1,19 +1,6 @@
-import { CityType } from '../../../model/types';
 import { PriceType } from '../../studioData/model/types';
 import { StudioItemResponse, StudiosResponse } from './services';
-
-export type FetchStudioListInput = {
-  name?: string;
-  city: CityType;
-  equipments?: string[];
-  interiors?: string[];
-  page?: number;
-  size?: number;
-  map?: {
-    topLeft: string;
-    bottomRight: string;
-  };
-};
+import { StudioId } from '../../../model/types';
 
 export type Station = {
   id: string;
@@ -33,7 +20,7 @@ export type Image = {
 };
 
 export type ShortStudio = {
-  id: string;
+  id: StudioId;
   name: string;
   priceTypes: PriceType;
   stations: Station[];

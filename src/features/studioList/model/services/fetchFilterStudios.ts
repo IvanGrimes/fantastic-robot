@@ -1,4 +1,4 @@
-import { CityType } from '../../../../model/types';
+import { CityType, StudioId } from '../../../../model/types';
 import { PriceType } from '../../../studioData/model/types';
 import { axiosClient } from '../../../../lib/axios.client';
 
@@ -8,7 +8,7 @@ export type StudiosResponse = {
 };
 
 export type StudioItemResponse = {
-  id: string;
+  id: StudioId;
   name: string;
   interiorIds: string[];
   photoIds: string[];

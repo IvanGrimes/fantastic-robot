@@ -1,6 +1,5 @@
 import {
   addDays,
-  addHours,
   addMonths,
   getDate,
   getDay,
@@ -9,7 +8,9 @@ import {
   getYear,
   isAfter,
   setHours,
+  setMilliseconds,
   setMinutes,
+  setSeconds,
 } from 'date-fns';
 import { Reducer } from 'react';
 import {
@@ -21,19 +22,7 @@ import {
 } from './actions';
 import { truncateDays, truncateMonths } from './utils';
 import { DateRangeState } from './index';
-
-// TODO: Split each reducer case into separated module
-
-const getRange = (start: Date, end: Date, unit: 'day' | 'hours' = 'day') => {
-  const dateRange: Date[] = [];
-  const incrementer = unit === 'day' ? addDays : addHours;
-
-  for (let i = start; !isAfter(i, end); i = incrementer(i, 1)) {
-    dateRange.push(i);
-  }
-
-  return dateRange;
-};
+import { getDateRange } from '../../../utils/getDateRange';
 
 const getGrid = (range: DateRangeState['range']) =>
   new Array(10).fill(null).reduce<DateRangeState['grid']>(
@@ -67,13 +56,20 @@ const getSelect = (range: DateRangeState['range']) =>
     {}
   );
 
-const getInitialState = (): DateRangeState => {
+export const getInitialState = ({
+  reservations,
+}: {
+  reservations?: number[];
+}): DateRangeState => {
   const DEFAULT_STEP: DateRangeState['step'] = 2;
   const date = new Date();
-  const getInitialDate = () => setMinutes(setHours(date, 0), 0);
-  const from = getInitialDate();
-  const to = addDays(getInitialDate(), DEFAULT_STEP);
-  const range = getRange(from, to);
+  const getInitialDate = () =>
+    setMilliseconds(setSeconds(setMinutes(setHours(date, 0), 0), 0), 0);
+  const from = getTime(getInitialDate());
+  const to = getTime(addDays(getInitialDate(), DEFAULT_STEP));
+  const range = getDateRange(from, to);
+
+  console.log('initialState', reservations);
 
   return {
     from,
@@ -85,7 +81,7 @@ const getInitialState = (): DateRangeState => {
   };
 };
 
-export const initialState: DateRangeState = getInitialState();
+export const initialState: DateRangeState = getInitialState({});
 
 export const reducer: Reducer<DateRangeState, Actions> = (
   state = initialState,
@@ -108,15 +104,15 @@ export const reducer: Reducer<DateRangeState, Actions> = (
     case SET_RANGE: {
       const operation =
         action.payload.direction === 'next' ? addDays : truncateDays;
-      const from = operation(state.from, state.step);
-      const to = operation(state.to, state.step);
-      const range = getRange(from, to);
+      const from = getTime(operation(state.from, state.step));
+      const to = getTime(operation(state.to, state.step));
+      const range = getDateRange(from, to);
 
       return {
         ...state,
         from,
         to,
-        range: getRange(from, to),
+        range,
         grid: getGrid(range),
         select: { ...getSelect(range), ...state.select },
       };
@@ -124,9 +120,9 @@ export const reducer: Reducer<DateRangeState, Actions> = (
     case SET_MONTH: {
       const operation =
         action.payload.direction === 'next' ? addMonths : truncateMonths;
-      const from = operation(state.from, 1);
-      const to = operation(state.to, 1);
-      const range = getRange(from, to);
+      const from = getTime(operation(state.from, 1));
+      const to = getTime(operation(state.to, 1));
+      const range = getDateRange(from, to);
 
       return {
         ...state,
@@ -150,11 +146,11 @@ export const reducer: Reducer<DateRangeState, Actions> = (
           ...state,
           select: {
             ...state.select,
-            [key]: getRange(
-              new Date(state.select[key][0]),
-              new Date(action.payload.timestamp),
+            [key]: getDateRange(
+              state.select[key][0],
+              action.payload.timestamp,
               'hours'
-            ).map(date => getTime(date)),
+            ),
           },
         };
       }

@@ -30,3 +30,9 @@ declare module 'redux' {
 }
 
 export type CityType = 'moscow';
+
+export type StudioId = string;
+
+export type ReservationId = string;
+
+export type RoomId = string;

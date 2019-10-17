@@ -1,10 +1,17 @@
 import { useCallback, useReducer } from 'react';
 import { DateRangeState, DateRangeHandlers } from './index';
-import { initialState, reducer } from './reducer';
+import { getInitialState, reducer } from './reducer';
 import * as actions from './actions';
 
-export const useModel = (): [DateRangeState, DateRangeHandlers] => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+type Props = { reservations: number[] };
+
+export const useModel = ({
+  reservations,
+}: Props): [DateRangeState, DateRangeHandlers] => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    getInitialState({ reservations })
+  );
   const toggleStep = useCallback(() => dispatch(actions.toggleStep()), []);
   const previousViewRange = useCallback(
     () => dispatch(actions.setViewRange('previous')),
@@ -19,8 +26,8 @@ export const useModel = (): [DateRangeState, DateRangeHandlers] => {
     []
   );
   const nextMonth = useCallback(() => dispatch(actions.setMonth('next')), []);
-  const selectTime = useCallback(
-    (timestamp: number) => dispatch(actions.selectTime(timestamp)),
+  const selectTime: DateRangeHandlers['selectTime'] = useCallback(
+    timestamp => dispatch(actions.selectTime(timestamp)),
     []
   );
 
