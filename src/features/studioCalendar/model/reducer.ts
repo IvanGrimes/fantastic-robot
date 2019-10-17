@@ -24,13 +24,17 @@ import { truncateDays, truncateMonths } from './utils';
 import { DateRangeState } from './index';
 import { getDateRange } from '../../../utils/getDateRange';
 
-const getGrid = (range: DateRangeState['range']) =>
+const getGrid = (
+  range: DateRangeState['range'],
+  reservations: DateRangeState['reservations']
+) =>
   new Array(10).fill(null).reduce<DateRangeState['grid']>(
     (acc, _time, index) => [
       ...acc,
       range.map(item => {
         const hours = index + 10;
         const date = setHours(item, hours);
+        const timestamp = getTime(date);
 
         return {
           year: getYear(item),
@@ -38,7 +42,8 @@ const getGrid = (range: DateRangeState['range']) =>
           day: getDate(item),
           hours,
           minutes: 0,
-          timestamp: getTime(date),
+          timestamp,
+          reserved: reservations.includes(timestamp),
         };
       }),
     ],
@@ -57,7 +62,7 @@ const getSelect = (range: DateRangeState['range']) =>
   );
 
 export const getInitialState = ({
-  reservations,
+  reservations = [],
 }: {
   reservations?: number[];
 }): DateRangeState => {
@@ -69,15 +74,14 @@ export const getInitialState = ({
   const to = getTime(addDays(getInitialDate(), DEFAULT_STEP));
   const range = getDateRange(from, to);
 
-  console.log('initialState', reservations);
-
   return {
     from,
     to,
     step: DEFAULT_STEP,
     range,
-    grid: getGrid(range),
+    grid: getGrid(range, reservations),
     select: getSelect(range),
+    reservations,
   };
 };
 
@@ -97,7 +101,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         grid:
           nextStep === 0
             ? state.grid.map(item => [item[0]])
-            : getGrid(state.range),
+            : getGrid(state.range, state.reservations),
         select: { ...getSelect(state.range), ...state.select },
       };
     }
@@ -113,7 +117,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         from,
         to,
         range,
-        grid: getGrid(range),
+        grid: getGrid(range, state.reservations),
         select: { ...getSelect(range), ...state.select },
       };
     }
@@ -129,7 +133,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         from,
         to,
         range,
-        grid: getGrid(range),
+        grid: getGrid(range, state.reservations),
         select: { ...getSelect(range), ...state.select },
       };
     }

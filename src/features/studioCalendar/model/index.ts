@@ -14,10 +14,12 @@ export type DateRangeState = {
     hours: number;
     minutes: number;
     timestamp: number;
+    reserved: boolean;
   }[][];
   select: {
     [key: string]: number[];
   };
+  reservations: number[];
 };
 
 export type DateRangeHandlers = {

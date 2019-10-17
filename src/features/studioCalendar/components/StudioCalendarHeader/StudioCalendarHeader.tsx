@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { format } from 'date-fns';
 import { StudioCalendarContext } from '../StudioCalendarContainer';
 
 export const StudioCalendarHeader = () => {
@@ -24,7 +25,12 @@ export const StudioCalendarHeader = () => {
       <button type="button" onClick={previousViewRange}>
         previous range
       </button>
-      {step === 0 ? from.toString() : `${from} --- ${to}`}
+      {step === 0
+        ? from.toString()
+        : `${format(new Date(from), 'DD/MM/YY')} --- ${format(
+            new Date(to),
+            'DD/MM/YY'
+          )}`}
       <button type="button" onClick={nextViewRange}>
         next range
       </button>
