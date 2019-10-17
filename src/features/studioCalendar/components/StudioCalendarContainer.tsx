@@ -14,6 +14,8 @@ export const StudioCalendarContext = createContext<StudioCalendarContextType>(
 const _StudioCalendarContainer = () => {
   const [dateRangeState, dateRangeHandlers] = useModel();
 
+  console.log(dateRangeState);
+
   return (
     <StudioCalendarContext.Provider
       value={{

@@ -1,5 +1,6 @@
 import {
   addDays,
+  addHours,
   addMonths,
   getDate,
   getDay,
@@ -23,10 +24,11 @@ import { DateRangeState } from './index';
 
 // TODO: Split each reducer case into separated module
 
-const getRange = (start: Date, end: Date) => {
+const getRange = (start: Date, end: Date, unit: 'day' | 'hours' = 'day') => {
   const dateRange: Date[] = [];
+  const incrementer = unit === 'day' ? addDays : addHours;
 
-  for (let i: Date = start; !isAfter(i, end); i = addDays(i, 1)) {
+  for (let i = start; !isAfter(i, end); i = incrementer(i, 1)) {
     dateRange.push(i);
   }
 
@@ -137,12 +139,31 @@ export const reducer: Reducer<DateRangeState, Actions> = (
     }
     case SELECT_TIME: {
       const key = getSelectKeyFromDate(action.payload.timestamp);
+      const hasOnlyOneElement = state.select[key].length === 1;
+      const isAfterCurrentElement = isAfter(
+        action.payload.timestamp,
+        state.select[key][0]
+      );
+
+      if (hasOnlyOneElement && isAfterCurrentElement) {
+        return {
+          ...state,
+          select: {
+            ...state.select,
+            [key]: getRange(
+              new Date(state.select[key][0]),
+              new Date(action.payload.timestamp),
+              'hours'
+            ).map(date => getTime(date)),
+          },
+        };
+      }
 
       return {
         ...state,
         select: {
           ...state.select,
-          [key]: [...state.select[key], action.payload.timestamp],
+          [key]: [action.payload.timestamp],
         },
       };
     }
