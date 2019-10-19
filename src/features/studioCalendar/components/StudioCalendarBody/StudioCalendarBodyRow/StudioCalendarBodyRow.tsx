@@ -29,6 +29,7 @@ export const StudioCalendarBodyRow = ({
       <td key={0}>{`${data[0].hours}:${data[0].minutes}0`}</td>
       {data.map(item => (
         <StudioCalendarBodyCell
+          key={item.timestamp}
           data={item}
           selectTime={selectTime}
           selected={select.includes(item.timestamp)}

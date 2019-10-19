@@ -17,14 +17,11 @@ export const useModel = ({
     getInitialState({ workHours, reservations })
   );
   const toggleStep = useCallback(() => dispatch(actions.toggleStep()), []);
-  const previousViewRange = useCallback(
-    () => dispatch(actions.setViewRange('previous')),
+  const previousRange = useCallback(
+    () => dispatch(actions.setRange('previous')),
     []
   );
-  const nextViewRange = useCallback(
-    () => dispatch(actions.setViewRange('next')),
-    []
-  );
+  const nextRange = useCallback(() => dispatch(actions.setRange('next')), []);
   const previousMonth = useCallback(
     () => dispatch(actions.setMonth('previous')),
     []
@@ -39,8 +36,8 @@ export const useModel = ({
     state,
     {
       toggleStep,
-      previousViewRange,
-      nextViewRange,
+      previousRange,
+      nextRange,
       previousMonth,
       nextMonth,
       selectTime,

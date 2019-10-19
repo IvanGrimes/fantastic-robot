@@ -1,6 +1,6 @@
 export type Actions =
   | ReturnType<typeof toggleStep>
-  | ReturnType<typeof setViewRange>
+  | ReturnType<typeof setRange>
   | ReturnType<typeof setMonth>
   | ReturnType<typeof selectTime>;
 
@@ -16,7 +16,7 @@ export const toggleStep = () =>
     type: TOGGLE_STEP,
   };
 
-export const setViewRange = (direction: Direction) =>
+export const setRange = (direction: Direction) =>
   <const>{
     type: SET_RANGE,
     payload: { direction },

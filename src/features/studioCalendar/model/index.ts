@@ -33,8 +33,8 @@ export type DateRangeState = {
 
 export type DateRangeHandlers = {
   toggleStep: Handler;
-  previousViewRange: Handler;
-  nextViewRange: Handler;
+  previousRange: Handler;
+  nextRange: Handler;
   previousMonth: Handler;
   nextMonth: Handler;
   selectTime: Handler<number>;

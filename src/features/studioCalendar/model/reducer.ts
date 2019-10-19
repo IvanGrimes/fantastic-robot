@@ -139,23 +139,26 @@ export const reducer: Reducer<DateRangeState, Actions> = (
 ) => {
   switch (action.type) {
     case TOGGLE_STEP: {
+      const { from } = state;
       const nextStep = state.step === 0 ? 2 : 0;
+      const to = nextStep === 0 ? from : getTime(addDays(from, 2));
+      const range = getDateRange(from, to);
 
       return {
         ...state,
+        from,
+        to,
+        range,
         step: state.step === 0 ? 2 : 0,
-        grid:
-          nextStep === 0
-            ? state.grid.map(item => [item[0]])
-            : getGrid(state.range, state.reservations, state.workHours),
-        select: { ...getSelect(state.range), ...state.select },
+        grid: getGrid(range, state.reservations, state.workHours),
+        select: { ...getSelect(range), ...state.select },
       };
     }
     case SET_RANGE: {
       const operation =
         action.payload.direction === 'next' ? addDays : truncateDays;
-      const from = getTime(operation(state.from, state.step));
-      const to = getTime(operation(state.to, state.step));
+      const from = getTime(operation(state.from, state.step || 1));
+      const to = getTime(operation(state.to, state.step || 1));
       const range = getDateRange(from, to);
 
       return {

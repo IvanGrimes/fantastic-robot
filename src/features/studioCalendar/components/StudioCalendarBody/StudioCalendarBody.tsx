@@ -14,6 +14,7 @@ export const StudioCalendarBody = () => {
       <table>
         {grid.map(row => (
           <StudioCalendarBodyRow
+            key={row[0].timestamp}
             data={row}
             selectTime={handleSelectTime}
             select={select}
