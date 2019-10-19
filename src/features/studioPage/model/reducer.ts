@@ -4,42 +4,72 @@ import { fetchReservationsAsync } from './actions';
 import { getDateRange } from '../../../utils/getDateRange';
 
 export type StudioDetailsState = {
-  reservations: number[];
+  workHours: { [key: string]: { from: number; to: number } };
+  reservations: { [key: string]: number[] };
 };
 
 const initialState: StudioDetailsState = {
-  reservations: [],
+  workHours: {},
+  reservations: {},
 };
 
 export const studioDetailsReducer = createReducer(initialState).handleAction(
   fetchReservationsAsync.success,
   (state, { payload }) => ({
     ...state,
-    reservations: payload.reduce<number[]>(
-      (acc, { year, month, day, reservations }) => {
+    ...payload.reduce<
+      Pick<StudioDetailsState, 'workHours'> &
+        Pick<StudioDetailsState, 'reservations'>
+    >(
+      (acc, { year, month, day, reservations, openTime, closeTime }) => {
         const today = new Date(year, month, day);
+        const key = getTime(today).toString();
 
-        return [
+        return {
           ...acc,
-          ...reservations.reduce<number[]>((acc2, reservation) => {
-            const from = getTime(
-              setMinutes(
-                setHours(today, reservation.from.hours),
-                reservation.from.minutes
-              )
-            );
-            const to = getTime(
-              setMinutes(
-                setHours(today, reservation.to.hours),
-                reservation.from.minutes
-              )
-            );
+          workHours: {
+            [key]:
+              openTime.hours === closeTime.hours
+                ? {
+                    from: getTime(setMinutes(setHours(today, 0), 0)),
+                    to: getTime(setMinutes(setHours(today, 23), 0)),
+                  }
+                : {
+                    from: getTime(
+                      setMinutes(setHours(today, openTime.hours), 0)
+                    ),
+                    to: getTime(
+                      setMinutes(setHours(today, closeTime.hours), 0)
+                    ),
+                  },
+          },
+          reservations: {
+            ...acc.reservations,
+            [key]: reservations.reduce<number[]>((acc2, reservation) => {
+              const from = getTime(
+                setMinutes(
+                  setHours(today, reservation.from.hours),
+                  reservation.from.minutes
+                )
+              );
+              const to = getTime(
+                setMinutes(
+                  setHours(today, reservation.to.hours),
+                  reservation.from.minutes
+                )
+              );
 
-            return [...acc2, ...getDateRange(from, to, 'hours')];
-          }, []),
-        ];
+              console.log(getDateRange(from, to, 'hours'));
+
+              return [...acc2, ...getDateRange(from, to, 'hours')];
+            }, []),
+          },
+        };
       },
-      []
+      {
+        reservations: {},
+        workHours: {},
+      }
     ),
   })
 );

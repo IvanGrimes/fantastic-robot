@@ -7,3 +7,8 @@ export const getStudioReservations = createDeepEqualSelector(
   [getState],
   state => state.reservations
 );
+
+export const getStudioWorkHours = createDeepEqualSelector(
+  [getState],
+  state => state.workHours
+);

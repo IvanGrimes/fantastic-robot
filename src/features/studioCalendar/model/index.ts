@@ -19,7 +19,15 @@ export type DateRangeState = {
   select: {
     [key: string]: number[];
   };
-  reservations: number[];
+  reservations: {
+    [key: string]: number[];
+  };
+  workHours: {
+    [key: string]: {
+      from: number;
+      to: number;
+    };
+  };
 };
 
 export type DateRangeHandlers = {

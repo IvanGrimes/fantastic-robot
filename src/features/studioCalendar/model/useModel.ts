@@ -3,14 +3,18 @@ import { DateRangeState, DateRangeHandlers } from './index';
 import { getInitialState, reducer } from './reducer';
 import * as actions from './actions';
 
-type Props = { reservations: number[] };
+type Props = {
+  workHours: DateRangeState['workHours'];
+  reservations: DateRangeState['reservations'];
+};
 
 export const useModel = ({
+  workHours,
   reservations,
 }: Props): [DateRangeState, DateRangeHandlers] => {
   const [state, dispatch] = useReducer(
     reducer,
-    getInitialState({ reservations })
+    getInitialState({ workHours, reservations })
   );
   const toggleStep = useCallback(() => dispatch(actions.toggleStep()), []);
   const previousViewRange = useCallback(
