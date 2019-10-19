@@ -3,6 +3,7 @@ import {
   addMonths,
   getDate,
   getDay,
+  getHours,
   getMonth,
   getTime,
   getYear,
@@ -26,23 +27,50 @@ import { getDateRange } from '../../../utils/getDateRange';
 
 // TODO: split each case in module
 
+const getWorkHours = (
+  workHours: DateRangeState['workHours'],
+  range: DateRangeState['range']
+) => {
+  const workHoursByRange = range.reduce<{
+    [key: string]: { from: number; to: number };
+  }>(
+    (acc, item) => ({
+      ...acc,
+      [item]: workHours[item] || {
+        from: getTime(setHours(item, 9)),
+        to: getTime(setHours(item, 19)),
+      },
+    }),
+    {}
+  );
+
+  return Object.entries(workHoursByRange)
+    .filter(([key]) => range.includes(Number(key)))
+    .reduce<{ [key: string]: number[] }>(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: getDateRange(value.from, value.to, 'hours'),
+      }),
+      {}
+    );
+};
+
 const getGrid = (
   range: DateRangeState['range'],
   reservations: DateRangeState['reservations'],
   workHours: DateRangeState['workHours']
 ) => {
-  console.log(
-    workHours,
-    workHours[getTime(range[range.length - 2])],
-    getTime(range[range.length - 2]),
-    new Date(range[range.length - 2])
-  );
+  const normalizedWorkHours = getWorkHours(workHours, range);
+  const valuesOfWorkHours = Object.values(normalizedWorkHours);
+  const lengthArrays = valuesOfWorkHours.map(item => item.length);
+  const longestArrayIndex = lengthArrays.indexOf(Math.max(...lengthArrays));
+  const longestWorkHours = valuesOfWorkHours[longestArrayIndex];
 
-  return new Array(10).fill(null).reduce<DateRangeState['grid']>(
-    (acc, _time, index) => [
+  return longestWorkHours.reduce<DateRangeState['grid']>(
+    (acc, time) => [
       ...acc,
       range.map(item => {
-        const hours = index + 10;
+        const hours = getHours(time);
         const date = setHours(item, hours);
         const timestamp = getTime(date);
         const key = getTime(item);
@@ -57,6 +85,7 @@ const getGrid = (
           reserved: reservations[key]
             ? reservations[key].includes(timestamp)
             : false,
+          canReserve: normalizedWorkHours[item].includes(timestamp),
         };
       }),
     ],

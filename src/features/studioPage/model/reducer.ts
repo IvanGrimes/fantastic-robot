@@ -22,12 +22,13 @@ export const studioDetailsReducer = createReducer(initialState).handleAction(
         Pick<StudioDetailsState, 'reservations'>
     >(
       (acc, { year, month, day, reservations, openTime, closeTime }) => {
-        const today = new Date(year, month, day);
+        const today = new Date(year, month - 1, day);
         const key = getTime(today).toString();
 
         return {
           ...acc,
           workHours: {
+            ...acc.workHours,
             [key]:
               openTime.hours === closeTime.hours
                 ? {

@@ -15,6 +15,7 @@ export type DateRangeState = {
     minutes: number;
     timestamp: number;
     reserved: boolean;
+    canReserve: boolean;
   }[][];
   select: {
     [key: string]: number[];
