@@ -60,8 +60,6 @@ export const studioDetailsReducer = createReducer(initialState).handleAction(
                 )
               );
 
-              console.log(getDateRange(from, to, 'hours'));
-
               return [...acc2, ...getDateRange(from, to, 'hours')];
             }, []),
           },

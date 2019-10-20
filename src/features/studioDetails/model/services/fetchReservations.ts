@@ -14,8 +14,8 @@ export type ReservationsResponse = {
   closeTime: { hours: number; minutes: number };
   reservations: {
     id: ReservationId;
-    from: { hours: number; minutes: number };
-    to: { hours: number; minutes: number };
+    from: { hours: number; minutes: number; timestamp: number };
+    to: { hours: number; minutes: number; timestamp: number };
     roomId?: RoomId;
   }[];
 }[];
