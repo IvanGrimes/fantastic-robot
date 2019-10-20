@@ -1,9 +1,9 @@
 import React from 'react';
 import { Store } from 'redux';
 import { Wrapper } from './[id].styles';
-import { StudioDetails } from '../../features/studioPage/components';
+import { StudioDetails } from '../../features/studioDetails/components';
 import { RootState, StudioId as StudioIdType } from '../../model/types';
-import { fetchReservationsAsync } from '../../features/studioPage/model/actions';
+import { fetchReservationsAsync } from '../../features/studioDetails/model/actions';
 import { SSRError } from '../../lib/SSRError';
 
 type GetInitialProps = {
