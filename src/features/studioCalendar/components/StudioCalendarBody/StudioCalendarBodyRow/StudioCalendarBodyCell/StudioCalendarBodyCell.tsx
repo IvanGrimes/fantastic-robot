@@ -24,7 +24,11 @@ export const StudioCalendarBodyCell = ({
   return (
     <Cell
       selected={selected}
-      onClick={selectTime(data.timestamp)}
+      onClick={
+        data.canReserve && !data.reserved
+          ? selectTime(data.timestamp)
+          : undefined
+      }
       canReserve={data.canReserve}
       reserved={data.reserved}
     >
