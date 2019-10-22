@@ -18,7 +18,7 @@ type StudioCalendarBodyRowProps = {
       id?: string;
       reserved: boolean;
       canReserve: boolean;
-      color?: string;
+      color?: string[];
     };
   }[];
   selectTime: (timestamp: number) => () => void;

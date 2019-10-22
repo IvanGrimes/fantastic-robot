@@ -5,6 +5,7 @@ export const Cell = styled.td<{
   reserved: boolean;
   workingHour: boolean;
 }>`
+  position: relative;
   ${({ selected }) =>
     selected &&
     css`
@@ -20,4 +21,23 @@ export const Cell = styled.td<{
     css`
       background-color: red;
     `}
+`;
+
+export const ColorGroup = styled.div<{
+  color: string;
+  offsetMultiplier: number;
+}>`
+  ${({ color, offsetMultiplier }) => {
+    const width = 5;
+
+    return css`
+      position: absolute;
+      top: 0;
+      left: ${width * offsetMultiplier}px;
+      width: ${width}px;
+      height: 100%;
+      background-color: ${color};
+      z-index: 2;
+    `;
+  }}
 `;

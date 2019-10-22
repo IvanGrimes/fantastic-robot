@@ -13,6 +13,7 @@ type Props = {
     [key: string]: {
       range: number[];
       id: string;
+      color?: string;
     }[];
   };
 };

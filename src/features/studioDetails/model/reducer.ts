@@ -8,14 +8,13 @@ export type StudioDetailsState = {
   workHours: { [key: string]: { from: number; to: number } };
   reservations: {
     [key: string]: {
-      range: number[];
       id: string;
+      range: number[];
     }[];
   };
-  rooms: RoomsResponse &
-    {
-      color: string;
-    }[];
+  rooms: (RoomsResponse[number] & {
+    color: string;
+  })[];
 };
 
 const initialState: StudioDetailsState = {

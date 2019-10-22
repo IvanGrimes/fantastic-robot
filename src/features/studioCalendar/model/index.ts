@@ -19,6 +19,7 @@ export type DateRangeState = {
       id?: string;
       reserved: boolean;
       canReserve: boolean;
+      color?: string[];
     };
     isWorkingHours: boolean;
   }[][];
@@ -29,6 +30,7 @@ export type DateRangeState = {
     [key: string]: {
       range: number[];
       id: string;
+      color?: string;
     }[];
   };
   workHours: {

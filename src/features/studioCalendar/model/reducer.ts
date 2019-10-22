@@ -81,21 +81,31 @@ const getGrid = (
           reserved: boolean;
           canReserve: boolean;
           id?: string;
+          color?: string[];
         } = {
           reserved: false,
           canReserve: isWorkingHours,
         };
 
         if (reservations[key]) {
-          const currentReservation = reservations[key].find(item1 =>
+          const currentReservation = reservations[key].filter(item1 =>
             item1.range.includes(timestamp)
           );
 
-          if (currentReservation) {
+          if (currentReservation.length) {
             reservation = {
-              ...reservation,
+              ...currentReservation.reduce<{ color: string[] }>(
+                (acc2, item2) => {
+                  return {
+                    ...acc2,
+                    color: item2.color
+                      ? [...acc2.color, item2.color]
+                      : acc2.color,
+                  };
+                },
+                { color: [] }
+              ),
               reserved: true,
-              id: currentReservation.id,
               canReserve: isWorkingHours && false,
             };
           }
@@ -152,6 +162,7 @@ export const getInitialState = ({
   const from = getTime(getInitialDate());
   const to = getTime(addDays(getInitialDate(), DEFAULT_STEP));
   const range = getDateRange(from, to);
+  const mockMultiReservation = false;
 
   return {
     from,
@@ -160,7 +171,25 @@ export const getInitialState = ({
     range,
     grid: getGrid(range, reservations, workHours, {}),
     select: getSelect(range),
-    reservations,
+    reservations: mockMultiReservation
+      ? {
+          ...reservations,
+          1574283600000: [
+            ...(reservations[1574283600000] || []),
+            {
+              id: '4d4f51ff-0ec7-4044-a274-556780f71f8f',
+              color: '#c377e0',
+              range: [
+                1574344800000,
+                1574348400000,
+                1574352000000,
+                1574355600000,
+                1574359200000,
+              ],
+            },
+          ],
+        }
+      : reservations,
     workHours,
   };
 };

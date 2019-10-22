@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cell } from './StudioCalendarBodyCell.styles';
+import { Cell, ColorGroup } from './StudioCalendarBodyCell.styles';
 
 type StudioCalendarBodyCellProps = {
   data: {
@@ -15,7 +15,7 @@ type StudioCalendarBodyCellProps = {
       id?: string;
       reserved: boolean;
       canReserve: boolean;
-      color?: string;
+      color?: string[];
     };
   };
   selectTime: (timestamp: number) => () => void;
@@ -37,6 +37,15 @@ export const StudioCalendarBodyCell = ({
       reserved={data.reservation.reserved}
     >
       {data.timestamp}
+      {data.reservation.color
+        ? data.reservation.color.map((color, index) => (
+            <ColorGroup
+              key={color}
+              offsetMultiplier={index ? index + 1 : index}
+              color={color}
+            />
+          ))
+        : null}
     </Cell>
   );
 };
