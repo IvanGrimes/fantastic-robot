@@ -14,14 +14,22 @@ export type DateRangeState = {
     hours: number;
     minutes: number;
     timestamp: number;
-    reserved: boolean;
-    canReserve: boolean;
+    selected: boolean;
+    reservation: {
+      id?: string;
+      reserved: boolean;
+      canReserve: boolean;
+    };
+    isWorkingHours: boolean;
   }[][];
   select: {
     [key: string]: number[];
   };
   reservations: {
-    [key: string]: number[];
+    [key: string]: {
+      range: number[];
+      id: string;
+    }[];
   };
   workHours: {
     [key: string]: {

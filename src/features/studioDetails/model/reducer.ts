@@ -5,7 +5,12 @@ import { getDateRange } from '../../../utils/getDateRange';
 
 export type StudioDetailsState = {
   workHours: { [key: string]: { from: number; to: number } };
-  reservations: { [key: string]: number[] };
+  reservations: {
+    [key: string]: {
+      range: number[];
+      id: string;
+    }[];
+  };
 };
 
 const initialState: StudioDetailsState = {
@@ -46,22 +51,31 @@ export const studioDetailsReducer = createReducer(initialState).handleAction(
           },
           reservations: {
             ...acc.reservations,
-            [key]: reservations.reduce<number[]>((acc2, reservation) => {
-              const from = getTime(
-                setMinutes(
-                  setHours(today, reservation.from.hours),
-                  reservation.from.minutes
-                )
-              );
-              const to = getTime(
-                setMinutes(
-                  setHours(today, reservation.to.hours),
-                  reservation.from.minutes
-                )
-              );
+            [key]: reservations.reduce<{ range: number[]; id: string }[]>(
+              (acc2, reservation) => {
+                const from = getTime(
+                  setMinutes(
+                    setHours(today, reservation.from.hours),
+                    reservation.from.minutes
+                  )
+                );
+                const to = getTime(
+                  setMinutes(
+                    setHours(today, reservation.to.hours),
+                    reservation.from.minutes
+                  )
+                );
 
-              return [...acc2, ...getDateRange(from, to, 'hours')];
-            }, []),
+                return [
+                  ...acc2,
+                  {
+                    id: reservation.roomId,
+                    range: getDateRange(from, to, 'hours'),
+                  },
+                ];
+              },
+              []
+            ),
           },
         };
       },

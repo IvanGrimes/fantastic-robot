@@ -2,7 +2,6 @@ import {
   addDays,
   addMonths,
   getDate,
-  getDay,
   getHours,
   getMonth,
   getTime,
@@ -11,9 +10,11 @@ import {
   setHours,
   setMilliseconds,
   setMinutes,
+  setMonth,
   setSeconds,
 } from 'date-fns';
 import { Reducer } from 'react';
+import { partial } from 'ramda';
 import {
   Actions,
   SELECT_TIME,
@@ -58,7 +59,8 @@ const getWorkHours = (
 const getGrid = (
   range: DateRangeState['range'],
   reservations: DateRangeState['reservations'],
-  workHours: DateRangeState['workHours']
+  workHours: DateRangeState['workHours'],
+  select: DateRangeState['select']
 ) => {
   const normalizedWorkHours = getWorkHours(workHours, range);
   const valuesOfWorkHours = Object.values(normalizedWorkHours);
@@ -74,6 +76,30 @@ const getGrid = (
         const date = setHours(item, hours);
         const timestamp = getTime(date);
         const key = getTime(item);
+        const isWorkingHours = normalizedWorkHours[item].includes(timestamp);
+        let reservation: {
+          reserved: boolean;
+          canReserve: boolean;
+          id?: string;
+        } = {
+          reserved: false,
+          canReserve: isWorkingHours,
+        };
+
+        if (reservations[key]) {
+          const currentReservation = reservations[key].find(item1 =>
+            item1.range.includes(timestamp)
+          );
+
+          if (currentReservation) {
+            reservation = {
+              ...reservation,
+              reserved: true,
+              id: currentReservation.id,
+              canReserve: isWorkingHours && false,
+            };
+          }
+        }
 
         return {
           year: getYear(item),
@@ -82,10 +108,9 @@ const getGrid = (
           hours,
           minutes: 0,
           timestamp,
-          reserved: reservations[key]
-            ? reservations[key].includes(timestamp)
-            : false,
-          canReserve: normalizedWorkHours[item].includes(timestamp),
+          reservation,
+          isWorkingHours,
+          selected: select[key] ? select[key].includes(timestamp) : false,
         };
       }),
     ],
@@ -94,14 +119,20 @@ const getGrid = (
 };
 
 const getSelectKeyFromDate = (date: Date | number) =>
-  getYear(date).toString() +
-  getMonth(date).toString() +
-  getDay(date).toString();
+  getTime(setMinutes(setHours(date, 0), 0));
 
 const getSelect = (range: DateRangeState['range']) =>
   range.reduce<DateRangeState['select']>(
     (acc, date) => ({ ...acc, [getSelectKeyFromDate(date)]: [] }),
     {}
+  );
+
+const checkOverlapInDateRange = (
+  range: number[],
+  reservations: { range: number[] }[]
+) =>
+  reservations.some(reservation =>
+    range.some(date => reservation.range.includes(date))
   );
 
 export const getInitialState = ({
@@ -114,7 +145,10 @@ export const getInitialState = ({
   const DEFAULT_STEP: DateRangeState['step'] = 2;
   const date = new Date();
   const getInitialDate = () =>
-    setMilliseconds(setSeconds(setMinutes(setHours(date, 0), 0), 0), 0);
+    setMonth(
+      setMilliseconds(setSeconds(setMinutes(setHours(date, 0), 0), 0), 0),
+      10
+    );
   const from = getTime(getInitialDate());
   const to = getTime(addDays(getInitialDate(), DEFAULT_STEP));
   const range = getDateRange(from, to);
@@ -124,7 +158,7 @@ export const getInitialState = ({
     to,
     step: DEFAULT_STEP,
     range,
-    grid: getGrid(range, reservations, workHours),
+    grid: getGrid(range, reservations, workHours, {}),
     select: getSelect(range),
     reservations,
     workHours,
@@ -150,7 +184,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         to,
         range,
         step: state.step === 0 ? 2 : 0,
-        grid: getGrid(range, state.reservations, state.workHours),
+        grid: getGrid(range, state.reservations, state.workHours, state.select),
         select: { ...getSelect(range), ...state.select },
       };
     }
@@ -166,7 +200,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         from,
         to,
         range,
-        grid: getGrid(range, state.reservations, state.workHours),
+        grid: getGrid(range, state.reservations, state.workHours, state.select),
         select: { ...getSelect(range), ...state.select },
       };
     }
@@ -182,7 +216,7 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         from,
         to,
         range,
-        grid: getGrid(range, state.reservations, state.workHours),
+        grid: getGrid(range, state.reservations, state.workHours, state.select),
         select: { ...getSelect(range), ...state.select },
       };
     }
@@ -193,27 +227,41 @@ export const reducer: Reducer<DateRangeState, Actions> = (
         action.payload.timestamp,
         state.select[key][0]
       );
+      const canMakeRange = hasOnlyOneElement && isAfterCurrentElement;
+      const selectRange = canMakeRange
+        ? getDateRange(state.select[key][0], action.payload.timestamp, 'hours')
+        : [];
+      const hasOverlap = canMakeRange
+        ? checkOverlapInDateRange(selectRange, state.reservations[key] || [])
+        : false;
+      const partialGrid = partial(getGrid, [
+        state.range,
+        state.reservations,
+        state.workHours,
+      ]);
 
-      if (hasOnlyOneElement && isAfterCurrentElement) {
+      if (canMakeRange && !hasOverlap) {
+        const select = {
+          ...state.select,
+          [key]: selectRange,
+        };
+
         return {
           ...state,
-          select: {
-            ...state.select,
-            [key]: getDateRange(
-              state.select[key][0],
-              action.payload.timestamp,
-              'hours'
-            ),
-          },
+          select,
+          grid: partialGrid(select),
         };
       }
 
+      const select = {
+        ...state.select,
+        [key]: [action.payload.timestamp],
+      };
+
       return {
         ...state,
-        select: {
-          ...state.select,
-          [key]: [action.payload.timestamp],
-        },
+        select,
+        grid: partialGrid(select),
       };
     }
     default:

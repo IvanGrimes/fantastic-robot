@@ -9,7 +9,12 @@ type Props = {
       to: number;
     };
   };
-  reservations: { [key: string]: number[] };
+  reservations: {
+    [key: string]: {
+      range: number[];
+      id: string;
+    }[];
+  };
 };
 
 export type StudioCalendarContextType = Omit<DateRangeState, 'select'> &

@@ -4,7 +4,7 @@ import { StudioCalendarBodyRow } from './StudioCalendarBodyRow';
 import { StudioCalendarBodyWeekDayRow } from './StudioCalendarBodyWeekDayRow';
 
 export const StudioCalendarBody = () => {
-  const { grid, selectTime, select, range } = useContext(StudioCalendarContext);
+  const { grid, selectTime, range } = useContext(StudioCalendarContext);
   const handleSelectTime = useCallback(
     (timestamp: number) => () => selectTime(timestamp),
     [selectTime]
@@ -19,7 +19,6 @@ export const StudioCalendarBody = () => {
             key={row[0].timestamp}
             data={row}
             selectTime={handleSelectTime}
-            select={select}
           />
         ))}
       </table>

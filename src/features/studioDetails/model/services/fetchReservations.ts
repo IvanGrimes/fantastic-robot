@@ -16,7 +16,7 @@ export type ReservationsResponse = {
     id: ReservationId;
     from: { hours: number; minutes: number; timestamp: number };
     to: { hours: number; minutes: number; timestamp: number };
-    roomId?: RoomId;
+    roomId: RoomId;
   }[];
 }[];
 

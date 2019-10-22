@@ -9,28 +9,32 @@ type StudioCalendarBodyCellProps = {
     hours: number;
     minutes: number;
     timestamp: number;
-    canReserve: boolean;
-    reserved: boolean;
+    isWorkingHours: boolean;
+    selected: boolean;
+    reservation: {
+      id?: string;
+      reserved: boolean;
+      canReserve: boolean;
+      color?: string;
+    };
   };
   selectTime: (timestamp: number) => () => void;
-  selected: boolean;
 };
 
 export const StudioCalendarBodyCell = ({
   data,
   selectTime,
-  selected,
 }: StudioCalendarBodyCellProps) => {
   return (
     <Cell
-      selected={selected}
+      selected={data.selected}
       onClick={
-        data.canReserve && !data.reserved
+        data.reservation.canReserve && data.isWorkingHours
           ? selectTime(data.timestamp)
           : undefined
       }
-      canReserve={data.canReserve}
-      reserved={data.reserved}
+      workingHour={data.isWorkingHours}
+      reserved={data.reservation.reserved}
     >
       {data.timestamp}
     </Cell>

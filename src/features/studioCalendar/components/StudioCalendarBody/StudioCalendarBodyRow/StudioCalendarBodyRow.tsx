@@ -12,17 +12,21 @@ type StudioCalendarBodyRowProps = {
     hours: number;
     minutes: number;
     timestamp: number;
-    canReserve: boolean;
-    reserved: boolean;
+    isWorkingHours: boolean;
+    selected: boolean;
+    reservation: {
+      id?: string;
+      reserved: boolean;
+      canReserve: boolean;
+      color?: string;
+    };
   }[];
   selectTime: (timestamp: number) => () => void;
-  select: number[];
 };
 
 export const StudioCalendarBodyRow = ({
   data,
   selectTime,
-  select,
 }: StudioCalendarBodyRowProps) => {
   return (
     <tr>
@@ -32,7 +36,6 @@ export const StudioCalendarBodyRow = ({
           key={item.timestamp}
           data={item}
           selectTime={selectTime}
-          selected={select.includes(item.timestamp)}
         />
       ))}
     </tr>

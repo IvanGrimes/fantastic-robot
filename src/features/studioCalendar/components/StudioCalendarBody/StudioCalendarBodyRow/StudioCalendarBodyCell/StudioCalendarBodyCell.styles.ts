@@ -2,16 +2,16 @@ import styled, { css } from 'styled-components';
 
 export const Cell = styled.td<{
   selected: boolean;
-  canReserve: boolean;
   reserved: boolean;
+  workingHour: boolean;
 }>`
   ${({ selected }) =>
     selected &&
     css`
       background-color: gray;
     `};
-  ${({ canReserve }) =>
-    !canReserve &&
+  ${({ workingHour }) =>
+    !workingHour &&
     css`
       opacity: 0.25;
     `};
