@@ -94,16 +94,16 @@ const getGrid = (
 
           if (currentReservation.length) {
             reservation = {
-              ...currentReservation.reduce<{ color: string[] }>(
+              ...currentReservation.reduce<{ color?: string[] }>(
                 (acc2, item2) => {
                   return {
                     ...acc2,
                     color: item2.color
-                      ? [...acc2.color, item2.color]
+                      ? [...(acc2.color || []), item2.color]
                       : acc2.color,
                   };
                 },
-                { color: [] }
+                {}
               ),
               reserved: true,
               canReserve: isWorkingHours && false,

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const Cell = styled.td<{
   selected: boolean;
-  reserved: boolean;
+  highlightReserve: boolean;
   workingHour: boolean;
 }>`
   position: relative;
@@ -16,8 +16,8 @@ export const Cell = styled.td<{
     css`
       opacity: 0.25;
     `};
-  ${({ reserved }) =>
-    reserved &&
+  ${({ highlightReserve }) =>
+    highlightReserve &&
     css`
       background-color: red;
     `}

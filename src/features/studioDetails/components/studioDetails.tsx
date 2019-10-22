@@ -1,10 +1,13 @@
 import React, { memo } from 'react';
 import { StudioCalendar } from '../../studioCalendar/components';
-import { getStudioReservations, getStudioWorkHours } from '../model/selectors';
+import {
+  getStudioReservationsWithColor,
+  getStudioWorkHours,
+} from '../model/selectors';
 
 type Props = {
   workHours: ReturnType<typeof getStudioWorkHours>;
-  reservations: ReturnType<typeof getStudioReservations>;
+  reservations: ReturnType<typeof getStudioReservationsWithColor>;
 };
 
 const _StudioDetails = ({ workHours, reservations }: Props) => {

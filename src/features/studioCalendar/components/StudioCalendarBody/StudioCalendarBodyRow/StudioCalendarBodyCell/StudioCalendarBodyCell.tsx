@@ -25,6 +25,7 @@ export const StudioCalendarBodyCell = ({
   data,
   selectTime,
 }: StudioCalendarBodyCellProps) => {
+  console.log(data.reservation.reserved, data.reservation.color);
   return (
     <Cell
       selected={data.selected}
@@ -34,10 +35,12 @@ export const StudioCalendarBodyCell = ({
           : undefined
       }
       workingHour={data.isWorkingHours}
-      reserved={data.reservation.reserved}
+      highlightReserve={Boolean(
+        data.reservation.reserved && !data.reservation.color
+      )}
     >
       {data.timestamp}
-      {data.reservation.color
+      {data.reservation.reserved && data.reservation.color
         ? data.reservation.color.map((color, index) => (
             <ColorGroup
               key={color}
