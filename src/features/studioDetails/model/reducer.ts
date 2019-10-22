@@ -1,7 +1,8 @@
 import { createReducer } from 'typesafe-actions';
 import { getTime, setHours, setMinutes } from 'date-fns';
-import { fetchReservationsAsync } from './actions';
+import { fetchReservationsAsync, fetchRoomsAsync } from './actions';
 import { getDateRange } from '../../../utils/getDateRange';
+import { RoomsResponse } from './services/fetchRooms';
 
 export type StudioDetailsState = {
   workHours: { [key: string]: { from: number; to: number } };
@@ -11,16 +12,33 @@ export type StudioDetailsState = {
       id: string;
     }[];
   };
+  rooms: RoomsResponse &
+    {
+      color: string;
+    }[];
 };
 
 const initialState: StudioDetailsState = {
   workHours: {},
   reservations: {},
+  rooms: [],
 };
 
-export const studioDetailsReducer = createReducer(initialState).handleAction(
-  fetchReservationsAsync.success,
-  (state, { payload }) => ({
+const roomColors = [
+  '#61bd4f',
+  '#c377e0',
+  '#ff9f1a',
+  '#00c2e0',
+  '#eb5a46',
+  '#b3bac5',
+  '#0079bf',
+  '#51e898',
+  '#ff78cb',
+  '#344563',
+];
+
+export const studioDetailsReducer = createReducer(initialState)
+  .handleAction(fetchReservationsAsync.success, (state, { payload }) => ({
     ...state,
     ...payload.reduce<
       Pick<StudioDetailsState, 'workHours'> &
@@ -84,5 +102,13 @@ export const studioDetailsReducer = createReducer(initialState).handleAction(
         workHours: {},
       }
     ),
-  })
-);
+  }))
+  .handleAction(fetchRoomsAsync.success, (state, action) => {
+    return {
+      ...state,
+      rooms: action.payload.map((room, index) => ({
+        ...room,
+        color: roomColors[index],
+      })),
+    };
+  });
