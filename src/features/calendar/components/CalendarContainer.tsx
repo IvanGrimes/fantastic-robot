@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { StudioCalendar } from './StudioCalendar';
+import { Calendar } from './Calendar';
 import { DateRangeState, DateRangeHandlers, useModel } from '../model';
 
 type Props = {
@@ -18,26 +18,26 @@ type Props = {
   };
 };
 
-export type StudioCalendarContextType = Omit<DateRangeState, 'select'> &
+export type CalendarContextType = Omit<DateRangeState, 'select'> &
   DateRangeHandlers & {
     select: number[];
   };
 
-export const StudioCalendarContext = createContext<StudioCalendarContextType>(
-  {} as StudioCalendarContextType
+export const CalendarContext = createContext<CalendarContextType>(
+  {} as CalendarContextType
 );
 
 // TODO: Render timeline depends on open/close times (if 0 and 0, then 24 hours)
 // TODO: Render reservations
 
-const _StudioCalendarContainer = ({ workHours, reservations }: Props) => {
+const _CalendarContainer = ({ workHours, reservations }: Props) => {
   const [dateRangeState, dateRangeHandlers] = useModel({
     workHours,
     reservations,
   });
 
   return (
-    <StudioCalendarContext.Provider
+    <CalendarContext.Provider
       value={{
         ...dateRangeState,
         ...dateRangeHandlers,
@@ -47,9 +47,9 @@ const _StudioCalendarContainer = ({ workHours, reservations }: Props) => {
         ),
       }}
     >
-      <StudioCalendar />
-    </StudioCalendarContext.Provider>
+      <Calendar />
+    </CalendarContext.Provider>
   );
 };
 
-export const StudioCalendarContainer = _StudioCalendarContainer;
+export const CalendarContainer = _CalendarContainer;

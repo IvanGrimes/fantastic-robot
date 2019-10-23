@@ -1,7 +1,7 @@
 import React from 'react';
-import { Cell, ColorGroup } from './StudioCalendarBodyCell.styles';
+import { Cell, ColorGroup } from './CalendarCell.styles';
 
-type StudioCalendarBodyCellProps = {
+type Props = {
   data: {
     year: number;
     month: number;
@@ -21,10 +21,10 @@ type StudioCalendarBodyCellProps = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const StudioCalendarBodyCell = ({
+export const CalendarCell = ({
   data,
   selectTime,
-}: StudioCalendarBodyCellProps) => {
+}: Props) => {
   console.log(data.reservation.reserved, data.reservation.color);
   return (
     <Cell

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { format } from 'date-fns';
-import { StudioCalendarContext } from '../StudioCalendarContainer';
+import { CalendarContext } from '../CalendarContainer';
 
-export const StudioCalendarHeader = () => {
+export const CalendarHeader = () => {
   const {
     previousRange,
     nextRange,
@@ -12,7 +12,7 @@ export const StudioCalendarHeader = () => {
     toggleStep,
     previousMonth,
     nextMonth,
-  } = useContext(StudioCalendarContext);
+  } = useContext(CalendarContext);
 
   return (
     <div>

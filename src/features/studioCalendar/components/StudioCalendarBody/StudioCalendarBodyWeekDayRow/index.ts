@@ -1,1 +1,0 @@
-export { StudioCalendarBodyWeekDayRow } from './StudioCalendarBodyWeekDayRow';

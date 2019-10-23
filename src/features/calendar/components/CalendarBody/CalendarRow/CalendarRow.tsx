@@ -1,10 +1,10 @@
 import React from 'react';
-import { StudioCalendarBodyCell } from './StudioCalendarBodyCell';
+import { CalendarCell } from './CalendarCell';
 
 // TODO: Make better type reuse from model
 // TODO: Make timestamp literal type
 
-type StudioCalendarBodyRowProps = {
+type Props = {
   data: {
     year: number;
     month: number;
@@ -24,15 +24,15 @@ type StudioCalendarBodyRowProps = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const StudioCalendarBodyRow = ({
+export const CalendarRow = ({
   data,
   selectTime,
-}: StudioCalendarBodyRowProps) => {
+}: Props) => {
   return (
     <tr>
       <td key={0}>{`${data[0].hours}:${data[0].minutes}0`}</td>
       {data.map(item => (
-        <StudioCalendarBodyCell
+        <CalendarCell
           key={item.timestamp}
           data={item}
           selectTime={selectTime}

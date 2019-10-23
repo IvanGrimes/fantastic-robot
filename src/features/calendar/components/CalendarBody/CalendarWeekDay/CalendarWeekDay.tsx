@@ -5,7 +5,7 @@ type Props = {
   range: number[];
 };
 
-export const StudioCalendarBodyWeekDayRow = ({ range }: Props) => (
+export const CalendarWeekDay = ({ range }: Props) => (
   <tr>
     <td key={0} />
     {range.map(date => (
