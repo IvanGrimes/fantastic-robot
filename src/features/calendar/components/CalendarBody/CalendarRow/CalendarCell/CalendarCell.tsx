@@ -21,10 +21,7 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const CalendarCell = ({
-  data,
-  selectTime,
-}: Props) => {
+export const CalendarCell = ({ data, selectTime }: Props) => {
   console.log(data.reservation.reserved, data.reservation.color);
   return (
     <Cell

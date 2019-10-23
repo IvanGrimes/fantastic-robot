@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { Calendar } from './Calendar';
-import { DateRangeState, DateRangeHandlers, useModel } from '../model';
+import { CalendarState, CalendarHandlers, useModel } from '../model/types';
 
 type Props = {
   workHours: {
@@ -18,8 +18,8 @@ type Props = {
   };
 };
 
-export type CalendarContextType = Omit<DateRangeState, 'select'> &
-  DateRangeHandlers & {
+export type CalendarContextType = Omit<CalendarState, 'select'> &
+  CalendarHandlers & {
     select: number[];
   };
 

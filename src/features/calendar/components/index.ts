@@ -1,3 +1,1 @@
-export {
-  CalendarContainer as Calendar,
-} from './CalendarContainer';
+export { CalendarContainer as Calendar } from './CalendarContainer';

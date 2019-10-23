@@ -2,7 +2,7 @@ export { useModel } from './useModel';
 
 type Handler<T = any> = (...args: T[]) => void;
 
-export type DateRangeState = {
+export type CalendarState = {
   from: number;
   to: number;
   step: 0 | 2;
@@ -41,7 +41,7 @@ export type DateRangeState = {
   };
 };
 
-export type DateRangeHandlers = {
+export type CalendarHandlers = {
   toggleStep: Handler;
   previousRange: Handler;
   nextRange: Handler;

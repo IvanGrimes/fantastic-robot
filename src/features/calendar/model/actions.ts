@@ -1,8 +1,13 @@
-export type Actions =
-  | ReturnType<typeof toggleStep>
-  | ReturnType<typeof setRange>
-  | ReturnType<typeof setMonth>
-  | ReturnType<typeof selectTime>;
+export type ToggleStepAction = ReturnType<typeof toggleStep>;
+export type SetRangeAction = ReturnType<typeof setRange>;
+export type SetMonthAction = ReturnType<typeof setMonth>;
+export type SelectTimeAction = ReturnType<typeof selectTime>;
+
+export type DateRangeActions =
+  | ToggleStepAction
+  | SetRangeAction
+  | SetMonthAction
+  | SelectTimeAction;
 
 type Direction = 'previous' | 'next';
 

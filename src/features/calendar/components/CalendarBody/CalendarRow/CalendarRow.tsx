@@ -24,10 +24,7 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const CalendarRow = ({
-  data,
-  selectTime,
-}: Props) => {
+export const CalendarRow = ({ data, selectTime }: Props) => {
   return (
     <tr>
       <td key={0}>{`${data[0].hours}:${data[0].minutes}0`}</td>

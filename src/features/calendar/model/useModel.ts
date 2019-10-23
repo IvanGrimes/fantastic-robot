@@ -1,17 +1,18 @@
 import { useCallback, useReducer } from 'react';
-import { DateRangeState, DateRangeHandlers } from './index';
-import { getInitialState, reducer } from './reducer';
+import { CalendarState, CalendarHandlers } from './types';
+import { reducer } from './reducer';
 import * as actions from './actions';
+import { getInitialState } from './reducer/helpers';
 
 type Props = {
-  workHours: DateRangeState['workHours'];
-  reservations: DateRangeState['reservations'];
+  workHours: CalendarState['workHours'];
+  reservations: CalendarState['reservations'];
 };
 
 export const useModel = ({
   workHours,
   reservations,
-}: Props): [DateRangeState, DateRangeHandlers] => {
+}: Props): [CalendarState, CalendarHandlers] => {
   const [state, dispatch] = useReducer(
     reducer,
     getInitialState({ workHours, reservations })
@@ -27,7 +28,7 @@ export const useModel = ({
     []
   );
   const nextMonth = useCallback(() => dispatch(actions.setMonth('next')), []);
-  const selectTime: DateRangeHandlers['selectTime'] = useCallback(
+  const selectTime: CalendarHandlers['selectTime'] = useCallback(
     timestamp => dispatch(actions.selectTime(timestamp)),
     []
   );

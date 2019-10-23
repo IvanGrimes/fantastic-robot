@@ -5,7 +5,6 @@ import {
   getStudioWorkHours,
 } from '../model/selectors';
 
-
 type Props = {
   workHours: ReturnType<typeof getStudioWorkHours>;
   reservations: ReturnType<typeof getStudioReservationsWithColor>;

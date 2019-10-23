@@ -1,8 +1,8 @@
-import { getMonth, setMonth, getDate, setDate } from 'date-fns';
+import { getDate, getMonth, setDate, setMonth } from 'date-fns';
 
 type Units = 'month' | 'day';
 
-const truncateTimeUnit = (unit: Units) => {
+export const truncateTimeUnit = (unit: Units) => {
   let set: typeof setMonth | typeof setDate;
   let get: typeof getMonth | typeof getDate;
 
@@ -16,7 +16,3 @@ const truncateTimeUnit = (unit: Units) => {
 
   return (date: Date | number, amount: number) => set(date, get(date) - amount);
 };
-
-export const truncateMonths = truncateTimeUnit('month');
-
-export const truncateDays = truncateTimeUnit('day');
