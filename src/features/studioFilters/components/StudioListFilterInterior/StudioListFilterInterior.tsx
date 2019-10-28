@@ -8,7 +8,7 @@ import { setFilters } from '../../model/actions';
 import { getFilters } from '../../model/selectors';
 import { getConfig } from '../../../studioData/model/selectors';
 
-export type Props = StudioListFilterTypeProps &
+type Props = StudioListFilterTypeProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 

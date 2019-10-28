@@ -1,5 +1,18 @@
 import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
+import { ComponentType } from 'react';
+import {
+  StudioListFilterStation as DefaultStudioListFilterStation,
+  StudioListFilterStationProps,
+} from '../StudioListFilterStation';
+import {
+  StudioListFilterInterior as DefaultStudioListFilterInterior,
+  StudioListFilterTypeProps,
+} from '../StudioListFilterInterior';
+import {
+  StudioListFilterPriceSegment as DefaultStudioListFilterPriceSegment,
+  StudioListFilterPriceSegmentProps,
+} from '../StudioListFilterPriceSegment';
 
 export const Overlay = styled.div<{ isVisible: boolean }>`
   ${({ isVisible }) => css`
@@ -15,4 +28,28 @@ export const Overlay = styled.div<{ isVisible: boolean }>`
     transition: transform 0ms linear ${isVisible ? 0 : 300}ms,
       opacity 300ms linear;
   `}
+`;
+
+const filterCss = css`
+  && {
+    max-width: 500px;
+  }
+`;
+
+export const StudioListFilterStation = styled<
+  ComponentType<StudioListFilterStationProps>
+>(DefaultStudioListFilterStation)`
+  ${filterCss}
+`;
+
+export const StudioListFilterInterior = styled<
+  ComponentType<StudioListFilterTypeProps>
+>(DefaultStudioListFilterInterior)`
+  ${filterCss}
+`;
+
+export const StudioListFilterPriceSegment = styled<
+  ComponentType<StudioListFilterPriceSegmentProps>
+>(DefaultStudioListFilterPriceSegment)`
+  ${filterCss}
 `;

@@ -1,10 +1,12 @@
 import React, { Fragment, memo, useMemo } from 'react';
 import { Button, Grid, Portal } from '@material-ui/core';
 import { useStudioListFilterPopover } from '../../hooks/useStudioListFilterPopover';
-import { StudioListFilterStation } from '../StudioListFilterStation';
-import { StudioListFilterInterior } from '../StudioListFilterInterior';
-import { StudioListFilterPriceSegment } from '../StudioListFilterPriceSegment';
-import { Overlay } from './StudioListFilterDesktop.styles';
+import {
+  Overlay,
+  StudioListFilterStation,
+  StudioListFilterInterior,
+  StudioListFilterPriceSegment,
+} from './StudioListFilterDesktop.styles';
 
 const _StudioListFilterDesktop = () => {
   const [

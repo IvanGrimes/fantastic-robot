@@ -66,13 +66,15 @@ const _StudioListMap = ({
             }}
             onClick={isMapListFullscreen ? undefined : fullscreenMapOn}
           >
-            {studios.map(({ id, location }) => (
-              <StudioMapPinListItem
-                id={id}
-                lat={location.lat}
-                lng={location.lon}
-              />
-            ))}
+            {studios.map(({ id, location }) =>
+              location ? (
+                <StudioMapPinListItem
+                  id={id}
+                  lat={location.lat}
+                  lng={location.lon}
+                />
+              ) : null
+            )}
           </GoogleMapReact>
           <StudioMapPreviewList />
         </InnerWrapper>
