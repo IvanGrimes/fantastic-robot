@@ -7,24 +7,41 @@ import { getDateRange } from '../../../../utils/getDateRange';
 
 export const selectTime = (state: CalendarState, action: SelectTimeAction) => {
   const key = getKey(action.payload.timestamp);
-  const hasOnlyOneElement = state.select[key].length === 1;
+  const hasAnyElement = state.select[key].length;
+  const hasOneElement = state.select[key].length === 1;
   const isAfterCurrentElement = isAfter(
     action.payload.timestamp,
     state.select[key][0]
   );
-  const canMakeRange = hasOnlyOneElement && isAfterCurrentElement;
-  const selectRange = canMakeRange
+  const canMakeRange = hasAnyElement && isAfterCurrentElement;
+  const selectRange = isAfterCurrentElement
     ? getDateRange(state.select[key][0], action.payload.timestamp, 'hours')
     : [];
   const hasOverlap = canMakeRange
     ? checkOverlapInDateRange(selectRange, state.reservations[key] || [])
     : false;
+  const isSameAsStartRange = state.select[key][0] === action.payload.timestamp;
   const partialGrid = partial(getGrid, [
     state.range,
     state.reservations,
     state.workHours,
   ]);
 
+  // NOTE: Clear current range
+  if (isSameAsStartRange && hasOneElement) {
+    const select = {
+      ...state.select,
+      [key]: [],
+    };
+
+    return {
+      ...state,
+      select,
+      grid: partialGrid(select),
+    };
+  }
+
+  // NOTE: Create range
   if (canMakeRange && !hasOverlap) {
     const select = {
       ...state.select,
@@ -38,6 +55,7 @@ export const selectTime = (state: CalendarState, action: SelectTimeAction) => {
     };
   }
 
+  // NOTE: Select start of the range
   const select = {
     ...state.select,
     [key]: [action.payload.timestamp],
