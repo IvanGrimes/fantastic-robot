@@ -1,5 +1,6 @@
 import React from 'react';
-import { CalendarCell } from './CalendarCell';
+import { Row as StyledRow } from './Row.styles';
+import { Cell } from './Cell';
 
 // TODO: Make better type reuse from model
 // TODO: Make timestamp literal type
@@ -24,17 +25,16 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const CalendarRow = ({ data, selectTime }: Props) => {
+export const Row = ({ data, selectTime }: Props) => {
   return (
-    <tr>
-      <td key={0}>{`${data[0].hours}:${data[0].minutes}0`}</td>
+    <StyledRow>
       {data.map(item => (
-        <CalendarCell
+        <Cell
           key={item.timestamp}
           data={item}
           selectTime={selectTime}
         />
       ))}
-    </tr>
+    </StyledRow>
   );
 };

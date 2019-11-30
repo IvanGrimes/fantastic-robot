@@ -17,7 +17,10 @@ export const useModel = ({
     reducer,
     getInitialState({ workHours, reservations })
   );
-  const toggleStep = useCallback(() => dispatch(actions.toggleStep()), []);
+  const setStep = useCallback(
+    (nextStep: CalendarState['step']) => dispatch(actions.setStep(nextStep)),
+    []
+  );
   const previousRange = useCallback(
     () => dispatch(actions.setRange('previous')),
     []
@@ -36,12 +39,12 @@ export const useModel = ({
   return [
     state,
     {
-      toggleStep,
       previousRange,
       nextRange,
       previousMonth,
       nextMonth,
       selectTime,
+      setStep,
     },
   ];
 };

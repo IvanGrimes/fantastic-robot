@@ -2,11 +2,12 @@ import { addDays, getTime } from 'date-fns';
 import { CalendarState } from '../types';
 import { getDateRange } from '../../../../utils/getDateRange';
 import { getGrid, getSelect } from './helpers';
+import { SetStepAction } from '../actions';
 
-export const toggleStep = (state: CalendarState) => {
+export const setStep = (state: CalendarState, { payload }: SetStepAction) => {
   const { from } = state;
-  const nextStep = state.step === 0 ? 2 : 0;
-  const to = nextStep === 0 ? from : getTime(addDays(from, 2));
+  const nextStep = payload.step;
+  const to = nextStep === 0 ? from : getTime(addDays(from, nextStep));
   const range = getDateRange(from, to);
 
   return {
@@ -14,7 +15,7 @@ export const toggleStep = (state: CalendarState) => {
     from,
     to,
     range,
-    step: (state.step === 0 ? 2 : 0) as CalendarState['step'],
+    step: nextStep,
     grid: getGrid(range, state.reservations, state.workHours, state.select),
     select: { ...getSelect(range), ...state.select },
   };

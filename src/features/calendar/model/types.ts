@@ -42,10 +42,10 @@ export type CalendarState = {
 };
 
 export type CalendarHandlers = {
-  toggleStep: Handler;
   previousRange: Handler;
   nextRange: Handler;
   previousMonth: Handler;
   nextMonth: Handler;
   selectTime: Handler<number>;
+  setStep: Handler;
 };

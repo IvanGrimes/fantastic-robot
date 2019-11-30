@@ -1,12 +1,13 @@
 import React from 'react';
-import { CalendarHeader } from './CalendarHeader';
-import { CalendarBody } from './CalendarBody';
+import { Paper } from '@material-ui/core';
+import { Header } from './Header';
+import { Body } from './Body';
 
 export const Calendar = () => {
   return (
-    <div>
-      <CalendarHeader />
-      <CalendarBody />
-    </div>
+    <Paper>
+      <Header />
+      <Body />
+    </Paper>
   );
 };

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Cell, ColorGroup } from './CalendarCell.styles';
+import React, { useContext } from 'react';
+import { Cell as StyledCell, ColorGroup } from './Cell.styles';
+import { CalendarContext } from '../../../CalendarContainer';
+import { Typography } from '@material-ui/core';
 
 type Props = {
   data: {
@@ -21,13 +23,15 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const CalendarCell = ({ data, selectTime }: Props) => {
-  console.log(data.reservation.reserved, data.reservation.color);
+export const Cell = ({ data, selectTime }: Props) => {
+  const { step } = useContext(CalendarContext);
+  const canSelect = data.reservation.canReserve && data.isWorkingHours;
+
   return (
-    <Cell
+    <StyledCell
       selected={data.selected}
       onClick={
-        data.reservation.canReserve && data.isWorkingHours
+        canSelect
           ? selectTime(data.timestamp)
           : undefined
       }
@@ -35,17 +39,21 @@ export const CalendarCell = ({ data, selectTime }: Props) => {
       highlightReserve={Boolean(
         data.reservation.reserved && !data.reservation.color
       )}
+      canSelect={canSelect}
+      columns={step + 1}
     >
-      {data.timestamp}
-      {data.reservation.reserved && data.reservation.color
-        ? data.reservation.color.map((color, index) => (
+      <Typography variant="caption">
+        {`${data.hours}:${data.minutes}0`}
+        {data.reservation.reserved && data.reservation.color
+          ? data.reservation.color.map((color, index) => (
             <ColorGroup
               key={color}
               offsetMultiplier={index ? index + 1 : index}
               color={color}
             />
           ))
-        : null}
-    </Cell>
+          : null}
+      </Typography>
+    </StyledCell>
   );
-};
+}
