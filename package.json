@@ -60,7 +60,7 @@
     "reselect": "^4.0.0",
     "sitemap": "^3.2.2",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^4.4.1",
+    "styled-components": "^5.0.0-rc.2",
     "typesafe-actions": "^4.4.2",
     "yup": "^0.27.0"
   },

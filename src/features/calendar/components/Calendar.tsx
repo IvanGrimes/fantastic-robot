@@ -8,7 +8,8 @@ import { useBrowser } from '../../../hooks/useBrowser';
 import { Theme } from '../../../theme/types';
 import { getBreakpoints } from '../../../theme';
 import { CalendarContext } from './CalendarContainer';
-
+// TODO: Make skeleton
+// TODO: Repair build
 export const Calendar = () => {
   const { setAvailableSteps, availableSteps, setStep } = useContext(
     CalendarContext

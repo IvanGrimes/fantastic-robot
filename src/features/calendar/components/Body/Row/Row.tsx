@@ -2,7 +2,6 @@ import React from 'react';
 import { Row as StyledRow } from './Row.styles';
 import { Cell } from './Cell';
 
-// TODO: Make better type reuse from model
 // TODO: Make timestamp literal type
 
 type Props = {

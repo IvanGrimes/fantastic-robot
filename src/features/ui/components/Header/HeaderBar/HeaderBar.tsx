@@ -38,7 +38,7 @@ const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
   return (
     <Grid container>
       <BarWrapper>
-        <Container>
+        <Container fluid>
           <Grid container alignItems="center" justify="space-between">
             <Grid item>
               <StudioListFilter />

@@ -62,7 +62,7 @@ const _Header = ({
       <Grid container>
         <Grid container>
           <AppBar color="primary" position="static">
-            <Container>
+            <Container fluid>
               <Toolbar>
                 <Grid container justify="space-between" alignItems="center">
                   <Grid container item xs={9} md={7} alignItems="center">
