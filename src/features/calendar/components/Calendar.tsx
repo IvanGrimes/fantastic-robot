@@ -1,22 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
-import { NoSsr } from '@material-ui/core';
 import { Paper } from './Calendar.styles';
 import { Header } from './Header';
 import { Body } from './Body';
-import { useBrowser } from '../../../hooks/useBrowser';
 import { Theme } from '../../../theme/types';
 import { getBreakpoints } from '../../../theme';
 import { CalendarContext } from './CalendarContainer';
-import { CalendarSkeleton } from './CalendarSkeleton';
-// TODO: Make skeleton
+
+// TODO: Change reservation mark
 // TODO: Repair build
+
 export const Calendar = () => {
   const { setAvailableSteps, availableSteps, setStep } = useContext(
     CalendarContext
   );
-  const isBrowser = useBrowser();
   const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
 
@@ -57,12 +55,8 @@ export const Calendar = () => {
 
   return (
     <Paper>
-      <CalendarSkeleton />
-      {!isBrowser && <CalendarSkeleton />}
-      <NoSsr>
-        <Header />
-        <Body />
-      </NoSsr>
+      <Header />
+      <Body />
     </Paper>
   );
 };

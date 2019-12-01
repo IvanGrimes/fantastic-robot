@@ -11,12 +11,10 @@ type Props = {
   reservations: ReturnType<typeof getStudioReservationsWithColor>;
 };
 
-const _StudioDetails = ({ workHours, reservations }: Props) => {
-  return (
-    <Container>
-      <Calendar workHours={workHours} reservations={reservations} />
-    </Container>
-  );
-};
+const _StudioDetails = ({ workHours, reservations }: Props) => (
+  <Container>
+    <Calendar workHours={workHours} reservations={reservations} />
+  </Container>
+);
 
 export const StudioDetails = memo(_StudioDetails);

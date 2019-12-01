@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { CalendarState, CalendarHandlers } from './types';
 import { reducer } from './reducer';
 import * as actions from './actions';
@@ -45,6 +45,14 @@ export const useModel = ({
     availableSteps => dispatch(actions.setAvailableSteps(availableSteps)),
     []
   );
+
+  useEffect(() => {
+    dispatch(actions.updateReservations(reservations));
+  }, [reservations]);
+
+  useEffect(() => {
+    dispatch(actions.updateWorkHours(workHours));
+  }, [workHours]);
 
   return [
     state,

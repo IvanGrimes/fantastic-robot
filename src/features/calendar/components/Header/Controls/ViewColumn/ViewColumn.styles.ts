@@ -8,7 +8,7 @@ export const ViewColumn = styled(DefaultViewColumn)`
 
     return css`
       && {
-        color: ${palette['800']};
+        color: ${palette['700']};
       }
     `;
   }}

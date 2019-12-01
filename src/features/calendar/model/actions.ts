@@ -5,13 +5,17 @@ export type SetMonthAction = ReturnType<typeof setMonth>;
 export type SelectTimeAction = ReturnType<typeof selectTime>;
 export type SetStepAction = ReturnType<typeof setStep>;
 export type SetAvailableStepsAction = ReturnType<typeof setAvailableSteps>;
+export type UpdateReservationsAction = ReturnType<typeof updateReservations>;
+export type UpdateWorkHoursAction = ReturnType<typeof updateWorkHours>;
 
 export type DateRangeActions =
   | SetRangeAction
   | SetMonthAction
   | SelectTimeAction
   | SetStepAction
-  | SetAvailableStepsAction;
+  | SetAvailableStepsAction
+  | UpdateReservationsAction
+  | UpdateWorkHoursAction;
 
 type Direction = 'previous' | 'next';
 
@@ -20,6 +24,8 @@ export const SET_MONTH = 'SET_MONTH';
 export const SELECT_TIME = 'SELECT_TIME';
 export const SET_STEP = 'SET_STEP';
 export const SET_AVAILABLE_STEPS = 'SET_AVAILABLE_STEPS';
+export const UPDATE_RESERVATIONS = 'UPDATE_RESERVATIONS';
+export const UPDATE_WORK_HOURS = 'UPDATE_WORK_HOURS';
 
 export const setRange = (direction: Direction) =>
   <const>{
@@ -48,3 +54,10 @@ export const setStep = (step: CalendarState['step']) =>
 export const setAvailableSteps = (
   availableSteps: Partial<CalendarState['availableSteps']>
 ) => <const>{ type: SET_AVAILABLE_STEPS, payload: { availableSteps } };
+
+export const updateReservations = (
+  reservations: CalendarState['reservations']
+) => <const>{ type: UPDATE_RESERVATIONS, payload: { reservations } };
+
+export const updateWorkHours = (workHours: CalendarState['workHours']) =>
+  <const>{ type: UPDATE_WORK_HOURS, payload: { workHours } };
