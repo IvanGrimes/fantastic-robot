@@ -66,6 +66,7 @@ const _StudioList = ({
             spacing={4}
             isMapListEnabled={isMapListEnabled}
           >
+            {' '}
             {(loading ? loaderList : list).map(item => (
               <ListItemGrid
                 container

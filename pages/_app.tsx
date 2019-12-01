@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import { NextComponentType, NextPageContext } from 'next';
 import { CssBaseline } from '@material-ui/core';
 import dynamic from 'next/dynamic';
@@ -67,26 +67,24 @@ class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
     const { Component, pageProps, store, statusCode } = this.props;
 
     return (
-      <Container>
-        <Provider store={store}>
-          <React.Fragment>
-            <CssBaseline />
-            <GlobalStyles />
-            <SEO />
-            <MuiThemeProvider theme={theme}>
-              <ThemeProvider theme={theme}>
-                <Layout>
-                  {statusCode ? (
-                    <h1>{statusCode}</h1>
-                  ) : (
-                    <Component {...pageProps} />
-                  )}
-                </Layout>
-              </ThemeProvider>
-            </MuiThemeProvider>
-          </React.Fragment>
-        </Provider>
-      </Container>
+      <Provider store={store}>
+        <React.Fragment>
+          <CssBaseline />
+          <GlobalStyles />
+          <SEO />
+          <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+              <Layout>
+                {statusCode ? (
+                  <h1>{statusCode}</h1>
+                ) : (
+                  <Component {...pageProps} />
+                )}
+              </Layout>
+            </ThemeProvider>
+          </MuiThemeProvider>
+        </React.Fragment>
+      </Provider>
     );
   }
 }

@@ -2,13 +2,6 @@
   "env": {
     "development": {
       "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "entry",
-            "corejs": 2
-          }
-        ],
         "next/babel"
       ],
       "plugins": [

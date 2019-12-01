@@ -11,7 +11,7 @@ export const WeekDay = ({ range }: Props) => (
   <Row>
     {range.map(date => (
       <Cell key={date}>
-        <Typography variant="overline">{format(date, 'dddd, DD')}</Typography>
+        <Typography variant="overline">{format(date, 'dd, EEEE')}</Typography>
       </Cell>
     ))}
   </Row>

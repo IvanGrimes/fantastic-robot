@@ -26,11 +26,11 @@ export const ViewRange = () => {
       </Typography>
       <Typography variant="body2">
         {step === 0 ? (
-          format(new Date(from), 'DD MMMM')
+          format(new Date(from), 'dd MMMM')
         ) : (
           <Fragment>
-            {format(new Date(from), 'DD MMMM')} &mdash;{' '}
-            {format(new Date(to), 'DD MMMM')}
+            {format(new Date(from), 'dd MMMM')} &mdash;{' '}
+            {format(new Date(to), 'dd MMMM')}
           </Fragment>
         )}
       </Typography>
