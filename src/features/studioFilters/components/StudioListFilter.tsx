@@ -7,11 +7,13 @@ import { StudioListFilterDesktop } from './StudioListFilterDesktop';
 export type StudioListFilterProps = {
   className: string;
   handleClearFilters: () => void;
+  isLoading: boolean;
 };
 
 const _StudioListFilter = ({
   className,
   handleClearFilters,
+  isLoading,
 }: StudioListFilterProps) => {
   return (
     <Fragment>
@@ -19,10 +21,11 @@ const _StudioListFilter = ({
         <StudioListFilterMobile
           className={className}
           handleClearFilters={handleClearFilters}
+          isLoading={isLoading}
         />
       </Hidden>
       <Hidden xsDown>
-        <StudioListFilterDesktop />
+        <StudioListFilterDesktop isLoading={isLoading} />
       </Hidden>
     </Fragment>
   );

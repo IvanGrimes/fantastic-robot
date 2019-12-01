@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
+import { NoSsr } from '@material-ui/core';
 import { Paper } from './Calendar.styles';
 import { Header } from './Header';
 import { Body } from './Body';
@@ -8,6 +9,7 @@ import { useBrowser } from '../../../hooks/useBrowser';
 import { Theme } from '../../../theme/types';
 import { getBreakpoints } from '../../../theme';
 import { CalendarContext } from './CalendarContainer';
+import { CalendarSkeleton } from './CalendarSkeleton';
 // TODO: Make skeleton
 // TODO: Repair build
 export const Calendar = () => {
@@ -42,27 +44,25 @@ export const Calendar = () => {
   }, [breakpoints.values.md, breakpoints.values.sm, setAvailableSteps]);
 
   useEffect(() => {
-    const handleStep = () => {
-      if (availableSteps['0'] && !availableSteps['2'] && !availableSteps['4']) {
-        setStep(0);
-      }
-      if (availableSteps['2'] && !availableSteps['4']) {
-        setStep(2);
-      }
-      if (availableSteps['4']) {
-        setStep(4);
-      }
-    };
-
-    handleStep();
+    if (availableSteps['0'] && !availableSteps['2'] && !availableSteps['4']) {
+      setStep(0);
+    }
+    if (availableSteps['2'] && !availableSteps['4']) {
+      setStep(2);
+    }
+    if (availableSteps['4']) {
+      setStep(4);
+    }
   }, [availableSteps, setStep]);
 
-  return isBrowser ? (
+  return (
     <Paper>
-      <Header />
-      <Body />
+      <CalendarSkeleton />
+      {!isBrowser && <CalendarSkeleton />}
+      <NoSsr>
+        <Header />
+        <Body />
+      </NoSsr>
     </Paper>
-  ) : (
-    <span>loading...</span>
   );
 };

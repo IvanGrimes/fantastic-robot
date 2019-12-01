@@ -23,9 +23,15 @@ export const Body = () => {
       onTouchMove={handlePreventDefault}
     >
       <WeekDay range={range} />
-      {grid.map(row => (
-        <Row key={row[0].timestamp} data={row} selectTime={handleSelectTime} />
-      ))}
+      <tbody>
+        {grid.map(row => (
+          <Row
+            key={row[0].timestamp}
+            data={row}
+            selectTime={handleSelectTime}
+          />
+        ))}
+      </tbody>
     </Table>
   );
 };

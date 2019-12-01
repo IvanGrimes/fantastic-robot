@@ -3,7 +3,7 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { PropertyList } from '../../../../components/PropertyList';
 import { RootState } from '../../../../model/types';
-import { getPriceSegment } from '../../../../utils/getPriceSegment';
+import { getPriceType } from '../../../../utils/getPriceType';
 import { StudioListFilterPriceSegmentProps } from './index';
 import { setFilters } from '../../model/actions';
 import { getFilters } from '../../model/selectors';
@@ -34,7 +34,7 @@ const _StudioListFilterPriceSegment = ({
     () =>
       list.map(segment => ({
         id: segment.toString(),
-        value: getPriceSegment(segment).join(''),
+        value: getPriceType(segment).join(''),
       })),
     [list]
   );

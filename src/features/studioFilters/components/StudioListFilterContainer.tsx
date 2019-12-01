@@ -11,6 +11,10 @@ import { clearFilters } from '../model/actions';
 import { getFilters } from '../model/selectors';
 import { getNonEmptyValues } from '../utils/getNonEmptyValues';
 import { parseFilters } from '../utils/parseFilters';
+import {
+  getConfigLoading,
+  getMetroListLoading,
+} from '../../studioData/model/selectors';
 
 type Props = StudioListFilterProps &
   ReturnType<typeof mapStateToProps> &
@@ -18,6 +22,7 @@ type Props = StudioListFilterProps &
 
 const mapStateToProps = (state: RootState) => ({
   appliedFilters: getFilters(state),
+  isLoading: getConfigLoading(state) && getMetroListLoading(state),
 });
 
 const dispatchProps = {
@@ -47,6 +52,7 @@ const _StudioListFilterContainer = ({
   className = '',
   appliedFilters,
   handleClearFilters,
+  isLoading,
 }: Props) => {
   const { push, route, asPath, query } = useRouter();
   const prevAppliedFilters = usePrevious(appliedFilters);
@@ -76,6 +82,7 @@ const _StudioListFilterContainer = ({
     <StudioListFilter
       className={className}
       handleClearFilters={handleClearFilters}
+      isLoading={isLoading}
     />
   );
 };

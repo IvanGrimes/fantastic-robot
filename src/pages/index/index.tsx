@@ -9,11 +9,8 @@ import { StudioList } from '../../features/studioList/components';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
 import { setFilters } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
-import {
-  fetchConfigAsync,
-  fetchMetroListAsync,
-} from '../../features/studioData/model/actions';
 import { parseFilters } from '../../features/studioFilters/utils/parseFilters';
+import { getStudios } from '../../features/studioList/model/selectors';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -38,14 +35,17 @@ export const getInitialProps: IndexGetInitialProps = async ({
   const hasFilters = Boolean(Object.values(appliedFilters).length);
   const pageNumber = parseInt(query.page, 10);
   const page = Number.isNaN(pageNumber) ? 1 : pageNumber;
-
-  store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
-  store.dispatch(fetchConfigAsync.request());
+  const studios = getStudios(store.getState());
 
   if (hasFilters) {
     store.dispatch(setFilters(appliedFilters));
-  } else {
+
+    return {};
+  }
+  if (!studios.length) {
     store.dispatch(fetchStudiosAsync.request({ page, city: 'moscow' }));
+
+    return {};
   }
 
   return {};

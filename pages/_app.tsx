@@ -15,6 +15,10 @@ import { GlobalStyles } from '../src/pages/_app';
 import { configureStore } from '../src/model/store';
 import { RootState } from '../src/model/types';
 import { SSRError } from '../src/lib/SSRError';
+import {
+  fetchConfigAsync,
+  fetchMetroListAsync,
+} from '../src/features/studioData/model/actions';
 
 const Layout = dynamic(() =>
   import('../src/features/ui/components/Layout').then(
@@ -55,12 +59,24 @@ class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
     };
   }
 
-  componentDidMount() {
+  static removeServerStyles() {
     const serverStyles = document.querySelector('#jss-server-side');
 
     if (serverStyles) {
       serverStyles.remove();
     }
+  }
+
+  fetchData() {
+    const { store } = this.props;
+
+    store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+    store.dispatch(fetchConfigAsync.request());
+  }
+
+  componentDidMount() {
+    MyApp.removeServerStyles();
+    this.fetchData();
   }
 
   render() {

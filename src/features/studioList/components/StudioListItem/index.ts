@@ -2,13 +2,13 @@ import { StudioItem } from '../../model/types';
 
 export type StudioListItemVariant = 'wide' | 'short';
 
-type StudioListItemLoading = Partial<StudioItem> & {
+type StudioListItemLoading = {
   loading: true;
-};
+} & Partial<StudioItem>;
 
-type StudioListItemType = Required<StudioItem> & {
+type StudioListItemType = {
   loading: false;
-};
+} & Required<StudioItem>;
 
 type StudioListItemPersist = {
   variant: StudioListItemVariant;

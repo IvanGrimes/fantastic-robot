@@ -8,7 +8,9 @@ import {
   StudioListFilterPriceSegment,
 } from './StudioListFilterDesktop.styles';
 
-const _StudioListFilterDesktop = () => {
+type Props = { isLoading: boolean };
+
+const _StudioListFilterDesktop = ({ isLoading }: Props) => {
   const [
     isStationFilterVisible,
     handleToggleStation,
@@ -43,17 +45,29 @@ const _StudioListFilterDesktop = () => {
       </Portal>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Button variant="outlined" onClick={handleToggleStation}>
+          <Button
+            variant="outlined"
+            onClick={handleToggleStation}
+            disabled={isLoading}
+          >
             Станции метро
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" onClick={handleToggleType}>
+          <Button
+            variant="outlined"
+            onClick={handleToggleType}
+            disabled={isLoading}
+          >
             Тип студии
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" onClick={handleTogglePriceSegment}>
+          <Button
+            variant="outlined"
+            onClick={handleTogglePriceSegment}
+            disabled={isLoading}
+          >
             Цена
           </Button>
         </Grid>

@@ -23,9 +23,14 @@ import { StudioListFilterSearch } from '../StudioListFilterSearch';
 type Props = {
   className: string;
   handleClearFilters: () => void;
+  isLoading: boolean;
 };
 
-const _StudioListFilterMobile = ({ className, handleClearFilters }: Props) => {
+const _StudioListFilterMobile = ({
+  className,
+  handleClearFilters,
+  isLoading,
+}: Props) => {
   const [isVisible, setVisibility] = useState(false);
   const handleToggleVisibility = useCallback(() => setVisibility(!isVisible), [
     isVisible,
@@ -40,7 +45,11 @@ const _StudioListFilterMobile = ({ className, handleClearFilters }: Props) => {
 
   return (
     <Fragment>
-      <Button variant="outlined" onClick={handleToggleVisibility}>
+      <Button
+        variant="outlined"
+        onClick={handleToggleVisibility}
+        disabled={isLoading}
+      >
         Фильтры
       </Button>
       <Portal container={layout}>

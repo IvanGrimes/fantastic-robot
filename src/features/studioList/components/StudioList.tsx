@@ -34,7 +34,7 @@ const _StudioList = ({
   handleNext,
   hasNext,
 }: Props) => {
-  const loaderList = new Array(8).fill({});
+  const loaderList = new Array(8).fill({}) as StudioItem[];
 
   if (error) {
     return <p>{error}</p>;
@@ -66,7 +66,6 @@ const _StudioList = ({
             spacing={4}
             isMapListEnabled={isMapListEnabled}
           >
-            {' '}
             {(loading ? loaderList : list).map(item => (
               <ListItemGrid
                 container
