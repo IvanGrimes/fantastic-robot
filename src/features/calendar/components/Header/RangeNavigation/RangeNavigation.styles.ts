@@ -7,10 +7,11 @@ export const Wrapper = styled.div`
 
     return css`
       display: flex;
-      justify-content: center;
+      margin: 0 auto;
+      justify-content: space-between;
       align-items: flex-end;
       padding: ${spacing * 2}px 0;
-      width: 100%;
+      width: 360px;
     `;
   }};
 `;

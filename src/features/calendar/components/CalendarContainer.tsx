@@ -27,9 +27,6 @@ export const CalendarContext = createContext<CalendarContextType>(
   {} as CalendarContextType
 );
 
-// TODO: Render timeline depends on open/close times (if 0 and 0, then 24 hours)
-// TODO: Render reservations
-
 const _CalendarContainer = ({ workHours, reservations }: Props) => {
   const [dateRangeState, dateRangeHandlers] = useModel({
     workHours,

@@ -7,6 +7,7 @@ export const Container = styled<ComponentType<ContainerProps>>(
   DefaultContainer
 )`
   && {
-    max-width: 100%;
+    width: 100%;
+    max-width: 1440px;
   }
 `;

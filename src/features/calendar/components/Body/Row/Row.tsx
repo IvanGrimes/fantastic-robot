@@ -29,11 +29,7 @@ export const Row = ({ data, selectTime }: Props) => {
   return (
     <StyledRow>
       {data.map(item => (
-        <Cell
-          key={item.timestamp}
-          data={item}
-          selectTime={selectTime}
-        />
+        <Cell key={item.timestamp} data={item} selectTime={selectTime} />
       ))}
     </StyledRow>
   );

@@ -4,7 +4,10 @@ import { getDateRange } from '../../../../utils/getDateRange';
 import { getGrid, getSelect } from './helpers';
 import { SetStepAction } from '../actions';
 
-export const setStep = (state: CalendarState, { payload }: SetStepAction) => {
+export const setStep = (
+  state: CalendarState,
+  { payload }: SetStepAction
+): CalendarState => {
   const { from } = state;
   const nextStep = payload.step;
   const to = nextStep === 0 ? from : getTime(addDays(from, nextStep));

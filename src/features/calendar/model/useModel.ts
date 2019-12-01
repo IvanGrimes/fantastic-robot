@@ -17,22 +17,32 @@ export const useModel = ({
     reducer,
     getInitialState({ workHours, reservations })
   );
-  const setStep = useCallback(
-    (nextStep: CalendarState['step']) => dispatch(actions.setStep(nextStep)),
+  const setStep: CalendarHandlers['setStep'] = useCallback(
+    nextStep => dispatch(actions.setStep(nextStep)),
     []
   );
-  const previousRange = useCallback(
+  const previousRange: CalendarHandlers['previousRange'] = useCallback(
     () => dispatch(actions.setRange('previous')),
     []
   );
-  const nextRange = useCallback(() => dispatch(actions.setRange('next')), []);
-  const previousMonth = useCallback(
+  const nextRange: CalendarHandlers['nextRange'] = useCallback(
+    () => dispatch(actions.setRange('next')),
+    []
+  );
+  const previousMonth: CalendarHandlers['previousMonth'] = useCallback(
     () => dispatch(actions.setMonth('previous')),
     []
   );
-  const nextMonth = useCallback(() => dispatch(actions.setMonth('next')), []);
+  const nextMonth: CalendarHandlers['nextMonth'] = useCallback(
+    () => dispatch(actions.setMonth('next')),
+    []
+  );
   const selectTime: CalendarHandlers['selectTime'] = useCallback(
     timestamp => dispatch(actions.selectTime(timestamp)),
+    []
+  );
+  const setAvailableSteps: CalendarHandlers['setAvailableSteps'] = useCallback(
+    availableSteps => dispatch(actions.setAvailableSteps(availableSteps)),
     []
   );
 
@@ -45,6 +55,7 @@ export const useModel = ({
       nextMonth,
       selectTime,
       setStep,
+      setAvailableSteps,
     },
   ];
 };

@@ -35,6 +35,11 @@ export const getInitialState = ({
     from,
     to,
     step: DEFAULT_STEP,
+    availableSteps: {
+      '0': true,
+      '2': false,
+      '4': false,
+    },
     range,
     grid: getGrid(range, reservations, workHours, {}),
     select: getSelect(range),

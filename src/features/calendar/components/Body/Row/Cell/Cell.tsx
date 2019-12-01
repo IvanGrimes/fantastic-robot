@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { Typography } from '@material-ui/core';
 import { Cell as StyledCell, ColorGroup } from './Cell.styles';
 import { CalendarContext } from '../../../CalendarContainer';
-import { Typography } from '@material-ui/core';
 
 type Props = {
   data: {
@@ -30,11 +30,7 @@ export const Cell = ({ data, selectTime }: Props) => {
   return (
     <StyledCell
       selected={data.selected}
-      onClick={
-        canSelect
-          ? selectTime(data.timestamp)
-          : undefined
-      }
+      onClick={canSelect ? selectTime(data.timestamp) : undefined}
       workingHour={data.isWorkingHours}
       highlightReserve={Boolean(
         data.reservation.reserved && !data.reservation.color
@@ -46,14 +42,14 @@ export const Cell = ({ data, selectTime }: Props) => {
         {`${data.hours}:${data.minutes}0`}
         {data.reservation.reserved && data.reservation.color
           ? data.reservation.color.map((color, index) => (
-            <ColorGroup
-              key={color}
-              offsetMultiplier={index ? index + 1 : index}
-              color={color}
-            />
-          ))
+              <ColorGroup
+                key={color}
+                offsetMultiplier={index ? index + 1 : index}
+                color={color}
+              />
+            ))
           : null}
       </Typography>
     </StyledCell>
   );
-}
+};

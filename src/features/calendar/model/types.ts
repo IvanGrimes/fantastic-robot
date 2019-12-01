@@ -5,7 +5,8 @@ type Handler<T = any> = (...args: T[]) => void;
 export type CalendarState = {
   from: number;
   to: number;
-  step: 0 | 2;
+  step: 0 | 2 | 4;
+  availableSteps: { [key in CalendarState['step']]: boolean };
   range: number[];
   grid: {
     year: number;
@@ -47,5 +48,6 @@ export type CalendarHandlers = {
   previousMonth: Handler;
   nextMonth: Handler;
   selectTime: Handler<number>;
-  setStep: Handler;
+  setStep: Handler<CalendarState['step']>;
+  setAvailableSteps: Handler<Partial<CalendarState['availableSteps']>>;
 };

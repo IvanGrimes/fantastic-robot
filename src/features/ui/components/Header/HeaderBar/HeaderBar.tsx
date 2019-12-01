@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { Grid, Switch } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
@@ -18,7 +18,6 @@ type Props = {
 };
 
 const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
-  const filters = useMemo(() => <StudioListFilter />, []);
   const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
   const handleResize = useCallback(
@@ -41,7 +40,9 @@ const _HeaderBar = ({ isMapListEnabled, handleToggleMapVisibility }: Props) => {
       <BarWrapper>
         <Container>
           <Grid container alignItems="center" justify="space-between">
-            <Grid item>{filters}</Grid>
+            <Grid item>
+              <StudioListFilter />
+            </Grid>
             <MapSwitchGrid
               container
               item

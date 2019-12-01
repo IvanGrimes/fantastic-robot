@@ -1,11 +1,13 @@
 import { addMonths, getTime } from 'date-fns';
 import { CalendarState } from '../types';
 import { getDateRange } from '../../../../utils/getDateRange';
-import { getGrid, getSelect } from './helpers';
+import { getGrid, getSelect, truncateMonths } from './helpers';
 import { SetMonthAction } from '../actions';
-import { truncateMonths } from './helpers/truncateMonths';
 
-export const setMonth = (state: CalendarState, action: SetMonthAction) => {
+export const setMonth = (
+  state: CalendarState,
+  action: SetMonthAction
+): CalendarState => {
   const operation =
     action.payload.direction === 'next' ? addMonths : truncateMonths;
   const from = getTime(operation(state.from, 1));

@@ -5,7 +5,10 @@ import { SelectTimeAction } from '../actions';
 import { checkOverlapInDateRange, getGrid, getKey } from './helpers';
 import { getDateRange } from '../../../../utils/getDateRange';
 
-export const selectTime = (state: CalendarState, action: SelectTimeAction) => {
+export const selectTime = (
+  state: CalendarState,
+  action: SelectTimeAction
+): CalendarState => {
   const key = getKey(action.payload.timestamp);
   const hasAnyElement = state.select[key].length;
   const hasOneElement = state.select[key].length === 1;

@@ -4,6 +4,7 @@ import {
   getStudioReservationsWithColor,
   getStudioWorkHours,
 } from '../model/selectors';
+import { Container } from '../../../components/Container';
 
 type Props = {
   workHours: ReturnType<typeof getStudioWorkHours>;
@@ -11,7 +12,11 @@ type Props = {
 };
 
 const _StudioDetails = ({ workHours, reservations }: Props) => {
-  return <Calendar workHours={workHours} reservations={reservations} />;
+  return (
+    <Container>
+      <Calendar workHours={workHours} reservations={reservations} />
+    </Container>
+  );
 };
 
 export const StudioDetails = memo(_StudioDetails);

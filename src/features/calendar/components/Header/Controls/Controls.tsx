@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wrapper } from './Controls.styles';
-import { ColumnMenu } from './ColumnMenu';
+import { ViewColumn } from './ViewColumn';
 
 export type ControlsProps = {
   className?: string;
@@ -9,7 +9,7 @@ export type ControlsProps = {
 export const Controls = ({ className = '' }: ControlsProps) => {
   return (
     <Wrapper className={className}>
-      <ColumnMenu />
+      <ViewColumn />
     </Wrapper>
   );
 };

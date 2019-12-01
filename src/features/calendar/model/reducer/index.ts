@@ -2,6 +2,7 @@ import { Reducer } from 'react';
 import {
   DateRangeActions,
   SELECT_TIME,
+  SET_AVAILABLE_STEPS,
   SET_MONTH,
   SET_RANGE,
   SET_STEP,
@@ -12,6 +13,7 @@ import { setRange } from './setRange';
 import { setMonth } from './setMonth';
 import { selectTime } from './selectTime';
 import { setStep } from './setStep';
+import { setAvailableSteps } from './setAvailableSteps';
 // TODO: Когда попадаешь на февраль через previous/next month - становится один день вместо трех
 export const initialState: CalendarState = getInitialState({});
 
@@ -28,6 +30,8 @@ export const reducer: Reducer<CalendarState, DateRangeActions> = (
       return selectTime(state, action);
     case SET_STEP:
       return setStep(state, action);
+    case SET_AVAILABLE_STEPS:
+      return setAvailableSteps(state, action);
     default:
       return state;
   }
