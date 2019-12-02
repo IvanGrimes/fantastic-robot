@@ -7,6 +7,7 @@ export const createRequestLoadingSelector = (actions: RootAction['type'][]) =>
     (state: RootState) =>
       actions.some(action => {
         const [requestName, requestState] = parseRequestType(action);
+        const requestStatus = state.api.loading[requestName];
 
         if (requestState !== 'REQUEST') {
           throw new Error(
@@ -14,7 +15,11 @@ export const createRequestLoadingSelector = (actions: RootAction['type'][]) =>
           );
         }
 
-        return state.api.loading[requestName] || false;
+        if (typeof requestStatus === 'undefined') {
+          return true;
+        }
+
+        return requestStatus || false;
       }),
     state => state
   );

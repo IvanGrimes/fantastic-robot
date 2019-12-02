@@ -18,6 +18,7 @@ import {
   getIsFullscreen,
   getIsEnabled,
 } from '../../studioMapList/model/selectors';
+import { getHasFilters } from '../../studioFilters/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -31,6 +32,7 @@ const mapStateToProps = (state: RootState) => ({
   isMapListEnabled: getIsEnabled(state),
   isMapListFullscreen: getIsFullscreen(state),
   hasNext: getHasNext(state),
+  filters: getHasFilters(state),
 });
 
 const dispatchProps = {
@@ -48,6 +50,7 @@ const _StudioListContainer = ({
   isMapListEnabled,
   isMapListFullscreen,
   hasNext,
+  filters,
 }: StudioListContainerProps) => {
   const { query } = useRouter();
   const pageNumber = useMemo(
@@ -77,7 +80,7 @@ const _StudioListContainer = ({
         className={className}
         list={studios}
         error={errors.networkError}
-        loading={(pageNumber === 1 && loading) || isFiltering}
+        loading={filters ? isFiltering : loading}
         listItemVariant={listItemVariant}
         isMapListEnabled={isMapListEnabled}
         isMapListFullscreen={isMapListFullscreen}

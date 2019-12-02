@@ -1,16 +1,15 @@
-import React from 'react';
-import { Store } from 'redux';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { RootState } from '../../model/types';
 import { ContentGrid, StudioListGrid } from './index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
-import { setFilters } from '../../features/studioFilters/model/actions';
 import { getIsEnabled } from '../../features/studioMapList/model/selectors';
-import { parseFilters } from '../../features/studioFilters/utils/parseFilters';
 import { getStudios } from '../../features/studioList/model/selectors';
+import { getHasFilters } from '../../features/studioFilters/model/selectors';
+import { usePrevious } from '../../hooks/usePrevious';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -18,41 +17,31 @@ const StudioListMap = dynamic<{}>(() =>
   )
 );
 
-type IndexGetInitialProps = (ctx: {
-  page?: number;
-  store: Store<RootState>;
-  query: { [key: string]: string };
-  isServer: boolean;
-  asPath: string;
-}) => Promise<{}>;
+type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
-export const getInitialProps: IndexGetInitialProps = async ({
-  asPath,
-  query,
-  store,
-}) => {
-  const appliedFilters = parseFilters(asPath);
-  const hasFilters = Boolean(Object.values(appliedFilters).length);
-  const pageNumber = parseInt(query.page, 10);
-  const page = Number.isNaN(pageNumber) ? 1 : pageNumber;
-  const studios = getStudios(store.getState());
+const mapStateToProps = (state: RootState) => ({
+  studios: getStudios(state),
+  hasFilters: getHasFilters(state),
+  isMapListEnabled: getIsEnabled(state),
+});
 
-  if (hasFilters) {
-    store.dispatch(setFilters(appliedFilters));
-
-    return {};
-  }
-  if (!studios.length) {
-    store.dispatch(fetchStudiosAsync.request({ page, city: 'moscow' }));
-
-    return {};
-  }
-
-  return {};
+const dispatchProps = {
+  handleFetchStudios: fetchStudiosAsync.request,
 };
 
-export const Index = () => {
-  const isMapListEnabled = useSelector(getIsEnabled);
+const _Index = ({
+  hasFilters,
+  studios,
+  handleFetchStudios,
+  isMapListEnabled,
+}: Props) => {
+  const prevHasFilters = usePrevious(hasFilters);
+
+  useEffect(() => {
+    if (!hasFilters && !prevHasFilters && !studios.length) {
+      handleFetchStudios({ city: 'moscow', page: 1 });
+    }
+  }, [handleFetchStudios, hasFilters, prevHasFilters, studios.length]);
 
   return (
     <ContentGrid container>
@@ -72,4 +61,7 @@ export const Index = () => {
   );
 };
 
-Index.getInitialProps = getInitialProps;
+export const Index = connect(
+  mapStateToProps,
+  dispatchProps
+)(_Index);
