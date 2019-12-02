@@ -7,7 +7,6 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production next build",
     "dev": "now dev",
-    "now-build": "tsc -p tsconfig.lambda.json",
     "lint": "eslint . -c .eslintrc",
     "lint:write": "eslint . -c .eslintrc --fix",
     "prettier": "prettier ./**/*.{ts,tsx,json} --write",

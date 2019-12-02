@@ -11,8 +11,9 @@ import {
 export const fetchStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_STUDIOS_REQUEST',
   '@@studioList/FETCH_STUDIOS_SUCCESS',
-  '@@studioList/FETCH_STUDIOS_FAIL'
-)<StudiosInput, Await<ReturnType<typeof fetchStudios>>, any>();
+  '@@studioList/FETCH_STUDIOS_FAIL',
+  '@@studioList/FETCH_STUDIOS_CANCEL'
+)<StudiosInput, Await<ReturnType<typeof fetchStudios>>, any, undefined>();
 
 export const fetchFilterStudiosAsync = createAsyncAction(
   '@@studioList/FETCH_FILTER_STUDIOS_REQUEST',

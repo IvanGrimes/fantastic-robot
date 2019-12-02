@@ -1,21 +1,47 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  cancel,
+  cancelled,
+  put,
+  select,
+  takeLatest,
+} from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import { fetchFilterStudiosAsync, fetchStudiosAsync } from './actions';
 import { fetchFilterStudios, fetchStudios } from './services';
-import { getFilters } from '../../studioFilters/model/selectors';
+import { getFilters, getHasFilters } from '../../studioFilters/model/selectors';
 import { getNonEmptyValues } from '../../studioFilters/utils/getNonEmptyValues';
 
 function* fetchStudiosFlow(
   action: ReturnType<typeof fetchStudiosAsync.request>
 ) {
   const { payload } = action;
+  const hasFilters = yield select(getHasFilters);
+  const filters: ReturnType<typeof getFilters> = yield select(getFilters);
 
   try {
+    if (hasFilters) {
+      yield call(
+        fetchFilterStudiosFlow,
+        fetchFilterStudiosAsync.request({
+          ...payload,
+          ...filters,
+          updateStrategy: 'merge',
+        })
+      );
+
+      yield cancel();
+    }
+
     const data = yield call(fetchStudios, payload);
 
     yield put(fetchStudiosAsync.success(data));
   } catch (e) {
     yield put(fetchStudiosAsync.failure(e));
+  } finally {
+    if (yield cancelled()) {
+      yield put(fetchStudiosAsync.cancel());
+    }
   }
 }
 
