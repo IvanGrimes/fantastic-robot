@@ -54,7 +54,7 @@ export const ColorGroup = styled.div<{
   offsetMultiplier: number;
 }>`
   ${({ color, offsetMultiplier }) => {
-    const width = 5;
+    const width = 8;
 
     return css`
       position: absolute;

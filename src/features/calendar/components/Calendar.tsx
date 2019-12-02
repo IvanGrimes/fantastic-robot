@@ -8,7 +8,6 @@ import { Theme } from '../../../theme/types';
 import { getBreakpoints } from '../../../theme';
 import { CalendarContext } from './CalendarContainer';
 
-// TODO: Change reservation mark
 // TODO: Repair build
 
 export const Calendar = () => {
