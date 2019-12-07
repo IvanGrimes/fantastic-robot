@@ -33,9 +33,9 @@ const dispatchProps = {
 
 const getInitialProps = async (ctx: NextPageContext) => {
   const { query, res } = ctx;
-  const number = parseInt(query.number as string, 10);
+  const page = query.number as string;
 
-  if (Number.isNaN(number) || !query.number) {
+  if (page && Number.isNaN(parseInt(page as string, 10))) {
     if (res) {
       res.writeHead(302, {
         Location: '/404',
@@ -57,7 +57,9 @@ const _Index = ({
 }: Props) => {
   const { query } = useRouter();
   const prevHasFilters = usePrevious(hasFilters);
-  const pageRef = useRef(parseInt(query.number as string, 10));
+  const pageRef = useRef(
+    query.number ? parseInt(query.number as string, 10) : 1
+  );
 
   useEffect(() => {
     const page = pageRef.current;

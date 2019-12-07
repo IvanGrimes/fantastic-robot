@@ -5,7 +5,7 @@ import { RootState } from './types';
 import { rootReducer } from './rootReducer';
 import { rootSaga } from './rootSaga';
 
-export const configureStore = (initialState: RootState) => {
+export const configureStore = (initialState: Partial<RootState> = {}) => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = applyMiddleware(sagaMiddleware);
 

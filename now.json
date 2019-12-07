@@ -1,9 +1,7 @@
 {
   "version": 2,
   "regions": ["bru"],
-  "builds": [
-    { "src": "next.config.js", "use": "@now/next" }
-  ],
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }],
   "env": {
     "API_ENDPOINT": "@api_endpoint",
     "API_AUTH_USER": "@api_auth_user",
