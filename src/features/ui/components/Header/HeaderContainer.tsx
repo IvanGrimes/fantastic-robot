@@ -7,7 +7,6 @@ import { setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
 import { setFilters } from '../../../studioFilters/model/actions';
 import { getFilters } from '../../../studioFilters/model/selectors';
-import { setFullscreen } from '../../../studioMapList/model/actions';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -18,14 +17,12 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   handleSetHeaderVisibility: setHeaderVisibility,
-  handleSetFullscreenMap: setFullscreen,
   handleSetFilters: setFilters,
 };
 
 const _HeaderContainer = ({
   handleSetHeaderVisibility,
   isHeaderVisible,
-  handleSetFullscreenMap,
   handleSetFilters,
   nameFilter,
 }: Props) => {
@@ -38,7 +35,6 @@ const _HeaderContainer = ({
     <Header
       handleSetHeaderVisibility={handleSetHeaderVisibility}
       isHeaderVisible={isHeaderVisible}
-      handleSetFullscreenMap={handleSetFullscreenMap}
       searchValue={nameFilter}
       handleSearch={handleSearch}
     />

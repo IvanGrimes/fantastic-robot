@@ -1,7 +1,6 @@
-import React, { memo, useCallback } from 'react';
-import { Grid, Typography, Button } from '@material-ui/core';
+import React, { memo } from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import dequal from 'dequal';
-import { Map as MapIcon } from '@material-ui/icons';
 import { Toolbar, Wrapper, AppBar, MenuGrid } from './Header.styles';
 import { Link } from '../../../../components/Link';
 import { HeaderBar } from './HeaderBar';
@@ -9,6 +8,7 @@ import { Container } from '../../../../components/Container';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
 import { Hidden } from '../../../../components/Hidden';
 import { ClearableInput } from '../../../../components/ClearableInput';
+import { FullscreenMapButton } from './FullscreenMapButton';
 
 const menuData = [
   {
@@ -36,7 +36,6 @@ const menuData = [
 type Props = {
   isHeaderVisible: boolean;
   handleSetHeaderVisibility: (visibility: boolean) => void;
-  handleSetFullscreenMap: (visibility: boolean) => void;
   searchValue: string;
   handleSearch: (value: string) => void;
 };
@@ -44,7 +43,6 @@ type Props = {
 const _Header = ({
   isHeaderVisible,
   handleSetHeaderVisibility,
-  handleSetFullscreenMap,
   searchValue,
   handleSearch,
 }: Props) => {
@@ -52,10 +50,6 @@ const _Header = ({
     isVisible: isHeaderVisible,
     handleSetVisibility: handleSetHeaderVisibility,
   });
-  const handleSetFullscreenMapOn = useCallback(
-    () => handleSetFullscreenMap(true),
-    [handleSetFullscreenMap]
-  );
 
   return (
     <Wrapper isHeaderVisible={isHeaderVisible}>
@@ -117,14 +111,7 @@ const _Header = ({
                     </Grid>
                   </MenuGrid>
                   <Hidden mdUp>
-                    <Button
-                      variant="outlined"
-                      color="inherit"
-                      size="small"
-                      onClick={handleSetFullscreenMapOn}
-                    >
-                      <MapIcon />
-                    </Button>
+                    <FullscreenMapButton />
                   </Hidden>
                 </Grid>
               </Toolbar>

@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { StudioMapPreviewList } from './StudioMapPreviewList';
+import { PreviewList } from './PreviewList';
 import { getIsFullscreen, getPreviewStudio } from '../../model/selectors';
 import { RootState } from '../../../../model/types';
 import { getStudios } from '../../../studioList/model/selectors';
@@ -19,7 +19,7 @@ const dispatchProps = {
   handleSetStudioMapPreview: setPreviewStudio,
 };
 
-const _StudioMapPreviewListContainer = ({
+const _PreviewListContainer = ({
   studios,
   previewId,
   handleSetStudioMapPreview,
@@ -31,10 +31,10 @@ const _StudioMapPreviewListContainer = ({
     }
   }, [handleSetStudioMapPreview, isMapListFullscreen, previewId]);
 
-  return <StudioMapPreviewList list={studios} previewId={previewId} />;
+  return <PreviewList list={studios} previewId={previewId} />;
 };
 
-export const StudioMapPreviewListContainer = connect(
+export const PreviewListContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioMapPreviewListContainer, dequal));
+)(memo(_PreviewListContainer, dequal));

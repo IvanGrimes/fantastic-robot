@@ -1,6 +1,6 @@
 import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
-import { StudioMapPreviewListItem } from './StudioMapPreviewListItem';
+import { PreviewListItem } from './PreviewListItem';
 import { useRequestIdleCallback } from '../../../../hooks/useRequestIdleCallback';
 import { StudioItem } from '../../../studioList/model/types';
 
@@ -23,7 +23,7 @@ const _StudioMapPreviewList = ({ list, previewId }: Props) => {
         const isActive = previewId === id;
 
         return (
-          <StudioMapPreviewListItem
+          <PreviewListItem
             key={id}
             item={{ id, ...item }}
             isActive={isActive}
@@ -34,4 +34,4 @@ const _StudioMapPreviewList = ({ list, previewId }: Props) => {
   ) : null;
 };
 
-export const StudioMapPreviewList = memo(_StudioMapPreviewList, dequal);
+export const PreviewList = memo(_StudioMapPreviewList, dequal);

@@ -1,7 +1,7 @@
 import React, { memo, useRef } from 'react';
 import dequal from 'dequal';
-import GoogleMapReact from 'google-map-react';
 import { Close as CloseIcon } from '@material-ui/icons';
+import dynamic from 'next/dynamic';
 import {
   MapGrid,
   OuterWrapper,
@@ -9,9 +9,11 @@ import {
   CloseButton,
 } from './StudioListMap.styles';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
-import { StudioMapPinListItem } from './StudioMapPinListItem';
-import { StudioMapPreviewList } from './StudioMapPreviewList';
+import { PreviewList } from './PreviewList';
 import { StudioItem } from '../../studioList/model/types';
+import { PinList } from './PinList';
+
+const GoogleMap = dynamic(() => import('google-map-react'), { ssr: false });
 
 type Props = {
   isMapListFullscreen: boolean;
@@ -52,7 +54,7 @@ const _StudioListMap = ({
           isFullscreen={isMapListFullscreen}
           isHeaderVisible={isHeaderVisible}
         >
-          <GoogleMapReact
+          <GoogleMap
             bootstrapURLKeys={{ key: process.env.MAPS_API_TOKEN }}
             defaultCenter={{
               lat: 59.95,
@@ -66,17 +68,9 @@ const _StudioListMap = ({
             }}
             onClick={isMapListFullscreen ? undefined : fullscreenMapOn}
           >
-            {studios.map(({ id, location }) =>
-              location ? (
-                <StudioMapPinListItem
-                  id={id}
-                  lat={location.lat}
-                  lng={location.lon}
-                />
-              ) : null
-            )}
-          </GoogleMapReact>
-          <StudioMapPreviewList />
+            <PinList studios={studios} />
+          </GoogleMap>
+          <PreviewList />
         </InnerWrapper>
       </OuterWrapper>
     </MapGrid>

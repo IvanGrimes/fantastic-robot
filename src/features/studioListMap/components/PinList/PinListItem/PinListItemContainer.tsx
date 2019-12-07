@@ -1,13 +1,13 @@
 import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { StudioMapPinListItem } from './StudioMapPinListItem';
-import { StudioMapPinListItemCommonProps } from './index';
-import { RootState } from '../../../../model/types';
-import { getPreviewStudio } from '../../model/selectors';
-import { setFullscreen, setPreviewStudio } from '../../model/actions';
+import { PinListItem } from './PinListItem';
+import { PinListItemCommonProps } from './index';
+import { RootState } from '../../../../../model/types';
+import { getPreviewStudio } from '../../../model/selectors';
+import { setFullscreen, setPreviewStudio } from '../../../model/actions';
 
-type Props = StudioMapPinListItemCommonProps &
+type Props = PinListItemCommonProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
@@ -20,7 +20,7 @@ const dispatchProps = {
   handleSetFullscreenMap: setFullscreen,
 };
 
-const _StudioMapPinListItemContainer = ({
+const _PinListItemContainer = ({
   id,
   handleSetStudioMapPreview,
   handleSetFullscreenMap,
@@ -34,7 +34,7 @@ const _StudioMapPinListItemContainer = ({
   }, [handleSetStudioMapPreview, handleSetFullscreenMap, id]);
 
   return (
-    <StudioMapPinListItem
+    <PinListItem
       id={id}
       lat={lat}
       lng={lng}
@@ -44,7 +44,7 @@ const _StudioMapPinListItemContainer = ({
   );
 };
 
-export const StudioMapPinListItemContainer = connect(
+export const PinListItemContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioMapPinListItemContainer, dequal));
+)(memo(_PinListItemContainer, dequal));

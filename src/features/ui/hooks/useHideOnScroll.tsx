@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import { useRequestAnimationFrame } from '../../../hooks/useRequestAnimationFrame';
 import { getBreakpoints } from '../../../theme';
 import { usePrevious } from '../../../hooks/usePrevious';
-import { getIsFullscreen } from '../../studioMapList/model/selectors';
+import { getIsFullscreen } from '../../studioListMap/model/selectors';
 import { Theme } from '../../../theme/types';
 
 export const useHideOnScroll = ({

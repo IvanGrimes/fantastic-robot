@@ -7,13 +7,14 @@ import { RootState } from '../../model/types';
 import { ContentGrid, StudioListGrid } from './index.styles';
 import { StudioList } from '../../features/studioList/components';
 import { fetchStudiosAsync } from '../../features/studioList/model/actions';
-import { getIsEnabled } from '../../features/studioMapList/model/selectors';
+import { getIsEnabled } from '../../features/studioListMap/model/selectors';
 import { getStudios } from '../../features/studioList/model/selectors';
 import { getHasFilters } from '../../features/studioFilters/model/selectors';
 import { usePrevious } from '../../hooks/usePrevious';
+import { featuresConfig } from '../../features/config';
 
 const StudioListMap = dynamic<{}>(() =>
-  import('../../features/studioMapList/components').then(
+  import('../../features/studioListMap/components').then(
     module => module.StudioListMap
   )
 );
@@ -39,6 +40,9 @@ const _Index = ({
   const { query, push } = useRouter();
   const prevHasFilters = usePrevious(hasFilters);
   const pageRef = useRef(query.number as string);
+  const mapListEnabled = featuresConfig.studioListMap
+    ? isMapListEnabled
+    : false;
 
   useEffect(() => {
     const pageNumber = parseInt(pageRef.current, 10);
@@ -62,9 +66,9 @@ const _Index = ({
         xs={12}
         md={12}
         lg={6}
-        isMapListEnabled={isMapListEnabled}
+        isMapListEnabled={mapListEnabled}
       >
-        <StudioList listItemVariant={isMapListEnabled ? 'wide' : 'short'} />
+        <StudioList listItemVariant={mapListEnabled ? 'wide' : 'short'} />
       </StudioListGrid>
       <Grid item xs={12} lg={6}>
         <StudioListMap />

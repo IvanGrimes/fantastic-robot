@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
-import { StudioDetails } from './studioDetails';
+import { StudioDetails } from './StudioDetails';
 import { RootState } from '../../../model/types';
 import {
   getStudioReservationsWithColor,

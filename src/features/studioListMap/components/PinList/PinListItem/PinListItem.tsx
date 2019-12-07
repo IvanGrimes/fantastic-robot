@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
 import dequal from 'dequal';
 import { PersonPin } from '@material-ui/icons';
-import { IconButton } from './StudioMapPinListItem.styles';
-import { StudioMapPinListItemCommonProps } from './index';
+import { IconButton } from './PinListItem.styles';
+import { PinListItemCommonProps } from './index';
 
-type Props = StudioMapPinListItemCommonProps & {
+type Props = PinListItemCommonProps & {
   handleTogglePreview: () => void;
   isActive: boolean;
 };
 
-const _StudioMapPinListItem = ({
+const _PinListItem = ({
   lat,
   lng,
   handleTogglePreview,
@@ -28,4 +28,4 @@ const _StudioMapPinListItem = ({
   );
 };
 
-export const StudioMapPinListItem = memo(_StudioMapPinListItem, dequal);
+export const PinListItem = memo(_PinListItem, dequal);

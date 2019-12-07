@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { IconButton as DefaultIconButton } from '@material-ui/core';
 import { ComponentType } from 'react';
 import { IconButtonProps } from '@material-ui/core/IconButton';
-import { getPrimaryPalette } from '../../../../theme';
+import { getPrimaryPalette } from '../../../../../theme';
 
 export const IconButton = styled<ComponentType<IconButtonProps>>(
   DefaultIconButton

@@ -1,3 +1,3 @@
 export {
   StudioDetailsContainer as StudioDetails,
-} from './studioDetailsContainer';
+} from './StudioDetailsContainer';

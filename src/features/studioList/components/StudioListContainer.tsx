@@ -17,7 +17,7 @@ import {
 import {
   getIsFullscreen,
   getIsEnabled,
-} from '../../studioMapList/model/selectors';
+} from '../../studioListMap/model/selectors';
 import { getHasFilters } from '../../studioFilters/model/selectors';
 
 type StudioListContainerProps = ReturnType<typeof mapStateToProps> &

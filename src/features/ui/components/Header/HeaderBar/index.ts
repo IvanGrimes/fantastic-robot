@@ -1,1 +1,1 @@
-export { HeaderBarContainer as HeaderBar } from './HeaderBarContainer';
+export * from './HeaderBar';

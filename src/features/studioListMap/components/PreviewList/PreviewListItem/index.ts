@@ -1,9 +1,9 @@
 import { StudioItem } from '../../../../studioList/model/types';
 
-export type StudioMapPreviewListItemProps = {
+export type PreviewListItemProps = {
   isActive: boolean;
   handleClose?: () => void;
   item: StudioItem;
 };
 
-export * from './StudioMapPreviewListItem';
+export * from './PreviewListItem';
