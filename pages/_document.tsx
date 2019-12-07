@@ -5,7 +5,7 @@ import Document, {
   DocumentContext,
   NextScript,
 } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/styles';
+import ServerStyleSheets from '@material-ui/styles/ServerStyleSheets';
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
