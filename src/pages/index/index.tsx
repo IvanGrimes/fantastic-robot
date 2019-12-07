@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
 import { RootState } from '../../model/types';
 import { ContentGrid, StudioListGrid } from './index.styles';
 import { StudioList } from '../../features/studioList/components';
@@ -11,7 +12,6 @@ import { getIsEnabled } from '../../features/studioMapList/model/selectors';
 import { getStudios } from '../../features/studioList/model/selectors';
 import { getHasFilters } from '../../features/studioFilters/model/selectors';
 import { usePrevious } from '../../hooks/usePrevious';
-import { SSRError } from '../../lib/SSRError';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioMapList/components').then(
@@ -31,25 +31,21 @@ const dispatchProps = {
   handleFetchStudios: fetchStudiosAsync.request,
 };
 
-const getInitialProps = async (ctx: { query: { number: string } }) => {
-  const { query } = ctx;
+const getInitialProps = async (ctx: NextPageContext) => {
+  const { query, res } = ctx;
+  const number = parseInt(query.number as string, 10);
 
-  if (!query.number) {
-    return {};
-  }
+  if (Number.isNaN(number) || !query.number) {
+    if (res) {
+      res.writeHead(302, {
+        Location: '/404',
+      });
 
-  try {
-    const number = parseInt(query.number, 10);
-
-    if (Number.isNaN(number)) {
-      throw new Error(
-        `Parameter number should be a type of "number", but got: ${typeof number}`
-      );
+      res.end();
+    } else {
+      await Router.push('/404');
     }
-  } catch (e) {
-    throw new SSRError({ statusCode: 404 });
   }
-
   return {};
 };
 
@@ -61,11 +57,10 @@ const _Index = ({
 }: Props) => {
   const { query } = useRouter();
   const prevHasFilters = usePrevious(hasFilters);
-  const pageRef = useRef(parseInt(query.page as string, 10));
+  const pageRef = useRef(parseInt(query.number as string, 10));
 
   useEffect(() => {
-    const pageNumber = pageRef.current;
-    const page = Number.isNaN(pageNumber) ? 1 : pageNumber;
+    const page = pageRef.current;
 
     if (!hasFilters && !prevHasFilters && !studios.length) {
       handleFetchStudios({ city: 'moscow', page });

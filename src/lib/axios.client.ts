@@ -2,15 +2,11 @@ import defaultAxios from 'axios';
 import { paramsSerializer } from './paramsSerializer';
 
 if (!process.env.API_AUTH_USER || !process.env.API_AUTH_PASSWORD) {
-  throw new Error('');
+  throw new Error('You should define API_AUTH_USER and API_AUTH_PASSWORD');
 }
 
-const isDev = process.env.NODE_ENV !== 'production';
-
 export const axiosClient = defaultAxios.create({
-  baseURL: isDev
-    ? 'http://localhost:3000/'
-    : 'https://fantastic-robot.ivangrimes.now.sh',
+  baseURL: process.env.API_ENDPOINT,
   auth: {
     username: process.env.API_AUTH_USER,
     password: process.env.API_AUTH_PASSWORD,
@@ -22,8 +18,11 @@ axiosClient.interceptors.request.use(config => {
   const nextConfig = config;
 
   if (nextConfig.url) {
-    nextConfig.url = nextConfig.url.replace('/api', '/proxy/API/V1');
+    nextConfig.url = `http://${nextConfig.baseURL}${nextConfig.url.replace(
+      '/api',
+      '/API/V1'
+    )}`;
   }
 
-  return config;
+  return nextConfig;
 });

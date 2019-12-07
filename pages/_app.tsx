@@ -1,6 +1,5 @@
 import React from 'react';
 import App from 'next/app';
-import { NextComponentType, NextPageContext } from 'next';
 import { CssBaseline } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { ThemeProvider } from 'styled-components';
@@ -14,7 +13,6 @@ import { theme } from '../src/theme';
 import { GlobalStyles } from '../src/pages/_app';
 import { configureStore } from '../src/model/store';
 import { RootState } from '../src/model/types';
-import { SSRError } from '../src/lib/SSRError';
 import {
   fetchConfigAsync,
   fetchMetroListAsync,
@@ -27,38 +25,6 @@ const Layout = dynamic(() =>
 );
 
 class MyApp extends App<{ store: Store<RootState>; statusCode?: number }> {
-  static async getInitialProps({
-    Component,
-    ctx,
-  }: {
-    Component: NextComponentType;
-    ctx: NextPageContext;
-  }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      try {
-        pageProps = await Component.getInitialProps(ctx);
-      } catch (e) {
-        if (e instanceof SSRError) {
-          return {
-            statusCode: e.statusCode,
-            pageProps,
-          };
-        }
-
-        return {
-          statusCode: 500,
-          pageProps,
-        };
-      }
-    }
-
-    return {
-      pageProps,
-    };
-  }
-
   static removeServerStyles() {
     const serverStyles = document.querySelector('#jss-server-side');
 

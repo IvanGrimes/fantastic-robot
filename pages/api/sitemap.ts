@@ -1,7 +1,7 @@
-import { NowRequest, NowResponse } from '@now/node/dist';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { createSitemap } from 'sitemap';
 
-export default (req: NowRequest, res: NowResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse) => {
   const sitemap = createSitemap({
     hostname: req.headers.host,
     cacheTime: 600000,

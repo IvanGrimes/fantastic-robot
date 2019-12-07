@@ -2,8 +2,7 @@
   "version": 2,
   "regions": ["bru"],
   "builds": [
-    { "src": "next.config.js", "use": "@now/next" },
-    { "src": "src/lambdas/**/*.ts", "use": "@now/node" }
+    { "src": "next.config.js", "use": "@now/next" }
   ],
   "env": {
     "API_ENDPOINT": "@api_endpoint",
@@ -19,11 +18,6 @@
     }
   },
   "routes": [
-    {
-      "src": "/proxy/(.*)",
-      "methods": ["GET", "POST"],
-      "dest": "/src/lambdas/proxy.ts"
-    },
     {
       "src": "^/sitemap.xml$",
       "methods": ["GET"],
