@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import dequal from 'dequal';
+import { Grid, Typography } from '@material-ui/core';
 import { StudioListItem, StudioListItemVariant } from './StudioListItem';
 import {
   Wrapper,
@@ -34,7 +35,7 @@ const _StudioList = ({
   handleNext,
   hasNext,
 }: Props) => {
-  const loaderList = new Array(8).fill({}) as StudioItem[];
+  const loaderList = new Array(12).fill({}) as StudioItem[];
 
   if (error) {
     return <p>{error}</p>;
@@ -47,9 +48,11 @@ const _StudioList = ({
         handleNext={handleNext}
         loader={<InfiniteScrollLoader />}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
+          <Grid container justify="center" xs={12}>
+            <Typography component="span" variant="overline">
+              You have seen it all
+            </Typography>
+          </Grid>
         }
         pagination={{
           route: '/page/[number]',

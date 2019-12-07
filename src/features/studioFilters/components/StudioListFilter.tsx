@@ -1,8 +1,8 @@
 import React, { Fragment, memo } from 'react';
 import dequal from 'dequal';
-import { StudioListFilterMobile } from './StudioListFilterMobile';
+import { MobileFilters } from './MobileFilters';
 import { Hidden } from '../../../components/Hidden';
-import { StudioListFilterDesktop } from './StudioListFilterDesktop';
+import { DesktopFilters } from './DesktopFilters';
 
 export type StudioListFilterProps = {
   className: string;
@@ -14,21 +14,19 @@ const _StudioListFilter = ({
   className,
   handleClearFilters,
   isLoading,
-}: StudioListFilterProps) => {
-  return (
-    <Fragment>
-      <Hidden smUp>
-        <StudioListFilterMobile
-          className={className}
-          handleClearFilters={handleClearFilters}
-          isLoading={isLoading}
-        />
-      </Hidden>
-      <Hidden xsDown>
-        <StudioListFilterDesktop isLoading={isLoading} />
-      </Hidden>
-    </Fragment>
-  );
-};
+}: StudioListFilterProps) => (
+  <Fragment>
+    <Hidden smUp>
+      <MobileFilters
+        className={className}
+        handleClearFilters={handleClearFilters}
+        isLoading={isLoading}
+      />
+    </Hidden>
+    <Hidden xsDown>
+      <DesktopFilters isLoading={isLoading} />
+    </Hidden>
+  </Fragment>
+);
 
 export const StudioListFilter = memo(_StudioListFilter, dequal);

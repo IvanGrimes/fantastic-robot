@@ -9,12 +9,7 @@ type Props = PinListItemCommonProps & {
   isActive: boolean;
 };
 
-const _PinListItem = ({
-  lat,
-  lng,
-  handleTogglePreview,
-  isActive,
-}: Props) => {
+const _PinListItem = ({ lat, lng, handleTogglePreview, isActive }: Props) => {
   return (
     // @ts-ignore
     <IconButton

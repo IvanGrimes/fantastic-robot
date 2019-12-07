@@ -9,7 +9,7 @@ export type StudioListState = Studios & {
 
 const initialState: StudioListState = {
   studios: [],
-  hasNext: true,
+  hasNext: false,
   updateStrategy: 'merge',
 };
 
