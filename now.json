@@ -19,7 +19,7 @@
     {
       "src": "^/sitemap.xml$",
       "methods": ["GET"],
-      "dest": "/src/lambdas/sitemap.ts"
+      "dest": "/api/sitemap"
     },
     {
       "src": "/service-worker.js",

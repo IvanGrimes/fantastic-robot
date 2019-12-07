@@ -23,7 +23,7 @@ export const Card = styled<ComponentType<CardProps>>(DefaultCard)<{
       && {
         display: flex;
         width: 100%;
-        flex-wrap: wrap;
+        flex-direction: column;
         ${isDisabled
           ? css`
               cursor: default;
@@ -48,6 +48,7 @@ export const CardContent = styled<ComponentType<CardContentProps>>(
 
 export const CardBottomGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
+    margin-top: 16px;
     margin-bottom: -8px;
   }
 `;

@@ -15,7 +15,8 @@ import {
   fetchMetroListAsync,
 } from '../src/features/studioData/model/actions';
 import { configureStore } from '../src/model/store';
-
+// TODO: Поправить отображение карточек
+// TODO: Сверстать страницу студии
 const Layout = dynamic(() =>
   import('../src/features/ui/components/Layout').then(
     module => module.Layout as any

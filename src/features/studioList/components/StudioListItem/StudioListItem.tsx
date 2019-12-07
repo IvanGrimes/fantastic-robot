@@ -54,7 +54,17 @@ const _StudioListItem = ({
                 list={config.interior}
               />
             </Grid>
-            <Rooms loading={loading} roomsCount={roomsCount} />
+            <Grid
+              item
+              xs={12}
+              css={`
+                && {
+                  margin-top: 4px;
+                }
+              `}
+            >
+              <Rooms loading={loading} roomsCount={roomsCount} />
+            </Grid>
           </Grid>
           <CardBottomGrid
             container
