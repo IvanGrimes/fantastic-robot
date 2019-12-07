@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import dynamic from 'next/dynamic';
-import Router, { useRouter } from 'next/router';
-import { NextPageContext } from 'next';
+import { useRouter } from 'next/router';
 import { RootState } from '../../model/types';
 import { ContentGrid, StudioListGrid } from './index.styles';
 import { StudioList } from '../../features/studioList/components';
@@ -31,43 +30,30 @@ const dispatchProps = {
   handleFetchStudios: fetchStudiosAsync.request,
 };
 
-const getInitialProps = async (ctx: NextPageContext) => {
-  const { query, res } = ctx;
-  const page = query.number as string;
-
-  if (page && Number.isNaN(parseInt(page as string, 10))) {
-    if (res) {
-      res.writeHead(302, {
-        Location: '/404',
-      });
-
-      res.end();
-    } else {
-      await Router.push('/404');
-    }
-  }
-  return {};
-};
-
 const _Index = ({
   hasFilters,
   studios,
   handleFetchStudios,
   isMapListEnabled,
 }: Props) => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const prevHasFilters = usePrevious(hasFilters);
-  const pageRef = useRef(
-    query.number ? parseInt(query.number as string, 10) : 1
-  );
+  const pageRef = useRef(query.number as string);
 
   useEffect(() => {
-    const page = pageRef.current;
+    const pageNumber = parseInt(pageRef.current, 10);
+    const isPageNumberNaN = Number.isNaN(pageNumber);
 
-    if (!hasFilters && !prevHasFilters && !studios.length) {
-      handleFetchStudios({ city: 'moscow', page });
+    if (pageNumber && isPageNumberNaN) {
+      push('/404');
     }
-  }, [handleFetchStudios, hasFilters, prevHasFilters, studios.length]);
+    if (!hasFilters && !prevHasFilters && !studios.length) {
+      handleFetchStudios({
+        city: 'moscow',
+        page: isPageNumberNaN ? 1 : pageNumber,
+      });
+    }
+  }, [handleFetchStudios, hasFilters, prevHasFilters, push, studios.length]);
 
   return (
     <ContentGrid container>
@@ -86,8 +72,6 @@ const _Index = ({
     </ContentGrid>
   );
 };
-
-_Index.getInitialProps = getInitialProps;
 
 export const Index = connect(
   mapStateToProps,

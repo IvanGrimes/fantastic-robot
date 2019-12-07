@@ -18,10 +18,7 @@ axiosClient.interceptors.request.use(config => {
   const nextConfig = config;
 
   if (nextConfig.url) {
-    nextConfig.url = `http://${nextConfig.baseURL}${nextConfig.url.replace(
-      '/api',
-      '/API/V1'
-    )}`;
+    nextConfig.url = nextConfig.url.replace('/api', '');
   }
 
   return nextConfig;

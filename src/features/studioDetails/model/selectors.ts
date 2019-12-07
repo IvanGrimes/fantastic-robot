@@ -21,8 +21,8 @@ export const getStudioRooms = createDeepEqualSelector(
 export const getStudioReservationsWithColor = createDeepEqualSelector(
   [getStudioReservations, getStudioRooms],
   (reservations, rooms) =>
-    Object.fromEntries(
-      Object.entries(reservations).map(([key, value]) => {
+    Object.entries(reservations)
+      .map(([key, value]) => {
         return [
           key,
           value.map(reservation => {
@@ -35,5 +35,5 @@ export const getStudioReservationsWithColor = createDeepEqualSelector(
           }),
         ];
       })
-    )
+      .reduce((acc, [key, value]) => ({ ...acc, [key.toString()]: value }), {})
 );
