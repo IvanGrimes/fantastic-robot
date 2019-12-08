@@ -18,6 +18,7 @@ import {
   fetchMetroListAsync,
 } from '../src/features/studioData/model/actions';
 import { configureStore } from '../src/model/store';
+import { botGuard } from '../src/lib/botGuard';
 
 // TODO: Сверстать страницу студии
 
@@ -32,13 +33,23 @@ type AppStore = Store<RootState>;
 export type NextPageContext = PageContext & { store: AppStore };
 
 // @ts-ignore
-class MyApp extends App<{ store: AppStore; statusCode?: number }> {
+class MyApp extends App<{
+  store: AppStore;
+  statusCode?: number;
+  isBot?: boolean;
+}> {
+  static fetchData(store: AppStore) {
+    store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
+    store.dispatch(fetchConfigAsync.request());
+  }
+
   static async getInitialProps({
     Component,
     ctx,
   }: AppContext & { ctx: { store: AppStore } }) {
     let pageProps = {};
-    const { store } = ctx;
+    const { req, store } = ctx;
+    const isBot = req && botGuard(req);
 
     if (Component.getInitialProps) {
       try {
@@ -51,9 +62,14 @@ class MyApp extends App<{ store: AppStore; statusCode?: number }> {
       }
     }
 
+    if (isBot) {
+      MyApp.fetchData(store);
+    }
+
     return {
       store,
       pageProps,
+      isBot,
     };
   }
 
@@ -65,16 +81,14 @@ class MyApp extends App<{ store: AppStore; statusCode?: number }> {
     }
   }
 
-  fetchData() {
-    const { store } = this.props;
-
-    store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
-    store.dispatch(fetchConfigAsync.request());
-  }
-
   componentDidMount() {
+    const { store, isBot } = this.props;
+
     MyApp.removeServerStyles();
-    this.fetchData();
+
+    if (!isBot) {
+      MyApp.fetchData(store);
+    }
   }
 
   render() {

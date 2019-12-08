@@ -78,15 +78,15 @@ const _Index = ({
   );
 };
 
-export const Index = withSEO(({ query }) => [
-  () =>
-    fetchStudiosAsync.request({
-      city: 'moscow',
-      page: parseInt(query.number as string, 10) || 1,
-    }),
-])(
-  connect(
-    mapStateToProps,
-    dispatchProps
-  )(_Index)
+export const Index = connect(
+  mapStateToProps,
+  dispatchProps
+)(
+  withSEO(({ query }) => [
+    () =>
+      fetchStudiosAsync.request({
+        city: 'moscow',
+        page: parseInt(query.number as string, 10) || 1,
+      }),
+  ])(_Index)
 );

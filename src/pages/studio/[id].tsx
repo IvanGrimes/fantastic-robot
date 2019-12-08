@@ -7,25 +7,30 @@ import {
   fetchReservationsAsync,
   fetchRoomsAsync,
 } from '../../features/studioDetails/model/actions';
+import { withSEO } from '../../lib/withSEO';
 
-type Props = typeof dispatchProps;
+type Props = typeof dispatchProps & { isBot: boolean };
 
 const dispatchProps = {
   handleFetchReservations: fetchReservationsAsync.request,
   handleFetchRooms: fetchRoomsAsync.request,
 };
 
-const _StudioId = ({ handleFetchReservations, handleFetchRooms }: Props) => {
+const _StudioId = ({
+  handleFetchReservations,
+  handleFetchRooms,
+  isBot,
+}: Props) => {
   const { query } = useRouter();
 
   useEffect(() => {
     const studioId = query.id;
 
-    if (typeof studioId === 'string') {
+    if (typeof studioId === 'string' && !isBot) {
       handleFetchReservations({ studioId });
       handleFetchRooms({ studioId });
     }
-  }, [handleFetchReservations, handleFetchRooms, query.id]);
+  }, [handleFetchReservations, handleFetchRooms, isBot, query.id]);
 
   return (
     <Wrapper>
@@ -37,4 +42,8 @@ const _StudioId = ({ handleFetchReservations, handleFetchRooms }: Props) => {
 export const StudioId = connect(
   null,
   dispatchProps
-)(_StudioId);
+)(
+  withSEO(({ query }) => [
+    () => fetchRoomsAsync.request({ studioId: query.id as string }),
+  ])(_StudioId)
+);
