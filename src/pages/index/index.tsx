@@ -12,6 +12,7 @@ import { getStudios } from '../../features/studioList/model/selectors';
 import { getHasFilters } from '../../features/studioFilters/model/selectors';
 import { usePrevious } from '../../hooks/usePrevious';
 import { featuresConfig } from '../../features/config';
+import { withSEO } from '../../lib/withSEO';
 
 const StudioListMap = dynamic<{}>(() =>
   import('../../features/studioListMap/components').then(
@@ -77,7 +78,15 @@ const _Index = ({
   );
 };
 
-export const Index = connect(
-  mapStateToProps,
-  dispatchProps
-)(_Index);
+export const Index = withSEO(({ query }) => [
+  () =>
+    fetchStudiosAsync.request({
+      city: 'moscow',
+      page: parseInt(query.number as string, 10) || 1,
+    }),
+])(
+  connect(
+    mapStateToProps,
+    dispatchProps
+  )(_Index)
+);
