@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import Link from 'next/link';
 import { StudioListItemProps } from './index';
 import { Card, CardBottomGrid, CardContent } from './StudioListItem.styles';
-import { Photos } from './Photo';
+import { Photos } from './Photos';
 import { Title } from './Title';
 import { Types } from './Types';
 import { Rooms } from './Rooms';

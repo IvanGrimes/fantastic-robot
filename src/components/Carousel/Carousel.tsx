@@ -5,11 +5,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { CarouselStyles } from './Carousel.styles';
 
-const _Carousel = ({ children }: CarouselProps) => {
+const _Carousel = ({ className = '', children }: CarouselProps) => {
   return (
     <Fragment>
       <CarouselStyles />
-      <Slick speed={500} slidesToShow={1} slidesToScroll={1} dots>
+      <Slick
+        className={className}
+        speed={500}
+        slidesToShow={1}
+        slidesToScroll={1}
+        dots
+      >
         {children}
       </Slick>
     </Fragment>

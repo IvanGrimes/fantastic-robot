@@ -1,5 +1,8 @@
 import { RootState } from '@model/types';
 import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
+import { createRequestLoadingSelector } from '@model/api/loading/selectors';
+import { fetchInformationAsync } from '@modules/studio/features/details/model/actions';
+import { getType } from 'typesafe-actions';
 
 const getState = (state: RootState) => state.studio.details;
 
@@ -37,3 +40,12 @@ export const getReservationsWithColor = createDeepEqualSelector(
       })
       .reduce((acc, [key, value]) => ({ ...acc, [key.toString()]: value }), {})
 );
+
+export const getInformation = createDeepEqualSelector(
+  [getState],
+  state => state.information
+);
+
+export const getInformationLoading = createRequestLoadingSelector([
+  getType(fetchInformationAsync.request),
+]);

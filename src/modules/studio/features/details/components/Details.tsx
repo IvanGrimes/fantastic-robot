@@ -1,19 +1,26 @@
 import React, { memo } from 'react';
 import { Container } from '@components/Container';
-import { Hero } from './Hero';
+import { Hero, HeroProps } from './Hero';
 import { Information } from './Information';
 import { RoomList } from './RoomList';
 import { Schedule, ScheduleProps } from './Schedule';
 
-type Props = ScheduleProps;
+type Props = HeroProps & ScheduleProps;
 
-const _Details = ({ workHours, reservations }: Props) => (
-  <Container>
-    <Hero />
-    <Information />
-    <RoomList />
-    <Schedule workHours={workHours} reservations={reservations} />
-  </Container>
+const _Details = ({
+  isPhotosLoading,
+  photoIds,
+  workHours,
+  reservations,
+}: Props) => (
+  <>
+    <Hero isPhotosLoading={isPhotosLoading} photoIds={photoIds} />
+    <Container>
+      <Information />
+      <RoomList />
+      <Schedule workHours={workHours} reservations={reservations} />
+    </Container>
+  </>
 );
 
 export const Details = memo(_Details);

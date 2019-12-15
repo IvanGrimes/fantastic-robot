@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,7 +6,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Content = styled.div`
-  display: flex;
-  min-height: 100vh;
+export const Content = styled.div<{ withBar: boolean }>`
+  ${({ withBar }) => css`
+    display: flex;
+    min-height: 100vh;
+    margin-top: ${withBar ? 128 : 64}px;
+  `};
 `;

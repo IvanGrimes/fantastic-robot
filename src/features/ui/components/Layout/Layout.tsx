@@ -11,7 +11,7 @@ export type LayoutProps = {
 const _Layout = ({ children, withBar = false }: LayoutProps) => (
   <Wrapper id="#layout">
     <Header withBar={withBar} />
-    <Content>{children}</Content>
+    <Content withBar={withBar}>{children}</Content>
     <BottomNavigation />
   </Wrapper>
 );

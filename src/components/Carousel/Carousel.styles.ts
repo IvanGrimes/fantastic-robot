@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const CarouselStyles = createGlobalStyle`
+  .slick-slider {
+    width: 100%;
+  }
   .slick-dots {
     bottom: 8px;
   }
