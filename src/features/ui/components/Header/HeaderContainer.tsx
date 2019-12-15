@@ -7,8 +7,11 @@ import { getFilters } from '@modules/studio/features/filters/model/selectors';
 import { getIsHeaderVisible } from '../../model/selectors';
 import { setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
+import { HeaderProps } from './index';
 
-type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+type StoreProps = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+
+type Props = HeaderProps & StoreProps;
 
 const mapStateToProps = (state: RootState) => ({
   isHeaderVisible: getIsHeaderVisible(state),
@@ -25,6 +28,7 @@ const _HeaderContainer = ({
   isHeaderVisible,
   handleSetFilters,
   nameFilter,
+  withBar,
 }: Props) => {
   const handleSearch = useCallback(
     (value: string) => handleSetFilters({ name: value }),
@@ -37,6 +41,7 @@ const _HeaderContainer = ({
       isHeaderVisible={isHeaderVisible}
       searchValue={nameFilter}
       handleSearch={handleSearch}
+      showBar={withBar}
     />
   );
 };

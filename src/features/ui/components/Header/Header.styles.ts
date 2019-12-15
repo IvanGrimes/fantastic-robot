@@ -1,14 +1,11 @@
 import {
-  Grid,
   Toolbar as DefaultToolbar,
   AppBar as DefaultAppBar,
 } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 import { ComponentType } from 'react';
 import { ToolbarProps } from '@material-ui/core/Toolbar';
-import { GridProps } from '@material-ui/core/Grid';
 import { AppBarProps } from '@material-ui/core/AppBar';
-import { getBreakpoints } from '@theme/index';
 
 export const Wrapper = styled.div<{ isHeaderVisible: boolean }>`
   ${({ isHeaderVisible }) => css`
@@ -34,18 +31,4 @@ export const Toolbar = styled<ComponentType<ToolbarProps>>(DefaultToolbar)`
     padding: 0;
     height: 64px;
   }
-`;
-
-export const MenuGrid = styled<ComponentType<GridProps>>(Grid)`
-  ${props => {
-    const { down } = getBreakpoints(props);
-
-    return css`
-      && {
-        ${down('sm')} {
-          display: none;
-        }
-      }
-    `;
-  }}
 `;

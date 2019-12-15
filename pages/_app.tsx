@@ -8,7 +8,7 @@ import { Store } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import withSaga from 'next-redux-saga';
 import { NextPageContext as PageContext } from 'next';
-import { GlobalStyles, Layout } from '@features/ui';
+import { GlobalStyles } from '@features/ui';
 import { SEO } from '@components/SEO';
 import * as studio from '@modules/studio';
 import { botGuard } from '@lib/botGuard';
@@ -94,9 +94,7 @@ class MyApp extends App<{
           <SEO />
           <MuiThemeProvider theme={theme}>
             <ThemeProvider theme={theme}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <Component {...pageProps} />
             </ThemeProvider>
           </MuiThemeProvider>
         </React.Fragment>

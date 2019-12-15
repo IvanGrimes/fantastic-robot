@@ -1,43 +1,22 @@
 import React, { memo } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import dequal from 'dequal';
-import { Link } from '@components/Link';
 import { Container } from '@components/Container';
 import { Hidden } from '@components/Hidden';
-import { ClearableInput } from '@components/ClearableInput';
-import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { useHideOnScroll } from '../../hooks';
 import { HeaderBar } from './HeaderBar';
-import { Toolbar, Wrapper, AppBar, MenuGrid } from './Header.styles';
+import { Toolbar, Wrapper, AppBar } from './Header.styles';
 import { FullscreenMapButton } from './FullscreenMapButton';
-
-const menuData = [
-  {
-    id: '1',
-    name: 'Main',
-    link: '#',
-  },
-  {
-    id: '2',
-    name: 'Link',
-    link: '#',
-  },
-  {
-    id: '3',
-    name: 'Link',
-    link: '#',
-  },
-  {
-    id: '4',
-    name: 'Link',
-    link: '#',
-  },
-];
+import { Logo } from './Logo';
+import { Search } from './Search';
+import { Menu } from './Menu';
 
 type Props = {
   isHeaderVisible: boolean;
   handleSetHeaderVisibility: (visibility: boolean) => void;
   searchValue: string;
   handleSearch: (value: string) => void;
+  showBar: boolean;
 };
 
 const _Header = ({
@@ -45,6 +24,7 @@ const _Header = ({
   handleSetHeaderVisibility,
   searchValue,
   handleSearch,
+  showBar,
 }: Props) => {
   useHideOnScroll({
     isVisible: isHeaderVisible,
@@ -59,57 +39,15 @@ const _Header = ({
             <Container fluid>
               <Toolbar>
                 <Grid container justify="space-between" alignItems="center">
-                  <Grid container item xs={9} md={7} alignItems="center">
+                  <Grid container item xs={12} md={7} alignItems="center">
                     <Grid item>
-                      <Hidden xsDown>
-                        <Typography
-                          variant="h5"
-                          component="span"
-                          style={{ marginRight: '16px' }}
-                        >
-                          CodeName
-                        </Typography>
-                      </Hidden>
+                      <Logo />
                     </Grid>
-                    <Grid item xs={10} sm={8} md={7}>
-                      <ClearableInput
-                        variant="filled"
-                        InputLabelProps={{ style: { display: 'none' } }}
-                        InputProps={{
-                          inputProps: {
-                            style: {
-                              padding: '10px',
-                              color: '#fff',
-                            },
-                          },
-                        }}
-                        onChange={handleSearch}
-                        value={searchValue}
-                        placeholder="Поиск по названию"
-                        debounce={{ wait: 500 }}
-                      />
+                    <Grid item xs={9} sm={8} md={7}>
+                      <Search onChange={handleSearch} value={searchValue} />
                     </Grid>
                   </Grid>
-                  <MenuGrid item container component="nav" md={5}>
-                    <Grid
-                      item
-                      container
-                      component="ul"
-                      spacing={6}
-                      justify="flex-end"
-                    >
-                      {menuData.map(({ id, link, name }) => (
-                        <Grid key={id} item component="li">
-                          <Link
-                            href={link}
-                            MaterialLinkProps={{ color: 'inherit' }}
-                          >
-                            {name}
-                          </Link>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </MenuGrid>
+                  <Menu />
                   <Hidden mdUp>
                     <FullscreenMapButton />
                   </Hidden>
@@ -118,9 +56,7 @@ const _Header = ({
             </Container>
           </AppBar>
         </Grid>
-        <Grid container>
-          <HeaderBar />
-        </Grid>
+        <Grid container>{showBar && <HeaderBar />}</Grid>
       </Grid>
     </Wrapper>
   );

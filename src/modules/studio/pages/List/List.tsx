@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { usePrevious } from '@hooks/usePrevious';
 import { RootState } from '@model/types';
 import { withSEO } from '@HOC/withSEO';
+import { Layout } from '@features/ui';
 import * as listMap from '../../features/list-map';
 import { ContentGrid, StudioListGrid } from './List.styles';
 import * as list from '../../features/list';
@@ -52,20 +53,22 @@ const _List = ({
   }, [handleFetchStudios, hasFilters, prevHasFilters, push, studios.length]);
 
   return (
-    <ContentGrid container>
-      <StudioListGrid
-        item
-        xs={12}
-        md={12}
-        lg={6}
-        isMapListEnabled={mapListEnabled}
-      >
-        <ListComponent listItemVariant={mapListEnabled ? 'wide' : 'short'} />
-      </StudioListGrid>
-      <Grid item xs={12} lg={6}>
-        <ListMap />
-      </Grid>
-    </ContentGrid>
+    <Layout withBar>
+      <ContentGrid container>
+        <StudioListGrid
+          item
+          xs={12}
+          md={12}
+          lg={6}
+          isMapListEnabled={mapListEnabled}
+        >
+          <ListComponent listItemVariant={mapListEnabled ? 'wide' : 'short'} />
+        </StudioListGrid>
+        <Grid item xs={12} lg={6}>
+          <ListMap />
+        </Grid>
+      </ContentGrid>
+    </Layout>
   );
 };
 

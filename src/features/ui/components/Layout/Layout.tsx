@@ -1,12 +1,16 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import { LayoutProps } from './index';
 import { Wrapper, Content } from './Layout.styles';
 import { BottomNavigation } from '../BottomNavigation';
-import { Header } from '../Header';
+import { Header, HeaderProps } from '../Header';
 
-const _Layout = ({ children }: LayoutProps) => (
+export type LayoutProps = {
+  children: ReactNode | ReactNode[];
+} & Partial<HeaderProps>;
+
+const _Layout = ({ children, withBar = false }: LayoutProps) => (
   <Wrapper id="#layout">
-    <Header />
+    <Header withBar={withBar} />
     <Content>{children}</Content>
     <BottomNavigation />
   </Wrapper>
