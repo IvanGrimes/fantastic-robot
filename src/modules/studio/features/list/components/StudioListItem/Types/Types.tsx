@@ -17,7 +17,7 @@ const _StudioListItemTypes = ({
 }: StudioListItemTypesProps) => {
   const interiorList = useMemo(
     () =>
-      list ? mergeIdWithConfig<typeof list[number]>(interiorIds, list) : {},
+      list ? mergeIdWithConfig<typeof list[number]>(interiorIds, list) : [],
     [interiorIds, list]
   );
 
@@ -28,8 +28,7 @@ const _StudioListItemTypes = ({
   return (
     <Grid container>
       <Typography component="span" variant="caption">
-        {interiorIds &&
-          interiorIds.map(id => interiorList[id].value).join(', ')}
+        {interiorList.map(({ value }) => value).join(', ')}
       </Typography>
     </Grid>
   );

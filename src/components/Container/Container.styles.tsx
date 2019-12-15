@@ -4,12 +4,33 @@ import { Container as DefaultContainer } from '@material-ui/core';
 import { ContainerProps } from '@material-ui/core/Container';
 
 export const Container = styled<
-  ComponentType<ContainerProps & { fluid?: boolean }>
->(({ fluid, ...props }) => <DefaultContainer {...props} />)`
-  ${({ fluid = false }) => css`
+  ComponentType<
+    ContainerProps & { variant?: 'fluid' | 'primary' | 'secondary' }
+  >
+>(({ variant, ...props }) => <DefaultContainer {...props} />)`
+  ${({ variant = 'fluid' }) => css`
     && {
       width: 100%;
-      max-width: ${fluid ? '100%' : '1440px'};
+      ${() => {
+        switch (variant) {
+          case 'fluid':
+            return css`
+              max-width: 100%;
+            `;
+          case 'primary':
+            return css`
+              max-width: 1440px;
+            `;
+          case 'secondary':
+            return css`
+              max-width: 1080px;
+            `;
+          default:
+            return css`
+              max-width: 100%;
+            `;
+        }
+      }};
     }
-  `}
+  `};
 `;

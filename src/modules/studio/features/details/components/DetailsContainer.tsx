@@ -1,6 +1,10 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '@model/types';
+import {
+  getConfig,
+  getMetroList,
+} from '@modules/studio/features/data/model/selectors';
 import { Details } from './Details';
 import {
   getInformation,
@@ -19,18 +23,31 @@ const mapStateToProps = (state: RootState) => ({
   reservations: getReservationsWithColor(state),
   workHours: getWorkHours(state),
   information: getInformation(state),
+  metroList: getMetroList(state),
+  config: getConfig(state),
 });
 
 const _DetailsContainer = ({
   isInformationLoading,
+  isConfigLoading,
+  isMetroListLoading,
   information,
+  metroList,
+  config,
   workHours,
   reservations,
 }: Props) => {
+  const { photoIds, ...restInformation } = information;
+
   return (
     <Details
-      isPhotosLoading={isInformationLoading}
-      photoIds={information.photoIds}
+      isLoading={isInformationLoading}
+      isConfigLoading={isConfigLoading}
+      isMetroListLoading={isMetroListLoading}
+      information={restInformation}
+      metroList={metroList}
+      config={config}
+      photoIds={photoIds}
       workHours={workHours}
       reservations={reservations}
     />

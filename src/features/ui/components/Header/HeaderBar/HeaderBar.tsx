@@ -8,7 +8,7 @@ import { ListMapSwitch } from './ListMapSwitch';
 const _HeaderBar = () => (
   <Grid container>
     <BarWrapper>
-      <Container fluid>
+      <Container variant="fluid">
         <Grid container alignItems="center" justify="space-between">
           <Grid item>
             <ListFilter />

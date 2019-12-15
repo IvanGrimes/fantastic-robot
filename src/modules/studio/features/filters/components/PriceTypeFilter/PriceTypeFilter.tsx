@@ -33,7 +33,7 @@ const _StudioListFilterPriceSegment = ({
     () =>
       list.map(segment => ({
         id: segment.toString(),
-        value: getPriceType(segment).join(''),
+        value: getPriceType(segment),
       })),
     [list]
   );

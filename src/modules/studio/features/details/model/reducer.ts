@@ -37,6 +37,7 @@ const initialState: DetailsState = {
     description: '',
     hasOnlinePayment: false,
     cityId: '',
+    priceType: '1',
     dressingRoom: {
       has: false,
       calendarId: null,

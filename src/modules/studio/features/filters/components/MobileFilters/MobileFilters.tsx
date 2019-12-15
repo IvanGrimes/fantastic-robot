@@ -58,7 +58,7 @@ const _StudioListFilterMobile = ({
         <Wrapper className={className} isVisible={isVisible}>
           <Grid container>
             <BarWrapper>
-              <Container>
+              <Container variant="primary">
                 <Grid container justify="space-between" alignItems="center">
                   <GridWithMargin item>
                     <IconButton onClick={handleToggleVisibility}>
@@ -79,7 +79,7 @@ const _StudioListFilterMobile = ({
               </Container>
             </BarWrapper>
           </Grid>
-          <Container>
+          <Container variant="primary">
             <FilterGrid container>
               <SearchFilter />
               <StudioListFilterStation isClearable={false} />

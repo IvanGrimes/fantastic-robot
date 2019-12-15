@@ -61,7 +61,7 @@ const _List = ({
         }}
         hasMore={hasNext && !isMapListFullscreen}
       >
-        <Container>
+        <Container variant="primary">
           <ListGrid
             className={className}
             component="ul"

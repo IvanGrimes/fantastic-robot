@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import { ComponentType } from 'react';
 import { floatToFraction } from '@utils/floatToFraction';
-import {
-  Loader as DefaultLoader,
-  LoaderProps,
-} from '@components/Loader';
+import { Loader as DefaultLoader, LoaderProps } from '@components/Loader';
 
 export const Wrapper = styled.div`
   && {

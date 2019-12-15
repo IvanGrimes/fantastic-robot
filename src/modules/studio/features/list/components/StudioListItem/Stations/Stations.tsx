@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import dequal from 'dequal';
-import { Station } from './Stations.styles';
+import { Station } from '@components/Station';
 import { mergeIdWithConfig } from '../../../utils/mergeIdWithConfig';
 import { StudioListItemProps } from '../index';
 import { DataState } from '../../../../data/model/reducer';
@@ -19,7 +19,7 @@ const _StudioListItemStations = ({
 }: StudioListItemStationsProps) => {
   const stations = useMemo(
     () =>
-      list ? mergeIdWithConfig<typeof list[number]>(stationIds, list) : {},
+      list ? mergeIdWithConfig<typeof list[number]>(stationIds, list) : [],
     [list, stationIds]
   );
 
@@ -29,16 +29,11 @@ const _StudioListItemStations = ({
 
   return (
     <Grid container component="ul" alignItems="center" spacing={1}>
-      {stationIds &&
-        stationIds.map(id => (
-          <Grid component="li" key={id} item xs={12}>
-            <Station color={stations[id].color}>
-              <Typography component="span" variant="caption">
-                {stations[id].value}
-              </Typography>
-            </Station>
-          </Grid>
-        ))}
+      {stations.map(({ id, color, value }) => (
+        <Grid component="li" key={id} item xs={12}>
+          <Station color={color} value={value} />
+        </Grid>
+      ))}
     </Grid>
   );
 };

@@ -7,8 +7,9 @@ import {
 import { ComponentType } from 'react';
 
 export const Wrapper = styled.div`
-  position: relative;
+  display: flex;
   width: 100%;
+  max-height: 500px;
   overflow: hidden;
 `;
 
