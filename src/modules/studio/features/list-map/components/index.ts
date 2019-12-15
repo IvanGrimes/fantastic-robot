@@ -1,8 +1,6 @@
 import dynamic from 'next/dynamic';
-import { StudioListMapProps } from './StudioListMapContainer';
+import { ListMapProps } from './ListMapContainer';
 
-export const StudioListMap = dynamic<StudioListMapProps>(() =>
-  import('./StudioListMapContainer').then(
-    module => module.StudioListMapContainer
-  )
+export const ListMap = dynamic<ListMapProps>(() =>
+  import('./ListMapContainer').then(module => module.ListMapContainer)
 );

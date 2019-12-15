@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '@model/types';
-import { StudioDetails } from './StudioDetails';
+import { Details } from './Details';
 import {
   getStudioReservationsWithColor,
   getStudioWorkHours,
@@ -14,10 +14,10 @@ const mapStateToProps = (state: RootState) => ({
   workHours: getStudioWorkHours(state),
 });
 
-const _StudioDetailsContainer = ({ workHours, reservations }: Props) => {
-  return <StudioDetails workHours={workHours} reservations={reservations} />;
+const _DetailsContainer = ({ workHours, reservations }: Props) => {
+  return <Details workHours={workHours} reservations={reservations} />;
 };
 
-export const StudioDetailsContainer = connect(mapStateToProps)(
-  memo(_StudioDetailsContainer)
+export const DetailsContainer = connect(mapStateToProps)(
+  memo(_DetailsContainer)
 );

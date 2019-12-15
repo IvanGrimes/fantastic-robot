@@ -30,7 +30,7 @@ function* fetchRoomsFlow(action: ReturnType<typeof fetchRoomsAsync.request>) {
   }
 }
 
-export const studioDetailsSaga = [
+export const saga = [
   takeLatest(getType(fetchReservationsAsync.request), fetchReservationsFlow),
   takeLatest(getType(fetchRoomsAsync.request), fetchRoomsFlow),
 ];

@@ -10,9 +10,9 @@ import { Theme } from '@theme/types';
 import * as list from '../../list';
 import { setFullscreen } from '../model/actions';
 import { getIsFullscreen } from '../model/selectors';
-import { StudioListMap } from './StudioListMap';
+import { ListMap } from './ListMap';
 
-export type StudioListMapProps = {};
+export type ListMapProps = {};
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -26,7 +26,7 @@ const dispatchProps = {
   handleSetFullscreenMap: setFullscreen,
 };
 
-const _StudioListMapContainer = ({
+const _ListMapContainer = ({
   isMapListFullscreen,
   handleSetFullscreenMap,
   isHeaderVisible,
@@ -89,7 +89,7 @@ const _StudioListMapContainer = ({
   ]);
 
   return (
-    <StudioListMap
+    <ListMap
       isMapListFullscreen={isMapListFullscreen}
       handleFullscreenMapOn={handleFullscreenMapOn}
       handleFullscreenMapOff={handleFullscreenMapOff}
@@ -99,7 +99,7 @@ const _StudioListMapContainer = ({
   );
 };
 
-export const StudioListMapContainer = connect(
+export const ListMapContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioListMapContainer, dequal));
+)(memo(_ListMapContainer, dequal));

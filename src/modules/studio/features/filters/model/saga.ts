@@ -13,6 +13,4 @@ function* setFiltersFlow() {
   );
 }
 
-export const studioFiltersSaga = [
-  takeLatest(getType(setFilters), setFiltersFlow),
-];
+export const saga = [takeLatest(getType(setFilters), setFiltersFlow)];

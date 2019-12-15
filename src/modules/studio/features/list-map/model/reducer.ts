@@ -14,7 +14,7 @@ const initialState: StudioMapListState = {
   preview: null,
 };
 
-export const studioMapListReducer = createReducer(initialState)
+export const reducer = createReducer(initialState)
   .handleAction(setIsEnable, (state, { payload: { isEnabled } }) => ({
     ...state,
     isEnabled,

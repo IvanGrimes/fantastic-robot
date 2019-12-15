@@ -1,11 +1,11 @@
 import * as actions from './model/actions';
 import * as selectors from './model/selectors';
-import { StudioListMap as DefaultStudioListMap } from './components';
+import { ListMap as DefaultListMap } from './components';
 
 const enabled = false;
 
-export { studioMapListReducer } from './model/reducer';
+export { reducer } from './model/reducer';
 
 export { enabled, actions, selectors };
 
-export const StudioListMap = enabled ? DefaultStudioListMap : () => null;
+export const ListMap = enabled ? DefaultListMap : () => null;

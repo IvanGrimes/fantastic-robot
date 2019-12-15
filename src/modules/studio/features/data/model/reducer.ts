@@ -17,7 +17,7 @@ const initialState: DataState = {
   },
 };
 
-export const dataReducer = createReducer(initialState)
+export const reducer = createReducer(initialState)
   .handleAction(fetchMetroListAsync.success, (state, { payload }) => ({
     ...state,
     metroList: payload.list

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
+import { withSEO } from '@HOC/withSEO';
 import { Wrapper } from './Details.styles';
-import { StudioDetails } from '../../features/details/components';
+import { Details as DetailsComponent } from '../../features/details';
 import {
   fetchReservationsAsync,
   fetchRoomsAsync,
 } from '../../features/details/model/actions';
-import { withSEO } from '../../../../HOC/withSEO';
 
 type Props = typeof dispatchProps & { isBot: boolean };
 
@@ -34,7 +34,7 @@ const _Details = ({
 
   return (
     <Wrapper>
-      <StudioDetails />
+      <DetailsComponent />
     </Wrapper>
   );
 };

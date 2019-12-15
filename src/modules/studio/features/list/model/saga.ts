@@ -64,7 +64,7 @@ function* fetchFilterStudiosFlow(
   }
 }
 
-export const studioListSaga = [
+export const saga = [
   takeLatest(getType(fetchStudiosAsync.request), fetchStudiosFlow),
   takeLatest(getType(fetchFilterStudiosAsync.request), fetchFilterStudiosFlow),
 ];

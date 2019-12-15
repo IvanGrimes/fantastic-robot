@@ -1,8 +1,8 @@
 import { StudioListItemVariant } from './StudioListItem';
 
-export type StudioListProps = {
+export type ListProps = {
   className?: string;
   listItemVariant: StudioListItemVariant;
 };
 
-export { StudioListContainer as StudioList } from './StudioListContainer';
+export { ListContainer as List } from './ListContainer';

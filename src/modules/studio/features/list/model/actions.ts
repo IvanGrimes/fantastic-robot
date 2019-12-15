@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { Await } from '@utils/Await';
-import { StudioListState } from './reducer';
+import { ListState } from './reducer';
 import {
   fetchFilterStudios,
   fetchStudios,
@@ -22,7 +22,7 @@ export const fetchFilterStudiosAsync = createAsyncAction(
 )<
   Pick<FilterStudiosInput, 'city'> &
     Pick<FilterStudiosInput, 'page'> &
-    Pick<StudioListState, 'updateStrategy'>,
+    Pick<ListState, 'updateStrategy'>,
   Await<ReturnType<typeof fetchFilterStudios>>,
   any
 >();

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { RootState } from '@model/types';
-import { StudioList } from './StudioList';
-import { StudioListProps } from './index';
+import { List } from './List';
+import { ListProps } from './index';
 import { fetchStudiosAsync } from '../model/actions';
 import {
   getHasNext,
@@ -17,9 +17,9 @@ import {
 import * as listMap from '../../list-map';
 import * as filters from '../../filters';
 
-type StudioListContainerProps = ReturnType<typeof mapStateToProps> &
+type ListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
-  StudioListProps;
+  ListProps;
 
 const mapStateToProps = (state: RootState) => ({
   studios: getStudios(state),
@@ -36,7 +36,7 @@ const dispatchProps = {
   handleFetchStudio: fetchStudiosAsync.request,
 };
 
-const _StudioListContainer = ({
+const _ListContainer = ({
   className = '',
   studios,
   errors,
@@ -48,7 +48,7 @@ const _StudioListContainer = ({
   isMapListFullscreen,
   hasNext,
   hasFilters,
-}: StudioListContainerProps) => {
+}: ListContainerProps) => {
   const { query } = useRouter();
   const pageNumber = useMemo(
     () => (query.number ? parseInt(query.number as string, 10) : 1),
@@ -73,7 +73,7 @@ const _StudioListContainer = ({
           <link rel="next" href="/page/2" />
         )}
       </Head>
-      <StudioList
+      <List
         className={className}
         list={studios}
         error={errors.networkError}
@@ -88,7 +88,7 @@ const _StudioListContainer = ({
   );
 };
 
-export const StudioListContainer = connect(
+export const ListContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioListContainer, dequal));
+)(memo(_ListContainer, dequal));

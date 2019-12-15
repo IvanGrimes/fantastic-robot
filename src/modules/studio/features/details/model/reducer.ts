@@ -1,10 +1,10 @@
 import { createReducer } from 'typesafe-actions';
 import { getTime, setHours, setMinutes } from 'date-fns';
+import { getDateRange } from '@utils/getDateRange';
 import { fetchReservationsAsync, fetchRoomsAsync } from './actions';
-import { getDateRange } from '../../../../../utils/getDateRange';
 import { RoomsResponse } from './services/fetchRooms';
 
-export type StudioDetailsState = {
+export type DetailsState = {
   workHours: { [key: string]: { from: number; to: number } };
   reservations: {
     [key: string]: {
@@ -17,7 +17,7 @@ export type StudioDetailsState = {
   })[];
 };
 
-const initialState: StudioDetailsState = {
+const initialState: DetailsState = {
   workHours: {},
   reservations: {},
   rooms: [],
@@ -36,12 +36,11 @@ const roomColors = [
   '#344563',
 ];
 
-export const studioDetailsReducer = createReducer(initialState)
+export const reducer = createReducer(initialState)
   .handleAction(fetchReservationsAsync.success, (state, { payload }) => ({
     ...state,
     ...payload.reduce<
-      Pick<StudioDetailsState, 'workHours'> &
-        Pick<StudioDetailsState, 'reservations'>
+      Pick<DetailsState, 'workHours'> & Pick<DetailsState, 'reservations'>
     >(
       (acc, { year, month, day, reservations, openTime, closeTime }) => {
         const today = new Date(year, month - 1, day);

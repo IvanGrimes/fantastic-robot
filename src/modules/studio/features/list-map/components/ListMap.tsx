@@ -23,7 +23,7 @@ type Props = {
   studios: StudioItem[];
 };
 
-const _StudioListMap = ({
+const _ListMap = ({
   isMapListFullscreen,
   handleFullscreenMapOn,
   handleFullscreenMapOff,
@@ -77,4 +77,4 @@ const _StudioListMap = ({
   );
 };
 
-export const StudioListMap = memo(_StudioListMap, dequal);
+export const ListMap = memo(_ListMap, dequal);

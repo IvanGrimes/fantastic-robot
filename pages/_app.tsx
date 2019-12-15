@@ -1,7 +1,6 @@
 import React from 'react';
 import App, { AppContext } from 'next/app';
 import { CssBaseline } from '@material-ui/core';
-import dynamic from 'next/dynamic';
 import { ThemeProvider } from 'styled-components';
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider';
 import { Provider } from 'react-redux';
@@ -9,24 +8,15 @@ import { Store } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import withSaga from 'next-redux-saga';
 import { NextPageContext as PageContext } from 'next';
-import { GlobalStyles } from '@features/ui';
+import { GlobalStyles, Layout } from '@features/ui';
 import { SEO } from '@components/SEO';
-import {
-  fetchConfigAsync,
-  fetchMetroListAsync,
-} from '@modules/studio/features/data/model/actions';
+import * as studio from '@modules/studio';
 import { botGuard } from '@lib/botGuard';
 import { theme } from '@theme/index';
 import { RootState } from '@model/types';
 import { configureStore } from '@model/store';
 
 // TODO: Сверстать страницу студии
-
-const Layout = dynamic(() =>
-  import('../src/features/ui/components/Layout').then(
-    module => module.Layout as any
-  )
-);
 
 type AppStore = Store<RootState>;
 
@@ -39,8 +29,10 @@ class MyApp extends App<{
   isBot?: boolean;
 }> {
   static fetchData(store: AppStore) {
-    store.dispatch(fetchMetroListAsync.request({ city: 'moscow' }));
-    store.dispatch(fetchConfigAsync.request());
+    store.dispatch(
+      studio.data.actions.fetchMetroListAsync.request({ city: 'moscow' })
+    );
+    store.dispatch(studio.data.actions.fetchConfigAsync.request());
   }
 
   static async getInitialProps({

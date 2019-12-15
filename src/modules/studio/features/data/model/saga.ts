@@ -30,7 +30,7 @@ export function* fetchConfigFlow() {
   }
 }
 
-export const dataSaga = [
+export const saga = [
   takeLatest(getType(fetchMetroListAsync.request), fetchMetroListFlow),
   takeLatest(getType(fetchConfigAsync.request), fetchConfigFlow),
 ];

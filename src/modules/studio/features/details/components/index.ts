@@ -1,1 +1,1 @@
-export { StudioDetailsContainer as StudioDetails } from './StudioDetailsContainer';
+export { DetailsContainer as Details } from './DetailsContainer';

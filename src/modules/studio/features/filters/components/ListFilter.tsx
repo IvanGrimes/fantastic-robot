@@ -10,7 +10,7 @@ export type StudioListFilterProps = {
   isLoading: boolean;
 };
 
-const _StudioListFilter = ({
+const _ListFilter = ({
   className,
   handleClearFilters,
   isLoading,
@@ -29,4 +29,4 @@ const _StudioListFilter = ({
   </Fragment>
 );
 
-export const StudioListFilter = memo(_StudioListFilter, dequal);
+export const ListFilter = memo(_ListFilter, dequal);

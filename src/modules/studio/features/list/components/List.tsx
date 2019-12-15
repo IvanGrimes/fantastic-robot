@@ -9,7 +9,7 @@ import {
   ListItemGrid,
   InfiniteScroll,
   InfiniteScrollLoader,
-} from './StudioList.styles';
+} from './List.styles';
 import { StudioItem } from '../model/types';
 
 type Props = {
@@ -24,7 +24,7 @@ type Props = {
   hasNext: boolean;
 };
 
-const _StudioList = ({
+const _List = ({
   className,
   error,
   list,
@@ -94,4 +94,4 @@ const _StudioList = ({
   );
 };
 
-export const StudioList = memo(_StudioList, dequal);
+export const List = memo(_List, dequal);

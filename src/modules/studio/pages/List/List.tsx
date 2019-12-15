@@ -10,8 +10,8 @@ import { ContentGrid, StudioListGrid } from './List.styles';
 import * as list from '../../features/list';
 import * as filters from '../../features/filters';
 
-const { StudioListMap } = listMap;
-const { StudioList } = list;
+const { ListMap } = listMap;
+const { List: ListComponent } = list;
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
@@ -25,7 +25,7 @@ const dispatchProps = {
   handleFetchStudios: list.actions.fetchStudiosAsync.request,
 };
 
-const _Index = ({
+const _List = ({
   hasFilters,
   studios,
   handleFetchStudios,
@@ -60,10 +60,10 @@ const _Index = ({
         lg={6}
         isMapListEnabled={mapListEnabled}
       >
-        <StudioList listItemVariant={mapListEnabled ? 'wide' : 'short'} />
+        <ListComponent listItemVariant={mapListEnabled ? 'wide' : 'short'} />
       </StudioListGrid>
       <Grid item xs={12} lg={6}>
-        <StudioListMap />
+        <ListMap />
       </Grid>
     </ContentGrid>
   );
@@ -79,5 +79,5 @@ export const List = connect(
         city: 'moscow',
         page: parseInt(query.number as string, 10) || 1,
       }),
-  ])(_Index)
+  ])(_List)
 );

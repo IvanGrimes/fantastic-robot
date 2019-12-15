@@ -3,11 +3,11 @@ import { fetchFilterStudiosAsync, fetchStudiosAsync } from './actions';
 import { StudiosResponse } from './services';
 import { Studios } from './types';
 
-export type StudioListState = Studios & {
+export type ListState = Studios & {
   updateStrategy: 'merge' | 'replace';
 };
 
-const initialState: StudioListState = {
+const initialState: ListState = {
   studios: [],
   hasNext: false,
   updateStrategy: 'merge',
@@ -19,7 +19,7 @@ const mapStudios = (studios: StudiosResponse['studios']) =>
     ...studio,
   }));
 
-export const studioListReducer = createReducer(initialState)
+export const reducer = createReducer(initialState)
   .handleAction(fetchStudiosAsync.success, (state, { payload }) => ({
     ...state,
     studios: [...state.studios, ...mapStudios(payload.studios)],

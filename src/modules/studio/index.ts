@@ -9,19 +9,14 @@ import * as pages from './pages';
 export * from './model/types';
 
 const reducer = combineReducers({
-  data: data.dataReducer,
-  details: details.studioDetailsReducer,
-  filters: filters.studioFiltersReducer,
-  list: list.studioListReducer,
-  listMap: listMap.studioMapListReducer,
+  data: data.reducer,
+  details: details.reducer,
+  filters: filters.reducer,
+  list: list.reducer,
+  listMap: listMap.reducer,
 });
 
-const saga = [
-  ...data.dataSaga,
-  ...details.studioDetailsSaga,
-  ...filters.studioFiltersSaga,
-  ...list.studioListSaga,
-];
+const saga = [...data.saga, ...details.saga, ...filters.saga, ...list.saga];
 
 const rootAction = {
   filters: filters.actions,

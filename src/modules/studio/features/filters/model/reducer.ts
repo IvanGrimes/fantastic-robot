@@ -2,11 +2,11 @@ import { createReducer } from 'typesafe-actions';
 import { clearFilters, setFilters } from './actions';
 import { FilterStudiosInput } from '../../list/model/services';
 
-export type StudioFiltersState = Required<
+export type FilterState = Required<
   Omit<Omit<Omit<FilterStudiosInput, 'page'>, 'city'>, 'size'>
 >;
 
-const initialState: StudioFiltersState = {
+const initialState: FilterState = {
   bottomRight: '',
   topLeft: '',
   equipments: [],
@@ -26,7 +26,7 @@ const getFilterObjectValue = (state: any[], payload?: any[]) => {
     : [...state, ...payload];
 };
 
-export const studioFiltersReducer = createReducer(initialState)
+export const reducer = createReducer(initialState)
   .handleAction(setFilters, (state, { payload }) => ({
     ...state,
     name: typeof payload.name === 'string' ? payload.name : state.name,

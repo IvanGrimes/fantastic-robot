@@ -5,15 +5,15 @@ import { useRouter } from 'next/router';
 import { mergeDeepRight } from 'ramda';
 import { RootState } from '@model/types';
 import { usePrevious } from '@hooks/usePrevious';
-import { StudioListFilterProps } from './index';
-import { StudioListFilter } from './StudioListFilter';
+import { ListFilterProps } from './index';
+import { ListFilter } from './ListFilter';
 import { clearFilters, setFilters } from '../model/actions';
 import { getFilters } from '../model/selectors';
 import { getNonEmptyValues } from '../utils/getNonEmptyValues';
 import { parseFilters } from '../utils/parseFilters';
 import * as data from '../../data';
 
-type Props = StudioListFilterProps &
+type Props = ListFilterProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
 
@@ -48,7 +48,7 @@ export const getAsPathWithFilters = (
     : absAsPath;
 };
 
-const _StudioListFilterContainer = ({
+const _ListFilterContainer = ({
   className = '',
   appliedFilters,
   handleClearFilters,
@@ -89,7 +89,7 @@ const _StudioListFilterContainer = ({
   }, [handleSetFilters]);
 
   return (
-    <StudioListFilter
+    <ListFilter
       className={className}
       handleClearFilters={handleClearFilters}
       isLoading={isLoading}
@@ -97,7 +97,7 @@ const _StudioListFilterContainer = ({
   );
 };
 
-export const StudioListFilterContainer = connect(
+export const ListFilterContainer = connect(
   mapStateToProps,
   dispatchProps
-)(memo(_StudioListFilterContainer, dequal));
+)(memo(_ListFilterContainer, dequal));
