@@ -8,7 +8,7 @@ import { ComponentType } from 'react';
 import { ToolbarProps } from '@material-ui/core/Toolbar';
 import { GridProps } from '@material-ui/core/Grid';
 import { AppBarProps } from '@material-ui/core/AppBar';
-import { getBreakpoints } from '../../../../theme';
+import { getBreakpoints } from '@theme/index';
 
 export const Wrapper = styled.div<{ isHeaderVisible: boolean }>`
   ${({ isHeaderVisible }) => css`

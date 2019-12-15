@@ -1,4 +1,4 @@
-import { parseRequestType } from '../../../utils/parseRequestType';
+import { parseRequestType } from '@utils/parseRequestType';
 import { RootAction } from '../../types';
 
 type LoadingState = {

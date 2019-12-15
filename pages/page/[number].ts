@@ -1,1 +1,3 @@
-export { Index as default } from '../../src/pages/index';
+import { pages } from '@modules/studio';
+
+export default pages.List;

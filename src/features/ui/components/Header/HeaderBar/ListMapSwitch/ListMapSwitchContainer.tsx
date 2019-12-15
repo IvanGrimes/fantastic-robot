@@ -3,26 +3,22 @@ import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import { useTheme } from '@material-ui/styles';
-import { RootState } from '../../../../../../model/types';
-import { getIsEnabled } from '../../../../../studioListMap/model/selectors';
-import {
-  setFullscreen,
-  setIsEnable,
-} from '../../../../../studioListMap/model/actions';
-import { useRequestAnimationFrame } from '../../../../../../hooks/useRequestAnimationFrame';
+import { RootState } from '@model/types';
+import { listMap } from '@modules/studio';
+import { useRequestAnimationFrame } from '@hooks/useRequestAnimationFrame';
+import { Theme } from '@theme/types';
+import { getBreakpoints } from '@theme/index';
 import { ListMapSwitch } from './ListMapSwitch';
-import { Theme } from '../../../../../../theme/types';
-import { getBreakpoints } from '../../../../../../theme';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
-  isVisible: getIsEnabled(state),
+  isVisible: listMap.selectors.getIsEnabled(state),
 });
 
 const dispatchProps = {
-  handleSetVisibility: setIsEnable,
-  handleSetFullscreen: setFullscreen,
+  handleSetVisibility: listMap.actions.setIsEnable,
+  handleSetFullscreen: listMap.actions.setFullscreen,
 };
 
 const _ListMapSwitchContainer = ({

@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
-import { RootState } from '../../../../model/types';
+import { RootState } from '@model/types';
+import { setFilters } from '@modules/studio/features/filters/model/actions';
+import { getFilters } from '@modules/studio/features/filters/model/selectors';
 import { getIsHeaderVisible } from '../../model/selectors';
 import { setHeaderVisibility } from '../../model/actions';
 import { Header } from './Header';
-import { setFilters } from '../../../studioFilters/model/actions';
-import { getFilters } from '../../../studioFilters/model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 

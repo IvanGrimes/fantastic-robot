@@ -5,10 +5,9 @@ import {
   BottomNavigationAction as DefaultBottomNavigationAction,
 } from '@material-ui/core';
 import { BottomNavigationProps } from '@material-ui/core/BottomNavigation';
-import { BottomNavigationActionProps } from '@material-ui/core/BottomNavigationAction';
 import { transparentize } from 'polished';
-import { getShadows } from '../../../../theme/shadows';
-import { getBreakpoints, getPrimaryPalette } from '../../../../theme';
+import { getShadows } from '@theme/shadows';
+import { getBreakpoints, getPrimaryPalette } from '@theme/index';
 
 export const BottomNavigation = styled<ComponentType<BottomNavigationProps>>(
   DefaultBottomNavigation
@@ -42,9 +41,9 @@ export const BottomNavigation = styled<ComponentType<BottomNavigationProps>>(
   }}}
 `;
 
-export const BottomNavigationAction = styled<
-  ComponentType<BottomNavigationActionProps>
->(DefaultBottomNavigationAction)<{ isActive: boolean }>`
+export const BottomNavigationAction = styled(DefaultBottomNavigationAction)<{
+  isActive: boolean;
+}>`
   ${({ isActive, ...props }) => {
     const { main } = getPrimaryPalette(props);
 

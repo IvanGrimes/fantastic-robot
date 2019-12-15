@@ -1,4 +1,4 @@
-import { RootState } from '../../../model/types';
+import { RootState } from '@model/types';
 
 export const getIsHeaderVisible = (state: RootState) =>
   state.ui.isHeaderVisible;

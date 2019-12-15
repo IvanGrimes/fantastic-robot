@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 import { TypographyProps } from '@material-ui/core/Typography';
 import { Grid, Typography } from '@material-ui/core';
 import { GridProps } from '@material-ui/core/Grid';
-import { getBreakpoints } from '../../../../../../theme';
+import { getBreakpoints } from '@theme/index';
 
 export const MapSwitchGrid = styled<ComponentType<GridProps>>(Grid)`
   ${props => {

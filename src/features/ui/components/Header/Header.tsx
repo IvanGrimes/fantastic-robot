@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import dequal from 'dequal';
-import { Toolbar, Wrapper, AppBar, MenuGrid } from './Header.styles';
-import { Link } from '../../../../components/Link';
-import { HeaderBar } from './HeaderBar';
-import { Container } from '../../../../components/Container';
+import { Link } from '@components/Link';
+import { Container } from '@components/Container';
+import { Hidden } from '@components/Hidden';
+import { ClearableInput } from '@components/ClearableInput';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
-import { Hidden } from '../../../../components/Hidden';
-import { ClearableInput } from '../../../../components/ClearableInput';
+import { HeaderBar } from './HeaderBar';
+import { Toolbar, Wrapper, AppBar, MenuGrid } from './Header.styles';
 import { FullscreenMapButton } from './FullscreenMapButton';
 
 const menuData = [

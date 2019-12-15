@@ -1,6 +1,6 @@
-import { parseRequestType } from '../../../utils/parseRequestType';
+import { parseRequestType } from '@utils/parseRequestType';
+import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
 import { RootAction, RootState } from '../../types';
-import { createDeepEqualSelector } from '../../../lib/createDeepEqualSelector';
 
 export const createRequestLoadingSelector = (actions: RootAction['type'][]) =>
   createDeepEqualSelector(

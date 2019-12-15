@@ -9,16 +9,16 @@ import { Store } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import withSaga from 'next-redux-saga';
 import { NextPageContext as PageContext } from 'next';
-import { SEO } from '../src/components/SEO';
-import { theme } from '../src/theme';
-import { GlobalStyles } from '../src/pages/_app';
-import { RootState } from '../src/model/types';
+import { GlobalStyles } from '@features/ui';
+import { SEO } from '@components/SEO';
 import {
   fetchConfigAsync,
   fetchMetroListAsync,
-} from '../src/features/studioData/model/actions';
-import { configureStore } from '../src/model/store';
-import { botGuard } from '../src/lib/botGuard';
+} from '@modules/studio/features/data/model/actions';
+import { botGuard } from '@lib/botGuard';
+import { theme } from '@theme/index';
+import { RootState } from '@model/types';
+import { configureStore } from '@model/store';
 
 // TODO: Сверстать страницу студии
 

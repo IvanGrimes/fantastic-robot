@@ -34,7 +34,19 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@modules/*": ["src/modules/*"],
+      "@features/*": ["src/features/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@lib/*": ["src/lib/*"],
+      "@utils/*": ["src/utils/*"],
+      "@model/*": ["src/model/*"],
+      "@HOC/*": ["src/HOC/*"],
+      "@theme/*": ["src/theme/*"]
+    }
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": ["./server/**/*"]

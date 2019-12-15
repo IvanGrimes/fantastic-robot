@@ -1,15 +1,7 @@
-import * as studioDataActions from '../features/studioData/model/actions';
-import * as studioListActions from '../features/studioList/model/actions';
-import * as studioFiltersActions from '../features/studioFilters/model/actions';
-import * as studioMapListActions from '../features/studioListMap/model/actions';
-import * as uiActions from '../features/ui/model/actions';
-import * as studioDetailsActions from '../features/studioDetails/model/actions';
+import * as ui from '@modules/../features/ui';
+import * as studio from '@modules/studio';
 
 export default {
-  studioDataActions,
-  studioListActions,
-  studioFiltersActions,
-  studioMapListActions,
-  uiActions,
-  studioDetailsActions,
+  ui: ui.rootAction,
+  studio: studio.rootAction,
 };

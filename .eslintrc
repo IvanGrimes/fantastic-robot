@@ -25,6 +25,7 @@
     "react/jsx-filename-extension": "off",
     "no-use-before-define": "off",
     "react/destructuring-assignment": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "import/extensions": "off"
   }
 }

@@ -6,7 +6,7 @@ import {
   AccountCircle as AccountCircleIcon,
 } from '@material-ui/icons';
 import { useRouter } from 'next/router';
-import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { useHideOnScroll } from '../../hooks';
 import {
   BottomNavigation as StyledBottomNavigation,
   BottomNavigationAction,

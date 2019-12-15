@@ -1,1 +1,3 @@
-export { StudioId as default } from '../../src/pages/studio/[id]';
+import { pages } from '@modules/studio';
+
+export default pages.Details;

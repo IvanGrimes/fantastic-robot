@@ -1,22 +1,14 @@
 import { combineReducers } from 'redux';
+import * as studio from '@modules/studio';
+import * as ui from '@features/ui';
 import { loadingReducer } from './api/loading/reducer';
 import { errorsReducer } from './api/errors/reducer';
-import { studioDataReducer } from '../features/studioData/model/reducer';
-import { studioListReducer } from '../features/studioList/model/reducer';
-import { studioFiltersReducer } from '../features/studioFilters/model/reducer';
-import { studioMapListReducer } from '../features/studioListMap/model/reducer';
-import { uiReducer } from '../features/ui/model/reducer';
-import { studioDetailsReducer } from '../features/studioDetails/model/reducer';
 
 export const rootReducer = combineReducers({
   api: combineReducers({
     loading: loadingReducer,
     errors: errorsReducer,
   }),
-  studioData: studioDataReducer,
-  studioList: studioListReducer,
-  studioFilters: studioFiltersReducer,
-  studioMapList: studioMapListReducer,
-  ui: uiReducer,
-  studioDetails: studioDetailsReducer,
+  studio: studio.reducer,
+  ui: ui.reducer,
 });
