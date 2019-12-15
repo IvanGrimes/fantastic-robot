@@ -1,10 +1,16 @@
 import { createReducer } from 'typesafe-actions';
 import { getTime, setHours, setMinutes } from 'date-fns';
 import { getDateRange } from '@utils/getDateRange';
-import { fetchReservationsAsync, fetchRoomsAsync } from './actions';
+import {
+  fetchInformationAsync,
+  fetchReservationsAsync,
+  fetchRoomsAsync,
+} from './actions';
 import { RoomsResponse } from './services/fetchRooms';
+import { InformationResponse } from './services/fetchInformation';
 
 export type DetailsState = {
+  information: InformationResponse;
   workHours: { [key: string]: { from: number; to: number } };
   reservations: {
     [key: string]: {
@@ -21,6 +27,35 @@ const initialState: DetailsState = {
   workHours: {},
   reservations: {},
   rooms: [],
+  information: {
+    id: '',
+    name: '',
+    stationIds: [],
+    equipmentIds: [],
+    photoIds: [],
+    interiorIds: [],
+    description: '',
+    hasOnlinePayment: false,
+    cityId: '',
+    dressingRoom: {
+      has: false,
+      calendarId: null,
+      capacity: null,
+    },
+    contacts: {
+      address: '',
+      site: null,
+      instagram: null,
+      email: null,
+      phone: '',
+      vk: '',
+    },
+    workingHours: {
+      from: 0,
+      to: 0,
+      utc: '+0',
+    },
+  },
 };
 
 const roomColors = [
@@ -108,5 +143,11 @@ export const reducer = createReducer(initialState)
         ...room,
         color: roomColors[index],
       })),
+    };
+  })
+  .handleAction(fetchInformationAsync.success, (state, action) => {
+    return {
+      ...state,
+      information: action.payload,
     };
   });

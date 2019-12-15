@@ -6,6 +6,7 @@ import { Layout } from '@features/ui';
 import { Wrapper } from './Details.styles';
 import { Details as DetailsComponent } from '../../features/details';
 import {
+  fetchInformationAsync,
   fetchReservationsAsync,
   fetchRoomsAsync,
 } from '../../features/details/model/actions';
@@ -15,11 +16,13 @@ type Props = typeof dispatchProps & { isBot: boolean };
 const dispatchProps = {
   handleFetchReservations: fetchReservationsAsync.request,
   handleFetchRooms: fetchRoomsAsync.request,
+  handleFetchInformation: fetchInformationAsync.request,
 };
 
 const _Details = ({
   handleFetchReservations,
   handleFetchRooms,
+  handleFetchInformation,
   isBot,
 }: Props) => {
   const { query } = useRouter();
@@ -30,8 +33,15 @@ const _Details = ({
     if (typeof studioId === 'string' && !isBot) {
       handleFetchReservations({ studioId });
       handleFetchRooms({ studioId });
+      handleFetchInformation({ id: studioId });
     }
-  }, [handleFetchReservations, handleFetchRooms, isBot, query.id]);
+  }, [
+    handleFetchInformation,
+    handleFetchReservations,
+    handleFetchRooms,
+    isBot,
+    query.id,
+  ]);
 
   return (
     <Layout>
@@ -48,5 +58,6 @@ export const Details = connect(
 )(
   withSEO(({ query }) => [
     () => fetchRoomsAsync.request({ studioId: query.id as string }),
+    () => fetchInformationAsync.request({ id: query.id as string }),
   ])(_Details)
 );

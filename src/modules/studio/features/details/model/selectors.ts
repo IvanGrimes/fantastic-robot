@@ -3,23 +3,23 @@ import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
 
 const getState = (state: RootState) => state.studio.details;
 
-export const getStudioReservations = createDeepEqualSelector(
+export const getReservations = createDeepEqualSelector(
   [getState],
   state => state.reservations
 );
 
-export const getStudioWorkHours = createDeepEqualSelector(
+export const getWorkHours = createDeepEqualSelector(
   [getState],
   state => state.workHours
 );
 
-export const getStudioRooms = createDeepEqualSelector(
+export const getRooms = createDeepEqualSelector(
   [getState],
   state => state.rooms
 );
 
-export const getStudioReservationsWithColor = createDeepEqualSelector(
-  [getStudioReservations, getStudioRooms],
+export const getReservationsWithColor = createDeepEqualSelector(
+  [getReservations, getRooms],
   (reservations, rooms) =>
     Object.entries(reservations)
       .map(([key, value]) => {

@@ -1,8 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import { fetchReservations } from './services/fetchReservations';
-import { fetchReservationsAsync, fetchRoomsAsync } from './actions';
+import {
+  fetchReservationsAsync,
+  fetchRoomsAsync,
+  fetchInformationAsync,
+} from './actions';
 import { fetchRooms } from './services/fetchRooms';
+import { fetchInformation } from './services/fetchInformation';
 
 function* fetchReservationsFlow(
   action: ReturnType<typeof fetchReservationsAsync.request>
@@ -30,7 +35,20 @@ function* fetchRoomsFlow(action: ReturnType<typeof fetchRoomsAsync.request>) {
   }
 }
 
+function* fetchInformationFlow(
+  action: ReturnType<typeof fetchInformationAsync.request>
+) {
+  try {
+    const data = yield call(fetchInformation, { id: action.payload.id });
+
+    yield put(fetchInformationAsync.success(data));
+  } catch (e) {
+    yield put(fetchInformationAsync.failure(e));
+  }
+}
+
 export const saga = [
   takeLatest(getType(fetchReservationsAsync.request), fetchReservationsFlow),
   takeLatest(getType(fetchRoomsAsync.request), fetchRoomsFlow),
+  takeLatest(getType(fetchInformationAsync.request), fetchInformationFlow),
 ];

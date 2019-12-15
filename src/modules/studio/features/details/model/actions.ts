@@ -1,6 +1,10 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { Await } from '@utils/Await';
 import {
+  fetchInformation,
+  FetchInformationInput,
+} from '@modules/studio/features/details/model/services/fetchInformation';
+import {
   fetchReservations,
   FetchReservationsInput,
 } from './services/fetchReservations';
@@ -17,3 +21,9 @@ export const fetchRoomsAsync = createAsyncAction(
   'studio/details/FETCH_ROOMS_SUCCESS',
   'studio/details/FETCH_ROOMS_FAIL'
 )<FetchRoomsInput, Await<ReturnType<typeof fetchRooms>>, any>();
+
+export const fetchInformationAsync = createAsyncAction(
+  'studio/details/FETCH_INFORMATION_REQUEST',
+  'studio/details/FETCH_INFORMATION_SUCCESS',
+  'studio/details/FETCH_INFORMATION_FAIL'
+)<FetchInformationInput, Await<ReturnType<typeof fetchInformation>>, any>();

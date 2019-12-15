@@ -1,19 +1,18 @@
 import React, { memo } from 'react';
 import { Container } from '@components/Container';
-import { Calendar } from '../../calendar';
-import {
-  getStudioReservationsWithColor,
-  getStudioWorkHours,
-} from '../model/selectors';
+import { Hero } from './Hero';
+import { Information } from './Information';
+import { RoomList } from './RoomList';
+import { Schedule, ScheduleProps } from './Schedule';
 
-type Props = {
-  workHours: ReturnType<typeof getStudioWorkHours>;
-  reservations: ReturnType<typeof getStudioReservationsWithColor>;
-};
+type Props = ScheduleProps;
 
 const _Details = ({ workHours, reservations }: Props) => (
   <Container>
-    <Calendar workHours={workHours} reservations={reservations} />
+    <Hero />
+    <Information />
+    <RoomList />
+    <Schedule workHours={workHours} reservations={reservations} />
   </Container>
 );
 
