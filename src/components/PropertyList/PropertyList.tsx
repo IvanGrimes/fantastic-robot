@@ -2,14 +2,15 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { Button, Grid, Typography } from '@material-ui/core';
 import debounce from 'lodash/debounce';
+import { getAbsoluteString } from '@utils/getAbsoluteString';
 import { PropertyListProps } from './index';
-import { getAbsoluteString } from '../../utils/getAbsoluteString';
 import { ClearableInput } from '../ClearableInput';
 import {
   WrapperGrid,
   SearchGrid,
   ListGrid,
   ListScrollableGrid,
+  VirtualList,
 } from './PropertyList.styles';
 import { PropertyListItem } from './PropertyListItem';
 import { ChipList } from '../ChipList';
@@ -92,27 +93,22 @@ const _PropertyList = ({
                 renderValue={renderValue}
               />
             ) : null}
-            {variant === 'checkbox'
-              ? filteredList.map(item => {
-                  if (item) {
-                    const { id, value, ...rest } = item;
-
-                    return (
-                      <PropertyListItem
-                        key={id}
-                        id={id}
-                        name={value}
-                        onChange={onChange}
-                        isActive={selectedIds.includes(id)}
-                        renderValue={renderValue}
-                        {...rest}
-                      />
-                    );
-                  }
-
-                  return null;
-                })
-              : null}
+            {variant === 'checkbox' ? (
+              <VirtualList
+                itemSize={40}
+                height={400}
+                itemCount={filteredList.length}
+                width={600}
+                itemData={{
+                  renderValue,
+                  list: filteredList,
+                  selectedIds,
+                  onChange,
+                }}
+              >
+                {PropertyListItem}
+              </VirtualList>
+            ) : null}
           </ListScrollableGrid>
         </ListGrid>
       </Grid>

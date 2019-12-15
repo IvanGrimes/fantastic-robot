@@ -35,13 +35,13 @@ const _StudioListFilterStation = ({
     [handleChange]
   );
   const renderValue = useCallback(
-    ({ color, name }) => (
+    ({ color, value }) => (
       <Grid container alignItems="center" spacing={1}>
         <Grid item>
           <ColorCircle color={color} />
         </Grid>
         <Grid item>
-          <Typography>{name}</Typography>
+          <Typography>{value}</Typography>
         </Grid>
       </Grid>
     ),

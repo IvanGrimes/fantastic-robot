@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
+import { FixedSizeList, FixedSizeListProps } from 'react-window';
 
 export const WrapperGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
@@ -36,5 +37,16 @@ export const ListScrollableGrid = styled<ComponentType<GridProps>>(Grid)`
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+    overflow-x: hidden;
+  }
+`;
+
+export const VirtualList = styled<ComponentType<FixedSizeListProps>>(
+  FixedSizeList
+)`
+  && {
+    padding-right: calc(100% + 33px);
+    overflow-x: hidden !important;
+    margin-bottom: -20px;
   }
 `;
