@@ -16,12 +16,13 @@ type StudioListItemPersist = {
 
 export type StudioListItemViewProps = (
   | StudioListItemLoading
-  | StudioListItemType
-) &
+  | StudioListItemType) &
   StudioListItemPersist;
 
 export type StudioListItemProps = StudioListItemViewProps & {
   variant: StudioListItemVariant;
 };
 
-export { StudioListItemContainer as StudioListItem } from './StudioListItemContainer';
+export {
+  StudioListItemContainer as StudioListItem,
+} from './StudioListItemContainer';

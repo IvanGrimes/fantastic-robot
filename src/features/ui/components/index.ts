@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
   
   body {
     font-size: 16px !important;
+    width: 100%;
   }
   
   body * {

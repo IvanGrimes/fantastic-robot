@@ -1,1 +1,3 @@
-export { BottomNavigationContainer as BottomNavigation } from './BottomNavigationContainer';
+export {
+  BottomNavigationContainer as BottomNavigation,
+} from './BottomNavigationContainer';

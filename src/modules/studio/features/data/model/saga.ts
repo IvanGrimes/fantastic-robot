@@ -10,9 +10,10 @@ function* fetchMetroListFlow(
   const { payload } = action;
 
   try {
-    const data: Await<ReturnType<
-      typeof fetchMetroList
-    >> = yield call(fetchMetroList, { city: payload.city });
+    const data: Await<ReturnType<typeof fetchMetroList>> = yield call(
+      fetchMetroList,
+      { city: payload.city }
+    );
 
     yield put(fetchMetroListAsync.success({ list: data }));
   } catch (e) {

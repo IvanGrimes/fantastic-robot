@@ -8,7 +8,9 @@ import {
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import dequal from 'dequal';
-import { Container } from '../../../../../../components/Container';
+import { Container } from '@components/Container';
+import { BarWrapper } from '@features/ui';
+import { changeDocumentScroll } from '@utils/changeDocumentScroll';
 import {
   FilterGrid,
   Wrapper,
@@ -17,7 +19,6 @@ import {
   StudioListFilterType,
   GridWithMargin,
 } from './MobileFilters.styles';
-import { BarWrapper } from '../../../../../../features/ui/components/Header/HeaderBar/HeaderBar.styles';
 import { SearchFilter } from '../SearchFilter';
 
 type Props = {
@@ -32,9 +33,10 @@ const _StudioListFilterMobile = ({
   isLoading,
 }: Props) => {
   const [isVisible, setVisibility] = useState(false);
-  const handleToggleVisibility = useCallback(() => setVisibility(!isVisible), [
-    isVisible,
-  ]);
+  const handleToggleVisibility = useCallback(() => {
+    changeDocumentScroll(isVisible);
+    setVisibility(!isVisible);
+  }, [isVisible]);
   const layout = useMemo(
     () =>
       typeof document !== 'undefined'
