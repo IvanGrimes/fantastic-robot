@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ComponentType } from 'react';
 import { floatToFraction } from '@utils/floatToFraction';
 import { Loader as DefaultLoader, LoaderProps } from '@components/Loader';
+import {
+  Carousel as DefaultCarousel,
+  CarouselProps,
+} from '@components/Carousel';
 
 export const Wrapper = styled.div`
   && {
@@ -18,4 +22,12 @@ export const Loader = styled<ComponentType<LoaderProps>>(DefaultLoader)`
     top: 0;
     left: 0;
   }
+`;
+
+export const Carousel = styled<ComponentType<CarouselProps>>(DefaultCarousel)<{
+  isLoaded: boolean;
+}>`
+  ${({ isLoaded }) => css`
+    position: ${isLoaded ? 'relative' : 'absolute'};
+  `};
 `;

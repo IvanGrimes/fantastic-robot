@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { floatToFraction } from '@utils/floatToFraction';
 import { Grid } from '@material-ui/core';
 import { Wrapper, Carousel, LazyImage } from './Photos.styles';
@@ -9,13 +9,14 @@ export type Props = {
   photoIds: string[];
 };
 
-const _Photos = ({ isLoading, photoIds }: Props) => (
-  <Grid container item xs={12}>
-    <Wrapper>
-      {isLoading ? (
-        <PhotosSkeleton />
-      ) : (
-        <Carousel>
+const _Photos = ({ isLoading, photoIds }: Props) => {
+  const [isCarouselLoaded, setCarouselLoaded] = useState(false);
+
+  return (
+    <Grid container item xs={12}>
+      <Wrapper>
+        <Carousel onInit={() => setCarouselLoaded(true)}>
+          {isLoading || !isCarouselLoaded ? <PhotosSkeleton /> : null}
           {photoIds.map(id => (
             <LazyImage
               key={id}
@@ -24,9 +25,9 @@ const _Photos = ({ isLoading, photoIds }: Props) => (
             />
           ))}
         </Carousel>
-      )}
-    </Wrapper>
-  </Grid>
-);
+      </Wrapper>
+    </Grid>
+  );
+};
 
 export const Photos = memo(_Photos);

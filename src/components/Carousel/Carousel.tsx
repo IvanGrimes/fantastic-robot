@@ -1,25 +1,29 @@
 import React, { Fragment, memo } from 'react';
 import Slick from 'react-slick';
 import { CarouselProps } from './index';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { CarouselStyles } from './Carousel.styles';
+import { SlickStyles, CarouselStyles } from './Carousel.styles';
 
-const _Carousel = ({ className = '', children }: CarouselProps) => {
-  return (
-    <Fragment>
-      <CarouselStyles />
-      <Slick
-        className={className}
-        speed={500}
-        slidesToShow={1}
-        slidesToScroll={1}
-        dots
-      >
-        {children}
-      </Slick>
-    </Fragment>
-  );
-};
+// TODO: Probably, I should show skeleton before init and while data is loading inside Carousel
+
+const _Carousel = ({
+  className = '',
+  onInit = undefined,
+  children,
+}: CarouselProps) => (
+  <Fragment>
+    <SlickStyles />
+    <CarouselStyles />
+    <Slick
+      className={className}
+      speed={500}
+      slidesToShow={1}
+      slidesToScroll={1}
+      onInit={onInit}
+      dots
+    >
+      {children}
+    </Slick>
+  </Fragment>
+);
 
 export const Carousel = memo(_Carousel);

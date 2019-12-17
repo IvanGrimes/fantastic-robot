@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { Carousel as DefaultCarousel } from '@components/Carousel';
+import {
+  Carousel as DefaultCarousel,
+  CarouselProps,
+} from '@components/Carousel';
 import {
   LazyImage as DefaultLazyImage,
   LazyImageProps,
@@ -13,7 +16,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export const Carousel = styled(DefaultCarousel)`
+export const Carousel = styled<ComponentType<CarouselProps>>(DefaultCarousel)`
   && {
     max-height: 500px;
   }
