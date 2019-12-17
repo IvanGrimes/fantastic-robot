@@ -1,11 +1,11 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 import dequal from 'dequal';
 import { Grid } from '@material-ui/core';
 import { LazyImage } from '@components/LazyImage';
 import { floatToFraction } from '@utils/floatToFraction';
+import { Carousel } from '@components/Carousel';
 import { PhotosSkeleton } from './PhotosSkeleton';
 import { StudioListItemProps } from '../index';
-import { Carousel } from './PhotosSkeleton.styles';
 
 export type StudioListItemPhotosProps = { loading: boolean } & Pick<
   StudioListItemProps,
@@ -16,20 +16,16 @@ const _StudioListItemPhotos = ({
   loading,
   photoIds,
 }: StudioListItemPhotosProps) => {
-  const [isCarouselLoaded, setCarouselLoaded] = useState(false);
+  const skeleton = useMemo(() => <PhotosSkeleton />, []);
 
   return loading ? (
-    <PhotosSkeleton />
+    skeleton
   ) : (
     <>
       <Grid container>
         <Grid item xs={12}>
-          {!isCarouselLoaded && <PhotosSkeleton />}
           {photoIds && (
-            <Carousel
-              isLoaded={isCarouselLoaded}
-              onInit={() => setCarouselLoaded(true)}
-            >
+            <Carousel skeleton={skeleton}>
               {photoIds.map(id => (
                 <LazyImage
                   key={id}
