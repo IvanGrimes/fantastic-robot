@@ -1,3 +1,5 @@
+import dynamic from 'next/dynamic';
+
 import { StudioListItemVariant } from './StudioListItem';
 
 export type ListProps = {
@@ -5,4 +7,6 @@ export type ListProps = {
   listItemVariant: StudioListItemVariant;
 };
 
-export { ListContainer as List } from './ListContainer';
+export const List = dynamic<ListProps>(() =>
+  import('./ListContainer').then(module => module.ListContainer)
+);

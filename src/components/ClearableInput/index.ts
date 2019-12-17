@@ -1,5 +1,6 @@
 import { TextFieldProps } from '@material-ui/core/TextField';
 import { DebounceSettings } from 'lodash';
+import dynamic from 'next/dynamic';
 
 export type ClearableInputProps = Pick<TextFieldProps, 'variant'> &
   Pick<TextFieldProps, 'InputLabelProps'> &
@@ -11,4 +12,6 @@ export type ClearableInputProps = Pick<TextFieldProps, 'variant'> &
     debounce?: DebounceSettings & { wait: number };
   };
 
-export { ClearableInput } from './ClearableInput';
+export const ClearableInput = dynamic<ClearableInputProps>(() =>
+  import('./ClearableInput').then(module => module.ClearableInput)
+);
