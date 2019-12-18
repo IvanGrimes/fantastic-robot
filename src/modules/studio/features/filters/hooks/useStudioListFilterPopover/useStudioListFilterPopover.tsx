@@ -12,6 +12,7 @@ import { mergeDeepRight } from 'ramda';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
 import { selectors as uiSelectors } from '@features/ui';
+import DynamicRendering from '@components/DynamicRendering';
 import { Paper, FilterWrapper } from './useStudioListFilterPopover.styles';
 
 type UseStudioListFilterPopoverInput = ReactNode | ReactNodeArray;
@@ -104,7 +105,9 @@ export const useStudioListFilterPopover = (
       left={state.left}
       ref={targetRef}
     >
-      <Paper>{children}</Paper>
+      <DynamicRendering>
+        <Paper>{children}</Paper>
+      </DynamicRendering>
     </FilterWrapper>,
   ];
 };

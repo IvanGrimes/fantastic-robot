@@ -11,6 +11,7 @@ import dequal from 'dequal';
 import { Container } from '@components/Container';
 import { BarWrapper } from '@features/ui';
 import { changeDocumentScroll } from '@utils/changeDocumentScroll';
+import DynamicRendering from '@components/DynamicRendering';
 import {
   FilterGrid,
   Wrapper,
@@ -56,37 +57,39 @@ const _StudioListFilterMobile = ({
       </Button>
       <Portal container={layout}>
         <Wrapper className={className} isVisible={isVisible}>
-          <Grid container>
-            <BarWrapper>
-              <Container variant="primary">
-                <Grid container justify="space-between" alignItems="center">
-                  <GridWithMargin item>
-                    <IconButton onClick={handleToggleVisibility}>
-                      <CloseIcon />
-                    </IconButton>
-                  </GridWithMargin>
-                  <GridWithMargin item>
-                    <Typography component="span" variant="subtitle1">
-                      Фильтры
-                    </Typography>
-                  </GridWithMargin>
-                  <Grid item>
-                    <Button variant="outlined" onClick={handleClearFilters}>
-                      Очистить
-                    </Button>
+          <DynamicRendering>
+            <Grid container>
+              <BarWrapper>
+                <Container variant="primary">
+                  <Grid container justify="space-between" alignItems="center">
+                    <GridWithMargin item>
+                      <IconButton onClick={handleToggleVisibility}>
+                        <CloseIcon />
+                      </IconButton>
+                    </GridWithMargin>
+                    <GridWithMargin item>
+                      <Typography component="span" variant="subtitle1">
+                        Фильтры
+                      </Typography>
+                    </GridWithMargin>
+                    <Grid item>
+                      <Button variant="outlined" onClick={handleClearFilters}>
+                        Очистить
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Container>
-            </BarWrapper>
-          </Grid>
-          <Container variant="primary">
-            <FilterGrid container>
-              <SearchFilter />
-              <StudioListFilterStation isClearable={false} />
-              <StudioListFilterType isClearable={false} />
-              <StudioListFilterPriceSegment isClearable={false} />
-            </FilterGrid>
-          </Container>
+                </Container>
+              </BarWrapper>
+            </Grid>
+            <Container variant="primary">
+              <FilterGrid container>
+                <SearchFilter />
+                <StudioListFilterStation isClearable={false} />
+                <StudioListFilterType isClearable={false} />
+                <StudioListFilterPriceSegment isClearable={false} />
+              </FilterGrid>
+            </Container>
+          </DynamicRendering>
         </Wrapper>
       </Portal>
     </Fragment>
