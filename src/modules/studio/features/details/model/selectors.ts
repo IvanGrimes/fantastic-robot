@@ -1,6 +1,9 @@
 import { RootState } from '@model/types';
 import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
-import { fetchInformationAsync } from '@modules/studio/features/details/model/actions';
+import {
+  fetchInformationAsync,
+  fetchRoomsAsync,
+} from '@modules/studio/features/details/model/actions';
 import { getType } from 'typesafe-actions';
 import { createRequestLoadingSelector } from '@modules/services';
 
@@ -15,6 +18,10 @@ export const getWorkHours = createDeepEqualSelector(
   [getState],
   state => state.workHours
 );
+
+export const getRoomsLoading = createRequestLoadingSelector([
+  getType(fetchRoomsAsync.request),
+]);
 
 export const getRooms = createDeepEqualSelector(
   [getState],

@@ -10,6 +10,8 @@ import {
   getInformation,
   getInformationLoading,
   getReservationsWithColor,
+  getRooms,
+  getRoomsLoading,
   getWorkHours,
 } from '../model/selectors';
 import * as data from '../../data';
@@ -25,6 +27,8 @@ const mapStateToProps = (state: RootState) => ({
   information: getInformation(state),
   metroList: getMetroList(state),
   config: getConfig(state),
+  isRoomsLoading: getRoomsLoading(state),
+  rooms: getRooms(state),
 });
 
 const _DetailsContainer = ({
@@ -36,6 +40,8 @@ const _DetailsContainer = ({
   config,
   workHours,
   reservations,
+  isRoomsLoading,
+  rooms,
 }: Props) => {
   const { photoIds, ...restInformation } = information;
 
@@ -50,6 +56,8 @@ const _DetailsContainer = ({
       photoIds={photoIds}
       workHours={workHours}
       reservations={reservations}
+      isRoomsLoading={isRoomsLoading}
+      rooms={rooms}
     />
   );
 };

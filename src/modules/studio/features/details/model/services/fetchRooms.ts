@@ -13,6 +13,7 @@ export type RoomsResponse = {
   photoIds: string[] | null;
   photoExamples: string[] | null;
   averagePrice: number;
+  interiorIds: string[] | null;
 }[];
 
 export const fetchRooms = (params: FetchRoomsInput) =>

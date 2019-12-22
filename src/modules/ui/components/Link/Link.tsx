@@ -4,11 +4,14 @@ import NextLink from 'next/link';
 import { LinkProps } from './index';
 
 export const Link = ({
+  className = '',
   MaterialLinkProps = {},
   children,
   ...props
 }: LinkProps) => (
   <NextLink {...props} passHref>
-    <MaterialLink {...MaterialLinkProps}>{children}</MaterialLink>
+    <MaterialLink className={className} {...MaterialLinkProps}>
+      {children}
+    </MaterialLink>
   </NextLink>
 );

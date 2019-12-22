@@ -1,13 +1,8 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import { CarouselOwnProps } from './Carousel';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-export type CarouselOwnProps = {
-  className?: string;
-  children: ReactNode | ReactNode[];
-  onInit?: () => void;
-};
 
 export type CarouselProps = { skeleton: JSX.Element } & CarouselOwnProps;
 

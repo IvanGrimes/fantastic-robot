@@ -1,25 +1,27 @@
 import React, { memo } from 'react';
 import { Container } from '@modules/ui/components';
 import { Grid } from '@material-ui/core';
+import { Payment } from '@modules/studio/features/payment';
 import { Photos } from './Photos';
 import { MainGrid } from './Details.styles';
 import { Information, InformationProps } from './Information';
-import { Payment } from './Payment';
-import { RoomList } from './RoomList';
+import { RoomList, RoomListProps } from './RoomList';
 import { Schedule, ScheduleProps } from './Schedule';
 
-// TODO: Список залов
-// TODO: Контакты
-// TODO: Расписание
 // TODO: Бронирование
+// TODO: Расписание
+// TODO: Контакты
+// TODO: Скелетоны
 // TODO: Отзывчивость
+// TODO: Оптимизация
 
 type Props = {
   isLoading: boolean;
   photoIds: string[];
   information: InformationProps['information'];
 } & Omit<InformationProps, 'data'> &
-  ScheduleProps;
+  ScheduleProps &
+  RoomListProps;
 
 const _Details = ({
   isLoading,
@@ -31,6 +33,8 @@ const _Details = ({
   information,
   config,
   metroList,
+  isRoomsLoading,
+  rooms,
 }: Props) => (
   <>
     <Photos isLoading={isLoading} photoIds={photoIds} />
@@ -45,7 +49,12 @@ const _Details = ({
             metroList={metroList}
             config={config}
           />
-          <RoomList />
+          <RoomList
+            rooms={rooms}
+            isRoomsLoading={isRoomsLoading}
+            config={config}
+            isConfigLoading={isConfigLoading}
+          />
           {false && (
             <Schedule workHours={workHours} reservations={reservations} />
           )}
