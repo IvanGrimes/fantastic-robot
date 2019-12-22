@@ -1,7 +1,7 @@
 import React, { Fragment, memo, useEffect, useState } from 'react';
 import Slick from 'react-slick';
 import { CarouselStyles } from './Carousel.styles';
-import { CarouselOwnProps } from './index'
+import { CarouselOwnProps } from './index';
 
 const _Carousel = ({
   className = '',

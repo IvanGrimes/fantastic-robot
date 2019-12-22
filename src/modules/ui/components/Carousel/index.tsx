@@ -24,4 +24,4 @@ export const Carousel = ({ skeleton, ...props }: CarouselProps) => {
   return <Component {...props} />;
 };
 
-console.log(Carousel)
+console.log(Carousel);
