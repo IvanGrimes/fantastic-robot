@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { StudioListItemProps } from '../index';
+import { ListItemProps } from '../index';
 import { TitleSkeleton } from './TitleSkeleton';
 
 export type StudioListItemTitleProps = { loading: boolean } & Pick<
-  StudioListItemProps,
+  ListItemProps,
   'name'
 >;
 

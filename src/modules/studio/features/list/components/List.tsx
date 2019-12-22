@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
-import dequal from 'dequal';
+import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Container } from '@components/Container';
-import { StudioListItem, StudioListItemVariant } from './StudioListItem';
+import { ListItem, ListItemPersist } from './ListItem';
 import {
   Wrapper,
   ListGrid,
@@ -12,30 +11,35 @@ import {
 } from './List.styles';
 import { StudioItem } from '../model/types';
 
-type Props = {
-  className: string;
+export type ListProps = ListItemPersist & {
+  className?: string;
   list: StudioItem[];
   error: string;
   loading: boolean;
-  listItemVariant: StudioListItemVariant;
   isMapListEnabled: boolean;
   isMapListFullscreen: boolean;
   handleNext: () => void;
   hasNext: boolean;
 };
 
-const _List = ({
-  className,
+export const List = ({
+  className = '',
   error,
   list,
   loading,
-  listItemVariant,
+  variant,
   isMapListEnabled,
   isMapListFullscreen,
   handleNext,
   hasNext,
-}: Props) => {
-  const loaderList = new Array(12).fill({}) as StudioItem[];
+  config,
+  isConfigLoading,
+  isMetroListLoading,
+  metroList,
+}: ListProps) => {
+  const loaderList = new Array(12)
+    .fill({})
+    .map((_, index) => ({ id: index.toString() })) as StudioItem[];
 
   if (error) {
     return <p>{error}</p>;
@@ -74,16 +78,20 @@ const _List = ({
                 container
                 key={item.id}
                 item
-                lg={listItemVariant === 'short' ? 3 : 12}
-                md={listItemVariant === 'short' ? 4 : 12}
+                lg={variant === 'short' ? 3 : 12}
+                md={variant === 'short' ? 4 : 12}
                 xs={12}
                 spacing={0}
-                variant={listItemVariant}
+                variant={variant}
               >
-                <StudioListItem
+                <ListItem
                   {...item}
                   loading={loading}
-                  variant={listItemVariant}
+                  variant={variant}
+                  config={config}
+                  isConfigLoading={isConfigLoading}
+                  isMetroListLoading={isMetroListLoading}
+                  metroList={metroList}
                 />
               </ListItemGrid>
             ))}
@@ -93,5 +101,3 @@ const _List = ({
     </Wrapper>
   );
 };
-
-export const List = memo(_List, dequal);

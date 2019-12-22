@@ -5,10 +5,10 @@ import { LazyImage } from '@components/LazyImage';
 import { floatToFraction } from '@utils/floatToFraction';
 import { Carousel } from '@components/Carousel';
 import { PhotosSkeleton } from './PhotosSkeleton';
-import { StudioListItemProps } from '../index';
+import { ListItemProps } from '../index';
 
 export type StudioListItemPhotosProps = { loading: boolean } & Pick<
-  StudioListItemProps,
+  ListItemProps,
   'photoIds'
 >;
 

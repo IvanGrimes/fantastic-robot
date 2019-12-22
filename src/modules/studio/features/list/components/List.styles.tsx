@@ -9,7 +9,7 @@ import {
   InfiniteScroll as DefaultInfiniteScroll,
   InfiniteScrollProps,
 } from '../../../../../components/InfiniteScroll';
-import { StudioListItemProps } from './StudioListItem';
+import { ListItemProps } from './ListItem';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
   DefaultInfiniteScroll
@@ -86,7 +86,7 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
 
 export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="li" />
-))<{ variant: StudioListItemProps['variant'] }>`
+))<{ variant: ListItemProps['variant'] }>`
   ${({ variant }) => css`
     && {
       ${variant === 'wide' &&

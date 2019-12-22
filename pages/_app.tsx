@@ -16,8 +16,6 @@ import { theme } from '@theme/index';
 import { RootState } from '@model/types';
 import { configureStore } from '@model/store';
 
-// TODO: Сверстать страницу студии
-
 type AppStore = Store<RootState>;
 
 export type NextPageContext = PageContext & { store: AppStore };

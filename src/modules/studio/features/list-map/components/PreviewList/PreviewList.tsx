@@ -1,15 +1,22 @@
 import React, { Fragment, memo, useEffect, useState } from 'react';
 import dequal from 'dequal';
 import { useRequestIdleCallback } from '@hooks/useRequestIdleCallback';
-import { PreviewListItem } from './PreviewListItem';
+import { PreviewListItem, PreviewListDataProps } from './PreviewListItem';
 import { StudioItem } from '../../../list';
 
 type Props = {
   list: StudioItem[];
   previewId: string | null;
-};
+} & PreviewListDataProps;
 
-const _StudioMapPreviewList = ({ list, previewId }: Props) => {
+const _StudioMapPreviewList = ({
+  list,
+  previewId,
+  isMetroListLoading,
+  metroList,
+  isConfigLoading,
+  config,
+}: Props) => {
   const [render, setRender] = useState(false);
   const handleRender = useRequestIdleCallback(() => setRender(true));
 
@@ -27,6 +34,10 @@ const _StudioMapPreviewList = ({ list, previewId }: Props) => {
             key={id}
             item={{ id, ...item }}
             isActive={isActive}
+            config={config}
+            isConfigLoading={isConfigLoading}
+            isMetroListLoading={isMetroListLoading}
+            metroList={metroList}
           />
         );
       })}

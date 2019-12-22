@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
+import { Theme } from '@theme/types';
+import { getBreakpoints } from '@theme/breakpoints';
 import { Paper } from './Calendar.styles';
 import { Header } from './Header';
 import { Body } from './Body';
-import { Theme } from '../../../../../theme/types';
-import { getBreakpoints } from '../../../../../theme';
 import { CalendarContext } from './CalendarContainer';
-
-// TODO: Repair build
 
 export const Calendar = () => {
   const { setAvailableSteps, availableSteps, setStep } = useContext(

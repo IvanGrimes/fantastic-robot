@@ -2,8 +2,6 @@ import React from 'react';
 import { Row as StyledRow } from './Row.styles';
 import { Cell } from './Cell';
 
-// TODO: Make timestamp literal type
-
 type Props = {
   data: {
     year: number;

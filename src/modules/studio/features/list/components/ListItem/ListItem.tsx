@@ -1,19 +1,16 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
 import Link from 'next/link';
-import { StudioListItemProps } from './index';
-import { Card, CardBottomGrid, CardContent } from './StudioListItem.styles';
+import { ListItemProps } from './index';
+import { Card, CardBottomGrid, CardContent } from './ListItem.styles';
 import { Photos } from './Photos';
 import { Title } from './Title';
-import { Types } from './Types';
-import { Rooms } from './Rooms';
-import { Stations } from './Stations';
-import { PriceType } from './PriceType';
-import { StudioListItemStateProps } from './StudioListItemContainer';
+import { TextList } from '../../../../components/TextList';
+import { Rooms } from '../../../../components/Rooms';
+import { Stations } from '../../../../components/Stations';
+import { PriceType } from '../../../../components/PriceType';
 
-type Props = StudioListItemProps & StudioListItemStateProps;
-
-const _StudioListItem = ({
+const _ListItem = ({
   variant,
   metroList,
   isMetroListLoading,
@@ -27,7 +24,7 @@ const _StudioListItem = ({
   roomsCount,
   priceType,
   stationIds,
-}: Props) => (
+}: ListItemProps) => (
   <Link href="/studio/[id]" as={`/studio/${id}`} passHref>
     <Card isDisabled={loading}>
       <Grid item sm={variant === 'wide' ? 5 : 12} xs={12}>
@@ -48,9 +45,9 @@ const _StudioListItem = ({
               <Title name={name} loading={loading} />
             </Grid>
             <Grid item xs={12}>
-              <Types
+              <TextList
                 loading={loading || isConfigLoading}
-                interiorIds={interiorIds}
+                ids={interiorIds}
                 list={config.interior}
               />
             </Grid>
@@ -88,4 +85,4 @@ const _StudioListItem = ({
   </Link>
 );
 
-export const StudioListItem = memo(_StudioListItem);
+export const ListItem = memo(_ListItem);

@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic';
+import { ListItemVariant } from './ListItem';
 
-import { StudioListItemVariant } from './StudioListItem';
+export * from './ListItem';
 
 export type ListProps = {
   className?: string;
-  listItemVariant: StudioListItemVariant;
+  variant: ListItemVariant;
 };
 
 export const List = dynamic<ListProps>(() =>

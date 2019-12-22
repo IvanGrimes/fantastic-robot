@@ -16,6 +16,7 @@ import {
 } from '../model/selectors';
 import * as listMap from '../../list-map';
 import * as filters from '../../filters';
+import * as data from '../../data';
 
 type ListContainerProps = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps &
@@ -30,6 +31,10 @@ const mapStateToProps = (state: RootState) => ({
   isMapListFullscreen: listMap.selectors.getIsFullscreen(state),
   hasNext: getHasNext(state),
   hasFilters: filters.selectors.getHasFilters(state),
+  metroList: data.selectors.getMetroList(state),
+  isMetroListLoading: data.selectors.getMetroListLoading(state),
+  config: data.selectors.getConfig(state),
+  isConfigLoading: data.selectors.getConfigLoading(state),
 });
 
 const dispatchProps = {
@@ -43,11 +48,15 @@ const _ListContainer = ({
   handleFetchStudio,
   loading,
   isFiltering,
-  listItemVariant,
+  variant,
   isMapListEnabled,
   isMapListFullscreen,
   hasNext,
   hasFilters,
+  metroList,
+  isMetroListLoading,
+  isConfigLoading,
+  config,
 }: ListContainerProps) => {
   const { query } = useRouter();
   const pageNumber = useMemo(
@@ -78,11 +87,15 @@ const _ListContainer = ({
         list={studios}
         error={errors.networkError}
         loading={hasFilters ? isFiltering : loading}
-        listItemVariant={listItemVariant}
+        variant={variant}
         isMapListEnabled={isMapListEnabled}
         isMapListFullscreen={isMapListFullscreen}
         handleNext={handleNext}
         hasNext={hasNext}
+        metroList={metroList}
+        isMetroListLoading={isMetroListLoading}
+        isConfigLoading={isConfigLoading}
+        config={config}
       />
     </Fragment>
   );

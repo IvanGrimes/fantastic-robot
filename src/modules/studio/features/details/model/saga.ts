@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
+import Router from 'next/router';
 import { fetchReservations } from './services/fetchReservations';
 import {
   fetchReservationsAsync,
@@ -43,6 +44,10 @@ function* fetchInformationFlow(
 
     yield put(fetchInformationAsync.success(data));
   } catch (e) {
+    if (e.isAxiosError && e.response.status === 404) {
+      yield call(Router.push, '/');
+    }
+
     yield put(fetchInformationAsync.failure(e));
   }
 }

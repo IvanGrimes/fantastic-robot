@@ -62,7 +62,7 @@ const _List = ({
           lg={6}
           isMapListEnabled={mapListEnabled}
         >
-          <ListComponent listItemVariant={mapListEnabled ? 'wide' : 'short'} />
+          <ListComponent variant={mapListEnabled ? 'wide' : 'short'} />
         </StudioListGrid>
         <Grid item xs={12} lg={6}>
           <ListMap />
