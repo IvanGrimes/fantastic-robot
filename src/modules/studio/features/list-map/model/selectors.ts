@@ -1,5 +1,5 @@
 import { RootState } from '@model/types';
-import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 
 const getState = (state: RootState) => state.studio.listMap;
 

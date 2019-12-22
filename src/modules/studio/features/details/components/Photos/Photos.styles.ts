@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import {
   Carousel as DefaultCarousel,
   CarouselProps,
-} from '@components/Carousel';
+} from '@modules/ui/components/Carousel';
 import {
   LazyImage as DefaultLazyImage,
   LazyImageProps,
-} from '@components/LazyImage';
+} from '@modules/ui/components/LazyImage';
 import { ComponentType } from 'react';
 
 export const Wrapper = styled.div`

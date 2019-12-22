@@ -1,5 +1,5 @@
-import { axiosClient } from '@lib/axios.client';
 import { Nullable } from '@utils/Nullable';
+import { service } from '@modules/services';
 import { StudioId } from '../types';
 import { PriceType } from '../../../data';
 
@@ -70,7 +70,7 @@ export type InformationResponse = {
 const getHours = (minutes: number) => minutes / 60;
 
 export const fetchInformation = ({ id }: FetchInformationInput) =>
-  axiosClient
+  service
     .get<RawInformationResponse>(`/api/studio/${id}`)
     .then(({ data }) => data)
     .then<InformationResponse>(

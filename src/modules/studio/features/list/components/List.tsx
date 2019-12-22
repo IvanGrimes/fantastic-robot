@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { Container } from '@components/Container';
+import { Container } from '@modules/ui/components';
 import { ListItem, ListItemPersist } from './ListItem';
 import {
   Wrapper,

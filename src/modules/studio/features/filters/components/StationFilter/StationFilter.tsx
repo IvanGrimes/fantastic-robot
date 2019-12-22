@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { Grid, Typography } from '@material-ui/core';
-import { PropertyList } from '@components/PropertyList';
+import { PropertyList } from '@modules/ui/components';
 import { RootState } from '@model/types';
 import { ColorCircle } from './StationFilter.styles';
 import { StudioListFilterStationProps } from './index';

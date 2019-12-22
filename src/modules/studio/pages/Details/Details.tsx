@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { withSEO } from '@HOC/withSEO';
-import { Layout } from '@features/ui';
+import { withSEO } from '@modules/services/HOC/withSEO';
+import { Layout } from '@modules/ui/components';
 import { Wrapper } from './Details.styles';
 import { Details as DetailsComponent } from '../../features/details';
 import {

@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 import {
   Loader as DefaultLoader,
   LoaderProps,
-} from '../../../../../../../components/Loader';
+} from '@modules/ui/components/Loader';
 
 export const Loader = styled<ComponentType<LoaderProps>>(DefaultLoader)`
   && {

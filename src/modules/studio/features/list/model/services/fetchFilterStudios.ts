@@ -1,6 +1,6 @@
-import { axiosClient } from '@lib/axios.client';
 import { StudioId } from '@modules/studio/features/details';
 import { CityType } from '@modules/studio';
+import { service } from '@modules/services';
 import { PriceType } from '../../../data';
 
 export type StudiosResponse = {
@@ -38,7 +38,7 @@ export type FilterStudiosInput = {
 export const fetchFilterStudios = (params: FilterStudiosInput) => {
   const { city: cityId, ...query } = params;
 
-  return axiosClient
+  return service
     .get<StudiosResponse>(`/api/studio/filter`, {
       params: { cityId, ...query },
     })

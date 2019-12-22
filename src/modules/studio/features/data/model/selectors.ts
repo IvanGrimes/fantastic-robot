@@ -1,7 +1,7 @@
 import { getType } from 'typesafe-actions';
-import { createRequestLoadingSelector } from '@model/api/loading/selectors';
 import { RootState } from '@model/types';
-import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
+import { createRequestLoadingSelector } from '@modules/services';
 import { fetchConfigAsync, fetchMetroListAsync } from './actions';
 
 const getState = (state: RootState) => state.studio.data;

@@ -1,4 +1,4 @@
-import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 import { RootState } from '@model/types';
 
 const getFiltersState = (state: RootState) => state.studio.filters;

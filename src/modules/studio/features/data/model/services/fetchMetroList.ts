@@ -1,5 +1,5 @@
-import { axiosClient } from '@lib/axios.client';
 import { CityType } from '@modules/studio';
+import { service } from '@modules/services';
 
 export type MetroListResponse = MetroLineResponse[];
 
@@ -20,6 +20,6 @@ export type MetroStationResponse = {
 };
 
 export const fetchMetroList = ({ city }: { city: CityType }) =>
-  axiosClient
+  service
     .get<MetroListResponse>(`/api/metro`, { params: { cityId: city } })
     .then(response => response.data);

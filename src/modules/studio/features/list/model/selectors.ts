@@ -1,8 +1,10 @@
 import { getType } from 'typesafe-actions';
-import { createDeepEqualSelector } from '@lib/createDeepEqualSelector';
-import { createRequestErrorSelector } from '@model/api/errors/selectors';
-import { createRequestLoadingSelector } from '@model/api/loading/selectors';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 import { RootState } from '@model/types';
+import {
+  createRequestErrorSelector,
+  createRequestLoadingSelector,
+} from '@modules/services';
 import { fetchFilterStudiosAsync, fetchStudiosAsync } from './actions';
 
 const getStudiosState = (state: RootState) => state.studio.list;

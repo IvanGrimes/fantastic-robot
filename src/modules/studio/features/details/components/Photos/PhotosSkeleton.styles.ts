@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { floatToFraction } from '@utils/floatToFraction';
 import { ComponentType } from 'react';
-import { Loader as DefaultLoader, LoaderProps } from '@components/Loader';
+import {
+  Loader as DefaultLoader,
+  LoaderProps,
+} from '@modules/ui/components/Loader';
 
 export const Wrapper = styled.div`
   position: relative;

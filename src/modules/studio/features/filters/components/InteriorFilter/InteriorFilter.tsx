@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
-import { PropertyList } from '@components/PropertyList';
+import { PropertyList } from '@modules/ui/components';
 import { RootState } from '@model/types';
 import { StudioListFilterTypeProps } from './index';
 import { setFilters } from '../../model/actions';

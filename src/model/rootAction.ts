@@ -1,4 +1,4 @@
-import * as ui from '@modules/../features/ui';
+import * as ui from '@modules/./ui';
 import * as studio from '@modules/studio';
 
 export default {

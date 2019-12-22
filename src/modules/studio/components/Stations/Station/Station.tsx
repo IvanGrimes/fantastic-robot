@@ -7,10 +7,15 @@ export type StationProps = {
   className?: string;
   color: string;
   value: string;
-  size: ReturnType<typeof getSize>
+  size: ReturnType<typeof getSize>;
 };
 
-export const Station = ({ className = '', color, value, size }: StationProps) => (
+export const Station = ({
+  className = '',
+  color,
+  value,
+  size,
+}: StationProps) => (
   <StyledStation className={className} color={color}>
     <Typography component="span" variant={size}>
       {value}

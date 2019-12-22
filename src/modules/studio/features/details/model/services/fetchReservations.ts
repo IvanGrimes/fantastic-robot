@@ -1,4 +1,4 @@
-import { axiosClient } from '@lib/axios.client';
+import { service } from '@modules/services';
 import { ReservationId, RoomId, StudioId } from '../types';
 
 export type FetchReservationsInput = {
@@ -21,6 +21,6 @@ export type ReservationsResponse = {
 }[];
 
 export const fetchReservations = (params: FetchReservationsInput) =>
-  axiosClient
+  service
     .get<ReservationsResponse>('/api/calendar/for-studio/list', { params })
     .then(({ data }) => data);

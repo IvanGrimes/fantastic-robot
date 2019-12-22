@@ -10,8 +10,7 @@ export type StudioListItemPriceTypeProps = {
   loading: boolean;
   className?: string;
   size?: Size;
-} &
-  Pick<ListItemProps, 'priceType'>;
+} & Pick<ListItemProps, 'priceType'>;
 
 const _StudioListItemPriceType = ({
   className = '',

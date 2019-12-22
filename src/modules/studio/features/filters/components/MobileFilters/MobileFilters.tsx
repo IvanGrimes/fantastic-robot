@@ -8,10 +8,12 @@ import {
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import dequal from 'dequal';
-import { Container } from '@components/Container';
-import { BarWrapper } from '@features/ui';
+import {
+  Container,
+  BarWrapper,
+  DynamicRendering,
+} from '@modules/ui/components';
 import { changeDocumentScroll } from '@utils/changeDocumentScroll';
-import DynamicRendering from '@components/DynamicRendering';
 import {
   FilterGrid,
   Wrapper,

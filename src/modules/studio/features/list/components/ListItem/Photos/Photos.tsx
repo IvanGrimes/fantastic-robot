@@ -1,9 +1,9 @@
 import React, { memo, useMemo } from 'react';
 import dequal from 'dequal';
 import { Grid } from '@material-ui/core';
-import { LazyImage } from '@components/LazyImage';
+import { LazyImage } from '@modules/ui/components/LazyImage';
 import { floatToFraction } from '@utils/floatToFraction';
-import { Carousel } from '@components/Carousel';
+import { Carousel } from '@modules/ui/components/Carousel';
 import { PhotosSkeleton } from './PhotosSkeleton';
 import { ListItemProps } from '../index';
 

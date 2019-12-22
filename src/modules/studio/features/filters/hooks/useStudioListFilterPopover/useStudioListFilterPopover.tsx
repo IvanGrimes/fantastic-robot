@@ -11,8 +11,8 @@ import { DeepPartial } from 'redux';
 import { mergeDeepRight } from 'ramda';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
-import { selectors as uiSelectors } from '@features/ui';
-import DynamicRendering from '@components/DynamicRendering';
+import { DynamicRendering } from '@modules/ui/components';
+import { selectors as uiSelectors } from '@modules/ui';
 import { Paper, FilterWrapper } from './useStudioListFilterPopover.styles';
 
 type UseStudioListFilterPopoverInput = ReactNode | ReactNodeArray;

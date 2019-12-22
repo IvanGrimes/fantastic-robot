@@ -1,5 +1,5 @@
-import { axiosClient } from '@lib/axios.client';
 import { StudioId } from '@modules/studio/features/details';
+import { service } from '@modules/services';
 
 export type FetchRoomsInput = {
   studioId: StudioId;
@@ -16,6 +16,6 @@ export type RoomsResponse = {
 }[];
 
 export const fetchRooms = (params: FetchRoomsInput) =>
-  axiosClient
+  service
     .get<RoomsResponse>('/api/room/for-studio', { params })
     .then(({ data }) => data);

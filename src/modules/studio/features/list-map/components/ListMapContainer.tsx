@@ -3,7 +3,7 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { RootState } from '@model/types';
-import { selectors as uiSelectors } from '@features/ui';
+import { selectors as uiSelectors } from '@modules/ui';
 import { getBreakpoints } from '@theme/breakpoints';
 import { usePrevious } from '@hooks/usePrevious';
 import { Theme } from '@theme/types';

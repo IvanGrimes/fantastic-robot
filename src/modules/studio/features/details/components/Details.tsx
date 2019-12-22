@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Container } from '@components/Container';
+import { Container } from '@modules/ui/components';
 import { Photos } from './Photos';
 import { Information, InformationProps } from './Information';
 import { RoomList } from './RoomList';

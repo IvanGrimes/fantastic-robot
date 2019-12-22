@@ -8,7 +8,7 @@ import { getBreakpoints } from '@theme/breakpoints';
 import {
   InfiniteScroll as DefaultInfiniteScroll,
   InfiniteScrollProps,
-} from '../../../../../components/InfiniteScroll';
+} from '@modules/ui/components';
 import { ListItemProps } from './ListItem';
 
 export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(

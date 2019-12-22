@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { RootState } from '@model/types';
-import { ClearableInput } from '@components/ClearableInput';
+import { ClearableInput } from '@modules/ui/components';
 import { setFilters } from '../../model/actions';
 import { getFilters } from '../../model/selectors';
 

@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { PropertyList } from '@components/PropertyList';
+import { PropertyList } from '@modules/ui/components';
 import { RootState } from '@model/types';
 import { getPriceType } from '@utils/getPriceType';
 import { StudioListFilterPriceSegmentProps } from './index';
