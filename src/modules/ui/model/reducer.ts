@@ -1,14 +1,20 @@
 import { createReducer } from 'typesafe-actions';
-import { setBottomNavigationVisibility, setHeaderVisibility } from './actions';
+import {
+  setBottomNavigationVisibility,
+  setHeaderVisibility,
+  changeIsBot,
+} from './actions';
 
 export type UIState = {
   isHeaderVisible: boolean;
   isBottomNavigationVisible: boolean;
+  isBot: boolean;
 };
 
 const initialState: UIState = {
   isHeaderVisible: true,
   isBottomNavigationVisible: true,
+  isBot: false,
 };
 
 export const uiReducer = createReducer(initialState)
@@ -19,4 +25,8 @@ export const uiReducer = createReducer(initialState)
   .handleAction(setBottomNavigationVisibility, (state, { payload }) => ({
     ...state,
     isBottomNavigationVisible: payload.visibility,
+  }))
+  .handleAction(changeIsBot, (state, { payload }) => ({
+    ...state,
+    isBot: payload.state,
   }));

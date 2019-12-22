@@ -4,6 +4,7 @@ import { Carousel, LazyImage, DynamicRendering } from '@modules/ui';
 import { floatToFraction } from '@utils/floatToFraction';
 import { TextList } from '@modules/studio/components/TextList';
 import { getConfig } from '@modules/studio/features/data/model/selectors';
+import { useWithSEO } from '@modules/services';
 import { getRooms } from '../../model/selectors';
 import {
   RoomListCarousel,
@@ -25,6 +26,7 @@ export const RoomList = ({
   isConfigLoading,
   config,
 }: RoomListProps) => {
+  const { isBot } = useWithSEO();
   const skeleton = useMemo(() => <span>Loading room list</span>, []);
 
   if (isRoomsLoading) {
@@ -32,7 +34,7 @@ export const RoomList = ({
   }
 
   return (
-    <DynamicRendering>
+    <DynamicRendering force={isBot}>
       <Grid container>
         <RoomListCarousel skeleton={skeleton} slidesToShow={2} infinite={false}>
           {[...rooms, ...rooms].map(

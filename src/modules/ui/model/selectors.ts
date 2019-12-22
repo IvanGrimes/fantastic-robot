@@ -5,3 +5,5 @@ export const getIsHeaderVisible = (state: RootState) =>
 
 export const getIsBottomNavigationVisible = (state: RootState) =>
   state.ui.isBottomNavigationVisible;
+
+export const getIsBot = (state: RootState) => state.ui.isBot;

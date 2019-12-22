@@ -19,7 +19,7 @@ export function DynamicRendering({ children, force = false }: Props) {
       ref={element => {
         ref.current = element;
       }}
-      style={{ height: `100px`, border: '1px solid red' }}
+      style={{ height: `100px` }}
     />
   );
 }
