@@ -8,22 +8,22 @@ import { Stations } from './Specifications.styles';
 export type SpecificationsProps = {
   isLoading: boolean;
   isConfigLoading: boolean;
-  interiorIds: string[];
+  interiorIds?: string[];
   config: ReturnType<typeof data.selectors.getConfig>;
-  equipmentIds: string[];
+  equipmentIds?: string[];
   isMetroListLoading: boolean;
-  stationIds: string[];
+  stationIds?: string[];
   metroList: ReturnType<typeof data.selectors.getMetroList>;
 };
 
 export const Specifications = ({
   isLoading,
   isConfigLoading,
-  interiorIds,
+  interiorIds = [],
   config,
-  equipmentIds,
+  equipmentIds = [],
   isMetroListLoading,
-  stationIds,
+  stationIds = [],
   metroList,
 }: SpecificationsProps) => (
   <Grid container spacing={2} justify="space-between" alignItems="flex-start">

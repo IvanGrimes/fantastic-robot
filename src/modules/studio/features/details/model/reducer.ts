@@ -30,6 +30,7 @@ const initialState: DetailsState = {
   information: {
     id: '',
     name: '',
+    roomCount: 0,
     stationIds: [],
     equipmentIds: [],
     photoIds: [],

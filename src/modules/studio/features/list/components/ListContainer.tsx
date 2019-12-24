@@ -45,7 +45,6 @@ const _ListContainer = ({
   className = '',
   studios,
   errors,
-  handleFetchStudio,
   loading,
   isFiltering,
   variant,
@@ -57,6 +56,7 @@ const _ListContainer = ({
   isMetroListLoading,
   isConfigLoading,
   config,
+  handleFetchStudio,
 }: ListContainerProps) => {
   const { query } = useRouter();
   const pageNumber = useMemo(

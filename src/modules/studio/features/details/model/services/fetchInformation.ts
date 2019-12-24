@@ -39,6 +39,7 @@ type RawInformationResponse = {
 export type InformationResponse = {
   id: RawInformationResponse['id'];
   name: RawInformationResponse['name'];
+  roomCount: RawInformationResponse['roomNumber'];
   photoIds: RawInformationResponse['photoIds'];
   equipmentIds: RawInformationResponse['equipmentIds'];
   stationIds: RawInformationResponse['stationIds'];
@@ -97,6 +98,7 @@ export const fetchInformation = ({ id }: FetchInformationInput) =>
         dressingCapacity,
         utcZone,
         priceType,
+        roomNumber,
       }) => ({
         id: studioId,
         name,
@@ -108,6 +110,7 @@ export const fetchInformation = ({ id }: FetchInformationInput) =>
         description,
         priceType,
         hasOnlinePayment,
+        roomCount: roomNumber,
         workingHours: {
           from: getHours(openMinutes),
           to: getHours(closeMinutes),

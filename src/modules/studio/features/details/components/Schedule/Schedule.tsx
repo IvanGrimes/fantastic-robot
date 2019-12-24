@@ -1,10 +1,14 @@
 import React from 'react';
 import { Calendar } from '../../../calendar';
-import { getReservationsWithColor, getWorkHours } from '../../model/selectors';
 
 export type ScheduleProps = {
-  workHours: ReturnType<typeof getWorkHours>;
-  reservations: ReturnType<typeof getReservationsWithColor>;
+  reservations: {};
+  workHours: {
+    [key: string]: {
+      from: number;
+      to: number;
+    };
+  };
 };
 
 export const Schedule = ({ workHours, reservations }: ScheduleProps) => (

@@ -4,16 +4,16 @@ import { PriceType as PriceTypeComponent } from '@modules/studio/components/Pric
 import { PriceType } from '@modules/studio/features/data';
 
 export type HeaderProps = {
-  name: string;
+  title: string;
   isLoading: boolean;
   priceType: PriceType;
 };
 
-export const Header = ({ name, isLoading, priceType }: HeaderProps) => (
+export const Header = ({ title, isLoading, priceType }: HeaderProps) => (
   <Grid container alignItems="center" justify="space-between" spacing={1}>
     <Grid item xs={10}>
       <Typography variant="h4" component="h1">
-        {name}
+        {title}
       </Typography>
     </Grid>
     <Grid item>

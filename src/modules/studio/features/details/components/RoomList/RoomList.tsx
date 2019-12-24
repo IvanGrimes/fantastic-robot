@@ -5,7 +5,7 @@ import { floatToFraction } from '@utils/floatToFraction';
 import { TextList } from '@modules/studio/components/TextList';
 import { getConfig } from '@modules/studio/features/data/model/selectors';
 import { useWithSEO } from '@modules/services';
-import { getRooms } from '../../model/selectors';
+import * as details from '../../index';
 import {
   RoomListCarousel,
   RoomListItem,
@@ -15,7 +15,7 @@ import {
 
 export type RoomListProps = {
   isRoomsLoading: boolean;
-  rooms: ReturnType<typeof getRooms>;
+  rooms: ReturnType<typeof details.selectors.getRooms>;
   isConfigLoading: boolean;
   config: ReturnType<typeof getConfig>;
 };

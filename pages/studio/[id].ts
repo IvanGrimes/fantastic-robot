@@ -1,3 +1,3 @@
 import { pages } from '@modules/studio';
 
-export default pages.Details;
+export default pages.Studio;
