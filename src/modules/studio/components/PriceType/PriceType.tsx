@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
 import { getPriceType } from '@utils/getPriceType';
-import { ListItemProps } from '@modules/studio/features/list';
 import { getSize, Size } from '@modules/studio/utils/size';
+import { PriceType as IPriceType } from '@modules/studio/features/data';
 import { PriceTypeSkeleton } from './PriceTypeSkeleton';
 import { Typography } from './PriceType.styles';
 
@@ -10,22 +10,32 @@ export type StudioListItemPriceTypeProps = {
   loading: boolean;
   className?: string;
   size?: Size;
-} & Pick<ListItemProps, 'priceType'>;
+  priceType: IPriceType | number;
+};
 
 const _StudioListItemPriceType = ({
   className = '',
   loading,
-  priceType,
   size = 'large',
-}: StudioListItemPriceTypeProps) =>
-  loading ? (
-    <PriceTypeSkeleton />
-  ) : (
+  priceType,
+}: StudioListItemPriceTypeProps) => {
+  if (loading) {
+    return <PriceTypeSkeleton />;
+  }
+
+  console.log(priceType);
+
+  return (
     <Grid item className={className}>
       <Typography component="span" variant={getSize(size)}>
-        {getPriceType(priceType)}
+        {typeof priceType === 'string' ? (
+          getPriceType(priceType)
+        ) : (
+          <>{priceType} &#8381;</>
+        )}
       </Typography>
     </Grid>
   );
+};
 
 export const PriceType = memo(_StudioListItemPriceType);

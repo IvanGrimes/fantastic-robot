@@ -1,11 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import Router from 'next/router';
+import { fetchRoom } from './services/fetchRoom';
 import { fetchReservations } from './services/fetchReservations';
 import {
   fetchReservationsAsync,
   fetchRoomsAsync,
   fetchInformationAsync,
+  fetchRoomAsync,
 } from './actions';
 import { fetchRooms } from './services/fetchRooms';
 import { fetchInformation } from './services/fetchInformation';
@@ -14,9 +16,7 @@ function* fetchReservationsFlow(
   action: ReturnType<typeof fetchReservationsAsync.request>
 ) {
   try {
-    const data = yield call(fetchReservations, {
-      studioId: action.payload.studioId,
-    });
+    const data = yield call(fetchReservations, action.payload);
 
     yield put(fetchReservationsAsync.success(data));
   } catch (e) {
@@ -26,9 +26,7 @@ function* fetchReservationsFlow(
 
 function* fetchRoomsFlow(action: ReturnType<typeof fetchRoomsAsync.request>) {
   try {
-    const data = yield call(fetchRooms, {
-      studioId: action.payload.studioId,
-    });
+    const data = yield call(fetchRooms, action.payload);
 
     yield put(fetchRoomsAsync.success(data));
   } catch (e) {
@@ -40,7 +38,7 @@ function* fetchInformationFlow(
   action: ReturnType<typeof fetchInformationAsync.request>
 ) {
   try {
-    const data = yield call(fetchInformation, { id: action.payload.id });
+    const data = yield call(fetchInformation, action.payload);
 
     yield put(fetchInformationAsync.success(data));
   } catch (e) {
@@ -52,8 +50,19 @@ function* fetchInformationFlow(
   }
 }
 
+function* fetchRoomFlow(action: ReturnType<typeof fetchRoomAsync.request>) {
+  try {
+    const data = yield call(fetchRoom, action.payload);
+
+    yield put(fetchRoomAsync.success(data));
+  } catch (e) {
+    yield put(fetchRoomAsync.failure(e));
+  }
+}
+
 export const saga = [
   takeLatest(getType(fetchReservationsAsync.request), fetchReservationsFlow),
   takeLatest(getType(fetchRoomsAsync.request), fetchRoomsFlow),
   takeLatest(getType(fetchInformationAsync.request), fetchInformationFlow),
+  takeLatest(getType(fetchRoomAsync.request), fetchRoomFlow),
 ];

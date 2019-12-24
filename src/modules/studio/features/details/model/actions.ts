@@ -9,6 +9,7 @@ import {
   FetchReservationsInput,
 } from './services/fetchReservations';
 import { fetchRooms, FetchRoomsInput } from './services/fetchRooms';
+import { fetchRoom, FetchRoomInput } from './services/fetchRoom';
 
 export const fetchReservationsAsync = createAsyncAction(
   'studio/details/FETCH_RESERVATIONS_REQUEST',
@@ -27,3 +28,9 @@ export const fetchInformationAsync = createAsyncAction(
   'studio/details/FETCH_INFORMATION_SUCCESS',
   'studio/details/FETCH_INFORMATION_FAIL'
 )<FetchInformationInput, Await<ReturnType<typeof fetchInformation>>, any>();
+
+export const fetchRoomAsync = createAsyncAction(
+  'studio/details/FETCH_ROOM_REQUEST',
+  'studio/details/FETCH_ROOM_SUCCESS',
+  'studio/details/FETCH_ROOM_FAIL'
+)<FetchRoomInput, Await<ReturnType<typeof fetchRoom>>, any>();

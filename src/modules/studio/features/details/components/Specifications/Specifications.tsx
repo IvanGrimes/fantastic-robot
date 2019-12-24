@@ -14,6 +14,7 @@ export type SpecificationsProps = {
   isMetroListLoading: boolean;
   stationIds?: string[];
   metroList: ReturnType<typeof data.selectors.getMetroList>;
+  roomsCount?: number;
 };
 
 export const Specifications = ({
@@ -25,12 +26,15 @@ export const Specifications = ({
   isMetroListLoading,
   stationIds = [],
   metroList,
+  roomsCount,
 }: SpecificationsProps) => (
   <Grid container spacing={2} justify="space-between" alignItems="flex-start">
     <Grid container spacing={1} item xs={8}>
-      <Grid item>
-        <Rooms size="normal" loading={isLoading} roomsCount={2} />
-      </Grid>
+      {roomsCount ? (
+        <Grid item>
+          <Rooms size="normal" loading={isLoading} roomsCount={roomsCount} />
+        </Grid>
+      ) : null}
       <Grid item>
         <TextList
           loading={isConfigLoading}

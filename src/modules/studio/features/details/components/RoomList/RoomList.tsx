@@ -5,13 +5,9 @@ import { floatToFraction } from '@utils/floatToFraction';
 import { TextList } from '@modules/studio/components/TextList';
 import { getConfig } from '@modules/studio/features/data/model/selectors';
 import { useWithSEO } from '@modules/services';
+import Link from 'next/link';
 import * as details from '../../index';
-import {
-  RoomListCarousel,
-  RoomListItem,
-  ContentGrid,
-  Link,
-} from './RoomList.styles';
+import { RoomListCarousel, RoomListItem, ContentGrid } from './RoomList.styles';
 
 export type RoomListProps = {
   isRoomsLoading: boolean;
@@ -38,7 +34,7 @@ export const RoomList = ({
       <Grid container>
         <RoomListCarousel skeleton={skeleton} slidesToShow={2} infinite={false}>
           {[...rooms, ...rooms].map(
-            ({ photoIds, id, name, interiorIds, averagePrice }) => (
+            ({ photoIds, id, studioId, name, interiorIds, averagePrice }) => (
               <RoomListItem key={id}>
                 <Grid container item>
                   {photoIds && (
@@ -53,29 +49,40 @@ export const RoomList = ({
                     </Carousel>
                   )}
                 </Grid>
-                <Link href="/">
-                  <ContentGrid container item spacing={2}>
-                    <Grid container item justify="space-between">
-                      <Grid item xs={8}>
-                        <Typography variant="h6" component="h2">
-                          {name}
-                        </Typography>
+                <Link
+                  href="/studio/[id]/[roomId]"
+                  as={`/studio/${studioId}/${id}`}
+                  passHref
+                >
+                  <a
+                    href="/"
+                    css={`
+                      text-decoration: none;
+                    `}
+                  >
+                    <ContentGrid container item spacing={2}>
+                      <Grid container item justify="space-between">
+                        <Grid item xs={8}>
+                          <Typography variant="h6" component="h2">
+                            {name}
+                          </Typography>
+                        </Grid>
+                        <Grid container justify="flex-end" item xs={3}>
+                          <Typography variant="subtitle1" component="span">
+                            {averagePrice} &#8381;
+                          </Typography>
+                        </Grid>
                       </Grid>
-                      <Grid container justify="flex-end" item xs={3}>
-                        <Typography variant="subtitle1" component="span">
-                          {averagePrice} &#8381;
-                        </Typography>
+                      <Grid container item>
+                        <TextList
+                          loading={isConfigLoading}
+                          ids={interiorIds || ['loft', 'flat']}
+                          list={config.interior}
+                          size="small"
+                        />
                       </Grid>
-                    </Grid>
-                    <Grid container item>
-                      <TextList
-                        loading={isConfigLoading}
-                        ids={interiorIds || ['loft', 'flat']}
-                        list={config.interior}
-                        size="small"
-                      />
-                    </Grid>
-                  </ContentGrid>
+                    </ContentGrid>
+                  </a>
                 </Link>
               </RoomListItem>
             )

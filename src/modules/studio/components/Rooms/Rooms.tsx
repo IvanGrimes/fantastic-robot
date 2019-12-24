@@ -9,7 +9,7 @@ export type StudioListItemRoomsProps = {
   loading: boolean;
   className?: string;
   size?: Size;
-} & Pick<ListItemProps, 'roomsCount'>;
+} & Partial<Pick<ListItemProps, 'roomsCount'>>;
 
 const _StudioListItemRooms = ({
   className = '',

@@ -4,12 +4,7 @@ import { useRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { Layout } from '@modules/ui/components';
 import { RootState } from '@model/types';
-import { Wrapper } from './Studio.styles';
-import {
-  fetchInformationAsync,
-  fetchReservationsAsync,
-  fetchRoomsAsync,
-} from '../../features/details/model/actions';
+import { Wrapper } from './Room.styles';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -20,46 +15,46 @@ type Props = ReturnType<typeof mapStateToProps> &
 const mapStateToProps = (state: RootState) => ({
   isInformationLoading: details.selectors.getInformationLoading(state),
   information: details.selectors.getInformation(state),
-  isRoomsLoading: details.selectors.getRoomsLoading(state),
-  rooms: details.selectors.getRooms(state),
+  isRoomLoading: details.selectors.getRoomLoading(state),
+  room: details.selectors.getRoom(state),
   reservations: details.selectors.getReservationsWithColor(state),
   workHours: details.selectors.getWorkHours(state),
 });
 
 const dispatchProps = {
-  handleFetchReservations: fetchReservationsAsync.request,
-  handleFetchRooms: fetchRoomsAsync.request,
-  handleFetchInformation: fetchInformationAsync.request,
+  handleFetchReservations: details.actions.fetchReservationsAsync.request,
+  handleFetchRoom: details.actions.fetchRoomAsync.request,
+  handleFetchInformation: details.actions.fetchInformationAsync.request,
 };
 
-const _Studio = ({
+const _Room = ({
   handleFetchReservations,
-  handleFetchRooms,
+  handleFetchRoom,
   handleFetchInformation,
   isBot,
   isInformationLoading,
   information,
-  isRoomsLoading,
-  rooms,
+  isRoomLoading,
+  room,
   reservations,
   workHours,
 }: Props) => {
   const { query } = useRouter();
 
   useEffect(() => {
-    const studioId = query.id;
+    const { id: studioId, roomId } = query;
 
     if (typeof studioId === 'string' && !isBot) {
       handleFetchReservations({ studioId });
-      handleFetchRooms({ studioId });
+      handleFetchRoom({ roomId: roomId as string });
       handleFetchInformation({ studioId: studioId });
     }
   }, [
     handleFetchInformation,
     handleFetchReservations,
-    handleFetchRooms,
+    handleFetchRoom,
     isBot,
-    query.id,
+    query,
   ]);
 
   return (
@@ -67,26 +62,18 @@ const _Studio = ({
       <Wrapper>
         <DetailsComponent
           information={{
-            isLoading: isInformationLoading,
-            description: information.description,
+            isLoading: isInformationLoading || isRoomLoading,
             equipmentIds: information.equipmentIds,
             hasOnlinePayment: information.hasOnlinePayment,
-            photoIds: information.photoIds,
-            price: information.priceType,
-            roomsCount: information.roomsCount,
-            stationIds: information.stationIds,
-            title: information.name,
-            interiorIds: information.interiorIds,
-          }}
-          rooms={{
-            isLoading: isRoomsLoading,
-            list: rooms,
+            photoIds: room.photoIds,
+            price: room.averagePrice,
+            title: room.name,
+            interiorIds: room.interiorIds || undefined,
           }}
           schedule={{
             workHours,
             reservations,
           }}
-          contacts={information.contacts}
           dressingRoom={information.dressingRoom}
           workingHours={information.workingHours}
         />
@@ -95,12 +82,14 @@ const _Studio = ({
   );
 };
 
-export const Studio = connect(
+export const Room = connect(
   mapStateToProps,
   dispatchProps
 )(
   withSEO(({ query }) => [
-    () => fetchRoomsAsync.request({ studioId: query.id as string }),
-    () => fetchInformationAsync.request({ studioId: query.id as string }),
-  ])(_Studio)
+    () =>
+      details.actions.fetchRoomAsync.request({ roomId: query.roomId as string }),
+    () =>
+      details.actions.fetchInformationAsync.request({ studioId: query.id as string }),
+  ])(_Room)
 );

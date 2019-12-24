@@ -6,10 +6,10 @@ import { PriceType } from '@modules/studio/features/data';
 export type HeaderProps = {
   title: string;
   isLoading: boolean;
-  priceType: PriceType;
+  priceType: PriceType | number;
 };
 
-export const Header = ({ title, isLoading, priceType }: HeaderProps) => (
+export const Header = ({ title, isLoading, ...props }: HeaderProps) => (
   <Grid container alignItems="center" justify="space-between" spacing={1}>
     <Grid item xs={10}>
       <Typography variant="h4" component="h1">
@@ -20,7 +20,7 @@ export const Header = ({ title, isLoading, priceType }: HeaderProps) => (
       <PriceTypeComponent
         size="extraLarge"
         loading={isLoading}
-        priceType={priceType}
+        priceType={props.priceType}
       />
     </Grid>
   </Grid>

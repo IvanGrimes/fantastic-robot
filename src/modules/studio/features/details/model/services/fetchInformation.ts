@@ -3,7 +3,7 @@ import { service } from '@modules/services';
 import { StudioId } from '../types';
 import { PriceType } from '../../../data';
 
-export type FetchInformationInput = { id: StudioId };
+export type FetchInformationInput = { studioId: StudioId };
 
 type RawInformationResponse = {
   id: string;
@@ -39,7 +39,7 @@ type RawInformationResponse = {
 export type InformationResponse = {
   id: RawInformationResponse['id'];
   name: RawInformationResponse['name'];
-  roomCount: RawInformationResponse['roomNumber'];
+  roomsCount: RawInformationResponse['roomNumber'];
   photoIds: RawInformationResponse['photoIds'];
   equipmentIds: RawInformationResponse['equipmentIds'];
   stationIds: RawInformationResponse['stationIds'];
@@ -47,7 +47,7 @@ export type InformationResponse = {
   cityId: RawInformationResponse['cityId'];
   description: RawInformationResponse['description'];
   hasOnlinePayment: RawInformationResponse['hasOnlinePayment'];
-  priceType: RawInformationResponse['priceType'];
+  priceType: PriceType;
   workingHours: {
     from: number;
     to: number;
@@ -70,13 +70,13 @@ export type InformationResponse = {
 
 const getHours = (minutes: number) => minutes / 60;
 
-export const fetchInformation = ({ id }: FetchInformationInput) =>
+export const fetchInformation = ({ studioId }: FetchInformationInput) =>
   service
-    .get<RawInformationResponse>(`/api/studio/${id}`)
+    .get<RawInformationResponse>(`/api/studio/${studioId}`)
     .then(({ data }) => data)
     .then<InformationResponse>(
       ({
-        id: studioId,
+        id,
         name,
         photoIds,
         equipmentIds,
@@ -100,7 +100,7 @@ export const fetchInformation = ({ id }: FetchInformationInput) =>
         priceType,
         roomNumber,
       }) => ({
-        id: studioId,
+        id,
         name,
         photoIds,
         equipmentIds,
@@ -108,9 +108,9 @@ export const fetchInformation = ({ id }: FetchInformationInput) =>
         interiorIds,
         cityId,
         description,
-        priceType,
+        priceType: priceType.toString() as PriceType,
         hasOnlinePayment,
-        roomCount: roomNumber,
+        roomsCount: roomNumber,
         workingHours: {
           from: getHours(openMinutes),
           to: getHours(closeMinutes),

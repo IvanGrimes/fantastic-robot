@@ -13,7 +13,6 @@ import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 
-// TODO: Сделать лейаут для детальных страниц
 // TODO: Сделать страницу зала
 // TODO: Отображать цвет зала на карточке
 // TODO: Бронирование
@@ -29,7 +28,7 @@ export type DetailsOwnProps = {
     isLoading: boolean;
     title: string;
     photoIds: string[];
-    roomCount?: number;
+    roomsCount?: number;
     interiorIds?: string[];
     stationIds?: string[];
     equipmentIds?: string[];
@@ -92,9 +91,7 @@ export const Details = ({
             <Header
               isLoading={information.isLoading}
               title={information.title}
-              priceType={
-                typeof information.price === 'string' ? information.price : '1'
-              }
+              priceType={information.price}
             />
             <Specifications
               isLoading={information.isLoading}
@@ -105,6 +102,7 @@ export const Details = ({
               isMetroListLoading={isMetroListLoading}
               stationIds={information.stationIds}
               metroList={metroList}
+              roomsCount={information.roomsCount}
             />
             <Description content={information.description} />
             {rooms && (
