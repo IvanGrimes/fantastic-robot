@@ -14,7 +14,8 @@ import * as filters from '../../features/filters';
 const { ListMap } = listMap;
 const { List: ListComponent } = list;
 
-type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof dispatchProps & { isBot: boolean };
 
 const mapStateToProps = (state: RootState) => ({
   studios: list.selectors.getStudios(state),
@@ -76,7 +77,7 @@ export const List = connect(
   mapStateToProps,
   dispatchProps
 )(
-  withSEO(({ query }) => [
+  withSEO<Props>(({ query }) => [
     () =>
       list.actions.fetchStudiosAsync.request({
         city: 'moscow',

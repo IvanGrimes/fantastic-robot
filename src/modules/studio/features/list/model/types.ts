@@ -38,5 +38,5 @@ export type Studios = Omit<StudiosResponse, 'studios'> & {
 };
 
 export type StudioItem = Omit<StudioItemResponse, 'roomNumber'> & {
-  roomsCount: StudioItemResponse['roomNumber'];
+  roomsCount: StudioItemResponse['roomsCount'];
 };

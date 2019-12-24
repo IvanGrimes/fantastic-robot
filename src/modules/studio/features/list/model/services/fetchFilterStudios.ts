@@ -3,23 +3,32 @@ import { CityType } from '@modules/studio';
 import { service } from '@modules/services';
 import { PriceType } from '../../../data';
 
-export type StudiosResponse = {
+type StudioRawResponse = {
   hasNext: boolean;
-  studios: StudioItemResponse[];
+  studios: StudioItemRawResponse[];
 };
 
-export type StudioItemResponse = {
+type StudioItemRawResponse = {
   id: StudioId;
   name: string;
   interiorIds: string[];
   photoIds: string[];
   stationIds: string[];
-  priceType: '1' | '2' | '3';
+  priceType: PriceType;
   roomNumber: number;
   location: {
     lon: number;
     lat: number;
   };
+};
+
+export type StudiosResponse = {
+  hasNext: boolean;
+  studios: StudioItemResponse[];
+};
+
+export type StudioItemResponse = Omit<StudioItemRawResponse, 'roomNumber'> & {
+  roomsCount: number;
 };
 
 export type FilterStudiosInput = {
@@ -39,8 +48,16 @@ export const fetchFilterStudios = (params: FilterStudiosInput) => {
   const { city: cityId, ...query } = params;
 
   return service
-    .get<StudiosResponse>(`/api/studio/filter`, {
+    .get<StudioRawResponse>(`/api/studio/filter`, {
       params: { cityId, ...query },
     })
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .then<StudiosResponse>(({ studios, ...data }) => ({
+      studios: studios.map(({ roomNumber, priceType, ...studio }) => ({
+        roomsCount: roomNumber,
+        priceType: priceType.toString() as PriceType,
+        ...studio,
+      })),
+      ...data,
+    }));
 };

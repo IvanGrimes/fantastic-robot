@@ -9,11 +9,9 @@ import {
 } from './actions';
 import { RoomsResponse } from './services/fetchRooms';
 import { InformationResponse } from './services/fetchInformation';
-import { RoomResponse } from './services/fetchRoom';
 
 export type DetailsState = {
   information: InformationResponse;
-  room: RoomResponse;
   workHours: { [key: string]: { from: number; to: number } };
   reservations: {
     [key: string]: {
@@ -30,16 +28,6 @@ const initialState: DetailsState = {
   workHours: {},
   reservations: {},
   rooms: [],
-  room: {
-    photoIds: [],
-    interiorIds: [],
-    name: '',
-    id: '',
-    averagePrice: 0,
-    calendarUrl: '',
-    photoExamples: [],
-    studioId: '',
-  },
   information: {
     id: '',
     name: '',
@@ -166,5 +154,5 @@ export const reducer = createReducer(initialState)
   }))
   .handleAction(fetchRoomAsync.success, (state, action) => ({
     ...state,
-    room: action.payload,
+    rooms: [{ ...action.payload, color: roomColors[0] }],
   }));

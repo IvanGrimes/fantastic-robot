@@ -52,7 +52,7 @@ const _Studio = ({
     if (typeof studioId === 'string' && !isBot) {
       handleFetchReservations({ studioId });
       handleFetchRooms({ studioId });
-      handleFetchInformation({ studioId: studioId });
+      handleFetchInformation({ studioId });
     }
   }, [
     handleFetchInformation,
@@ -99,7 +99,7 @@ export const Studio = connect(
   mapStateToProps,
   dispatchProps
 )(
-  withSEO(({ query }) => [
+  withSEO<Props>(({ query }) => [
     () => fetchRoomsAsync.request({ studioId: query.id as string }),
     () => fetchInformationAsync.request({ studioId: query.id as string }),
   ])(_Studio)

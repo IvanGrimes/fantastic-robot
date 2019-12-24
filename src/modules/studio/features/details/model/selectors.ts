@@ -1,13 +1,25 @@
 import { RootState } from '@model/types';
 import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
+import { getType } from 'typesafe-actions';
+import { createRequestLoadingSelector } from '@modules/services';
+import { createSelector } from 'reselect';
 import {
   fetchInformationAsync,
   fetchRoomAsync,
   fetchRoomsAsync,
-} from '@modules/studio/features/details/model/actions';
-import { getType } from 'typesafe-actions';
-import { createRequestLoadingSelector } from '@modules/services';
-import { createSelector } from 'reselect';
+} from './actions';
+import { RoomId } from './types';
+
+const defaultRoom = {
+  photoIds: [],
+  interiorIds: [],
+  name: '',
+  id: '',
+  averagePrice: 0,
+  calendarUrl: '',
+  photoExamples: [],
+  studioId: '',
+};
 
 const getState = (state: RootState) => state.studio.details;
 
@@ -59,11 +71,17 @@ export const getInformationLoading = createRequestLoadingSelector([
   getType(fetchInformationAsync.request),
 ]);
 
-export const getRoomLoading = createRequestLoadingSelector([
+export const getRoomById = (state: RootState, { roomId }: { roomId: RoomId }) =>
+  createSelector(
+    [getState],
+    ({ rooms }) => rooms.filter(({ id }) => id === roomId)[0] || defaultRoom
+  )(state);
+
+const getIsRoomLoading = createRequestLoadingSelector([
   getType(fetchRoomAsync.request),
 ]);
 
-export const getRoom = createSelector(
-  [getState],
-  state => state.room
+export const getRoomLoading = createSelector(
+  [getRoomById, getIsRoomLoading],
+  (room, isLoading) => (room.id.length ? false : isLoading)
 );

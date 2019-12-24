@@ -1,6 +1,6 @@
 import { StudioId } from '@modules/studio/features/details';
 import { service } from '@modules/services';
-import { RoomId } from '../types'
+import { RoomId } from '../types';
 
 export type FetchRoomsInput = {
   studioId: StudioId;
