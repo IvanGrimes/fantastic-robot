@@ -47,20 +47,14 @@ const _Studio = ({
   const { query } = useRouter();
 
   useEffect(() => {
-    const studioId = query.id;
+    const studioId = query.studio;
 
     if (typeof studioId === 'string' && !isBot) {
       handleFetchReservations({ studioId });
       handleFetchRooms({ studioId });
       handleFetchInformation({ studioId });
     }
-  }, [
-    handleFetchInformation,
-    handleFetchReservations,
-    handleFetchRooms,
-    isBot,
-    query.id,
-  ]);
+  }, [handleFetchInformation, handleFetchReservations, handleFetchRooms, isBot, query.id, query.studio]);
 
   return (
     <Layout>
@@ -99,8 +93,12 @@ export const Studio = connect(
   mapStateToProps,
   dispatchProps
 )(
-  withSEO<Props>(({ query }) => [
-    () => fetchRoomsAsync.request({ studioId: query.id as string }),
-    () => fetchInformationAsync.request({ studioId: query.id as string }),
-  ])(_Studio)
+  withSEO<Props>(({ query }) => {
+    const studioId = query.studio as string;
+
+    return [
+      () => fetchRoomsAsync.request({ studioId }),
+      () => fetchInformationAsync.request({ studioId }),
+    ];
+  })(_Studio)
 );

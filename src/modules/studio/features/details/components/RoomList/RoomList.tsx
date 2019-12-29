@@ -50,8 +50,8 @@ export const RoomList = ({
                   )}
                 </Grid>
                 <Link
-                  href="/studio/[id]/[roomId]"
-                  as={`/studio/${studioId}/${id}`}
+                  href="/[studio]/[room]"
+                  as={`/${studioId}/${id}`}
                   passHref
                 >
                   <a

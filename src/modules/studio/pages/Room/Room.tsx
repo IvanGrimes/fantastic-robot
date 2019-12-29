@@ -17,7 +17,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const mapStateToProps = (state: RootState, { router }: OwnProps) => {
   const roomProps = {
-    roomId: router.query.roomId as details.RoomId,
+    roomId: router.query.room as details.RoomId,
   };
 
   return {
@@ -51,7 +51,7 @@ const _Room = ({
   const { query } = useRouter();
 
   useEffect(() => {
-    const { id: studioId, roomId } = query;
+    const { studio: studioId, room: roomId } = query;
 
     if (typeof studioId === 'string' && !isBot) {
       if (!room.id) {
@@ -103,11 +103,11 @@ export const Room = withRouter<OwnProps>(
     withSEO<Props>(({ query }) => [
       () =>
         details.actions.fetchRoomAsync.request({
-          roomId: query.roomId as string,
+          roomId: query.room as string,
         }),
       () =>
         details.actions.fetchInformationAsync.request({
-          studioId: query.id as string,
+          studioId: query.studio as string,
         }),
     ])(_Room)
   )

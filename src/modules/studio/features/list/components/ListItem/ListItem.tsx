@@ -25,7 +25,7 @@ const _ListItem = ({
   priceType,
   stationIds,
 }: ListItemProps) => (
-  <Link href="/studio/[id]" as={`/studio/${id}`} passHref>
+  <Link href="/[studio]" as={`/${id}`} passHref>
     <Card isDisabled={loading}>
       <Grid item sm={variant === 'wide' ? 5 : 12} xs={12}>
         <Grid container>
