@@ -5,7 +5,7 @@ import { Container } from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import { Payment } from '@modules/studio/features/payment';
 import { MainGrid } from './Details.styles';
-import { getRooms } from '../model/selectors';
+import { getRoomById, getRooms } from '../model/selectors';
 import { Header } from './Header';
 import { Specifications } from './Specifications';
 import { Photos } from './Photos';
@@ -57,6 +57,10 @@ export type DetailsOwnProps = {
     isLoading: boolean;
     list: ReturnType<typeof getRooms>;
   };
+  room?: {
+    isLoading: boolean;
+    data: ReturnType<typeof getRoomById>;
+  };
   schedule: ScheduleProps;
 };
 
@@ -76,6 +80,7 @@ export const Details = ({
   isMetroListLoading,
   metroList,
   rooms,
+  room,
   schedule,
 }: Props) => {
   return (
@@ -115,7 +120,20 @@ export const Details = ({
             {false && <Schedule {...schedule} />}
           </Grid>
           <Grid item xs={4}>
-            <Payment />
+            {rooms && (
+              <Payment
+                variant="studio"
+                isRoomsLoading={rooms.isLoading}
+                rooms={rooms.list}
+              />
+            )}
+            {room && (
+              <Payment
+                variant="room"
+                isRoomLoading={room.isLoading}
+                room={room.data}
+              />
+            )}
           </Grid>
         </MainGrid>
       </Container>

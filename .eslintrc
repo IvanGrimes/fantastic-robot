@@ -18,7 +18,7 @@
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "no-underscore-dangle": "off",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "error",
     "no-unused-vars": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
@@ -26,6 +26,7 @@
     "no-use-before-define": "off",
     "react/destructuring-assignment": "off",
     "no-param-reassign": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "react/prop-types": "off"
   }
 }

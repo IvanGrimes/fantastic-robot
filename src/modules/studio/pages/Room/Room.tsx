@@ -89,6 +89,10 @@ const _Room = ({
           }}
           dressingRoom={information.dressingRoom}
           workingHours={information.workingHours}
+          room={{
+            isLoading: isRoomLoading,
+            data: room,
+          }}
         />
       </Wrapper>
     </Layout>

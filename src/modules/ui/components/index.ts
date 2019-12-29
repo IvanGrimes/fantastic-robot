@@ -15,6 +15,7 @@ export * from './Loader';
 export * from './PropertyList';
 export * from './SEO';
 export * from './DynamicRendering';
+export * from './Select';
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic');
