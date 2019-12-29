@@ -34,7 +34,15 @@ export const RoomList = ({
       <Grid container>
         <RoomListCarousel skeleton={skeleton} slidesToShow={2} infinite={false}>
           {[...rooms, ...rooms].map(
-            ({ photoIds, id, studioId, name, interiorIds, averagePrice }) => (
+            ({
+              color,
+              photoIds,
+              id,
+              studioId,
+              name,
+              interiorIds,
+              averagePrice,
+            }) => (
               <RoomListItem key={id}>
                 <Grid container item>
                   {photoIds && (
@@ -60,7 +68,7 @@ export const RoomList = ({
                       text-decoration: none;
                     `}
                   >
-                    <ContentGrid container item spacing={2}>
+                    <ContentGrid container item spacing={2} color={color}>
                       <Grid container item justify="space-between">
                         <Grid item xs={8}>
                           <Typography variant="h6" component="h2">

@@ -13,8 +13,8 @@ import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 
-// TODO: Отображать студию, которой принадлежит зал
 // TODO: Отображать цвет зала на карточке
+// TODO: Отображать студию, которой принадлежит зал
 // TODO: Бронирование
 // TODO: Расписание
 // TODO: Контакты

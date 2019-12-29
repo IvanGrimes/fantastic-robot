@@ -54,7 +54,13 @@ const _Studio = ({
       handleFetchRooms({ studioId });
       handleFetchInformation({ studioId });
     }
-  }, [handleFetchInformation, handleFetchReservations, handleFetchRooms, isBot, query.id, query.studio]);
+  }, [
+    handleFetchInformation,
+    handleFetchReservations,
+    handleFetchRooms,
+    isBot,
+    query.studio,
+  ]);
 
   return (
     <Layout>

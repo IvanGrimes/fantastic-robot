@@ -40,12 +40,18 @@ export const RoomListItem = styled<ComponentType<PaperProps>>(
   }}
 `;
 
-export const ContentGrid = styled<ComponentType<GridProps>>(Grid)`
-  && {
-    padding: 5px 10px 10px 10px;
-    color: #000;
-    &:hover {
-      text-decoration: none !important;
+export const ContentGrid = styled<ComponentType<GridProps & { color: string }>>(
+  ({ color, ...props }) => <Grid {...props} />
+)`
+  ${({ color }) => css`
+    && {
+      padding: 5px 10px 10px 10px;
+      color: #000;
+      border-bottom: 4px solid ${color};
+      margin-bottom: 0;
+      &:hover {
+        text-decoration: none !important;
+      }
     }
-  }
+  `}
 `;
