@@ -1,6 +1,7 @@
 import { createReducer } from 'typesafe-actions';
 import { getTime, setHours, setMinutes } from 'date-fns';
 import { getDateRange } from '@utils/getDateRange';
+import * as colors from '@material-ui/core/colors';
 import {
   fetchInformationAsync,
   fetchReservationsAsync,
@@ -61,18 +62,13 @@ const initialState: DetailsState = {
   },
 };
 
-const roomColors = [
-  '#61bd4f',
-  '#c377e0',
-  '#ff9f1a',
-  '#00c2e0',
-  '#eb5a46',
-  '#b3bac5',
-  '#0079bf',
-  '#51e898',
-  '#ff78cb',
-  '#344563',
-];
+const roomColors = Object.entries(colors).reduce<string[]>((acc, [, group]) => {
+  if ('black' in group) {
+    return acc;
+  }
+
+  return [...acc, group['200']];
+}, []);
 
 export const reducer = createReducer(initialState)
   .handleAction(fetchReservationsAsync.success, (state, { payload }) => ({

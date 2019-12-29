@@ -13,9 +13,8 @@ import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 
-// TODO: Отображать цвет зала на карточке
-// TODO: Отображать студию, которой принадлежит зал
 // TODO: Бронирование
+// TODO: Отображать студию, которой принадлежит зал
 // TODO: Расписание
 // TODO: Контакты
 // TODO: Скелетоны
@@ -86,8 +85,8 @@ export const Details = ({
         photoIds={information.photoIds}
       />
       <Container variant="secondary">
-        <MainGrid container>
-          <Grid item xs={8}>
+        <MainGrid container justify="space-between">
+          <Grid item xs={7}>
             <Header
               isLoading={information.isLoading}
               title={information.title}
