@@ -3,6 +3,8 @@ import * as details from '@modules/studio/features/details';
 import { Grid } from '@material-ui/core';
 import { Price } from './Price';
 import { RoomSelect } from './RoomSelect';
+import { DateRange } from './DateRange';
+import { Reserve } from './Reserve';
 
 export type StudioPaymentProps = {
   isRoomsLoading: boolean;
@@ -29,18 +31,22 @@ export const StudioPayment = ({
   }
 
   return (
-    <Grid container>
-      <Grid container alignItems="flex-end">
-        <Price isLoading={isRoomsLoading} price={selectedRoom.averagePrice} />
-      </Grid>
-      <Grid container>
-        <RoomSelect
-          isLoading={isRoomsLoading}
-          list={rooms}
-          value={roomId}
-          handleChange={handleChangeRoomId}
-        />
-      </Grid>
+    <Grid container spacing={2}>
+      <Price
+        isLoading={isRoomsLoading}
+        pricePerHour={selectedRoom.averagePrice}
+      />
+      <RoomSelect
+        isLoading={isRoomsLoading}
+        list={rooms}
+        value={roomId}
+        handleChange={handleChangeRoomId}
+      />
+      <DateRange />
+      <Reserve
+        isLoading={isRoomsLoading}
+        pricePerHour={selectedRoom.averagePrice}
+      />
     </Grid>
   );
 };

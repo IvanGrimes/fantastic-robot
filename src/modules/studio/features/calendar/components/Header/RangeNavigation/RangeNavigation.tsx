@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
-import { CalendarContext } from '../../CalendarContainer';
+import React from 'react';
+import { useCalendar } from '../../CalendarContext';
 import { Wrapper, Control } from './RangeNavigation.styles';
 import { DirectionButton } from './DirectionButton';
 import { ViewRange } from './ViewRange';
 
 export const RangeNavigation = () => {
-  const { previousRange, nextRange, previousMonth, nextMonth } = useContext(
-    CalendarContext
-  );
+  const { previousRange, nextRange, previousMonth, nextMonth } = useCalendar();
 
   return (
     <Wrapper>

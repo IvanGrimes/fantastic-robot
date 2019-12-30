@@ -16,7 +16,7 @@ import {
   Popper,
 } from '@material-ui/core';
 import { ViewColumn as ViewColumnIcon } from '../ViewColumn.styles';
-import { CalendarContextType } from '../../../../CalendarContainer';
+import { CalendarContextType } from '../../../../CalendarContext';
 
 type Props = {
   availableSteps: CalendarContextType['availableSteps'];

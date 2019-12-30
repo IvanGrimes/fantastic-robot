@@ -13,7 +13,8 @@ export const Wrapper = styled<ComponentType<WrapperProps>>(
   ${({ isFixed, top }) => css`
     && {
       position: ${isFixed ? 'fixed' : 'static'};
-      padding: 12px 24px;
+      padding: 16px;
+      margin: 0 0 -8px 0;
       top: ${top}px;
       width: 338.66px;
     }

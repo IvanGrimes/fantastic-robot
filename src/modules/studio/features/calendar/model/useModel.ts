@@ -3,19 +3,24 @@ import { CalendarState, CalendarHandlers } from './types';
 import { reducer } from './reducer';
 import * as actions from './actions';
 import { getInitialState } from './reducer/helpers';
+import { Step } from '../model/types';
 
 type Props = {
   workHours: CalendarState['workHours'];
   reservations: CalendarState['reservations'];
+  fixedStep?: Step;
+  multipleSelect: boolean;
 };
 
 export const useModel = ({
   workHours,
   reservations,
+  fixedStep,
+  multipleSelect,
 }: Props): [CalendarState, CalendarHandlers] => {
   const [state, dispatch] = useReducer(
     reducer,
-    getInitialState({ workHours, reservations })
+    getInitialState({ workHours, reservations, fixedStep, multipleSelect })
   );
   const setStep: CalendarHandlers['setStep'] = useCallback(
     nextStep => dispatch(actions.setStep(nextStep)),

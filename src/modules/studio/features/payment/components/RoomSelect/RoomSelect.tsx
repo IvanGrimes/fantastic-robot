@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useMemo } from 'react';
 import { Select } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
+import { Grid } from '@material-ui/core';
 
 export type RoomSelectProps = {
   isLoading?: boolean;
@@ -31,13 +32,15 @@ export const RoomSelect = ({
   }
 
   return (
-    <Select
-      isLoading={isLoading}
-      options={options}
-      value={value}
-      handleChange={handleChange}
-      label="Зал"
-      defaultOption={0}
-    />
+    <Grid container item>
+      <Select
+        isLoading={isLoading}
+        options={options}
+        value={value}
+        handleChange={handleChange}
+        label="Зал"
+        defaultOption={0}
+      />
+    </Grid>
   );
 };

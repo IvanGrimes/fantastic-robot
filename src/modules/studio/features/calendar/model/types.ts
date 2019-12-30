@@ -40,6 +40,8 @@ export type CalendarState = {
       to: number;
     };
   };
+  canChangeStep: boolean;
+  multipleSelect: boolean;
 };
 
 export type CalendarHandlers = {
@@ -51,3 +53,5 @@ export type CalendarHandlers = {
   setStep: Handler<CalendarState['step']>;
   setAvailableSteps: Handler<Partial<CalendarState['availableSteps']>>;
 };
+
+export type Step = CalendarState['step'];

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { Typography, Amount } from './Price.styles';
 
 export type PriceProps =
   | {
       isLoading: true;
-      price: undefined;
+      pricePerHour: undefined;
     }
   | {
       isLoading: false;
-      price: number;
+      pricePerHour: number;
     };
 
 export const Price = (props: PriceProps) => {
@@ -17,9 +18,9 @@ export const Price = (props: PriceProps) => {
   }
 
   return (
-    <Grid item>
-      <Typography variant="h6">{props.price}</Typography>
-      <Typography variant="caption">в час</Typography>
+    <Grid container item alignItems="flex-end">
+      <Typography variant="h6">{props.pricePerHour}</Typography>
+      <Amount variant="caption">в час</Amount>
     </Grid>
   );
 };

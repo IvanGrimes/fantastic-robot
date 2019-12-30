@@ -1,5 +1,4 @@
 import React from 'react';
-import { Calendar } from '../../../calendar';
 
 export type ScheduleProps = {
   reservations: {};
@@ -11,6 +10,4 @@ export type ScheduleProps = {
   };
 };
 
-export const Schedule = ({ workHours, reservations }: ScheduleProps) => (
-  <Calendar workHours={workHours} reservations={reservations} />
-);
+export const Schedule = (_props: ScheduleProps) => <div>calendar</div>;

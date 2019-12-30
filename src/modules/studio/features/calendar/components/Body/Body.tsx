@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, MouseEvent, TouchEvent } from 'react';
-import { CalendarContext } from '../CalendarContainer';
+import React, { useCallback, MouseEvent, TouchEvent } from 'react';
+import { useBrowser } from '@hooks/useBrowser';
+import { useCalendar } from '../CalendarContext';
 import { Row } from './Row';
 import { WeekDay } from './WeekDay';
 import { Table } from './Body.styles';
-import { useBrowser } from '../../../../../../hooks/useBrowser';
 import { BodySkeleton } from './BodySkeleton';
 
 const handlePreventDefault = (
@@ -14,7 +14,7 @@ const handlePreventDefault = (
 
 export const Body = () => {
   const isBrowser = useBrowser();
-  const { grid, selectTime, range } = useContext(CalendarContext);
+  const { grid, selectTime, range } = useCalendar();
   const handleSelectTime = useCallback(
     (timestamp: number) => () => selectTime(timestamp),
     [selectTime]

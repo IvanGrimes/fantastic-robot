@@ -1,14 +1,15 @@
 import { isAfter } from 'date-fns';
 import { partial } from 'ramda';
+import { getDateRange } from '@utils/getDateRange';
 import { CalendarState } from '../types';
 import { SelectTimeAction } from '../actions';
 import { checkOverlapInDateRange, getGrid, getKey } from './helpers';
-import { getDateRange } from '../../../../../../utils/getDateRange';
 
 export const selectTime = (
   state: CalendarState,
   action: SelectTimeAction
 ): CalendarState => {
+  const { multipleSelect } = state;
   const key = getKey(action.payload.timestamp);
   const hasAnyElement = state.select[key].length;
   const hasOneElement = state.select[key].length === 1;
@@ -29,11 +30,12 @@ export const selectTime = (
     state.reservations,
     state.workHours,
   ]);
+  const prevSelect = multipleSelect ? state.select : {};
 
   // NOTE: Clear current range
   if (isSameAsStartRange && hasOneElement) {
     const select = {
-      ...state.select,
+      ...prevSelect,
       [key]: [],
     };
 
@@ -47,7 +49,7 @@ export const selectTime = (
   // NOTE: Create range
   if (canMakeRange && !hasOverlap) {
     const select = {
-      ...state.select,
+      ...prevSelect,
       [key]: selectRange,
     };
 
@@ -60,7 +62,7 @@ export const selectTime = (
 
   // NOTE: Select start of the range
   const select = {
-    ...state.select,
+    ...prevSelect,
     [key]: [action.payload.timestamp],
   };
 

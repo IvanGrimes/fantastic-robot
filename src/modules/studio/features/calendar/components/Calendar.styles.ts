@@ -6,5 +6,6 @@ import { Paper as DefaultPaper } from '@material-ui/core';
 export const Paper = styled<ComponentType<PaperProps>>(DefaultPaper)`
   && {
     user-select: none;
+    width: 100%;
   }
 `;

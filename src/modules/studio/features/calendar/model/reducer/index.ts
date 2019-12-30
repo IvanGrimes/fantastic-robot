@@ -19,7 +19,9 @@ import { setAvailableSteps } from './setAvailableSteps';
 import { updateReservations } from './updateReservations';
 import { updateWorkHours } from './updateWorkHours';
 // TODO: Когда попадаешь на февраль через previous/next month - становится один день вместо трех
-export const initialState: CalendarState = getInitialState({});
+export const initialState: CalendarState = getInitialState({
+  multipleSelect: true,
+});
 
 export const reducer: Reducer<CalendarState, DateRangeActions> = (
   state = initialState,

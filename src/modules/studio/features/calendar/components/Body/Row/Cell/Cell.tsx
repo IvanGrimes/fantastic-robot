@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Typography } from '@material-ui/core';
 import { Cell as StyledCell, ColorGroup } from './Cell.styles';
-import { CalendarContext } from '../../../CalendarContainer';
+import { useCalendar } from '../../../CalendarContext';
 
 type Props = {
   data: {
@@ -24,7 +24,7 @@ type Props = {
 };
 
 export const Cell = ({ data, selectTime }: Props) => {
-  const { step } = useContext(CalendarContext);
+  const { step } = useCalendar();
   const canSelect = data.reservation.canReserve && data.isWorkingHours;
 
   return (

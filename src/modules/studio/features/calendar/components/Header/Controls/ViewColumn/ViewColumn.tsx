@@ -4,17 +4,14 @@ import React, {
   useCallback,
   MouseEvent,
   KeyboardEvent,
-  useContext,
 } from 'react';
-import {
-  CalendarContext,
-  CalendarContextType,
-} from '../../../CalendarContainer';
+import { useCalendar } from '../../../CalendarContext';
+import { Step } from '../../../../model/types';
 import { ViewColumnMenu } from './ViewColumnMenu';
 
 export const ViewColumn = () => {
   const [isOpen, setOpen] = useState(false);
-  const { step, setStep, availableSteps } = useContext(CalendarContext);
+  const { step, setStep, availableSteps } = useCalendar();
   const anchorRef = useRef<HTMLButtonElement>(null);
   const handleToggle = useCallback(() => setOpen(prevState => !prevState), []);
   const handleClose = useCallback((ev?: MouseEvent<EventTarget>) => {
@@ -29,9 +26,7 @@ export const ViewColumn = () => {
     setOpen(false);
   }, []);
   const handleClickMenuItem = useCallback(
-    (nextStep: CalendarContextType['step']) => (
-      ev: MouseEvent<HTMLLIElement>
-    ) => {
+    (nextStep: Step) => (ev: MouseEvent<HTMLLIElement>) => {
       handleClose(ev);
 
       setStep(nextStep);

@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic';
-import { CalendarProps } from './CalendarContainer';
+import { CalendarProps } from './Calendar';
+
+export { CalendarProvider, useCalendar } from './CalendarContext';
 
 export const Calendar = dynamic<CalendarProps>(() =>
-  import('./CalendarContainer').then(module => module.CalendarContainer)
+  import('./Calendar').then(module => module.Calendar)
 );

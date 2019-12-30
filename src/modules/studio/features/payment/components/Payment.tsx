@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as details from '@modules/studio/features/details';
+import { CalendarProvider } from '@modules/studio/features/calendar';
 import { Wrapper } from './Payment.styles';
 import { StudioPayment } from './StudioPayment';
 import { RoomPayment } from './RoomPayment';
@@ -70,7 +71,14 @@ export const Payment = (props: PaymentProps) => {
 
   return (
     <Wrapper ref={paymentRef} isFixed={isFixed} top={SCROLL_OFFSET}>
-      {PaymentNode}
+      <CalendarProvider
+        reservations={{}}
+        workHours={{}}
+        fixedStep={0}
+        multipleSelect={false}
+      >
+        {PaymentNode}
+      </CalendarProvider>
     </Wrapper>
   );
 };

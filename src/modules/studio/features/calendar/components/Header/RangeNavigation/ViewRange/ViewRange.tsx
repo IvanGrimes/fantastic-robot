@@ -1,11 +1,11 @@
-import React, { useContext, useMemo, Fragment } from 'react';
+import React, { useMemo, Fragment } from 'react';
 import { format, getYear } from 'date-fns';
 import { Typography } from '@material-ui/core';
-import { CalendarContext } from '../../../CalendarContainer';
+import { useCalendar } from '../../../CalendarContext';
 import { Wrapper } from './ViewRange.styles';
 
 export const ViewRange = () => {
-  const { from, to, step } = useContext(CalendarContext);
+  const { from, to, step } = useCalendar();
   const yearRange = useMemo(() => {
     const fromYear = getYear(from);
     const toYear = getYear(to);

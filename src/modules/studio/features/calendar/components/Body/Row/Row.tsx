@@ -22,12 +22,10 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const Row = ({ data, selectTime }: Props) => {
-  return (
-    <StyledRow>
-      {data.map(item => (
-        <Cell key={item.timestamp} data={item} selectTime={selectTime} />
-      ))}
-    </StyledRow>
-  );
-};
+export const Row = ({ data, selectTime }: Props) => (
+  <StyledRow>
+    {data.map(item => (
+      <Cell key={item.timestamp} data={item} selectTime={selectTime} />
+    ))}
+  </StyledRow>
+);
