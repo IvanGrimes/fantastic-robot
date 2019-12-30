@@ -18,12 +18,12 @@ export const Input = ({
   onClick,
 }: InputProps) => {
   return (
-    <Wrapper>
-      <Label isActive={isFromActive} onClick={onClick}>
+    <Wrapper onClick={onClick}>
+      <Label isActive={isFromActive}>
         <Typography variant="caption">{fromDate || 'Начало'}</Typography>
       </Label>
       <Icon />
-      <Label isActive={isToActive} onClick={onClick}>
+      <Label isActive={isToActive}>
         <Typography variant="caption">{toDate || 'Конец'}</Typography>
       </Label>
     </Wrapper>
