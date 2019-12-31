@@ -6,10 +6,8 @@ export type DatePickerProps = {
   isActive: boolean;
 };
 
-export const DatePicker = ({ isActive }: DatePickerProps) => {
-  return (
-    <Wrapper isVisible={isActive}>
-      <Calendar />
-    </Wrapper>
-  );
-};
+export const DatePicker = ({ isActive }: DatePickerProps) => (
+  <Wrapper isVisible={isActive}>
+    <Calendar />
+  </Wrapper>
+);

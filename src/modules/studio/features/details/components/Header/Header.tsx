@@ -17,11 +17,7 @@ export const Header = ({ title, isLoading, ...props }: HeaderProps) => (
       </Typography>
     </Grid>
     <Grid item>
-      <PriceTypeComponent
-        size="extraLarge"
-        loading={isLoading}
-        priceType={props.priceType}
-      />
+      <PriceTypeComponent size="extraLarge" priceType={props.priceType} />
     </Grid>
   </Grid>
 );

@@ -13,10 +13,9 @@ import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 
-// TODO: Бронирование
-// TODO: Отображать студию, которой принадлежит зал
-// TODO: Расписание
 // TODO: Контакты
+// TODO: Расписание
+// TODO: Отображать студию, которой принадлежит зал
 // TODO: Скелетоны
 // TODO: Отзывчивость
 // TODO: Оптимизация

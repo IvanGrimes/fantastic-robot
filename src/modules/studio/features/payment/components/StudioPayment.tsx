@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import * as details from '@modules/studio/features/details';
-import { Grid } from '@material-ui/core';
 import { Price } from './Price';
 import { RoomSelect } from './RoomSelect';
 import { DateRange } from './DateRange';
@@ -31,7 +30,7 @@ export const StudioPayment = ({
   }
 
   return (
-    <Grid container spacing={2}>
+    <>
       <Price
         isLoading={isRoomsLoading}
         pricePerHour={selectedRoom.averagePrice}
@@ -47,6 +46,6 @@ export const StudioPayment = ({
         isLoading={isRoomsLoading}
         pricePerHour={selectedRoom.averagePrice}
       />
-    </Grid>
+    </>
   );
 };

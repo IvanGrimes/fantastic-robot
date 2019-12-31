@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as details from '@modules/studio/features/details';
 import { CalendarProvider } from '@modules/studio/features/calendar';
+import { Grid } from '@material-ui/core';
 import { Wrapper } from './Payment.styles';
 import { StudioPayment } from './StudioPayment';
 import { RoomPayment } from './RoomPayment';
@@ -77,7 +78,9 @@ export const Payment = (props: PaymentProps) => {
         fixedStep={0}
         multipleSelect={false}
       >
-        {PaymentNode}
+        <Grid container spacing={2}>
+          {PaymentNode}
+        </Grid>
       </CalendarProvider>
     </Wrapper>
   );

@@ -45,11 +45,13 @@ export const Reserve = (props: Reserve) => {
         </ListItem>
         <ListItem>
           <Grid item>
-            <Typography variant="caption">Всего</Typography>
+            <Typography variant="caption">
+              <b>Всего</b>
+            </Typography>
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              {props.pricePerHour * (select.length - 1)}
+              <b>{props.pricePerHour * (select.length - 1)}</b>
             </Typography>
           </Grid>
         </ListItem>

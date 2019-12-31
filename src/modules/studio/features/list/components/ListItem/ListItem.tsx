@@ -76,7 +76,7 @@ const _ListItem = ({
               />
             </Grid>
             <Grid item>
-              <PriceType loading={loading} priceType={priceType} />
+              <PriceType priceType={priceType} />
             </Grid>
           </CardBottomGrid>
         </Grid>

@@ -1,14 +1,9 @@
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-} from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import { Select } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
 import { Grid } from '@material-ui/core';
 import { useCalendar } from '@modules/studio/features/calendar';
+import { useCacheSelectedTime } from './useCacheSelectedTime';
 
 export type RoomSelectProps = {
   isLoading?: boolean;
@@ -23,14 +18,8 @@ export const RoomSelect = ({
   value,
   handleChange,
 }: RoomSelectProps) => {
-  const { clearSelectedTime, select, selectTime } = useCalendar();
-  const [selectedTimeCache, pushSelectedTime] = useReducer(
-    (state: Partial<{ [key: string]: number[] }>, selectedTime: number[]) => ({
-      ...state,
-      [value]: selectedTime,
-    }),
-    {}
-  );
+  useCacheSelectedTime({ id: value });
+  const { clearSelectedTime } = useCalendar();
   const options = useMemo(
     () =>
       list
@@ -48,23 +37,6 @@ export const RoomSelect = ({
     },
     [handleChange, clearSelectedTime]
   );
-
-  useEffect(() => {
-    const cache = selectedTimeCache[value];
-
-    if (cache && cache.length && !select.length) {
-      const cacheLength = cache.length;
-
-      selectTime(cache[0]);
-
-      if (cacheLength > 1) {
-        selectTime(cache[cacheLength - 1]);
-      }
-    }
-    if (!cache || select !== cache) {
-      pushSelectedTime(select);
-    }
-  }, [select, selectTime, selectedTimeCache, value]);
 
   if (isLoading) {
     return <span>loading</span>;

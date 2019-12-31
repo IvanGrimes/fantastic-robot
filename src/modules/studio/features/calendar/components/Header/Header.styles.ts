@@ -6,12 +6,12 @@ export const Wrapper = styled.div`
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
 `;
 
 export const Controls = styled<ComponentType<ControlsProps>>(DefaultControls)`
   && {
     position: absolute;
-    right: 20px;
+    top: 14px;
+    right: 8px;
   }
 `;
