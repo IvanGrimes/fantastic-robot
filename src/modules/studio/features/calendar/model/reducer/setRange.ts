@@ -1,5 +1,5 @@
 import { addDays, getTime } from 'date-fns';
-import { getDateRange } from '../../../../../../utils/getDateRange';
+import { getDateRange } from '@utils/getDateRange';
 import { getGrid, getSelect, truncateDays } from './helpers';
 import { CalendarState } from '../types';
 import { SetRangeAction } from '../actions';

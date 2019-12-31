@@ -8,6 +8,7 @@ import {
   SET_STEP,
   UPDATE_RESERVATIONS,
   UPDATE_WORK_HOURS,
+  CLEAR_SELECTED_TIME,
 } from '../actions';
 import { CalendarState } from '../types';
 import { getInitialState } from './helpers';
@@ -18,6 +19,7 @@ import { setStep } from './setStep';
 import { setAvailableSteps } from './setAvailableSteps';
 import { updateReservations } from './updateReservations';
 import { updateWorkHours } from './updateWorkHours';
+import { clearSelectedTime } from './clearSelectedTime';
 // TODO: Когда попадаешь на февраль через previous/next month - становится один день вместо трех
 export const initialState: CalendarState = getInitialState({
   multipleSelect: true,
@@ -42,6 +44,8 @@ export const reducer: Reducer<CalendarState, DateRangeActions> = (
       return updateReservations(state, action);
     case UPDATE_WORK_HOURS:
       return updateWorkHours(state, action);
+    case CLEAR_SELECTED_TIME:
+      return clearSelectedTime(state);
     default:
       return state;
   }

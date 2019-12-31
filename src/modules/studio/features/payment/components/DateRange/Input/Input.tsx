@@ -16,16 +16,14 @@ export const Input = ({
   fromDate = '',
   toDate = '',
   onClick,
-}: InputProps) => {
-  return (
-    <Wrapper onClick={onClick}>
-      <Label isActive={isFromActive}>
-        <Typography variant="caption">{fromDate || 'Начало'}</Typography>
-      </Label>
-      <Icon />
-      <Label isActive={isToActive}>
-        <Typography variant="caption">{toDate || 'Конец'}</Typography>
-      </Label>
-    </Wrapper>
-  );
-};
+}: InputProps) => (
+  <Wrapper onClick={onClick}>
+    <Label isActive={isFromActive}>
+      <Typography variant="caption">{fromDate || 'Начало'}</Typography>
+    </Label>
+    <Icon />
+    <Label isActive={isToActive}>
+      <Typography variant="caption">{toDate || 'Конец'}</Typography>
+    </Label>
+  </Wrapper>
+);

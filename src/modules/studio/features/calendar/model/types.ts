@@ -52,6 +52,7 @@ export type CalendarHandlers = {
   selectTime: Handler<number>;
   setStep: Handler<CalendarState['step']>;
   setAvailableSteps: Handler<Partial<CalendarState['availableSteps']>>;
+  clearSelectedTime: Handler;
 };
 
 export type Step = CalendarState['step'];

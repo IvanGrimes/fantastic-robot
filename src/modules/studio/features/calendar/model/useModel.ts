@@ -50,6 +50,10 @@ export const useModel = ({
     availableSteps => dispatch(actions.setAvailableSteps(availableSteps)),
     []
   );
+  const clearSelectedTime: CalendarHandlers['clearSelectedTime'] = useCallback(
+    () => dispatch(actions.clearSelectedTime()),
+    []
+  );
 
   useEffect(() => {
     dispatch(actions.updateReservations(reservations));
@@ -69,6 +73,7 @@ export const useModel = ({
       selectTime,
       setStep,
       setAvailableSteps,
+      clearSelectedTime,
     },
   ];
 };

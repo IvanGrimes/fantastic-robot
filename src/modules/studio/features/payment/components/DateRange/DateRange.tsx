@@ -6,7 +6,6 @@ import { Grid } from './DateRange.styles';
 import { Input } from './Input';
 import { DatePicker } from './DatePicker';
 
-// eslint-disable-next-line consistent-return
 const formatDate = (date?: number) => {
   if (typeof date === 'number') {
     return format(date, 'dd/MM/yyyy HH:mm');
