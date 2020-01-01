@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as data from '@modules/studio/features/data';
 import { Nullable } from '@utils/Nullable';
-import { Container } from '@modules/ui';
+import { Container, Hidden } from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import { Payment } from '@modules/studio/features/payment';
 import { MainGrid } from './Details.styles';
@@ -12,6 +12,7 @@ import { Photos } from './Photos';
 import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
+import { Layout } from './Layout';
 
 // TODO: Контакты
 // TODO: Расписание
@@ -82,60 +83,91 @@ export const Details = ({
   room,
   schedule,
 }: Props) => {
+  const contentNode = useMemo(
+    () => (
+      <>
+        <Header
+          isLoading={information.isLoading}
+          title={information.title}
+          priceType={information.price}
+        />
+        <Specifications
+          isLoading={information.isLoading}
+          isConfigLoading={isConfigLoading}
+          interiorIds={information.interiorIds}
+          config={config}
+          equipmentIds={information.equipmentIds}
+          isMetroListLoading={isMetroListLoading}
+          stationIds={information.stationIds}
+          metroList={metroList}
+          roomsCount={information.roomsCount}
+        />
+        <Description content={information.description} />
+        {rooms && (
+          <RoomList
+            rooms={rooms.list}
+            isRoomsLoading={rooms.isLoading}
+            config={config}
+            isConfigLoading={isConfigLoading}
+          />
+        )}
+        {false && <Schedule {...schedule} />}
+      </>
+    ),
+    [
+      config,
+      information.description,
+      information.equipmentIds,
+      information.interiorIds,
+      information.isLoading,
+      information.price,
+      information.roomsCount,
+      information.stationIds,
+      information.title,
+      isConfigLoading,
+      isMetroListLoading,
+      metroList,
+      rooms,
+      schedule,
+    ]
+  );
+
   return (
-    <>
-      <Photos
-        isLoading={information.isLoading}
-        photoIds={information.photoIds}
-      />
-      <Container variant="secondary">
-        <MainGrid container justify="space-between">
-          <Grid item xs={7}>
-            <Header
-              isLoading={information.isLoading}
-              title={information.title}
-              priceType={information.price}
-            />
-            <Specifications
-              isLoading={information.isLoading}
-              isConfigLoading={isConfigLoading}
-              interiorIds={information.interiorIds}
-              config={config}
-              equipmentIds={information.equipmentIds}
-              isMetroListLoading={isMetroListLoading}
-              stationIds={information.stationIds}
-              metroList={metroList}
-              roomsCount={information.roomsCount}
-            />
-            <Description content={information.description} />
-            {rooms && (
-              <RoomList
-                rooms={rooms.list}
-                isRoomsLoading={rooms.isLoading}
-                config={config}
-                isConfigLoading={isConfigLoading}
-              />
-            )}
-            {false && <Schedule {...schedule} />}
-          </Grid>
-          <Grid item xs={4}>
-            {rooms && (
-              <Payment
-                variant="studio"
-                isRoomsLoading={rooms.isLoading}
-                rooms={rooms.list}
-              />
-            )}
-            {room && (
-              <Payment
-                variant="room"
-                isRoomLoading={room.isLoading}
-                room={room.data}
-              />
-            )}
-          </Grid>
-        </MainGrid>
-      </Container>
-    </>
+    <Layout>
+      <Grid container>
+        <Photos
+          isLoading={information.isLoading}
+          photoIds={information.photoIds}
+        />
+        <Container variant="secondary">
+          <MainGrid container justify="space-between">
+            <Grid item xs={7}>
+              <Hidden query="(max-width: 1100px)">{contentNode}</Hidden>
+            </Grid>
+            <Hidden query="(min-width: 1101px)">
+              <Grid item xs={12}>
+                {contentNode}
+              </Grid>
+            </Hidden>
+            <Grid item xs={4}>
+              {rooms && (
+                <Payment
+                  variant="studio"
+                  isRoomsLoading={rooms.isLoading}
+                  rooms={rooms.list}
+                />
+              )}
+              {room && (
+                <Payment
+                  variant="room"
+                  isRoomLoading={room.isLoading}
+                  room={room.data}
+                />
+              )}
+            </Grid>
+          </MainGrid>
+        </Container>
+      </Grid>
+    </Layout>
   );
 };

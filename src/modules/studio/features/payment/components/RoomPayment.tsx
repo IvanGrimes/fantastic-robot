@@ -8,9 +8,14 @@ import { Separator } from './Payment.styles';
 export type RoomPaymentProps = {
   isRoomLoading: boolean;
   room: ReturnType<typeof details.selectors.getRooms>[number];
+  largeTabletQuery: string;
 };
 
-export const RoomPayment = ({ isRoomLoading, room }: RoomPaymentProps) => {
+export const RoomPayment = ({
+  isRoomLoading,
+  room,
+  largeTabletQuery,
+}: RoomPaymentProps) => {
   if (isRoomLoading) {
     return <span>loading</span>;
   }
@@ -19,8 +24,12 @@ export const RoomPayment = ({ isRoomLoading, room }: RoomPaymentProps) => {
     <>
       <Price isLoading={isRoomLoading} pricePerHour={room.averagePrice} />
       <Separator />
-      <DateRange />
-      <Reserve isLoading={isRoomLoading} pricePerHour={room.averagePrice} />
+      <DateRange largeTabletQuery={largeTabletQuery} />
+      <Reserve
+        isLoading={isRoomLoading}
+        pricePerHour={room.averagePrice}
+        largeTabletQuery={largeTabletQuery}
+      />
     </>
   );
 };

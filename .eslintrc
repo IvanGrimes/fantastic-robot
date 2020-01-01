@@ -27,6 +27,7 @@
     "react/destructuring-assignment": "off",
     "no-param-reassign": "off",
     "import/extensions": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "consistent-return": "warn"
   }
 }

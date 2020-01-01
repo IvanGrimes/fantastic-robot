@@ -24,6 +24,9 @@ export const Container = styled<
           case 'secondary':
             return css`
               max-width: 1080px;
+              @media screen and (max-width: 1100px) {
+                max-width: 720px;
+              }
             `;
           default:
             return css`

@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
-import { Hidden as DefaultHidden } from '@material-ui/core';
 import { HiddenProps } from '@material-ui/core/Hidden';
+import { Hidden as StyledHidden } from './Hidden.styles';
 
-type Props = Exclude<HiddenProps, 'implementation'> & { children: ReactNode };
+type Props = Exclude<HiddenProps, 'implementation'> & {
+  children: ReactNode;
+  query?: string;
+};
 
-export const Hidden = ({ children, ...props }: Props) => (
-  <DefaultHidden implementation="css" {...props}>
+export const Hidden = ({ query = '', children, ...props }: Props) => (
+  <StyledHidden implementation="css" query={query} {...props}>
     {children}
-  </DefaultHidden>
+  </StyledHidden>
 );

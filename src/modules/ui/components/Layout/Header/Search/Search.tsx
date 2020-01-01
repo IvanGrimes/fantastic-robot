@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClearableInput } from '../../ClearableInput';
+import { ClearableInput } from '../../../ClearableInput';
 
 type Props = {
   onChange: (...args: any[]) => void;

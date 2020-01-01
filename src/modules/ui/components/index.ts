@@ -1,7 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 
-export * from './BottomNavigation';
-export * from './Header';
 export * from './Layout';
 export * from './Carousel';
 export * from './ChipList';
@@ -16,6 +14,7 @@ export * from './PropertyList';
 export * from './SEO';
 export * from './DynamicRendering';
 export * from './Select';
+export * from './Layout/BaseHeaderBar';
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic');

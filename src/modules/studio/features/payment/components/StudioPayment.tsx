@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import * as details from '@modules/studio/features/details';
+import { Hidden } from '@modules/ui';
 import { Price } from './Price';
 import { RoomSelect } from './RoomSelect';
 import { DateRange } from './DateRange';
@@ -9,11 +10,13 @@ import { Separator } from './Payment.styles';
 export type StudioPaymentProps = {
   isRoomsLoading: boolean;
   rooms: ReturnType<typeof details.selectors.getRooms>;
+  largeTabletQuery: string;
 };
 
 export const StudioPayment = ({
   isRoomsLoading,
   rooms,
+  largeTabletQuery,
 }: StudioPaymentProps) => {
   const [roomId, setRoomId] = useState<string>('');
   const handleChangeRoomId = useCallback(
@@ -36,17 +39,21 @@ export const StudioPayment = ({
         isLoading={isRoomsLoading}
         pricePerHour={selectedRoom.averagePrice}
       />
-      <Separator />
+      <Hidden query={largeTabletQuery}>
+        <Separator />
+      </Hidden>
       <RoomSelect
         isLoading={isRoomsLoading}
         list={rooms}
         value={roomId}
         handleChange={handleChangeRoomId}
+        largeTabletQuery={largeTabletQuery}
       />
-      <DateRange />
+      <DateRange largeTabletQuery={largeTabletQuery} />
       <Reserve
         isLoading={isRoomsLoading}
         pricePerHour={selectedRoom.averagePrice}
+        largeTabletQuery={largeTabletQuery}
       />
     </>
   );

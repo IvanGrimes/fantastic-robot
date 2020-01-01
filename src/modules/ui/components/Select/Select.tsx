@@ -1,10 +1,6 @@
 import React, { useCallback, ChangeEvent, useState, useEffect } from 'react';
-import {
-  NativeSelect as MaterialSelect,
-  FormControl,
-  OutlinedInput,
-} from '@material-ui/core';
-import { Label } from './Select.styles';
+import { NativeSelect as MaterialSelect, FormControl } from '@material-ui/core';
+import { Input, Label } from './Select.styles';
 
 type OptionValue = string | number;
 
@@ -56,7 +52,7 @@ export const Select = ({
       <MaterialSelect
         value={currentValue}
         onChange={currentHandleChange}
-        input={<OutlinedInput labelWidth={28} />}
+        input={<Input labelWidth={28} />}
       >
         {options.map(({ value: optionValue, label: optionLabel }) => (
           <option key={optionValue} value={optionValue}>

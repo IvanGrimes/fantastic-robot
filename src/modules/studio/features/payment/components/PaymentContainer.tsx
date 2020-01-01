@@ -1,10 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import * as details from '@modules/studio/features/details';
 import { CalendarProvider } from '@modules/studio/features/calendar';
 import { Grid } from '@material-ui/core';
+import { useMediaQuery } from '@modules/ui/hooks';
+import { Container, Hidden } from '@modules/ui';
 import { Wrapper } from './Payment.styles';
 import { StudioPayment } from './StudioPayment';
 import { RoomPayment } from './RoomPayment';
+import * as details from '../../details';
+
+const desktopQuery = '(min-width: 1100px)';
+const largeTabletQuery = '(max-width: 1100px)';
 
 export type PaymentProps =
   | {
@@ -18,26 +23,32 @@ export type PaymentProps =
       room: ReturnType<typeof details.selectors.getRoomById>;
     };
 
-const HEADER_HEIGHT = 70.5;
+const HEADER_HEIGHT = 128;
 const MARGIN_TOP = 32;
 const SCROLL_OFFSET = HEADER_HEIGHT + MARGIN_TOP;
 
-export const Payment = (props: PaymentProps) => {
+export const PaymentContainer = (props: PaymentProps) => {
   const paymentRef = useRef<HTMLElement>(null);
   const initialOffsetYRef = useRef<number>(null);
   const [isFixed, setFixed] = useState(false);
-  const PaymentNode = useMemo(() => {
+  const desktopMatches = useMediaQuery(desktopQuery);
+  const paymentNode = useMemo(() => {
     switch (props.variant) {
       case 'studio':
         return (
           <StudioPayment
             isRoomsLoading={props.isRoomsLoading}
             rooms={props.rooms}
+            largeTabletQuery={largeTabletQuery}
           />
         );
       case 'room':
         return (
-          <RoomPayment isRoomLoading={props.isRoomLoading} room={props.room} />
+          <RoomPayment
+            isRoomLoading={props.isRoomLoading}
+            room={props.room}
+            largeTabletQuery={largeTabletQuery}
+          />
         );
       default:
         return null;
@@ -65,10 +76,12 @@ export const Payment = (props: PaymentProps) => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    if (desktopMatches) {
+      window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isFixed]);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isFixed, desktopMatches]);
 
   return (
     <Wrapper ref={paymentRef} isFixed={isFixed} top={SCROLL_OFFSET}>
@@ -78,9 +91,28 @@ export const Payment = (props: PaymentProps) => {
         fixedStep={0}
         multipleSelect={false}
       >
-        <Grid container spacing={2}>
-          {PaymentNode}
-        </Grid>
+        <Hidden query="(min-width: 1101px)">
+          <Container variant="secondary">
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justify="space-between"
+            >
+              {paymentNode}
+            </Grid>
+          </Container>
+        </Hidden>
+        <Hidden query="(max-width: 1100px)">
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justify="space-between"
+          >
+            {paymentNode}
+          </Grid>
+        </Hidden>
       </CalendarProvider>
     </Wrapper>
   );

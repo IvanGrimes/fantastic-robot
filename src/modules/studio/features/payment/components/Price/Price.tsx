@@ -18,9 +18,11 @@ export const Price = (props: PriceProps) => {
   }
 
   return (
-    <Grid container item alignItems="flex-end">
-      <Typography variant="h6">{props.pricePerHour}&#8381;</Typography>
-      <Amount variant="caption">в час</Amount>
+    <Grid item>
+      <Grid container alignItems="flex-end">
+        <Typography variant="h6">{props.pricePerHour}&#8381;</Typography>
+        <Amount variant="caption">в час</Amount>
+      </Grid>
     </Grid>
   );
 };

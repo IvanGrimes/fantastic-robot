@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hidden } from '../../Hidden';
+import { Hidden } from '../../../Hidden';
 import { Typography } from '@material-ui/core';
 
 export const Logo = () => (

@@ -7,16 +7,16 @@ import { ComponentType } from 'react';
 import { ToolbarProps } from '@material-ui/core/Toolbar';
 import { AppBarProps } from '@material-ui/core/AppBar';
 
-export const Wrapper = styled.div<{ isHeaderVisible: boolean }>`
-  ${({ isHeaderVisible }) => css`
+export const Wrapper = styled.div<{ isVisible: boolean }>`
+  ${({ isVisible }) => css`
     position: fixed;
     z-index: 200;
     top: 0;
     left: 0;
     width: 100%;
     will-change: transform;
-    transform: translate(0, ${isHeaderVisible ? '0px' : '-64px'});
-    transition: transform 300ms ${isHeaderVisible ? 'ease-in' : 'ease-out'};
+    transform: translate(0, ${isVisible ? '0px' : '-64px'});
+    transition: transform 300ms ${isVisible ? 'ease-in' : 'ease-out'};
   `}
 `;
 

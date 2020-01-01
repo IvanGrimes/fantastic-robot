@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter, withRouter, NextRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
-import { Layout } from '@modules/ui/components';
 import { RootState } from '@model/types';
-import { Wrapper } from './Room.styles';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -71,31 +69,27 @@ const _Room = ({
   ]);
 
   return (
-    <Layout>
-      <Wrapper>
-        <DetailsComponent
-          information={{
-            isLoading: isInformationLoading || isRoomLoading,
-            equipmentIds: information.equipmentIds,
-            hasOnlinePayment: information.hasOnlinePayment,
-            photoIds: room.photoIds,
-            price: room.averagePrice,
-            title: room.name,
-            interiorIds: room.interiorIds || undefined,
-          }}
-          schedule={{
-            workHours,
-            reservations,
-          }}
-          dressingRoom={information.dressingRoom}
-          workingHours={information.workingHours}
-          room={{
-            isLoading: isRoomLoading,
-            data: room,
-          }}
-        />
-      </Wrapper>
-    </Layout>
+    <DetailsComponent
+      information={{
+        isLoading: isInformationLoading || isRoomLoading,
+        equipmentIds: information.equipmentIds,
+        hasOnlinePayment: information.hasOnlinePayment,
+        photoIds: room.photoIds,
+        price: room.averagePrice,
+        title: room.name,
+        interiorIds: room.interiorIds || undefined,
+      }}
+      schedule={{
+        workHours,
+        reservations,
+      }}
+      dressingRoom={information.dressingRoom}
+      workingHours={information.workingHours}
+      room={{
+        isLoading: isRoomLoading,
+        data: room,
+      }}
+    />
   );
 };
 

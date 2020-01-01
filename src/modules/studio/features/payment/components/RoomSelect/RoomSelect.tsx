@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useCallback, useMemo } from 'react';
-import { Select } from '@modules/ui';
+import { Hidden, Select } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
 import { Grid } from '@material-ui/core';
 import { useCalendar } from '@modules/studio/features/calendar';
+import { useMediaQuery } from '@modules/ui/hooks';
 import { useCacheSelectedTime } from './useCacheSelectedTime';
 
 export type RoomSelectProps = {
@@ -10,6 +11,7 @@ export type RoomSelectProps = {
   list?: ReturnType<typeof details.selectors.getRooms>;
   value: string;
   handleChange: (ev: ChangeEvent<{ value: unknown }>) => void;
+  largeTabletQuery: string;
 };
 
 export const RoomSelect = ({
@@ -17,6 +19,7 @@ export const RoomSelect = ({
   list,
   value,
   handleChange,
+  largeTabletQuery,
 }: RoomSelectProps) => {
   useCacheSelectedTime({ id: value });
   const { clearSelectedTime } = useCalendar();
@@ -37,21 +40,32 @@ export const RoomSelect = ({
     },
     [handleChange, clearSelectedTime]
   );
+  const desktopMatches = useMediaQuery(largeTabletQuery);
+
+  if (desktopMatches) {
+    return null;
+  }
 
   if (isLoading) {
-    return <span>loading</span>;
+    return (
+      <Hidden query={largeTabletQuery}>
+        <span>loading</span>
+      </Hidden>
+    );
   }
 
   return (
     <Grid container item>
-      <Select
-        isLoading={isLoading}
-        options={options}
-        value={value}
-        handleChange={onChange}
-        label="Зал"
-        defaultOption={0}
-      />
+      <Hidden query={largeTabletQuery}>
+        <Select
+          isLoading={isLoading}
+          options={options}
+          value={value}
+          handleChange={onChange}
+          label="Зал"
+          defaultOption={0}
+        />
+      </Hidden>
     </Grid>
   );
 };

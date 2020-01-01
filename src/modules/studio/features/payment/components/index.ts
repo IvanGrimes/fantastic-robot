@@ -1,1 +1,1 @@
-export * from './Payment';
+export { PaymentContainer as Payment } from './PaymentContainer';

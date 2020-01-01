@@ -14,22 +14,53 @@ import { botGuard } from '@modules/services/utils/botGuard';
 import { theme } from '@theme/index';
 import { RootState } from '@model/types';
 import { configureStore } from '@model/store';
+import { UAParser } from 'ua-parser-js';
+import mediaQuery from 'css-mediaquery';
+import { MediaQueryProvider } from '@modules/ui/hooks';
 
 type AppStore = Store<RootState>;
 
 export type NextPageContext = PageContext & { store: AppStore };
+
+type DeviceType = 'mobile' | 'tablet';
+
+const getWidthByDevice = (device: DeviceType) => {
+  switch (device) {
+    case 'mobile':
+      return theme.breakpoints.values.xs;
+    case 'tablet':
+      return theme.breakpoints.values.md;
+    default:
+      return theme.breakpoints.values.xl;
+  }
+};
 
 // @ts-ignore
 class MyApp extends App<{
   store: AppStore;
   statusCode?: number;
   isBot?: boolean;
+  matchMedia?: (query: string) => boolean;
 }> {
   static fetchData(store: AppStore) {
     store.dispatch(
       studio.data.actions.fetchMetroListAsync.request({ city: 'moscow' })
     );
     store.dispatch(studio.data.actions.fetchConfigAsync.request());
+  }
+
+  static getWidth({ req }: NextPageContext) {
+    if (req) {
+      const parser = new UAParser(req.headers['user-agent']);
+      const width = getWidthByDevice(parser.getDevice().type as DeviceType);
+      console.log(parser.getDevice(), parser.getResult());
+      return (query: string) =>
+        mediaQuery.match(query, {
+          width: `${width}px`,
+        });
+    }
+
+    return undefined;
   }
 
   static async getInitialProps({
@@ -39,6 +70,7 @@ class MyApp extends App<{
     let pageProps = {};
     const { req, store } = ctx;
     const isBot = req && botGuard(req);
+    const matchMedia = MyApp.getWidth(ctx);
 
     if (Component.getInitialProps) {
       try {
@@ -59,6 +91,7 @@ class MyApp extends App<{
       store,
       pageProps,
       isBot,
+      matchMedia,
     };
   }
 
@@ -81,7 +114,7 @@ class MyApp extends App<{
   }
 
   render() {
-    const { store, Component, pageProps } = this.props;
+    const { store, Component, pageProps, matchMedia } = this.props;
 
     return (
       <Provider store={store}>
@@ -89,11 +122,13 @@ class MyApp extends App<{
           <CssBaseline />
           <GlobalStyles />
           <SEO />
-          <MuiThemeProvider theme={theme}>
-            <ThemeProvider theme={theme}>
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </MuiThemeProvider>
+          <MediaQueryProvider matchMedia={matchMedia}>
+            <MuiThemeProvider theme={theme}>
+              <ThemeProvider theme={theme}>
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </MuiThemeProvider>
+          </MediaQueryProvider>
         </React.Fragment>
       </Provider>
     );

@@ -2,14 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
-import { Layout } from '@modules/ui/components';
 import { RootState } from '@model/types';
-import { Wrapper } from './Studio.styles';
-import {
-  fetchInformationAsync,
-  fetchReservationsAsync,
-  fetchRoomsAsync,
-} from '../../features/details/model/actions';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -27,9 +20,9 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  handleFetchReservations: fetchReservationsAsync.request,
-  handleFetchRooms: fetchRoomsAsync.request,
-  handleFetchInformation: fetchInformationAsync.request,
+  handleFetchReservations: details.actions.fetchReservationsAsync.request,
+  handleFetchRooms: details.actions.fetchRoomsAsync.request,
+  handleFetchInformation: details.actions.fetchInformationAsync.request,
 };
 
 const _Studio = ({
@@ -63,35 +56,31 @@ const _Studio = ({
   ]);
 
   return (
-    <Layout>
-      <Wrapper>
-        <DetailsComponent
-          information={{
-            isLoading: isInformationLoading,
-            description: information.description,
-            equipmentIds: information.equipmentIds,
-            hasOnlinePayment: information.hasOnlinePayment,
-            photoIds: information.photoIds,
-            price: information.priceType,
-            roomsCount: information.roomsCount,
-            stationIds: information.stationIds,
-            title: information.name,
-            interiorIds: information.interiorIds,
-          }}
-          rooms={{
-            isLoading: isRoomsLoading,
-            list: rooms,
-          }}
-          schedule={{
-            workHours,
-            reservations,
-          }}
-          contacts={information.contacts}
-          dressingRoom={information.dressingRoom}
-          workingHours={information.workingHours}
-        />
-      </Wrapper>
-    </Layout>
+    <DetailsComponent
+      information={{
+        isLoading: isInformationLoading,
+        description: information.description,
+        equipmentIds: information.equipmentIds,
+        hasOnlinePayment: information.hasOnlinePayment,
+        photoIds: information.photoIds,
+        price: information.priceType,
+        roomsCount: information.roomsCount,
+        stationIds: information.stationIds,
+        title: information.name,
+        interiorIds: information.interiorIds,
+      }}
+      rooms={{
+        isLoading: isRoomsLoading,
+        list: rooms,
+      }}
+      schedule={{
+        workHours,
+        reservations,
+      }}
+      contacts={information.contacts}
+      dressingRoom={information.dressingRoom}
+      workingHours={information.workingHours}
+    />
   );
 };
 
@@ -103,8 +92,8 @@ export const Studio = connect(
     const studioId = query.studio as string;
 
     return [
-      () => fetchRoomsAsync.request({ studioId }),
-      () => fetchInformationAsync.request({ studioId }),
+      () => details.actions.fetchRoomsAsync.request({ studioId }),
+      () => details.actions.fetchInformationAsync.request({ studioId }),
     ];
   })(_Studio)
 );

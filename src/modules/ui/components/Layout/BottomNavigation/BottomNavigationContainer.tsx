@@ -2,11 +2,14 @@ import React, { memo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { RootState } from '@model/types';
-import { getIsBottomNavigationVisible } from '../../model/selectors';
-import { setBottomNavigationVisibility } from '../../model/actions';
+import { getIsBottomNavigationVisible } from '../../../model/selectors';
+import { setBottomNavigationVisibility } from '../../../model/actions';
 import { BottomNavigation } from './BottomNavigation';
+import { BottomNavigationProps } from './index';
 
-type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof dispatchProps &
+  BottomNavigationProps;
 
 const mapStateToProps = (state: RootState) => ({
   isBottomNavigationVisible: getIsBottomNavigationVisible(state),
