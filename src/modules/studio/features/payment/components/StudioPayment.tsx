@@ -4,6 +4,7 @@ import { Price } from './Price';
 import { RoomSelect } from './RoomSelect';
 import { DateRange } from './DateRange';
 import { Reserve } from './Reserve';
+import { Separator } from './Payment.styles';
 
 export type StudioPaymentProps = {
   isRoomsLoading: boolean;
@@ -35,6 +36,7 @@ export const StudioPayment = ({
         isLoading={isRoomsLoading}
         pricePerHour={selectedRoom.averagePrice}
       />
+      <Separator />
       <RoomSelect
         isLoading={isRoomsLoading}
         list={rooms}
