@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { RootState } from '@model/types';
+import Link from 'next/link';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -29,7 +30,6 @@ const _Studio = ({
   handleFetchReservations,
   handleFetchRooms,
   handleFetchInformation,
-  isBot,
   isInformationLoading,
   information,
   isRoomsLoading,
@@ -42,18 +42,29 @@ const _Studio = ({
   useEffect(() => {
     const studioId = query.studio;
 
-    if (typeof studioId === 'string' && !isBot) {
-      handleFetchReservations({ studioId });
-      handleFetchRooms({ studioId });
-      handleFetchInformation({ studioId });
+    if (typeof studioId === 'string') {
+      if (!rooms.length) {
+        handleFetchRooms({ studioId });
+      }
+      if (!information.id) {
+        handleFetchInformation({ studioId });
+      }
     }
   }, [
     handleFetchInformation,
-    handleFetchReservations,
     handleFetchRooms,
-    isBot,
+    information.id,
     query.studio,
+    rooms.length,
   ]);
+
+  useEffect(() => {
+    const studioId = query.studio;
+
+    if (typeof studioId === 'string') {
+      handleFetchReservations({ studioId });
+    }
+  }, [handleFetchReservations, query.studio]);
 
   return (
     <DetailsComponent
@@ -80,6 +91,11 @@ const _Studio = ({
       contacts={information.contacts}
       dressingRoom={information.dressingRoom}
       workingHours={information.workingHours}
+      backLink={
+        <Link href="/">
+          <a href="/">Студии</a>
+        </Link>
+      }
     />
   );
 };

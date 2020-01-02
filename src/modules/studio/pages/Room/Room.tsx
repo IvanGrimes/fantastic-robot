@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter, withRouter, NextRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { RootState } from '@model/types';
+import Link from 'next/link';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -38,7 +39,6 @@ const _Room = ({
   handleFetchReservations,
   handleFetchRoom,
   handleFetchInformation,
-  isBot,
   isInformationLoading,
   information,
   isRoomLoading,
@@ -47,26 +47,32 @@ const _Room = ({
   workHours,
 }: Props) => {
   const { query } = useRouter();
+  const backLink = useMemo(
+    () =>
+      isInformationLoading ? null : (
+        <Link href="/[studio]" as={`/${information.id}`} passHref>
+          <a href="/">Студии &bull; {information.name}</a>
+        </Link>
+      ),
+    [information.id, information.name, isInformationLoading]
+  );
 
   useEffect(() => {
     const { studio: studioId, room: roomId } = query;
 
-    if (typeof studioId === 'string' && !isBot) {
-      if (!room.id) {
-        handleFetchRoom({ roomId: roomId as string });
-      }
-
-      handleFetchInformation({ studioId });
-      handleFetchReservations({ studioId });
+    if (!room.id) {
+      handleFetchRoom({ roomId: roomId as string });
     }
-  }, [
-    handleFetchInformation,
-    handleFetchReservations,
-    handleFetchRoom,
-    isBot,
-    query,
-    room,
-  ]);
+    if (!information.id) {
+      handleFetchInformation({ studioId: studioId as string });
+    }
+  }, [handleFetchInformation, handleFetchRoom, information.id, query, room.id]);
+
+  useEffect(() => {
+    const { studio: studioId } = query;
+
+    handleFetchReservations({ studioId: studioId as string });
+  }, [handleFetchReservations, query]);
 
   return (
     <DetailsComponent
@@ -89,6 +95,7 @@ const _Room = ({
         isLoading: isRoomLoading,
         data: room,
       }}
+      backLink={backLink}
     />
   );
 };

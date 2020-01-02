@@ -1,10 +1,10 @@
-import React, { Fragment, memo, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, memo, useCallback, useState } from 'react';
 import {
   Button,
   Grid,
   IconButton,
-  Portal,
   Typography,
+  Dialog,
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import dequal from 'dequal';
@@ -13,7 +13,6 @@ import {
   BarWrapper,
   DynamicRendering,
 } from '@modules/ui/components';
-import { changeDocumentScroll } from '@utils/changeDocumentScroll';
 import {
   FilterGrid,
   Wrapper,
@@ -37,16 +36,8 @@ const _StudioListFilterMobile = ({
 }: Props) => {
   const [isVisible, setVisibility] = useState(false);
   const handleToggleVisibility = useCallback(() => {
-    changeDocumentScroll(isVisible);
     setVisibility(!isVisible);
   }, [isVisible]);
-  const layout = useMemo(
-    () =>
-      typeof document !== 'undefined'
-        ? document.querySelector('#layout')
-        : null,
-    []
-  );
 
   return (
     <Fragment>
@@ -57,7 +48,7 @@ const _StudioListFilterMobile = ({
       >
         Фильтры
       </Button>
-      <Portal container={layout}>
+      <Dialog fullScreen open={isVisible} onClose={handleToggleVisibility}>
         <Wrapper className={className} isVisible={isVisible}>
           <DynamicRendering>
             <Grid container>
@@ -93,7 +84,7 @@ const _StudioListFilterMobile = ({
             </Container>
           </DynamicRendering>
         </Wrapper>
-      </Portal>
+      </Dialog>
     </Fragment>
   );
 };

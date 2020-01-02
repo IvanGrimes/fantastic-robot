@@ -5,6 +5,7 @@ import { createRequestLoadingSelector } from '@modules/services';
 import { createSelector } from 'reselect';
 import {
   fetchInformationAsync,
+  fetchReservationsAsync,
   fetchRoomAsync,
   fetchRoomsAsync,
 } from './actions';
@@ -61,6 +62,10 @@ export const getReservationsWithColor = createDeepEqualSelector(
       })
       .reduce((acc, [key, value]) => ({ ...acc, [key.toString()]: value }), {})
 );
+
+export const getReservationsLoading = createRequestLoadingSelector([
+  getType(fetchReservationsAsync.request),
+]);
 
 export const getInformation = createDeepEqualSelector(
   [getState],

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import * as data from '@modules/studio/features/data';
 import { Nullable } from '@utils/Nullable';
 import { Container, Hidden } from '@modules/ui';
@@ -62,6 +62,7 @@ export type DetailsOwnProps = {
     data: ReturnType<typeof getRoomById>;
   };
   schedule: ScheduleProps;
+  backLink: ReactNode;
 };
 
 type ConfigProps = {
@@ -82,6 +83,7 @@ export const Details = ({
   rooms,
   room,
   schedule,
+  backLink,
 }: Props) => {
   const contentNode = useMemo(
     () => (
@@ -133,7 +135,7 @@ export const Details = ({
   );
 
   return (
-    <Layout>
+    <Layout backLink={backLink}>
       <Grid container>
         <Photos
           isLoading={information.isLoading}

@@ -1,6 +1,18 @@
-import React, { memo } from 'react';
-import { BaseHeaderBar, BaseHeaderBarProps } from '@modules/ui';
+import React, { ReactNode } from 'react';
+import { BaseHeaderBarProps } from '@modules/ui';
+import {
+  HeaderBar as StyledHeaderBar,
+  Icon,
+  LinkWrapper,
+} from './HeaderBarStyles';
 
-export const HeaderBar = memo(({ show }: Pick<BaseHeaderBarProps, 'show'>) => {
-  return <BaseHeaderBar show={show}>back</BaseHeaderBar>;
-});
+type Props = BaseHeaderBarProps & { backLink?: ReactNode };
+
+export const HeaderBar = ({ show, className, backLink = null }: Props) => {
+  return (
+    <StyledHeaderBar className={className} show={show}>
+      <Icon />
+      <LinkWrapper>{backLink}</LinkWrapper>
+    </StyledHeaderBar>
+  );
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as details from '@modules/studio/features/details';
+import { Hidden } from '@modules/ui';
 import { DateRange } from './DateRange';
 import { Reserve } from './Reserve';
 import { Price } from './Price';
@@ -23,7 +24,9 @@ export const RoomPayment = ({
   return (
     <>
       <Price isLoading={isRoomLoading} pricePerHour={room.averagePrice} />
-      <Separator />
+      <Hidden query={largeTabletQuery}>
+        <Separator />
+      </Hidden>
       <DateRange largeTabletQuery={largeTabletQuery} />
       <Reserve
         isLoading={isRoomLoading}

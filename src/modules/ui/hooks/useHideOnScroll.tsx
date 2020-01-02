@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash/throttle';
 import { useRequestAnimationFrame } from '@hooks/useRequestAnimationFrame';
 import { usePrevious } from '@hooks/usePrevious';
 import { getBreakpoints } from '@theme/index';
