@@ -10,9 +10,10 @@ import { Close as CloseIcon } from '@material-ui/icons';
 import dequal from 'dequal';
 import {
   Container,
-  BarWrapper,
   DynamicRendering,
-} from '@modules/ui/components';
+  SlideTransition,
+  BaseHeaderBar,
+} from '@modules/ui';
 import {
   FilterGrid,
   Wrapper,
@@ -35,45 +36,41 @@ const _StudioListFilterMobile = ({
   isLoading,
 }: Props) => {
   const [isVisible, setVisibility] = useState(false);
-  const handleToggleVisibility = useCallback(() => {
-    setVisibility(!isVisible);
-  }, [isVisible]);
+  const handleOpen = useCallback(() => setVisibility(true), []);
+  const handleClose = useCallback(() => setVisibility(false), []);
 
   return (
     <Fragment>
-      <Button
-        variant="outlined"
-        onClick={handleToggleVisibility}
-        disabled={isLoading}
-      >
+      <Button variant="outlined" onClick={handleOpen} disabled={isLoading}>
         Фильтры
       </Button>
-      <Dialog fullScreen open={isVisible} onClose={handleToggleVisibility}>
+      <Dialog
+        fullScreen
+        open={isVisible}
+        onClose={handleClose}
+        TransitionComponent={SlideTransition}
+      >
         <Wrapper className={className} isVisible={isVisible}>
           <DynamicRendering>
-            <Grid container>
-              <BarWrapper>
-                <Container variant="primary">
-                  <Grid container justify="space-between" alignItems="center">
-                    <GridWithMargin item>
-                      <IconButton onClick={handleToggleVisibility}>
-                        <CloseIcon />
-                      </IconButton>
-                    </GridWithMargin>
-                    <GridWithMargin item>
-                      <Typography component="span" variant="subtitle1">
-                        Фильтры
-                      </Typography>
-                    </GridWithMargin>
-                    <Grid item>
-                      <Button variant="outlined" onClick={handleClearFilters}>
-                        Очистить
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Container>
-              </BarWrapper>
-            </Grid>
+            <BaseHeaderBar>
+              <Grid container justify="space-between" alignItems="center">
+                <GridWithMargin item>
+                  <IconButton onClick={handleClose}>
+                    <CloseIcon />
+                  </IconButton>
+                </GridWithMargin>
+                <GridWithMargin item>
+                  <Typography component="span" variant="subtitle1">
+                    Фильтры
+                  </Typography>
+                </GridWithMargin>
+                <Grid item>
+                  <Button variant="outlined" onClick={handleClearFilters}>
+                    Очистить
+                  </Button>
+                </Grid>
+              </Grid>
+            </BaseHeaderBar>
             <Container variant="primary">
               <FilterGrid container>
                 <SearchFilter />

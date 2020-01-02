@@ -1,23 +1,19 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { getDeclension } from '@utils/getDeclension';
+import * as details from '@modules/studio/features/details';
 import { List, ListItem } from './DesktopReserve.styles';
 import { useFunctional } from './useFunctional';
 
-export type DesktopReserveProps =
-  | {
-      isLoading: true;
-      pricePerHour: undefined;
-    }
-  | {
-      isLoading: false;
-      pricePerHour: number;
-    };
+export type DesktopReserveProps = {
+  isLoading: boolean;
+  room: ReturnType<typeof details.selectors.getRooms>[number];
+};
 
-export const DesktopReserve = (props: DesktopReserveProps) => {
+export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
   const { hasRange, selectedHours, select } = useFunctional();
 
-  if (props.isLoading || !hasRange) {
+  if (isLoading || !hasRange) {
     return null;
   }
 
@@ -27,13 +23,13 @@ export const DesktopReserve = (props: DesktopReserveProps) => {
         <ListItem>
           <Grid item>
             <Typography variant="caption">
-              {props.pricePerHour} x {selectedHours}{' '}
+              {room.averagePrice} x {selectedHours}{' '}
               {getDeclension(selectedHours, ['час', 'часа', 'часов'])}
             </Typography>
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              {props.pricePerHour * selectedHours}
+              {room.averagePrice * selectedHours}
             </Typography>
           </Grid>
         </ListItem>
@@ -45,7 +41,7 @@ export const DesktopReserve = (props: DesktopReserveProps) => {
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              <b>{props.pricePerHour * (select.length - 1)}</b>
+              <b>{room.averagePrice * (select.length - 1)}</b>
             </Typography>
           </Grid>
         </ListItem>

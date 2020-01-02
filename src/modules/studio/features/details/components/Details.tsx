@@ -59,7 +59,7 @@ export type DetailsOwnProps = {
   };
   room?: {
     isLoading: boolean;
-    data: ReturnType<typeof getRoomById>;
+    data?: ReturnType<typeof getRoomById>;
   };
   schedule: ScheduleProps;
   backLink: ReactNode;
@@ -80,8 +80,8 @@ export const Details = ({
   config,
   isMetroListLoading,
   metroList,
-  rooms,
-  room,
+  rooms = { isLoading: true, list: [] },
+  room = { isLoading: true, data: undefined },
   schedule,
   backLink,
 }: Props) => {
@@ -105,14 +105,14 @@ export const Details = ({
           roomsCount={information.roomsCount}
         />
         <Description content={information.description} />
-        {rooms && (
+        {rooms.list.length ? (
           <RoomList
             rooms={rooms.list}
             isRoomsLoading={rooms.isLoading}
             config={config}
             isConfigLoading={isConfigLoading}
           />
-        )}
+        ) : null}
         {false && <Schedule {...schedule} />}
       </>
     ),
@@ -152,20 +152,12 @@ export const Details = ({
               </Grid>
             </Hidden>
             <Grid item xs={4}>
-              {rooms && (
-                <Payment
-                  variant="studio"
-                  isRoomsLoading={rooms.isLoading}
-                  rooms={rooms.list}
-                />
-              )}
-              {room && (
-                <Payment
-                  variant="room"
-                  isRoomLoading={room.isLoading}
-                  room={room.data}
-                />
-              )}
+              <Payment
+                isRoomsLoading={rooms.isLoading}
+                rooms={rooms.list}
+                isRoomLoading={room.isLoading}
+                room={room.data}
+              />
             </Grid>
           </MainGrid>
         </Container>

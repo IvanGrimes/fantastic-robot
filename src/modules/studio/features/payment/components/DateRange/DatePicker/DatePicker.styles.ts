@@ -5,8 +5,8 @@ export const Wrapper = styled.div<{ isVisible: boolean }>`
     position: absolute;
     display: ${isVisible ? 'flex' : 'none'};
     top: 100%;
-    left: -24px;
-    width: calc(100% + 48px);
+    left: 0;
+    width: 100%;
     z-index: 5;
   `};
 `;

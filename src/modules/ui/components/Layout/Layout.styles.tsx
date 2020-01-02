@@ -10,6 +10,6 @@ export const Content = styled.div<{ withBar: boolean }>`
   ${({ withBar }) => css`
     display: flex;
     min-height: 100vh;
-    margin-top: ${withBar ? 128 : 64}px;
+    margin-top: ${withBar ? 120 : 64}px;
   `};
 `;

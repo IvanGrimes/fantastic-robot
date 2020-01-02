@@ -1,16 +1,12 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+import * as details from '@modules/studio/features/details';
 import { Typography, Amount } from './Price.styles';
 
-export type PriceProps =
-  | {
-      isLoading: true;
-      pricePerHour: undefined;
-    }
-  | {
-      isLoading: false;
-      pricePerHour: number;
-    };
+export type PriceProps = {
+  isLoading: boolean;
+  room: ReturnType<typeof details.selectors.getRooms>[number];
+};
 
 export const Price = (props: PriceProps) => {
   if (props.isLoading) {
@@ -20,7 +16,7 @@ export const Price = (props: PriceProps) => {
   return (
     <Grid item>
       <Grid container alignItems="flex-end">
-        <Typography variant="h6">{props.pricePerHour}&#8381;</Typography>
+        <Typography variant="h6">{props.room.averagePrice}&#8381;</Typography>
         <Amount variant="caption">в час</Amount>
       </Grid>
     </Grid>

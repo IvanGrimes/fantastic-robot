@@ -1,8 +1,11 @@
 import React, { ComponentType, forwardRef } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid, Dialog as DefaultDialog } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 import { PaperProps } from '@material-ui/core/Paper';
 import { grey } from '@material-ui/core/colors';
+import { GridProps } from '@material-ui/core/Grid';
+import { DialogProps } from '@material-ui/core/Dialog';
+import { getBreakpoints } from '@theme/breakpoints';
 
 type WrapperProps = PaperProps & { isFixed: boolean; top: number };
 
@@ -37,4 +40,31 @@ export const Separator = styled.div`
   height: 1px;
   background-color: ${grey.A100};
   margin: 8px -8px;
+`;
+
+export const FormGrid = styled<ComponentType<GridProps>>(Grid)`
+  && {
+    margin-top: 16px;
+  }
+`;
+
+export const Dialog = styled<ComponentType<DialogProps>>(props => (
+  <DefaultDialog {...props} classes={{ paper: 'paper' }} />
+))`
+  ${props => {
+    const breakpoints = getBreakpoints(props);
+
+    return css`
+      && {
+        .paper {
+          overflow-x: hidden;
+          min-height: 770px;
+          width: calc(100% + 24px);
+          @media screen and (max-width: ${breakpoints.values.sm}px) {
+            padding: 0;
+          }
+        }
+      }
+    `;
+  }}
 `;

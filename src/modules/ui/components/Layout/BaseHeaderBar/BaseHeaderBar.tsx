@@ -1,17 +1,15 @@
 import React, { ReactNode } from 'react';
-import { Grid } from '@material-ui/core';
-import { Container } from '@modules/ui';
-import { BarWrapper } from './BaseHeaderBat.styles';
+import { AppBar, Toolbar } from '@material-ui/core';
 
 export type BaseHeaderBarProps = {
   className?: string;
-  show: boolean;
+  show?: boolean;
   children: ReactNode | ReactNode[];
 };
 
 export const BaseHeaderBar = ({
   className = '',
-  show,
+  show = true,
   children,
 }: BaseHeaderBarProps) => {
   if (!show) {
@@ -19,10 +17,13 @@ export const BaseHeaderBar = ({
   }
 
   return (
-    <Grid container className={className}>
-      <BarWrapper>
-        <Container variant="fluid">{children}</Container>
-      </BarWrapper>
-    </Grid>
+    <AppBar
+      color="default"
+      className={className}
+      position="static"
+      elevation={1}
+    >
+      <Toolbar>{children}</Toolbar>
+    </AppBar>
   );
 };
