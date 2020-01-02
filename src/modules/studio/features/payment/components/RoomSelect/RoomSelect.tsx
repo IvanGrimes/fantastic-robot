@@ -1,70 +1,22 @@
-import React, { ChangeEvent, useCallback, useMemo } from 'react';
-import { Hidden, Select } from '@modules/ui';
-import * as details from '@modules/studio/features/details';
-import { Grid } from '@material-ui/core';
-import { useCalendar } from '@modules/studio/features/calendar';
+import React from 'react';
+import { Hidden } from '@modules/ui';
 import { useMediaQuery } from '@modules/ui/hooks';
-import { useCacheSelectedTime } from './useCacheSelectedTime';
+import { Grid } from '@material-ui/core';
+import { RoomSelectDesktop, RoomSelectDesktopProps } from './RoomSelectDesktop';
 
-export type RoomSelectProps = {
-  isLoading?: boolean;
-  list?: ReturnType<typeof details.selectors.getRooms>;
-  value: string;
-  handleChange: (ev: ChangeEvent<{ value: unknown }>) => void;
-  largeTabletQuery: string;
-};
+export type RoomSelectProps = RoomSelectDesktopProps;
 
-export const RoomSelect = ({
-  isLoading,
-  list,
-  value,
-  handleChange,
-  largeTabletQuery,
-}: RoomSelectProps) => {
-  useCacheSelectedTime({ id: value });
-  const { clearSelectedTime } = useCalendar();
-  const options = useMemo(
-    () =>
-      list
-        ? list.map(({ id, name }) => ({
-            value: id,
-            label: name,
-          }))
-        : [],
-    [list]
-  );
-  const onChange = useCallback(
-    (ev: ChangeEvent<{ value: unknown }>) => {
-      handleChange(ev);
-      clearSelectedTime();
-    },
-    [handleChange, clearSelectedTime]
-  );
-  const desktopMatches = useMediaQuery(largeTabletQuery);
+export const RoomSelect = ({ largeTabletQuery, ...props }: RoomSelectProps) => {
+  const largeTableMatches = useMediaQuery(largeTabletQuery);
 
-  if (desktopMatches) {
+  if (largeTableMatches) {
     return null;
-  }
-
-  if (isLoading) {
-    return (
-      <Hidden query={largeTabletQuery}>
-        <span>loading</span>
-      </Hidden>
-    );
   }
 
   return (
     <Grid container item>
       <Hidden query={largeTabletQuery}>
-        <Select
-          isLoading={isLoading}
-          options={options}
-          value={value}
-          handleChange={onChange}
-          label="Зал"
-          defaultOption={0}
-        />
+        <RoomSelectDesktop largeTabletQuery={largeTabletQuery} {...props} />
       </Hidden>
     </Grid>
   );
