@@ -14,19 +14,19 @@ export const FilterWrapper = styled.div<{
 
     return css`
       position: absolute;
-      top: ${top + 8}px;
+      top: ${top / 2}px;
       left: ${left}px;
       z-index: 2000;
       opacity: ${isVisible ? 1 : 0};
       transform: translate(${isVisible ? 0 : '-10000px'}, 0);
-      transition: transform linear 0ms ${isVisible ? 0 : 300}ms,
-        opacity 300ms linear;
+      transition: transform linear 0ms ${isVisible ? 0 : 150}ms,
+        opacity 150ms linear;
       max-width: 70%;
       ${down('md')} {
         max-width: 85%;
       }
       ${down('sm')} {
-        max-width: calc(100% - ${left * 2}px);
+        max-width: calc(100% - ${left + 16}px);
       }
     `;
   }};

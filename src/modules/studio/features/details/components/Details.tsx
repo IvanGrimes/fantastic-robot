@@ -16,11 +16,10 @@ import { Layout } from './Layout';
 
 // TODO: Контакты
 // TODO: Расписание
-// TODO: Отображать студию, которой принадлежит зал
 // TODO: Скелетоны
 // TODO: Отзывчивость
 // TODO: Оптимизация
-// TODO: connect => useSelector/useDispatch ?
+// TODO: connect => useSelector/useDispatch ? => Connect!
 
 export type DetailsOwnProps = {
   information: {
