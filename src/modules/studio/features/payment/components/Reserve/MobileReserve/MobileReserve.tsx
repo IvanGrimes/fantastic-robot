@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Button, Grid, IconButton, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import { BaseHeaderBar, SlideTransition } from '@modules/ui';
+import { BaseHeaderBar, DynamicRendering, SlideTransition } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
 import { Price } from '../../Price';
 import { RoomSelectDesktop } from '../../RoomSelect';
@@ -39,47 +39,51 @@ export const MobileReserve = ({
         keepMounted
         fullScreen
       >
-        <BaseHeaderBar>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={handleClose}
-                aria-label="close"
-                size="small"
-              >
-                <Close />
-              </IconButton>
+        <DynamicRendering>
+          <BaseHeaderBar>
+            <Grid container justify="space-between" alignItems="center">
+              <Grid item>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={handleClose}
+                  aria-label="close"
+                  size="small"
+                >
+                  <Close />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle1">Резервирование</Typography>
+              </Grid>
+              <Grid item />
             </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">Резервирование</Typography>
+          </BaseHeaderBar>
+          <FormGrid container justify="center" spacing={2}>
+            <Grid item xs={11} justify="flex-start">
+              <Price isLoading={isLoading} room={room} />
             </Grid>
-            <Grid item />
-          </Grid>
-        </BaseHeaderBar>
-        <FormGrid container justify="center" spacing={2}>
-          <Grid item xs={11} justify="flex-start">
-            <Price isLoading={isLoading} room={room} />
-          </Grid>
-          <Grid container item>
-            <Separator />
-          </Grid>
-          <Grid xs={11} item>
-            <RoomSelectDesktop
-              list={rooms}
-              isLoading={isLoading}
-              value={roomId}
-              handleChange={handleChangeRoomId}
-            />
-          </Grid>
-          <Grid xs={11} item>
-            <DesktopDateRange />
-          </Grid>
-          <Grid xs={11} item>
-            <DesktopReserve isLoading={isLoading} room={room} />
-          </Grid>
-        </FormGrid>
+            <Grid container item>
+              <Separator />
+            </Grid>
+            {rooms.length ? (
+              <Grid xs={11} item>
+                <RoomSelectDesktop
+                  list={rooms}
+                  isLoading={isLoading}
+                  value={roomId}
+                  handleChange={handleChangeRoomId}
+                />
+              </Grid>
+            ) : null}
+            <Grid xs={11} item>
+              <DesktopDateRange />
+            </Grid>
+            <Grid xs={11} item>
+              <DesktopReserve isLoading={isLoading} room={room} />
+            </Grid>
+          </FormGrid>
+        </DynamicRendering>
       </Dialog>
       <Grid>
         <Button

@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 import { RootState } from '@model/types';
 import * as data from '@modules/studio/features/data';
-import { useSelector } from 'react-redux';
 import dequal from 'dequal';
+import { connect } from 'react-redux';
 import { DetailsOwnProps, Details } from './Details';
 
-export type DetailsProps = DetailsOwnProps;
+export type DetailsProps = DetailsOwnProps & ReturnType<typeof mapState>;
 
 const mapState = (state: RootState) => ({
   isMetroListLoading: data.selectors.getMetroListLoading(state),
@@ -14,10 +14,8 @@ const mapState = (state: RootState) => ({
   config: data.selectors.getConfig(state),
 });
 
-const _DetailsContainer = (props: DetailsProps) => {
-  const state = useSelector(mapState);
+const _DetailsContainer = (props: DetailsProps) => <Details {...props} />;
 
-  return <Details {...props} {...state} />;
-};
-
-export const DetailsContainer = memo(_DetailsContainer, dequal);
+export const DetailsContainer = connect(mapState)(
+  memo(_DetailsContainer, dequal)
+);

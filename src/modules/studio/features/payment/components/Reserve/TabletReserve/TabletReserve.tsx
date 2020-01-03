@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
-import { SlideTransition } from '@modules/ui';
+import { DynamicRendering, SlideTransition } from '@modules/ui';
 import { MobileReserveProps } from '../MobileReserve';
 import { Price } from '../../Price';
 import { Separator, Dialog, FormGrid } from '../../Payment.styles';
@@ -29,28 +29,32 @@ export const TabletReserve = ({
         scroll="paper"
         keepMounted
       >
-        <FormGrid container justify="center" spacing={2}>
-          <Grid item xs={11} justify="flex-start">
-            <Price isLoading={isLoading} room={room} />
-          </Grid>
-          <Grid container item>
-            <Separator />
-          </Grid>
-          <Grid xs={11} item>
-            <RoomSelectDesktop
-              list={rooms}
-              isLoading={isLoading}
-              value={roomId}
-              handleChange={handleChangeRoomId}
-            />
-          </Grid>
-          <Grid xs={11} item>
-            <DesktopDateRange />
-          </Grid>
-          <Grid xs={11} item>
-            <DesktopReserve isLoading={isLoading} room={room} />
-          </Grid>
-        </FormGrid>
+        <DynamicRendering>
+          <FormGrid container justify="center" spacing={2}>
+            <Grid item xs={11} justify="flex-start">
+              <Price isLoading={isLoading} room={room} />
+            </Grid>
+            <Grid container item>
+              <Separator />
+            </Grid>
+            {rooms.length ? (
+              <Grid xs={11} item>
+                <RoomSelectDesktop
+                  list={rooms}
+                  isLoading={isLoading}
+                  value={roomId}
+                  handleChange={handleChangeRoomId}
+                />
+              </Grid>
+            ) : null}
+            <Grid xs={11} item>
+              <DesktopDateRange />
+            </Grid>
+            <Grid xs={11} item>
+              <DesktopReserve isLoading={isLoading} room={room} />
+            </Grid>
+          </FormGrid>
+        </DynamicRendering>
       </Dialog>
       <Grid item>
         <Button
