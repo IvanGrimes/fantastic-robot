@@ -3,7 +3,8 @@ import { Typography } from '@material-ui/core';
 import { Cell as StyledCell, ColorGroup } from './Cell.styles';
 import { useCalendar } from '../../../CalendarContext';
 
-type Props = {
+export type CellProps = {
+  className?: string;
   data: {
     year: number;
     month: number;
@@ -23,12 +24,13 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const Cell = ({ data, selectTime }: Props) => {
+export const Cell = ({ className = '', data, selectTime }: CellProps) => {
   const { step } = useCalendar();
   const canSelect = data.reservation.canReserve && data.isWorkingHours;
 
   return (
     <StyledCell
+      className={className}
       selected={data.selected}
       onClick={canSelect ? selectTime(data.timestamp) : undefined}
       workingHour={data.isWorkingHours}

@@ -5,13 +5,13 @@ import { Theme } from '@theme/types';
 import { getBreakpoints } from '@theme/breakpoints';
 import { Grid } from '@material-ui/core';
 import { Paper } from './Calendar.styles';
-import { Header } from './Header';
-import { Body } from './Body';
 import { useCalendar } from './CalendarContext';
+import { useInjections } from './calendarInjector';
 
 export type CalendarProps = {};
 
 export const Calendar = () => {
+  const { Header, Body } = useInjections();
   const {
     setAvailableSteps,
     availableSteps,

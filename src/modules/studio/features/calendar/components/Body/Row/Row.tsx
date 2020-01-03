@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row as StyledRow } from './Row.styles';
-import { Cell } from './Cell';
+import { useInjections } from '../../calendarInjector';
 
 type Props = {
   data: {
@@ -22,10 +22,14 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const Row = ({ data, selectTime }: Props) => (
-  <StyledRow>
-    {data.map(item => (
-      <Cell key={item.timestamp} data={item} selectTime={selectTime} />
-    ))}
-  </StyledRow>
-);
+export const Row = ({ data, selectTime }: Props) => {
+  const { Cell } = useInjections();
+
+  return (
+    <StyledRow>
+      {data.map(item => (
+        <Cell key={item.timestamp} data={item} selectTime={selectTime} />
+      ))}
+    </StyledRow>
+  );
+};

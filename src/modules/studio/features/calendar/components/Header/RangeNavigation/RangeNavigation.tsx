@@ -1,10 +1,10 @@
 import React from 'react';
 import { useCalendar } from '../../CalendarContext';
 import { Wrapper, Control } from './RangeNavigation.styles';
-import { DirectionButton } from './DirectionButton';
-import { ViewRange } from './ViewRange';
+import { useInjections } from '../../calendarInjector';
 
 export const RangeNavigation = () => {
+  const { DirectionButton, ViewRange } = useInjections();
   const { previousRange, nextRange, previousMonth, nextMonth } = useCalendar();
 
   return (

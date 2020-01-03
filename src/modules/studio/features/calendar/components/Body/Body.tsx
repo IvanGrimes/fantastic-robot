@@ -1,10 +1,9 @@
 import React, { useCallback, MouseEvent, TouchEvent } from 'react';
 import { useBrowser } from '@hooks/useBrowser';
 import { useCalendar } from '../CalendarContext';
-import { Row } from './Row';
-import { WeekDay } from './WeekDay';
 import { Table } from './Body.styles';
 import { BodySkeleton } from './BodySkeleton';
+import { useInjections } from '../calendarInjector';
 
 const handlePreventDefault = (
   ev: MouseEvent<HTMLTableElement> | TouchEvent<HTMLTableElement>
@@ -13,6 +12,7 @@ const handlePreventDefault = (
 };
 
 export const Body = () => {
+  const { WeekDay, Row } = useInjections();
   const isBrowser = useBrowser();
   const { grid, selectTime, range } = useCalendar();
   const handleSelectTime = useCallback(

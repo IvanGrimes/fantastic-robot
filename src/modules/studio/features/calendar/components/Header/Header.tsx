@@ -1,10 +1,14 @@
 import React from 'react';
-import { Wrapper, Controls } from './Header.styles';
-import { RangeNavigation } from './RangeNavigation';
+import { Wrapper } from './Header.styles';
+import { useInjections } from '../calendarInjector';
 
-export const Header = () => (
-  <Wrapper>
-    <RangeNavigation />
-    <Controls />
-  </Wrapper>
-);
+export const Header = () => {
+  const { RangeNavigation, Controls } = useInjections();
+
+  return (
+    <Wrapper>
+      <RangeNavigation />
+      <Controls />
+    </Wrapper>
+  );
+};

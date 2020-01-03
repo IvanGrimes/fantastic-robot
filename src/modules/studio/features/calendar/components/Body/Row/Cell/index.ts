@@ -1,2 +1,2 @@
-export { Cell } from './Cell';
+export * from './Cell';
 export { Cell as StyledCell } from './Cell.styles';
