@@ -4,6 +4,7 @@ import throttle from 'lodash/throttle';
 import { Theme } from '@theme/types';
 import { getBreakpoints } from '@theme/breakpoints';
 import { Grid } from '@material-ui/core';
+import { DynamicRendering } from '@modules/ui';
 import { Paper } from './Calendar.styles';
 import { useCalendar } from './CalendarContext';
 import { useInjections } from './calendarInjector';
@@ -66,10 +67,12 @@ export const Calendar = () => {
 
   return (
     <Grid container item>
-      <Paper>
-        <Header />
-        <Body />
-      </Paper>
+      <DynamicRendering>
+        <Paper>
+          <Header />
+          <Body />
+        </Paper>
+      </DynamicRendering>
     </Grid>
   );
 };
