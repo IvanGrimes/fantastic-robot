@@ -3,7 +3,6 @@ import { ComponentType } from 'react';
 import { PaperProps } from '@material-ui/core/Paper';
 import { Grid, Paper } from '@material-ui/core';
 import { GridProps } from '@material-ui/core/Grid';
-import { em } from 'polished';
 import {
   StationFilter as DefaultStudioListFilterStation,
   StudioListFilterStationProps,
@@ -42,7 +41,7 @@ export const GridWithMargin = styled<ComponentType<GridProps>>(Grid)`
 
 export const FilterGrid = styled<ComponentType<GridProps>>(Grid)`
   && {
-    margin-top: ${em(16)};
+    margin-top: 1em;
   }
 `;
 

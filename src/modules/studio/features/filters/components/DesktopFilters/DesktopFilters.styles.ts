@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { transparentize } from 'polished';
 import { ComponentType } from 'react';
 import {
   StationFilter as DefaultStudioListFilterStation,
@@ -22,7 +21,7 @@ export const Overlay = styled.div<{ isVisible: boolean }>`
     width: 100%;
     height: 100%;
     z-index: 150;
-    background-color: ${transparentize(0.3, '#fff')};
+    background-color: rgba(255, 255, 255 0.7);
     opacity: ${isVisible ? 1 : 0};
     transform: translate(${isVisible ? '0px, 0' : '-10000px, 0'});
     transition: transform 0ms linear ${isVisible ? 0 : 300}ms,

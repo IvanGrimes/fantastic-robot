@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, useRef } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { mergeDeepRight } from 'ramda';
 import { RootState } from '@model/types';
 import { usePrevious } from '@hooks/usePrevious';
 import { ListFilterProps } from './index';
@@ -12,6 +11,7 @@ import { getFilters } from '../model/selectors';
 import { getNonEmptyValues } from '../utils/getNonEmptyValues';
 import { parseFilters } from '../utils/parseFilters';
 import * as data from '../../data';
+import { getAsPathWithFilters } from '../utils/getAsPathWithFilters';
 
 type Props = ListFilterProps &
   ReturnType<typeof mapStateToProps> &
@@ -27,25 +27,6 @@ const mapStateToProps = (state: RootState) => ({
 const dispatchProps = {
   handleClearFilters: clearFilters,
   handleSetFilters: setFilters,
-};
-
-const getAbsAsPath = (asPath: string) => asPath.split('?')[0];
-
-export const getAsPathWithFilters = (
-  asPath: string,
-  appliedFilters: Props['appliedFilters']
-) => {
-  const absAsPath = getAbsAsPath(asPath);
-  const prevFilters = parseFilters(asPath);
-  const nextFilters = mergeDeepRight(
-    prevFilters,
-    getNonEmptyValues(appliedFilters)
-  );
-  const hasFilters = Object.values(getNonEmptyValues(appliedFilters)).length;
-
-  return hasFilters
-    ? `${absAsPath}?filters=${JSON.stringify(nextFilters)}`
-    : absAsPath;
 };
 
 const _ListFilterContainer = ({

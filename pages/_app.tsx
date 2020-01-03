@@ -53,7 +53,7 @@ class MyApp extends App<{
     if (req) {
       const parser = new UAParser(req.headers['user-agent']);
       const width = getWidthByDevice(parser.getDevice().type as DeviceType);
-      console.log(parser.getDevice(), parser.getResult());
+
       return (query: string) =>
         mediaQuery.match(query, {
           width: `${width}px`,

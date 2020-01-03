@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import dequal from 'dequal';
 import { DetailsOwnProps, Details } from './Details';
 
+export type DetailsProps = DetailsOwnProps;
+
 const mapState = (state: RootState) => ({
   isMetroListLoading: data.selectors.getMetroListLoading(state),
   isConfigLoading: data.selectors.getConfigLoading(state),
@@ -12,7 +14,7 @@ const mapState = (state: RootState) => ({
   config: data.selectors.getConfig(state),
 });
 
-const _DetailsContainer = (props: DetailsOwnProps) => {
+const _DetailsContainer = (props: DetailsProps) => {
   const state = useSelector(mapState);
 
   return <Details {...props} {...state} />;

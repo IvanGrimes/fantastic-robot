@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import React, { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { CircularProgress, Grid } from '@material-ui/core';
-import { em } from 'polished';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import { getBreakpoints } from '@theme/breakpoints';
 import {
@@ -28,7 +27,7 @@ const LoaderGrid = styled<ComponentType<GridProps>>(props => (
 ))`
   && {
     position: relative;
-    margin: ${em(32)} 0;
+    margin: 2em 0;
   }
 `;
 
@@ -49,7 +48,7 @@ export const Wrapper = styled.div<{ isVisible: boolean }>`
       background-color: #fff;
       position: relative;
       z-index: 2;
-      padding-top: ${em(24)};
+      padding-top: 1.5em;
       min-height: 100%;
       transform: translate(${isVisible ? '0px, 0' : '-4000px, 0'});
       transition: transform 300ms ${isVisible ? 'ease-out' : 'ease-in'};
@@ -57,7 +56,7 @@ export const Wrapper = styled.div<{ isVisible: boolean }>`
         transform: translate(${isVisible ? '0, 0px' : '0, 1000px'});
       }
     `;
-  }}
+  }};
 `;
 
 export const ListGrid = styled<ComponentType<GridProps>>(props => (
@@ -81,7 +80,7 @@ export const ListGrid = styled<ComponentType<GridProps>>(props => (
           `}
       }
     `;
-  }}
+  }};
 `;
 
 export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
@@ -95,5 +94,5 @@ export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
           padding-right: 0 !important;
         `}
     }
-  `}
+  `};
 `;

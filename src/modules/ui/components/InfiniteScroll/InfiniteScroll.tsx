@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 import { useRouter } from 'next/router';
-import { getAsPathWithFilters } from '@modules/studio/features/filters/components/ListFilterContainer';
-import { InfiniteScrollProps } from './index';
+import { getAsPathWithFilters } from '@modules/studio/features/filters/utils/getAsPathWithFilters';
 import { parseFilters } from '@modules/studio/features/filters/utils/parseFilters';
+import { InfiniteScrollProps } from './index';
 
 export const InfiniteScroll = ({
   dataLength,

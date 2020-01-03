@@ -4,9 +4,9 @@ import { ListFilter } from '@modules/studio/features/filters/components';
 import { ListMapSwitch } from './ListMapSwitch';
 import { BaseHeaderBar, BaseHeaderBarProps } from '../../BaseHeaderBar';
 
-type Props = Omit<BaseHeaderBarProps, 'children'>;
+export type HeaderBarProps = Omit<BaseHeaderBarProps, 'children'>;
 
-const _HeaderBar = ({ show }: Props) => (
+const _HeaderBar = ({ show }: HeaderBarProps) => (
   <BaseHeaderBar show={show}>
     <Grid container alignItems="center" justify="space-between">
       <Grid item>

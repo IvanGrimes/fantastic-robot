@@ -2,7 +2,12 @@ import styled from 'styled-components';
 import { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
-import { FixedSizeList, FixedSizeListProps } from 'react-window';
+import { FixedSizeListProps } from 'react-window';
+import dynamic from 'next/dynamic';
+
+const FixedSizeList = dynamic<FixedSizeListProps>(() =>
+  import('react-window').then(m => m.FixedSizeList)
+);
 
 export const WrapperGrid = styled<ComponentType<GridProps>>(Grid)`
   && {

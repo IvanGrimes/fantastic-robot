@@ -9,10 +9,10 @@ import { useMediaQuery } from '@modules/ui/hooks';
 import { useTheme } from '@material-ui/styles';
 import { getBreakpoints } from '@theme/breakpoints';
 import * as details from '@modules/studio/features/details';
+import { Theme } from '@theme/types';
 import { DesktopReserve, DesktopReserveProps } from './DesktopReserve';
 import { TabletReserve } from './TabletReserve';
 import { MobileReserve } from './MobileReserve';
-import { Theme } from '@theme/types';
 
 export type Reserve = DesktopReserveProps & {
   largeTabletQuery: string;
