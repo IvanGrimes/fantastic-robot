@@ -14,29 +14,25 @@ export const createInjector = <
 ) => {
   const Context = createContext(injectables);
   const useInjections = () => useContext(Context);
+
   const withInjector = <P extends {}>(Component: ComponentType<P>) => {
-    const WithInjector = (props: P) => {
-      const injections = useInjections();
+    const WithInjector = ({
+      injections = {},
+      ...props
+    }: P & { injections?: Partial<I> }) => {
       const injected = useMemo(() => ({ ...injectables, ...injections }), [
         injections,
       ]);
 
       return (
         <Context.Provider value={injected}>
-          <Component {...props} />
+          <Component {...((props as unknown) as P)} />
         </Context.Provider>
       );
     };
 
-    WithInjector.inject = (injections: Partial<I>) => (props: P) => {
-      const injected = useMemo(() => ({ ...injectables, ...injections }), []);
-
-      return (
-        <Context.Provider value={injected}>
-          <Component {...props} />
-        </Context.Provider>
-      );
-    };
+    WithInjector.displayName = `withInjector(${Component.displayName ||
+      Component.name})`;
 
     return WithInjector;
   };
