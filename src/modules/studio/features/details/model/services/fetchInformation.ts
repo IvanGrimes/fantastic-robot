@@ -59,7 +59,6 @@ export type InformationResponse = {
     email: RawInformationResponse['mail'];
     instagram: RawInformationResponse['instUrl'];
     site: RawInformationResponse['siteUrl'];
-    address: RawInformationResponse['address'];
   };
   dressingRoom: {
     has: RawInformationResponse['hasDressingRoom'];
@@ -92,7 +91,6 @@ export const fetchInformation = ({ studioId }: FetchInformationInput) =>
         mail,
         instUrl,
         siteUrl,
-        address,
         hasDressingRoom,
         dressingCalendarId,
         dressingCapacity,
@@ -122,7 +120,6 @@ export const fetchInformation = ({ studioId }: FetchInformationInput) =>
           email: mail,
           instagram: instUrl,
           site: siteUrl,
-          address,
         },
         dressingRoom: {
           has: hasDressingRoom,

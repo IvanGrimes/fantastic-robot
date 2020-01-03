@@ -17,10 +17,6 @@ export const createRequestLoadingSelector = (actions: RootAction['type'][]) =>
           );
         }
 
-        if (typeof requestStatus === 'undefined') {
-          return true;
-        }
-
         return requestStatus || false;
       }),
     state => state

@@ -47,7 +47,6 @@ const initialState: DetailsState = {
       capacity: null,
     },
     contacts: {
-      address: '',
       site: null,
       instagram: null,
       email: null,

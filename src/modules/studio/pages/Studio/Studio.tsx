@@ -41,12 +41,11 @@ const _Studio = ({
 
   useEffect(() => {
     const studioId = query.studio;
-
     if (typeof studioId === 'string') {
-      if (!rooms.length) {
+      if (!isRoomsLoading && !rooms.length) {
         handleFetchRooms({ studioId });
       }
-      if (!information.id) {
+      if (!isInformationLoading && !information.id) {
         handleFetchInformation({ studioId });
       }
     }
@@ -54,6 +53,8 @@ const _Studio = ({
     handleFetchInformation,
     handleFetchRooms,
     information.id,
+    isInformationLoading,
+    isRoomsLoading,
     query.studio,
     rooms.length,
   ]);
@@ -79,6 +80,7 @@ const _Studio = ({
         stationIds: information.stationIds,
         title: information.name,
         interiorIds: information.interiorIds,
+        contacts: information.contacts,
       }}
       rooms={{
         isLoading: isRoomsLoading,
@@ -88,7 +90,6 @@ const _Studio = ({
         workHours,
         reservations,
       }}
-      contacts={information.contacts}
       dressingRoom={information.dressingRoom}
       workingHours={information.workingHours}
       backLink={

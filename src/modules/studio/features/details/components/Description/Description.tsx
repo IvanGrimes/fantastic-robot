@@ -1,18 +1,22 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import { DescriptionGrid } from './Description.styles';
-import { Separator } from '../Details.styles';
+import { Grid, Typography } from '@material-ui/core';
+import { Block } from '../Block';
 
 type DescriptionProps = {
+  isLoading: boolean;
   content?: string;
 };
 
-export const Description = ({ content }: DescriptionProps) =>
-  content ? (
-    <>
-      <Separator marginTop={24} />
-      <DescriptionGrid container>
+export const Description = ({ isLoading, content }: DescriptionProps) => {
+  if (typeof content === 'undefined') {
+    return null;
+  }
+
+  return (
+    <Block isLoading={isLoading || !content.length}>
+      <Grid item>
         <Typography>{content}</Typography>
-      </DescriptionGrid>
-    </>
-  ) : null;
+      </Grid>
+    </Block>
+  );
+};

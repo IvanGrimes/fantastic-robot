@@ -13,7 +13,7 @@ export const Title = ({ loading, name }: StudioListItemTitleProps) =>
     <TitleSkeleton />
   ) : (
     <Grid container>
-      <Typography variant="h5" component="h2">
+      <Typography variant="h6" component="h2">
         {name}
       </Typography>
     </Grid>

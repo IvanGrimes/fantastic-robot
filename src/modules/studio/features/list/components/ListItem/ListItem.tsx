@@ -49,6 +49,7 @@ const _ListItem = ({
                 loading={loading || isConfigLoading}
                 ids={interiorIds}
                 list={config.interior}
+                size="small"
               />
             </Grid>
             <Grid

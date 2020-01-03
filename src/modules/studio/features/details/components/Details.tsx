@@ -13,6 +13,7 @@ import { Description } from './Description';
 import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 import { Layout } from './Layout';
+import { ContactsProps, Contacts } from './Contacts';
 
 // TODO: Контакты
 // TODO: Расписание
@@ -33,6 +34,7 @@ export type DetailsOwnProps = {
     description?: string;
     hasOnlinePayment?: boolean;
     price: data.PriceType | number;
+    contacts: Omit<ContactsProps, 'isLoading'>;
   };
   dressingRoom?: {
     has: boolean;
@@ -43,14 +45,6 @@ export type DetailsOwnProps = {
     from: number;
     to: number;
     utc: string;
-  };
-  contacts?: {
-    address: string;
-    site: Nullable<string>;
-    instagram: Nullable<string>;
-    email: Nullable<string>;
-    phone: string;
-    vk: Nullable<string>;
   };
   rooms?: {
     isLoading: boolean;
@@ -103,7 +97,14 @@ export const Details = ({
           metroList={metroList}
           roomsCount={information.roomsCount}
         />
-        <Description content={information.description} />
+        <Description
+          isLoading={information.isLoading}
+          content={information.description}
+        />
+        <Contacts
+          isLoading={information.isLoading || !information.contacts.phone}
+          {...information.contacts}
+        />
         {rooms.list.length ? (
           <RoomList
             rooms={rooms.list}
@@ -117,6 +118,7 @@ export const Details = ({
     ),
     [
       config,
+      information.contacts,
       information.description,
       information.equipmentIds,
       information.interiorIds,
@@ -128,7 +130,8 @@ export const Details = ({
       isConfigLoading,
       isMetroListLoading,
       metroList,
-      rooms,
+      rooms.isLoading,
+      rooms.list,
       schedule,
     ]
   );

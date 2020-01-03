@@ -60,13 +60,21 @@ const _Room = ({
   useEffect(() => {
     const { studio: studioId, room: roomId } = query;
 
-    if (!room.id) {
+    if (!isRoomLoading && !room.id) {
       handleFetchRoom({ roomId: roomId as string });
     }
-    if (!information.id) {
+    if (!isInformationLoading && !information.id) {
       handleFetchInformation({ studioId: studioId as string });
     }
-  }, [handleFetchInformation, handleFetchRoom, information.id, query, room.id]);
+  }, [
+    handleFetchInformation,
+    handleFetchRoom,
+    information.id,
+    isInformationLoading,
+    isRoomLoading,
+    query,
+    room.id,
+  ]);
 
   useEffect(() => {
     const { studio: studioId } = query;
@@ -84,6 +92,7 @@ const _Room = ({
         price: room.averagePrice,
         title: room.name,
         interiorIds: room.interiorIds || undefined,
+        contacts: information.contacts,
       }}
       schedule={{
         workHours,
