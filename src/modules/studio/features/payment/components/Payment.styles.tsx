@@ -74,13 +74,20 @@ export const ScrollableWrapper = styled.div`
   overflow: hidden;
   max-height: 300px;
   margin-left: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 20px,
+    black 90%,
+    transparent
+  );
 `;
 
 export const Scrollable = styled.div`
   width: calc(100% + 6px);
   max-height: 300px;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 14px;
   box-sizing: content-box;

@@ -40,7 +40,7 @@ export const DesktopDateRange = () => {
 
   return (
     <Grid container ref={wrapperRef}>
-      <List>
+      <List fill={!list.length}>
         {list.map(({ key, rangeFrom, rangeTo }) => (
           <ListItem key={key}>
             <Input

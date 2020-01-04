@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{ isVisible: boolean; x: number; y: number }>`
     left: ${x}px;
     width: 100%;
     max-width: 306.67px;
-    z-index: 5;
+    z-index: 2000;
   `};
 `;
 

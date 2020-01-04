@@ -17,3 +17,11 @@ export const ListItem = styled<ComponentType<GridProps>>(props => (
     }
   }
 `;
+
+export const ButtonWrapper = styled<ComponentType<GridProps>>(props => (
+  <Grid container item {...props} />
+))`
+  && {
+    margin-bottom: 22px;
+  }
+`;
