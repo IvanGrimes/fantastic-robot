@@ -3,12 +3,16 @@ import { Grid, Typography } from '@material-ui/core';
 import { MainGrid } from './Block.styles';
 
 export type BlockProps = {
-  isLoading: boolean;
+  isLoading?: boolean;
   title?: string;
   children: ReactNode | ReactNode[];
 };
 
-export const Block = ({ isLoading, title = '', children }: BlockProps) => {
+export const Block = ({
+  isLoading = false,
+  title = '',
+  children,
+}: BlockProps) => {
   if (isLoading) {
     return (
       <MainGrid container spacing={2}>

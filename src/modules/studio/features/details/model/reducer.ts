@@ -39,6 +39,10 @@ const initialState: DetailsState = {
     interiorIds: [],
     description: '',
     hasOnlinePayment: false,
+    location: {
+      lat: 0,
+      lng: 0,
+    },
     cityId: '',
     priceType: '1',
     dressingRoom: {

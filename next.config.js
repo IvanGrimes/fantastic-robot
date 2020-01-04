@@ -59,9 +59,6 @@ module.exports = withOffline(
 
             return config;
           },
-          env: {
-            MAPS_API_TOKEN: process.env.MAPS_API_TOKEN,
-          },
           workboxOpts: {
             swDest: 'static/service-worker.js',
             runtimeCaching: [

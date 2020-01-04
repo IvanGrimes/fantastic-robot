@@ -1,8 +1,8 @@
 import React, { memo, useRef } from 'react';
 import dequal from 'dequal';
 import { Close as CloseIcon } from '@material-ui/icons';
-import dynamic from 'next/dynamic';
 import { useRequestAnimationFrame } from '@hooks/useRequestAnimationFrame';
+import { GoogleMap } from '@modules/ui';
 import {
   MapGrid,
   OuterWrapper,
@@ -12,8 +12,6 @@ import {
 import { PreviewList } from './PreviewList';
 import { StudioItem } from '../../list';
 import { PinList } from './PinList';
-
-const GoogleMap = dynamic(() => import('google-map-react'), { ssr: false });
 
 type Props = {
   isMapListFullscreen: boolean;
@@ -55,12 +53,10 @@ const _ListMap = ({
           isHeaderVisible={isHeaderVisible}
         >
           <GoogleMap
-            bootstrapURLKeys={{ key: process.env.MAPS_API_TOKEN }}
             defaultCenter={{
               lat: 59.95,
               lng: 30.33,
             }}
-            defaultZoom={11}
             options={{
               fullscreenControl: false,
               zoomControl: false,

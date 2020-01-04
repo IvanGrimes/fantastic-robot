@@ -14,9 +14,10 @@ import { RoomList } from './RoomList';
 import { ScheduleProps, Schedule } from './Schedule';
 import { Layout } from './Layout';
 import { ContactsProps, Contacts } from './Contacts';
+import { LocationProps, Location } from './Location';
 
-// TODO: Контакты
 // TODO: Расписание
+// TODO: Декомпозировать
 // TODO: Скелетоны
 // TODO: Отзывчивость
 // TODO: Оптимизация
@@ -35,6 +36,7 @@ export type DetailsOwnProps = {
     hasOnlinePayment?: boolean;
     price: data.PriceType | number;
     contacts: Omit<ContactsProps, 'isLoading'>;
+    location: Omit<LocationProps, 'isLoading'>;
   };
   dressingRoom?: {
     has: boolean;
@@ -114,6 +116,7 @@ export const Details = ({
           />
         ) : null}
         {false && <Schedule {...schedule} />}
+        <Location isLoading={information.isLoading} {...information.location} />
       </>
     ),
     [
@@ -123,6 +126,7 @@ export const Details = ({
       information.equipmentIds,
       information.interiorIds,
       information.isLoading,
+      information.location,
       information.price,
       information.roomsCount,
       information.stationIds,

@@ -5,7 +5,8 @@
   "env": {
     "API_ENDPOINT": "@api_endpoint",
     "API_AUTH_USER": "@api_auth_user",
-    "API_AUTH_PASSWORD": "@api_auth_password"
+    "API_AUTH_PASSWORD": "@api_auth_password",
+    "MAPS_API_TOKEN": "@maps_api_token"
   },
   "build": {
     "env": {

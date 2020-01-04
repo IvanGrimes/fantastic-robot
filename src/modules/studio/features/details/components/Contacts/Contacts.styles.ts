@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const List = styled.ul`
-  padding: 0;
-  margin: -8px 0;
+  padding: 0 0 4px 0;
+  margin: -8px 0 -8px 2px;
   list-style-type: none;
 `;
 

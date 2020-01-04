@@ -93,6 +93,7 @@ const _Room = ({
         title: room.name,
         interiorIds: room.interiorIds || undefined,
         contacts: information.contacts,
+        location: information.location,
       }}
       schedule={{
         workHours,

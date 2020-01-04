@@ -7,7 +7,7 @@ import { GridProps } from '@material-ui/core/Grid';
 import { getShadows } from '@theme/shadows';
 
 export const RoomListCarousel = styled<ComponentType<CarouselProps>>(Carousel)`
-  margin: 24px 0 0 -10px;
+  margin: 0 0 36px -10px;
   & > .slick-arrow {
     display: none !important;
   }

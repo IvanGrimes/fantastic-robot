@@ -20,7 +20,7 @@ type RawInformationResponse = {
   address: string;
   interiorIds: string[];
   equipmentIds: string[];
-  location: Nullable<{ lat: string; lng: string }>;
+  location: { lon: number; lat: number };
   photoExamples: Nullable<string[]>;
   priceType: PriceType;
   roomNumber: number;
@@ -48,6 +48,7 @@ export type InformationResponse = {
   description: RawInformationResponse['description'];
   hasOnlinePayment: RawInformationResponse['hasOnlinePayment'];
   priceType: PriceType;
+  location: { lat: number; lng: number };
   workingHours: {
     from: number;
     to: number;
@@ -96,12 +97,14 @@ export const fetchInformation = ({ studioId }: FetchInformationInput) =>
         dressingCapacity,
         utcZone,
         priceType,
+        location,
         roomNumber,
       }) => ({
         id,
         name,
         photoIds,
         equipmentIds,
+        location: { lat: location.lat, lng: location.lon },
         stationIds,
         interiorIds,
         cityId,
