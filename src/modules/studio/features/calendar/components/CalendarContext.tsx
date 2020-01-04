@@ -1,10 +1,5 @@
 import React, { createContext, ReactNode, useContext, useMemo } from 'react';
-import {
-  CalendarState,
-  CalendarHandlers,
-  Step,
-  useModel,
-} from '../model/types';
+import { CalendarState, CalendarHandlers, useModel } from '../model/types';
 
 type CalendarProviderProps = {
   workHours: {
@@ -20,14 +15,13 @@ type CalendarProviderProps = {
       color?: string;
     }[];
   };
-  fixedStep?: Step;
-  multipleSelect?: boolean;
   children: ReactNode | ReactNode[];
 };
 
 export type CalendarContextType = Omit<CalendarState, 'select'> &
   CalendarHandlers & {
     select: number[];
+    selectByDate: CalendarState['select'];
     getSelectFrom: () => number | undefined;
     getSelectTo: () => number | undefined;
   };
@@ -39,15 +33,12 @@ const CalendarContext = createContext<CalendarContextType>(
 export const CalendarProvider = ({
   workHours,
   reservations,
-  fixedStep,
-  multipleSelect = true,
+
   children,
 }: CalendarProviderProps) => {
   const [dateRangeState, dateRangeHandlers] = useModel({
     workHours,
     reservations,
-    fixedStep,
-    multipleSelect,
   });
   const select = useMemo(
     () =>
@@ -64,6 +55,7 @@ export const CalendarProvider = ({
         ...dateRangeState,
         ...dateRangeHandlers,
         select,
+        selectByDate: dateRangeState.select,
         getSelectFrom: () => select[0],
         getSelectTo: () =>
           select.length > 1 ? select[select.length - 1] : undefined,

@@ -5,15 +5,14 @@ import {
 } from '@modules/studio/features/calendar';
 import { ComponentType } from 'react';
 
-export const Wrapper = styled.div<{ isVisible: boolean }>`
-  ${({ isVisible }) => css`
-    position: absolute;
+export const Wrapper = styled.div<{ isVisible: boolean; x: number; y: number }>`
+  ${({ isVisible, y, x }) => css`
+    position: fixed;
     display: ${isVisible ? 'flex' : 'none'};
-    top: calc(100% + 8px);
-    left: 50%;
+    top: ${y + 50}px;
+    left: ${x}px;
     width: 100%;
-    max-width: 400px;
-    transform: translate(-50%, 0);
+    max-width: 306.67px;
     z-index: 5;
   `};
 `;

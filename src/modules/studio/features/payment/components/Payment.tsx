@@ -8,7 +8,7 @@ import React, {
 import { Hidden } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
 import { Price } from './Price';
-import { Separator } from './Payment.styles';
+import { Separator, ScrollableWrapper, Scrollable } from './Payment.styles';
 import { RoomSelect } from './RoomSelect';
 import { DateRange } from './DateRange';
 import { Reserve } from './Reserve';
@@ -54,13 +54,17 @@ const getNode = ({
           largeTabletQuery={largeTabletQuery}
         />
       ) : null}
-      <DateRange largeTabletQuery={largeTabletQuery} />
-      <Reserve
-        isLoading={isLoading}
-        room={room}
-        rooms={rooms}
-        largeTabletQuery={largeTabletQuery}
-      />
+      <ScrollableWrapper>
+        <Scrollable>
+          <DateRange largeTabletQuery={largeTabletQuery} />
+          <Reserve
+            isLoading={isLoading}
+            room={room}
+            rooms={rooms}
+            largeTabletQuery={largeTabletQuery}
+          />
+        </Scrollable>
+      </ScrollableWrapper>
     </>
   );
 };

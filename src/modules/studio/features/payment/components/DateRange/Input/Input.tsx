@@ -8,7 +8,7 @@ export type InputProps = {
   isToActive: boolean;
   fromDate?: number;
   toDate?: number;
-  onClick: () => void;
+  onClick: (...args: any[]) => void;
 };
 
 const formatDate = (date?: number) => {

@@ -42,8 +42,6 @@ export type CalendarState = {
       to: number;
     };
   };
-  canChangeStep: boolean;
-  multipleSelect: boolean;
 };
 
 export type CalendarHandlers = {

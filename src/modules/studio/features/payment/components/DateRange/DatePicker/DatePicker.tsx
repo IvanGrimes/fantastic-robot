@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Calendar } from '@modules/studio/features/calendar';
 import { Wrapper, Cell } from './DatePicker.styles';
 import { ViewRange } from './ViewRange';
@@ -7,6 +7,8 @@ import { RangeNavigation } from './RangeNavigation';
 
 export type DatePickerProps = {
   isActive: boolean;
+  x: number;
+  y: number;
 };
 
 const calendarInjections = {
@@ -18,8 +20,10 @@ const calendarInjections = {
   RangeNavigation,
 };
 
-export const DatePicker = ({ isActive }: DatePickerProps) => (
-  <Wrapper isVisible={isActive}>
-    <Calendar injections={calendarInjections} />
-  </Wrapper>
+export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
+  ({ isActive, x, y }, ref) => (
+    <Wrapper ref={ref} isVisible={isActive} x={x} y={y}>
+      <Calendar injections={calendarInjections} />
+    </Wrapper>
+  )
 );

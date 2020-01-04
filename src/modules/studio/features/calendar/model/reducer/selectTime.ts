@@ -9,7 +9,6 @@ export const selectTime = (
   state: CalendarState,
   action: SelectTimeAction
 ): CalendarState => {
-  const { multipleSelect } = state;
   const key = getKey(action.payload.timestamp);
   const hasAnyElement = state.select[key].length;
   const hasOneElement = state.select[key].length === 1;
@@ -30,12 +29,11 @@ export const selectTime = (
     state.reservations,
     state.workHours,
   ]);
-  const prevSelect = multipleSelect ? state.select : {};
 
   // NOTE: Clear current range
   if (isSameAsStartRange && hasOneElement) {
     const select = {
-      ...prevSelect,
+      ...state.select,
       [key]: [],
     };
 
@@ -49,7 +47,7 @@ export const selectTime = (
   // NOTE: Create range
   if (canMakeRange && !hasOverlap) {
     const select = {
-      ...prevSelect,
+      ...state.select,
       [key]: selectRange,
     };
 
@@ -62,7 +60,7 @@ export const selectTime = (
 
   // NOTE: Select start of the range
   const select = {
-    ...prevSelect,
+    ...state.select,
     [key]: [action.payload.timestamp],
   };
 

@@ -66,5 +66,22 @@ export const Dialog = styled<ComponentType<DialogProps>>(props => (
         }
       }
     `;
-  }}
+  }};
+`;
+
+export const ScrollableWrapper = styled.div`
+  width: 100%;
+  overflow: hidden;
+  max-height: 300px;
+  margin-left: 8px;
+  margin-bottom: 8px;
+`;
+
+export const Scrollable = styled.div`
+  width: calc(100% + 6px);
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 14px;
+  box-sizing: content-box;
 `;

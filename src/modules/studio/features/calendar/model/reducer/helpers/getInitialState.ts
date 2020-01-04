@@ -17,16 +17,10 @@ const DEFAULT_STEP: Step = 2;
 export const getInitialState = ({
   workHours = {},
   reservations = {},
-  fixedStep,
-  multipleSelect,
 }: {
   workHours?: CalendarState['workHours'];
   reservations?: CalendarState['reservations'];
-  fixedStep?: Step;
-  multipleSelect: boolean;
 }): CalendarState => {
-  const hasFixedStep = typeof fixedStep === 'undefined';
-  const step = hasFixedStep ? DEFAULT_STEP : (fixedStep as Step);
   const date = new Date();
   const getInitialDate = () =>
     setMonth(
@@ -34,13 +28,13 @@ export const getInitialState = ({
       10
     );
   const from = getTime(getInitialDate());
-  const to = getTime(addDays(getInitialDate(), step));
+  const to = getTime(addDays(getInitialDate(), DEFAULT_STEP));
   const range = getDateRange(from, to);
 
   return {
     from,
     to,
-    step,
+    step: DEFAULT_STEP,
     availableSteps: {
       '0': true,
       '2': false,
@@ -51,7 +45,5 @@ export const getInitialState = ({
     select: getSelect(range),
     reservations,
     workHours,
-    canChangeStep: hasFixedStep,
-    multipleSelect,
   };
 };

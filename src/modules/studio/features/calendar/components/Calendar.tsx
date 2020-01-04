@@ -13,45 +13,33 @@ export type CalendarProps = {};
 
 export const Calendar = () => {
   const { Header, Body } = useInjections();
-  const {
-    setAvailableSteps,
-    availableSteps,
-    setStep,
-    canChangeStep,
-  } = useCalendar();
+  const { setAvailableSteps, availableSteps, setStep } = useCalendar();
   const theme = useTheme<Theme>();
   const breakpoints = getBreakpoints({ theme });
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (canChangeStep) {
-      const handleResize = throttle(() => {
-        if (window.innerWidth < breakpoints.values.md) {
-          setAvailableSteps({ '4': false });
-        }
-        if (window.innerWidth >= breakpoints.values.md) {
-          setAvailableSteps({ '4': true });
-        }
-        if (window.innerWidth < breakpoints.values.sm) {
-          setAvailableSteps({ '2': false });
-        }
-        if (window.innerWidth >= breakpoints.values.sm) {
-          setAvailableSteps({ '2': true });
-        }
-      }, 100);
+    const handleResize = throttle(() => {
+      if (window.innerWidth < breakpoints.values.md) {
+        setAvailableSteps({ '4': false });
+      }
+      if (window.innerWidth >= breakpoints.values.md) {
+        setAvailableSteps({ '4': true });
+      }
+      if (window.innerWidth < breakpoints.values.sm) {
+        setAvailableSteps({ '2': false });
+      }
+      if (window.innerWidth >= breakpoints.values.sm) {
+        setAvailableSteps({ '2': true });
+      }
+    }, 100);
 
-      handleResize();
+    handleResize();
 
-      window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, [
-    breakpoints.values.md,
-    breakpoints.values.sm,
-    canChangeStep,
-    setAvailableSteps,
-  ]);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [breakpoints.values.md, breakpoints.values.sm, setAvailableSteps]);
 
   useEffect(() => {
     if (availableSteps['0'] && !availableSteps['2'] && !availableSteps['4']) {
