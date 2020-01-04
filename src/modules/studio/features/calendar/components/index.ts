@@ -16,7 +16,7 @@ export * from './Body/WeekDay';
 export * from './Body/Row';
 export * from './Body/Row/Cell';
 
-export const Calendar = withInjector(
+export const Calendar = withInjector<CalendarProps>(
   dynamic<CalendarProps>(() =>
     import('./Calendar').then(module => module.Calendar)
   )

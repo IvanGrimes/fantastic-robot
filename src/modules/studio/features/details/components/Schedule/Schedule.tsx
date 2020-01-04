@@ -1,4 +1,7 @@
 import React from 'react';
+import { Calendar } from '@modules/studio/features/calendar';
+import { DynamicRendering } from '@modules/ui';
+import { Block } from '../Block';
 
 export type ScheduleProps = {
   reservations: {};
@@ -10,4 +13,10 @@ export type ScheduleProps = {
   };
 };
 
-export const Schedule = (_props: ScheduleProps) => <div>calendar</div>;
+export const Schedule = (_props: ScheduleProps) => (
+  <Block title="Расписание">
+    <DynamicRendering>
+      <Calendar />
+    </DynamicRendering>
+  </Block>
+);

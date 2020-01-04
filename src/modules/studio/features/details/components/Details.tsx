@@ -4,6 +4,7 @@ import { Nullable } from '@utils/Nullable';
 import { Container, Hidden } from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import { Payment } from '@modules/studio/features/payment';
+import { CalendarProvider } from '@modules/studio/features/calendar';
 import { MainGrid } from './Details.styles';
 import { getRoomById, getRooms } from '../model/selectors';
 import { Header } from './Header';
@@ -16,12 +17,14 @@ import { Layout } from './Layout';
 import { ContactsProps, Contacts } from './Contacts';
 import { LocationProps, Location } from './Location';
 
-// TODO: Расписание
-// TODO: Декомпозировать
+// TODO: Payment, Отображение DateRange на каждую бронь
+// TODO: Reserve, отображать сумму на каждый день
+// TODO: Calendar возможность зафиксировать количество дней в конкретном инстансе
+
+// TODO: Декомпозировать Details
 // TODO: Скелетоны
 // TODO: Отзывчивость
 // TODO: Оптимизация
-// TODO: connect => useSelector/useDispatch ? => Connect!
 
 export type DetailsOwnProps = {
   information: {
@@ -115,7 +118,7 @@ export const Details = ({
             isConfigLoading={isConfigLoading}
           />
         ) : null}
-        {false && <Schedule {...schedule} />}
+        <Schedule {...schedule} />
         <Location isLoading={information.isLoading} {...information.location} />
       </>
     ),
@@ -148,24 +151,31 @@ export const Details = ({
           photoIds={information.photoIds}
         />
         <Container variant="secondary">
-          <MainGrid container justify="space-between">
-            <Grid item xs={7}>
-              <Hidden query="(max-width: 1100px)">{contentNode}</Hidden>
-            </Grid>
-            <Hidden query="(min-width: 1101px)">
-              <Grid item xs={12}>
-                {contentNode}
+          <CalendarProvider
+            reservations={{}}
+            workHours={{}}
+            fixedStep={0}
+            multipleSelect={false}
+          >
+            <MainGrid container justify="space-between">
+              <Grid item xs={7}>
+                <Hidden query="(max-width: 1100px)">{contentNode}</Hidden>
               </Grid>
-            </Hidden>
-            <Grid item xs={4}>
-              <Payment
-                isRoomsLoading={rooms.isLoading}
-                rooms={rooms.list}
-                isRoomLoading={room.isLoading}
-                room={room.data}
-              />
-            </Grid>
-          </MainGrid>
+              <Hidden query="(min-width: 1101px)">
+                <Grid item xs={12}>
+                  {contentNode}
+                </Grid>
+              </Hidden>
+              <Grid item xs={4}>
+                <Payment
+                  isRoomsLoading={rooms.isLoading}
+                  rooms={rooms.list}
+                  isRoomLoading={room.isLoading}
+                  room={room.data}
+                />
+              </Grid>
+            </MainGrid>
+          </CalendarProvider>
         </Container>
       </Grid>
     </Layout>

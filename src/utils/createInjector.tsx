@@ -26,7 +26,7 @@ export const createInjector = <
 
       return (
         <Context.Provider value={injected}>
-          <Component {...((props as unknown) as P)} />
+          <Component {...(props as P)} />
         </Context.Provider>
       );
     };

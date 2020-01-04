@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CalendarProvider } from '@modules/studio/features/calendar';
 import { Grid } from '@material-ui/core';
 import { useMediaQuery } from '@modules/ui/hooks';
 import { Container, Hidden } from '@modules/ui';
@@ -62,30 +61,8 @@ export const PaymentContainer = ({
 
   return (
     <Wrapper ref={paymentRef} isFixed={isFixed} top={SCROLL_OFFSET}>
-      <CalendarProvider
-        reservations={{}}
-        workHours={{}}
-        fixedStep={0}
-        multipleSelect={false}
-      >
-        <Hidden query="(min-width: 1101px)">
-          <Container variant="secondary">
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justify="space-between"
-            >
-              <Payment
-                largeTabletQuery={largeTabletQuery}
-                isLoading={room ? isRoomLoading : isRoomsLoading}
-                room={room}
-                rooms={rooms}
-              />
-            </Grid>
-          </Container>
-        </Hidden>
-        <Hidden query="(max-width: 1100px)">
+      <Hidden query="(min-width: 1101px)">
+        <Container variant="secondary">
           <Grid
             container
             spacing={2}
@@ -99,8 +76,18 @@ export const PaymentContainer = ({
               rooms={rooms}
             />
           </Grid>
-        </Hidden>
-      </CalendarProvider>
+        </Container>
+      </Hidden>
+      <Hidden query="(max-width: 1100px)">
+        <Grid container spacing={2} alignItems="center" justify="space-between">
+          <Payment
+            largeTabletQuery={largeTabletQuery}
+            isLoading={room ? isRoomLoading : isRoomsLoading}
+            room={room}
+            rooms={rooms}
+          />
+        </Grid>
+      </Hidden>
     </Wrapper>
   );
 };
