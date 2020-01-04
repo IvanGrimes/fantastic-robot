@@ -1,3 +1,5 @@
+import { Direction } from './actions';
+
 export { useModel } from './useModel';
 
 type Handler<T = any> = (...args: T[]) => void;
@@ -53,6 +55,7 @@ export type CalendarHandlers = {
   setStep: Handler<CalendarState['step']>;
   setAvailableSteps: Handler<Partial<CalendarState['availableSteps']>>;
   clearSelectedTime: Handler;
+  setRange: Handler<{ direction: Direction; step?: CalendarState['step'] }>;
 };
 
 export type Step = CalendarState['step'];

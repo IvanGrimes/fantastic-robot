@@ -1,1 +1,2 @@
-export { Row } from './Row';
+export * from './Row';
+export { Row as StyledRow } from './Row.styles';

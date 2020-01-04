@@ -19,7 +19,7 @@ export type DateRangeActions =
   | UpdateWorkHoursAction
   | ClearSelectedTime;
 
-type Direction = 'previous' | 'next';
+export type Direction = 'previous' | 'next';
 
 export const SET_RANGE = 'SET_RANGE';
 export const SET_MONTH = 'SET_MONTH';
@@ -30,10 +30,13 @@ export const UPDATE_RESERVATIONS = 'UPDATE_RESERVATIONS';
 export const UPDATE_WORK_HOURS = 'UPDATE_WORK_HOURS';
 export const CLEAR_SELECTED_TIME = 'CLEAR_SELECTED_TIME';
 
-export const setRange = (direction: Direction) =>
+export const setRange = (payload: {
+  direction: Direction;
+  step?: CalendarState['step'];
+}) =>
   <const>{
     type: SET_RANGE,
-    payload: { direction },
+    payload,
   };
 
 export const setMonth = (direction: Direction) =>

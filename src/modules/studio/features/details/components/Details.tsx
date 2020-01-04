@@ -19,7 +19,6 @@ import { LocationProps, Location } from './Location';
 
 // TODO: Payment, Отображение DateRange на каждую бронь
 // TODO: Reserve, отображать сумму на каждый день
-// TODO: Calendar возможность зафиксировать количество дней в конкретном инстансе
 
 // TODO: Декомпозировать Details
 // TODO: Скелетоны
@@ -151,12 +150,7 @@ export const Details = ({
           photoIds={information.photoIds}
         />
         <Container variant="secondary">
-          <CalendarProvider
-            reservations={{}}
-            workHours={{}}
-            fixedStep={0}
-            multipleSelect={false}
-          >
+          <CalendarProvider reservations={{}} workHours={{}}>
             <MainGrid container justify="space-between">
               <Grid item xs={7}>
                 <Hidden query="(max-width: 1100px)">{contentNode}</Hidden>

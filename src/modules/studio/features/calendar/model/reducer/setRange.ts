@@ -10,8 +10,10 @@ export const setRange = (
 ): CalendarState => {
   const operation =
     action.payload.direction === 'next' ? addDays : truncateDays;
-  const from = getTime(operation(state.from, state.step || 1));
-  const to = getTime(operation(state.to, state.step || 1));
+  const step =
+    (action.payload.step === 0 ? 1 : action.payload.step) || state.step;
+  const from = getTime(operation(state.from, step));
+  const to = getTime(operation(state.to, step));
   const range = getDateRange(from, to);
 
   return {

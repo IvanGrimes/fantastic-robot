@@ -22,8 +22,6 @@ export const GoogleMap = ({
   );
   const bootstrapURLKeys = process.env.MAPS_API_TOKEN;
 
-  console.log(props);
-
   if (bootstrapURLKeys) {
     return (
       <Component

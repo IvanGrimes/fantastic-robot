@@ -27,11 +27,15 @@ export const useModel = ({
     []
   );
   const previousRange: CalendarHandlers['previousRange'] = useCallback(
-    () => dispatch(actions.setRange('previous')),
+    () => dispatch(actions.setRange({ direction: 'previous' })),
+    []
+  );
+  const setRange: CalendarHandlers['setRange'] = useCallback(
+    payload => dispatch(actions.setRange(payload)),
     []
   );
   const nextRange: CalendarHandlers['nextRange'] = useCallback(
-    () => dispatch(actions.setRange('next')),
+    () => dispatch(actions.setRange({ direction: 'next' })),
     []
   );
   const previousMonth: CalendarHandlers['previousMonth'] = useCallback(
@@ -74,6 +78,7 @@ export const useModel = ({
       setStep,
       setAvailableSteps,
       clearSelectedTime,
+      setRange,
     },
   ];
 };

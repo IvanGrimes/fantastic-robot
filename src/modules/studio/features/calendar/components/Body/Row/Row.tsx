@@ -2,7 +2,7 @@ import React from 'react';
 import { Row as StyledRow } from './Row.styles';
 import { useInjections } from '../../calendarInjector';
 
-type Props = {
+export type RowProps = {
   data: {
     year: number;
     month: number;
@@ -22,7 +22,7 @@ type Props = {
   selectTime: (timestamp: number) => () => void;
 };
 
-export const Row = ({ data, selectTime }: Props) => {
+export const Row = ({ data, selectTime }: RowProps) => {
   const { Cell } = useInjections();
 
   return (
