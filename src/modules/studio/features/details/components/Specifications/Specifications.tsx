@@ -68,7 +68,17 @@ export const Specifications = () => {
             ids={studio.equipmentIds}
             list={config.equipment}
             size="small"
-            skeleton={<Loader top="5px" width="300px" height="20px" />}
+            skeleton={
+              <>
+                <Loader top="5px" width="300px" height="15px" />
+                <Loader
+                  top="10px"
+                  width="300px"
+                  height="15px"
+                  style={{ marginBottom: '12px' }}
+                />
+              </>
+            }
           />
         </Grid>
       </Grid>

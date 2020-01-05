@@ -40,7 +40,10 @@ export const Contacts = () => {
   );
 
   return (
-    <Block isLoading={isStudioLoading} title="Контактная информация">
+    <Block
+      isLoading={isStudioLoading || !list.length}
+      title="Контактная информация"
+    >
       <List>
         {list.map(({ Icon, value }) => (
           <ListItem>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Loader as StyledLoader } from './Loader.styles';
 
 export type LoaderProps = {
@@ -11,6 +11,7 @@ export type LoaderProps = {
   bottom?: string;
   left?: string;
   className?: string;
+  style?: CSSProperties;
 };
 
 export const Loader = ({
@@ -23,8 +24,10 @@ export const Loader = ({
   bottom = '0px',
   left = '0px',
   className = '',
+  style = {},
 }: LoaderProps) => (
   <StyledLoader
+    style={style}
     width={width}
     height={height}
     top={top}

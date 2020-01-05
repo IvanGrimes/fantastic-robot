@@ -13,15 +13,13 @@ export type TextListProps = {
   skeleton?: ReactNode;
 };
 
-const loader = <Loader width="55%" height="10px" top="7px" />;
-
 export const TextList = ({
   className = '',
   ids,
   list = [],
   loading,
   size = 'normal',
-  skeleton = loader,
+  skeleton = <Loader width="55%" height="10px" top="7px" />,
 }: TextListProps) => {
   const configList = useConfig({ idList: ids, configList: list });
 

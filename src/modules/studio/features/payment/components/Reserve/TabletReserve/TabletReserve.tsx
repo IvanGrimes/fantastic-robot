@@ -47,7 +47,7 @@ export const TabletReserve = ({
             </Grid>
           ) : null}
           <Grid xs={11} item>
-            <DesktopDateRange />
+            <DesktopDateRange isLoading={isLoading} />
           </Grid>
           <Grid xs={11} item>
             <DesktopReserve isLoading={isLoading} room={room} />

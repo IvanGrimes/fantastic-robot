@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import * as details from '@modules/studio/features/details';
+import { Loader } from '@modules/ui';
 import { Typography, Amount } from './Price.styles';
 
 export type PriceProps = {
@@ -14,7 +15,17 @@ export const Price = (props: PriceProps) => {
     !props.room ||
     (props.room && !props.room.averagePrice)
   ) {
-    return <span>loading</span>;
+    return (
+      <Grid item>
+        <Grid container>
+          <Loader
+            style={{ marginTop: '-2px', marginBottom: '-3px' }}
+            width="120px"
+            height="20px"
+          />
+        </Grid>
+      </Grid>
+    );
   }
 
   return (

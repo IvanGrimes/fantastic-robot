@@ -9,11 +9,14 @@ import { Layout } from './Layout';
 import { useDetails } from './DetailsContext';
 import { Header } from './Header';
 import { Specifications } from './Specifications';
-import { Description } from './Description';
+import { Description, descriptionSkeleton } from './Description';
 import { Contacts } from './Contacts';
 import { RoomList } from './RoomList';
 import { Schedule } from './Schedule';
 import { Location } from './Location';
+
+// TODO: Отзывчивость
+// TODO: Оптимизация
 
 export type DetailsNewProps = { backLink: ReactNode };
 
@@ -32,6 +35,7 @@ export const Details = ({ backLink }: DetailsNewProps) => {
       <>
         <Header />
         <Specifications />
+        {variant === 'room' && !room.id ? descriptionSkeleton : null}
         <Description />
         <Contacts />
         <RoomList />
@@ -39,7 +43,7 @@ export const Details = ({ backLink }: DetailsNewProps) => {
         <Location />
       </>
     ),
-    []
+    [room.id, variant]
   );
 
   return (

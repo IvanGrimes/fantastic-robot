@@ -16,15 +16,13 @@ export type StationsProps = {
   skeleton?: ReactNode;
 } & Pick<ListItemProps, 'stationIds'>;
 
-const loader = <Loader top="3px" width="40%" height="12px" />;
-
 const _StudioListItemStations = ({
   className = '',
   list,
   stationIds,
   loading,
   size = 'small',
-  skeleton = loader,
+  skeleton = <Loader top="3px" width="40%" height="12px" />,
 }: StationsProps) => {
   const stations = useConfig({ idList: stationIds, configList: list });
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Hidden, Select } from '@modules/ui';
+import { Hidden, Loader, Select } from '@modules/ui';
 import { useFunctional, UseFunctionalProps } from '../useFunctional';
 
 export type RoomSelectDesktopProps = UseFunctionalProps & {
@@ -18,7 +18,7 @@ export const RoomSelectDesktop = ({
   if (isLoading || (props.list && !props.list.length)) {
     return (
       <HiddenComponent query={largeTabletQuery}>
-        <span>loading</span>
+        <Loader width="307px" height="42px" style={{ marginBottom: '-6px' }} />
       </HiddenComponent>
     );
   }

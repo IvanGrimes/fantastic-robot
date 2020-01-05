@@ -9,6 +9,7 @@ type DetailsContextType = Pick<DetailsNewContainerProps, 'variant'> &
 
 const DetailsContext = createContext<DetailsContextType>({
   variant: 'room',
+  isReservationsLoading: true,
   isStudioLoading: true,
   studio: {
     id: '',

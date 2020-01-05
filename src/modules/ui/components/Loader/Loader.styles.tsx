@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import ContentLoader from 'react-content-loader';
-import React, { ComponentType } from 'react';
+import React, { ComponentType, CSSProperties } from 'react';
 
 export const Loader = styled<
   ComponentType<{
@@ -11,6 +11,7 @@ export const Loader = styled<
     bottom: string;
     left: string;
     className: string;
+    style: CSSProperties;
   }>
 >(({ width, height, ...props }) => <ContentLoader {...props} />)`
   ${({ width, height, top, right, bottom, left }) => css`

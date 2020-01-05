@@ -12,14 +12,12 @@ export type StudioListItemRoomsProps = {
   skeleton?: ReactNode;
 } & Partial<Pick<ListItemProps, 'roomsCount'>>;
 
-const loader = <Loader width="20%" height="10px" top="5px" />;
-
 const _StudioListItemRooms = ({
   className = '',
   loading,
   roomsCount,
   size = 'small',
-  skeleton = loader,
+  skeleton = <Loader width="20%" height="10px" top="5px" />,
 }: StudioListItemRoomsProps) => (
   <Grid container className={className}>
     {loading || !roomsCount ? (

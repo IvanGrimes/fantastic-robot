@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { Grid, Portal } from '@material-ui/core';
+import { Loader } from '@modules/ui';
 import { List, ListItem } from './DateRange.styles';
 import { useFunctional } from '../useFunctional';
 import { Input } from '../Input';
 import { DatePicker } from '../DatePicker';
 
-export const DesktopDateRange = () => {
+export type DesktopDateRangeProps = {
+  isLoading: boolean;
+};
+
+export const DesktopDateRange = ({ isLoading }: DesktopDateRangeProps) => {
   const wrapperRef = useRef<HTMLElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   const {
@@ -53,7 +58,11 @@ export const DesktopDateRange = () => {
           </ListItem>
         ))}
         <ListItem>
-          <Input isFromActive isToActive onClick={handleOpen} />
+          {isLoading ? (
+            <Loader width="306px" height="40px" />
+          ) : (
+            <Input isFromActive isToActive onClick={handleOpen} />
+          )}
         </ListItem>
       </List>
       <Portal>

@@ -6,19 +6,25 @@ export type BlockProps = {
   isLoading?: boolean;
   title?: string;
   children: ReactNode | ReactNode[];
+  skeleton?: ReactNode;
 };
 
 export const Block = ({
   isLoading = false,
   title = '',
   children,
+  skeleton = null,
 }: BlockProps) => {
   if (isLoading) {
-    return (
-      <MainGrid container spacing={2}>
-        loading
-      </MainGrid>
-    );
+    if (skeleton) {
+      return (
+        <MainGrid container spacing={2}>
+          {skeleton}
+        </MainGrid>
+      );
+    }
+
+    return <>{skeleton}</>;
   }
 
   return (

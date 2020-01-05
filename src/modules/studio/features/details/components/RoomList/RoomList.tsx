@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Carousel, LazyImage, DynamicRendering } from '@modules/ui';
 import { floatToFraction } from '@utils/floatToFraction';
@@ -18,25 +18,16 @@ export const RoomList = () => {
     config,
   } = useDetails();
   const { isBot } = useWithSEO();
-  const skeleton = useMemo(() => <span>Loading room list</span>, []);
 
   if (variant !== 'studio') {
     return null;
   }
 
-  if (isRoomsLoading) {
-    return skeleton;
-  }
-
   return (
-    <Block title="Залы">
+    <Block title="Залы" isLoading={isRoomsLoading || !rooms.length}>
       <DynamicRendering force={isBot}>
         <Grid container item>
-          <RoomListCarousel
-            skeleton={skeleton}
-            slidesToShow={2}
-            infinite={false}
-          >
+          <RoomListCarousel slidesToShow={2} infinite={false}>
             {[...rooms, ...rooms].map(
               ({
                 color,
@@ -50,7 +41,7 @@ export const RoomList = () => {
                 <RoomListItem key={id}>
                   <Grid container item>
                     {photoIds && (
-                      <Carousel skeleton={skeleton} swipe={false} dots={false}>
+                      <Carousel swipe={false} dots={false}>
                         {photoIds.map(photoId => (
                           <LazyImage
                             key={photoId}

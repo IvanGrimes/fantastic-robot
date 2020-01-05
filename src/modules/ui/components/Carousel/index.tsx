@@ -5,9 +5,11 @@ import { CarouselOwnProps } from './Carousel';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export type CarouselProps = { skeleton: JSX.Element } & CarouselOwnProps;
+export type CarouselProps = {
+  skeleton?: JSX.Element | null;
+} & CarouselOwnProps;
 
-export const Carousel = ({ skeleton, ...props }: CarouselProps) => {
+export const Carousel = ({ skeleton = null, ...props }: CarouselProps) => {
   const { isBot } = useWithSEO();
   const Component = useMemo(
     () =>

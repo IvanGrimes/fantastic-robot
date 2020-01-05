@@ -74,6 +74,7 @@ const _ListItem = ({
                 list={metroList}
                 stationIds={stationIds}
                 loading={loading || isMetroListLoading}
+                skeleton={null}
               />
             </Grid>
             <Grid item>

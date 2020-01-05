@@ -10,6 +10,7 @@ import { DetailsVariant } from './types';
 import {
   getInformation,
   getInformationLoading,
+  getReservationsLoading,
   getRoomById,
   getRoomLoading,
   getRooms,
@@ -46,6 +47,7 @@ const mapStateToProps = (
     isConfigLoading: data.selectors.getConfigLoading(state),
     metroList: data.selectors.getMetroList(state),
     config: data.selectors.getConfig(state),
+    isReservationsLoading: getReservationsLoading(state),
   };
 };
 
@@ -64,6 +66,7 @@ const _DetailsNewContainer = ({
   isRoomLoading,
   room,
   backLink,
+  isReservationsLoading,
 }: Props) => (
   <DetailsProvider
     value={{
@@ -80,6 +83,7 @@ const _DetailsNewContainer = ({
       metroList,
       isConfigLoading,
       config,
+      isReservationsLoading,
     }}
   >
     <Details backLink={backLink} />

@@ -72,7 +72,12 @@ export const Payment = ({
       />
       <ScrollableWrapper>
         <Scrollable>
-          <DateRange largeTabletQuery={largeTabletQuery} />
+          <DateRange
+            isLoading={
+              isLoading || (variant === 'studio' ? !rooms.length : !room.id)
+            }
+            largeTabletQuery={largeTabletQuery}
+          />
           <Reserve
             isLoading={isLoading}
             room={room}
