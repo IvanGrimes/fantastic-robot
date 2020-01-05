@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { TextListSkeleton } from './TextListSkeleton';
+import { Loader } from '@modules/ui';
 import { getSize, Size } from '../../utils/size';
 import { useConfig } from '../../hooks/useConfig';
 
@@ -10,7 +10,10 @@ export type TextListProps = {
   ids: string[];
   className?: string;
   size?: Size;
+  skeleton?: ReactNode;
 };
+
+const loader = <Loader width="55%" height="10px" top="7px" />;
 
 export const TextList = ({
   className = '',
@@ -18,18 +21,19 @@ export const TextList = ({
   list = [],
   loading,
   size = 'normal',
+  skeleton = loader,
 }: TextListProps) => {
   const configList = useConfig({ idList: ids, configList: list });
 
-  if (loading) {
-    return <TextListSkeleton />;
-  }
-
   return (
     <Grid container className={className}>
-      <Typography component="span" variant={getSize(size)}>
-        {configList.map(({ value }) => value).join(', ')}
-      </Typography>
+      {loading || !ids.length || !list ? (
+        skeleton
+      ) : (
+        <Typography component="span" variant={getSize(size)}>
+          {configList.map(({ value }) => value).join(', ')}
+        </Typography>
+      )}
     </Grid>
   );
 };

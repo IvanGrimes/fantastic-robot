@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import { Grid } from '@material-ui/core';
 import dequal from 'dequal';
 import { ListItemProps } from '@modules/studio/features/list';
 import * as data from '@modules/studio/features/data';
 import { getSize, Size } from '@modules/studio/utils/size';
+import { Loader } from '@modules/ui';
 import { Station } from './Station';
-import { StationsSkeleton } from './StationsSkeleton';
 import { useConfig } from '../../hooks/useConfig';
 
 export type StationsProps = {
@@ -13,7 +13,10 @@ export type StationsProps = {
   loading: boolean;
   list?: ReturnType<typeof data.selectors.getMetroList>;
   size?: Size;
+  skeleton?: ReactNode;
 } & Pick<ListItemProps, 'stationIds'>;
+
+const loader = <Loader top="3px" width="40%" height="12px" />;
 
 const _StudioListItemStations = ({
   className = '',
@@ -21,20 +24,23 @@ const _StudioListItemStations = ({
   stationIds,
   loading,
   size = 'small',
+  skeleton = loader,
 }: StationsProps) => {
   const stations = useConfig({ idList: stationIds, configList: list });
 
-  if (loading) {
-    return <StationsSkeleton />;
-  }
-
   return (
     <Grid container component="ul" alignItems="center" className={className}>
-      {stations.map(({ id, color, value }) => (
-        <Grid component="li" key={id} item xs={12}>
-          <Station color={color} value={value} size={getSize(size)} />
-        </Grid>
-      ))}
+      {loading || !stationIds.length || !list ? (
+        skeleton
+      ) : (
+        <>
+          {stations.map(({ id, color, value }) => (
+            <Grid component="li" key={id} item xs={12}>
+              <Station color={color} value={value} size={getSize(size)} />
+            </Grid>
+          ))}
+        </>
+      )}
     </Grid>
   );
 };

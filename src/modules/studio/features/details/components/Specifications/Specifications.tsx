@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { Rooms } from '@modules/studio/components/Rooms';
 import { TextList } from '@modules/studio/components/TextList';
 import * as data from '@modules/studio/features/data';
+import { Loader } from '@modules/ui';
 import { Stations } from './Specifications.styles';
 
 export type SpecificationsProps = {
@@ -30,16 +31,20 @@ export const Specifications = ({
 }: SpecificationsProps) => (
   <Grid container spacing={2} justify="space-between" alignItems="flex-start">
     <Grid container spacing={1} item xs={8}>
-      {roomsCount ? (
-        <Grid item>
-          <Rooms size="normal" loading={isLoading} roomsCount={roomsCount} />
-        </Grid>
-      ) : null}
+      <Grid item>
+        <Rooms
+          size="normal"
+          loading={isLoading}
+          roomsCount={roomsCount}
+          skeleton={<Loader top="5px" width="50px" height="20px" />}
+        />
+      </Grid>
       <Grid item>
         <TextList
           loading={isConfigLoading}
           ids={interiorIds}
           list={config.interior}
+          skeleton={<Loader top="5px" width="280px" height="20px" />}
         />
       </Grid>
       <Grid item xs={12}>
@@ -48,6 +53,7 @@ export const Specifications = ({
           ids={equipmentIds}
           list={config.equipment}
           size="small"
+          skeleton={<Loader top="5px" width="300px" height="20px" />}
         />
       </Grid>
     </Grid>
@@ -57,6 +63,7 @@ export const Specifications = ({
         loading={isMetroListLoading}
         stationIds={stationIds}
         list={metroList}
+        skeleton={<Loader top="4px" width="150px" height="20px" />}
       />
     </Grid>
   </Grid>
