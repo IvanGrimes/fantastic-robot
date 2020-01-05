@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { PriceType as PriceTypeComponent } from '@modules/studio/components/PriceType';
-import { PriceType } from '@modules/studio/features/data';
 import { Loader } from '@modules/ui';
+import { useDetails } from '../DetailsContext';
 
-export type HeaderProps = {
-  title: string;
-  isLoading: boolean;
-  priceType: PriceType | number;
-};
+export const Header = () => {
+  const {
+    variant,
+    isStudioLoading,
+    studio,
+    isRoomLoading,
+    room,
+  } = useDetails();
+  const { isLoading, title, price } = useMemo(() => {
+    switch (variant) {
+      case 'studio':
+        return {
+          isLoading: isStudioLoading,
+          title: studio.name,
+          price: studio.priceType,
+        };
+      case 'room':
+        return {
+          isLoading: isRoomLoading,
+          title: room.name,
+          price: room.averagePrice,
+        };
+      default:
+        throw new Error();
+    }
+  }, [
+    isRoomLoading,
+    isStudioLoading,
+    room.averagePrice,
+    room.name,
+    studio.name,
+    studio.priceType,
+    variant,
+  ]);
 
-export const Header = ({ title, isLoading, ...props }: HeaderProps) => {
   if (!title || isLoading) {
     return <Loader height="36px" width="320px" />;
   }
@@ -23,7 +51,7 @@ export const Header = ({ title, isLoading, ...props }: HeaderProps) => {
         </Typography>
       </Grid>
       <Grid item>
-        <PriceTypeComponent size="extraLarge" priceType={props.priceType} />
+        <PriceTypeComponent size="extraLarge" priceType={price} />
       </Grid>
     </Grid>
   );

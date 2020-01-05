@@ -1,5 +1,4 @@
 import React, { ComponentType, useMemo } from 'react';
-import { Nullable } from '@utils/Nullable';
 import {
   Phone,
   Facebook,
@@ -10,19 +9,11 @@ import {
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { Block } from '../Block';
 import { List, ListItem } from './Contacts.styles';
+import { useDetails } from '../DetailsContext';
 
-type ContactsObject = Omit<ContactsProps, 'isLoading'>;
+type ContactsObject = ReturnType<typeof useDetails>['studio']['contacts'];
 
 type ContactsType = keyof ContactsObject;
-
-export type ContactsProps = {
-  isLoading: boolean;
-  site: Nullable<string>;
-  instagram: Nullable<string>;
-  email: Nullable<string>;
-  phone: string;
-  vk: Nullable<string>;
-};
 
 const icons: {
   [key in ContactsType]: ComponentType<SvgIconProps>;
@@ -34,21 +25,22 @@ const icons: {
   site: Language,
 };
 
-export const Contacts = ({ isLoading, ...props }: ContactsProps) => {
+export const Contacts = () => {
+  const { isStudioLoading, studio } = useDetails();
   const list = useMemo(
     () =>
-      Object.entries(props).reduce<
+      Object.entries(studio.contacts).reduce<
         { Icon: ComponentType<SvgIconProps>; value: any }[]
       >(
         (acc, [name, value]) =>
           value ? [...acc, { Icon: icons[name as ContactsType], value }] : acc,
         []
       ),
-    [props]
+    [studio.contacts]
   );
 
   return (
-    <Block isLoading={isLoading} title="Контактная информация">
+    <Block isLoading={isStudioLoading} title="Контактная информация">
       <List>
         {list.map(({ Icon, value }) => (
           <ListItem>

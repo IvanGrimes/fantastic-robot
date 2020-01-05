@@ -3,29 +3,17 @@ import { Grid } from '@material-ui/core';
 import { useMediaQuery } from '@modules/ui/hooks';
 import { Container, Hidden } from '@modules/ui';
 import { Wrapper } from './Payment.styles';
-import * as details from '../../details';
-import { Payment } from './Payment';
+import { Payment, PaymentProps as PaymentComponentProps } from './Payment';
+
+export type PaymentProps = Omit<PaymentComponentProps, 'largeTabletQuery'>;
 
 const desktopQuery = '(min-width: 1100px)';
 const largeTabletQuery = '(max-width: 1100px)';
-
-export type PaymentProps = {
-  isRoomsLoading: boolean;
-  rooms: ReturnType<typeof details.selectors.getRooms>;
-  isRoomLoading: boolean;
-  room?: ReturnType<typeof details.selectors.getRoomById>;
-};
-
 const HEADER_HEIGHT = 128;
 const MARGIN_TOP = 32;
 const SCROLL_OFFSET = HEADER_HEIGHT + MARGIN_TOP;
 
-export const PaymentContainer = ({
-  rooms,
-  isRoomsLoading,
-  isRoomLoading,
-  room,
-}: PaymentProps) => {
+export const PaymentContainer = (props: PaymentProps) => {
   const paymentRef = useRef<HTMLElement>(null);
   const initialOffsetYRef = useRef<number>(null);
   const [isFixed, setFixed] = useState(false);
@@ -69,23 +57,13 @@ export const PaymentContainer = ({
             alignItems="center"
             justify="space-between"
           >
-            <Payment
-              largeTabletQuery={largeTabletQuery}
-              isLoading={room ? isRoomLoading : isRoomsLoading}
-              room={room}
-              rooms={rooms}
-            />
+            <Payment largeTabletQuery={largeTabletQuery} {...props} />
           </Grid>
         </Container>
       </Hidden>
       <Hidden query="(max-width: 1100px)">
         <Grid container spacing={2} alignItems="center" justify="space-between">
-          <Payment
-            largeTabletQuery={largeTabletQuery}
-            isLoading={room ? isRoomLoading : isRoomsLoading}
-            room={room}
-            rooms={rooms}
-          />
+          <Payment largeTabletQuery={largeTabletQuery} {...props} />
         </Grid>
       </Hidden>
     </Wrapper>

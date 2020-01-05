@@ -15,5 +15,7 @@ export const Wrapper = styled.div`
 export const Loader = styled<ComponentType<LoaderProps>>(DefaultLoader)`
   && {
     position: absolute;
+    width: 100%;
+    height: 100%;
   }
 `;

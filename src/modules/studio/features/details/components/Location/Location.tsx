@@ -2,6 +2,7 @@ import React from 'react';
 import { DynamicRendering, GoogleMap } from '@modules/ui';
 import { Block } from '../Block';
 import { Wrapper } from './Location.styles';
+import { useDetails } from '../DetailsContext';
 
 export type LocationProps = {
   isLoading: boolean;
@@ -9,8 +10,10 @@ export type LocationProps = {
   lng: number;
 };
 
-export const Location = ({ isLoading, ...props }: LocationProps) => {
-  if (isLoading) {
+export const Location = () => {
+  const { isStudioLoading, studio } = useDetails();
+
+  if (isStudioLoading) {
     return <span>loading</span>;
   }
 
@@ -18,7 +21,7 @@ export const Location = ({ isLoading, ...props }: LocationProps) => {
     <Block title="Расположение">
       <Wrapper>
         <DynamicRendering>
-          <GoogleMap defaultCenter={props} />
+          <GoogleMap defaultCenter={studio.location} />
         </DynamicRendering>
       </Wrapper>
     </Block>

@@ -3,17 +3,7 @@ import { Calendar } from '@modules/studio/features/calendar';
 import { DynamicRendering } from '@modules/ui';
 import { Block } from '../Block';
 
-export type ScheduleProps = {
-  reservations: {};
-  workHours: {
-    [key: string]: {
-      from: number;
-      to: number;
-    };
-  };
-};
-
-export const Schedule = (_props: ScheduleProps) => (
+export const Schedule = () => (
   <Block title="Расписание">
     <DynamicRendering>
       <Calendar />

@@ -1,21 +1,19 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Block } from '../Block';
+import { useDetails } from '../DetailsContext';
 
-type DescriptionProps = {
-  isLoading: boolean;
-  content?: string;
-};
+export const Description = () => {
+  const { variant, isStudioLoading, studio } = useDetails();
 
-export const Description = ({ isLoading, content }: DescriptionProps) => {
-  if (typeof content === 'undefined') {
+  if (variant !== 'studio') {
     return null;
   }
 
   return (
-    <Block isLoading={isLoading || !content.length}>
+    <Block isLoading={isStudioLoading || !studio.description}>
       <Grid item>
-        <Typography>{content}</Typography>
+        <Typography>{studio.description}</Typography>
       </Grid>
     </Block>
   );

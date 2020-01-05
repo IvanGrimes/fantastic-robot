@@ -9,7 +9,7 @@ import { useFunctional } from './useFunctional';
 
 export type DesktopReserveProps = {
   isLoading: boolean;
-  room: ReturnType<typeof details.selectors.getRooms>[number];
+  room?: ReturnType<typeof details.selectors.getRooms>[number];
 };
 
 export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
@@ -24,7 +24,7 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
           cost: number;
         }[]
       >((acc, [date, range]) => {
-        const price = room.averagePrice;
+        const price = room ? room.averagePrice : 0;
         const hours = range.length - 1;
 
         if (range.length > 1) {
@@ -46,44 +46,48 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
 
         return acc;
       }, []),
-    [room.averagePrice, selectByDate]
+    [room, selectByDate]
   );
 
-  if (isLoading || !hasRange) {
-    return null;
-  }
+  if (typeof room !== 'undefined') {
+    if (isLoading || !hasRange) {
+      return null;
+    }
 
-  return (
-    <Grid container item spacing={2}>
-      <List>
-        {list.map(({ key, description, cost }) => (
-          <ListItem key={key} container justify="space-between">
+    return (
+      <Grid container item spacing={2}>
+        <List>
+          {list.map(({ key, description, cost }) => (
+            <ListItem key={key} container justify="space-between">
+              <Grid item>
+                <Typography variant="caption">{description}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="caption">{cost}</Typography>
+              </Grid>
+            </ListItem>
+          ))}
+          <ListItem>
             <Grid item>
-              <Typography variant="caption">{description}</Typography>
+              <Typography variant="caption">
+                <b>Всего</b>
+              </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="caption">{cost}</Typography>
+              <Typography variant="caption">
+                <b>{room.averagePrice * (select.length - 1)}</b>
+              </Typography>
             </Grid>
           </ListItem>
-        ))}
-        <ListItem>
-          <Grid item>
-            <Typography variant="caption">
-              <b>Всего</b>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              <b>{room.averagePrice * (select.length - 1)}</b>
-            </Typography>
-          </Grid>
-        </ListItem>
-      </List>
-      <ButtonWrapper item container>
-        <Button variant="contained" color="primary" fullWidth>
-          Зарезервировать
-        </Button>
-      </ButtonWrapper>
-    </Grid>
-  );
+        </List>
+        <ButtonWrapper item container>
+          <Button variant="contained" color="primary" fullWidth>
+            Зарезервировать
+          </Button>
+        </ButtonWrapper>
+      </Grid>
+    );
+  }
+
+  return null;
 };

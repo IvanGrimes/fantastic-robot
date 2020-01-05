@@ -3,28 +3,26 @@ import { Grid, Typography } from '@material-ui/core';
 import { Carousel, LazyImage, DynamicRendering } from '@modules/ui';
 import { floatToFraction } from '@utils/floatToFraction';
 import { TextList } from '@modules/studio/components/TextList';
-import { getConfig } from '@modules/studio/features/data/model/selectors';
 import { useWithSEO } from '@modules/services';
 import Link from 'next/link';
-import * as details from '../../index';
 import { RoomListCarousel, RoomListItem, ContentGrid } from './RoomList.styles';
 import { Block } from '../Block';
+import { useDetails } from '../DetailsContext';
 
-export type RoomListProps = {
-  isRoomsLoading: boolean;
-  rooms: ReturnType<typeof details.selectors.getRooms>;
-  isConfigLoading: boolean;
-  config: ReturnType<typeof getConfig>;
-};
-
-export const RoomList = ({
-  isRoomsLoading,
-  rooms,
-  isConfigLoading,
-  config,
-}: RoomListProps) => {
+export const RoomList = () => {
+  const {
+    variant,
+    isRoomsLoading,
+    rooms,
+    isConfigLoading,
+    config,
+  } = useDetails();
   const { isBot } = useWithSEO();
   const skeleton = useMemo(() => <span>Loading room list</span>, []);
+
+  if (variant !== 'studio') {
+    return null;
+  }
 
   if (isRoomsLoading) {
     return skeleton;

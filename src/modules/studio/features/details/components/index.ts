@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic';
-import { DetailsOwnProps } from './Details';
+import { DetailsNewContainerProps } from './DetailsContainer';
 
-export const Details = dynamic<DetailsOwnProps>(() =>
+export * from './types';
+
+export const Details = dynamic<DetailsNewContainerProps>(() =>
   import('./DetailsContainer').then(m => m.DetailsContainer)
 );

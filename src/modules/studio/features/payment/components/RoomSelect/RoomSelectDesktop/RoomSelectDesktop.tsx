@@ -15,7 +15,7 @@ export const RoomSelectDesktop = ({
   const { onChange, options } = useFunctional(props);
   const HiddenComponent = largeTabletQuery ? Hidden : Fragment;
 
-  if (isLoading) {
+  if (isLoading || (props.list && !props.list.length)) {
     return (
       <HiddenComponent query={largeTabletQuery}>
         <span>loading</span>

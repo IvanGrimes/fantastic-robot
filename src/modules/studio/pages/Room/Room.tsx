@@ -24,8 +24,6 @@ const mapStateToProps = (state: RootState, { router }: OwnProps) => {
     information: details.selectors.getInformation(state),
     isRoomLoading: details.selectors.getRoomLoading(state, roomProps),
     room: details.selectors.getRoomById(state, roomProps),
-    reservations: details.selectors.getReservationsWithColor(state),
-    workHours: details.selectors.getWorkHours(state),
   };
 };
 
@@ -43,8 +41,6 @@ const _Room = ({
   information,
   isRoomLoading,
   room,
-  reservations,
-  workHours,
 }: Props) => {
   const { query } = useRouter();
   const backLink = useMemo(
@@ -82,32 +78,7 @@ const _Room = ({
     handleFetchReservations({ studioId: studioId as string });
   }, [handleFetchReservations, query]);
 
-  return (
-    <DetailsComponent
-      information={{
-        isLoading: isInformationLoading || isRoomLoading,
-        equipmentIds: information.equipmentIds,
-        hasOnlinePayment: information.hasOnlinePayment,
-        photoIds: room.photoIds,
-        price: room.averagePrice,
-        title: room.name,
-        interiorIds: room.interiorIds || undefined,
-        contacts: information.contacts,
-        location: information.location,
-      }}
-      schedule={{
-        workHours,
-        reservations,
-      }}
-      dressingRoom={information.dressingRoom}
-      workingHours={information.workingHours}
-      room={{
-        isLoading: isRoomLoading,
-        data: room,
-      }}
-      backLink={backLink}
-    />
-  );
+  return <DetailsComponent variant="room" backLink={backLink} />;
 };
 
 export const Room = withRouter<OwnProps>(

@@ -6,7 +6,7 @@ import { RootState } from '@model/types';
 import Link from 'next/link';
 import * as details from '../../features/details';
 
-const { Details: DetailsComponent } = details;
+const { Details } = details;
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & { isBot: boolean };
@@ -16,8 +16,6 @@ const mapStateToProps = (state: RootState) => ({
   information: details.selectors.getInformation(state),
   isRoomsLoading: details.selectors.getRoomsLoading(state),
   rooms: details.selectors.getRooms(state),
-  reservations: details.selectors.getReservationsWithColor(state),
-  workHours: details.selectors.getWorkHours(state),
 });
 
 const dispatchProps = {
@@ -34,8 +32,6 @@ const _Studio = ({
   information,
   isRoomsLoading,
   rooms,
-  reservations,
-  workHours,
 }: Props) => {
   const { query } = useRouter();
 
@@ -72,31 +68,8 @@ const _Studio = ({
   }, [handleFetchReservations, query.studio]);
 
   return (
-    <DetailsComponent
-      information={{
-        isLoading: isInformationLoading,
-        description: information.description,
-        equipmentIds: information.equipmentIds,
-        hasOnlinePayment: information.hasOnlinePayment,
-        photoIds: information.photoIds,
-        price: information.priceType,
-        roomsCount: information.roomsCount,
-        stationIds: information.stationIds,
-        title: information.name,
-        interiorIds: information.interiorIds,
-        contacts: information.contacts,
-        location: information.location,
-      }}
-      rooms={{
-        isLoading: isRoomsLoading,
-        list: rooms,
-      }}
-      schedule={{
-        workHours,
-        reservations,
-      }}
-      dressingRoom={information.dressingRoom}
-      workingHours={information.workingHours}
+    <Details
+      variant="studio"
       backLink={
         <Link href="/">
           <a href="/">Студии</a>

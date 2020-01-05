@@ -5,11 +5,15 @@ import { Typography, Amount } from './Price.styles';
 
 export type PriceProps = {
   isLoading: boolean;
-  room: ReturnType<typeof details.selectors.getRooms>[number];
+  room?: ReturnType<typeof details.selectors.getRooms>[number];
 };
 
 export const Price = (props: PriceProps) => {
-  if (props.isLoading) {
+  if (
+    props.isLoading ||
+    !props.room ||
+    (props.room && !props.room.averagePrice)
+  ) {
     return <span>loading</span>;
   }
 
