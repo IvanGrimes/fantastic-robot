@@ -21,6 +21,7 @@ export const Wrapper = styled<ComponentType<WrapperProps>>(
       margin: 0 0 -8px 0;
       top: ${top}px;
       width: 338.66px;
+      z-index: 1000;
       @media screen and (max-width: 1100px) {
         position: fixed;
         top: unset;
@@ -82,6 +83,15 @@ export const ScrollableWrapper = styled.div`
     black 90%,
     transparent
   );
+  @media screen and (max-width: 1100px) {
+    overflow: auto;
+    max-height: unset;
+    margin-left: 0;
+    mask-image: none;
+    display: flex;
+    width: auto;
+    margin-bottom: 0;
+  }
 `;
 
 export const Scrollable = styled.div`
@@ -91,4 +101,11 @@ export const Scrollable = styled.div`
   overflow-x: hidden;
   padding-right: 14px;
   box-sizing: content-box;
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+    max-height: unset;
+    overflow: auto;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
 `;

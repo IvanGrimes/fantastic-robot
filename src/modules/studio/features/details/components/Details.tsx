@@ -17,9 +17,6 @@ import { Layout } from './Layout';
 import { ContactsProps, Contacts } from './Contacts';
 import { LocationProps, Location } from './Location';
 
-// TODO: Scrollable в Payment на Tablet
-// TODO: Не отображаются Row в Calendar на телефоне в диалоге
-
 // TODO: Декомпозировать Details
 // TODO: Скелетоны
 // TODO: Отзывчивость

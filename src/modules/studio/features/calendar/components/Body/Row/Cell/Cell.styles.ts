@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { getSpacing } from '../../../../../../../../theme/spacing';
-import { getGreyPalette } from '../../../../../../../../theme';
+import { getSpacing } from '@theme/spacing';
+import { getGreyPalette } from '@theme/palette';
 
 export const Cell = styled.td<{
   selected: boolean;

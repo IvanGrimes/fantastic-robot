@@ -10,7 +10,7 @@ import { getDate } from 'date-fns';
 export const Row = ({ data, selectTime }: RowProps) => {
   const { Cell } = useCalendarInjections();
   const { from } = useCalendar();
-  const fromDay = getDate(from) + 1;
+  const fromDay = getDate(from);
 
   return (
     <StyledRow>

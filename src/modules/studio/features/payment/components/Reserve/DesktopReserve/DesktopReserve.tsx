@@ -34,7 +34,7 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
               key: date,
               description: (
                 <>
-                  {format(Number(date), 'dd/MM/yy')} &mdash;&nbsp;
+                  <b>{format(Number(date), 'dd/MM/yy')}</b> &mdash;&nbsp;
                   {price} X {hours}{' '}
                   {getDeclension(hours, ['час', 'часа', 'часов'])}
                 </>
@@ -56,18 +56,16 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
   return (
     <Grid container item spacing={2}>
       <List>
-        <ListItem>
-          {list.map(({ key, description, cost }) => (
-            <Grid container key={key}>
-              <Grid item>
-                <Typography variant="caption">{description}</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption">{cost}</Typography>
-              </Grid>
+        {list.map(({ key, description, cost }) => (
+          <ListItem key={key} container justify="space-between">
+            <Grid item>
+              <Typography variant="caption">{description}</Typography>
             </Grid>
-          ))}
-        </ListItem>
+            <Grid item>
+              <Typography variant="caption">{cost}</Typography>
+            </Grid>
+          </ListItem>
+        ))}
         <ListItem>
           <Grid item>
             <Typography variant="caption">

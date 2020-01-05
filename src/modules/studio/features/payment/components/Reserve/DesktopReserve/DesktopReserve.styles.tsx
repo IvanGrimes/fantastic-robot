@@ -12,7 +12,8 @@ export const ListItem = styled<ComponentType<GridProps>>(props => (
   <Grid {...props} component="li" container item justify="space-between" />
 ))`
   && {
-    &:not(:last-child) {
+    // pre last element
+    &:nth-last-child(2) {
       border-bottom: 1px solid ${grey.A100};
     }
   }
