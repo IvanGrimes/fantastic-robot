@@ -17,35 +17,37 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
   const { selectByDate } = useCalendar();
   const list = useMemo(
     () =>
-      Object.entries(selectByDate).reduce<
-        {
-          key: string;
-          description: ReactNode;
-          cost: number;
-        }[]
-      >((acc, [date, range]) => {
-        const price = room ? room.averagePrice : 0;
-        const hours = range.length - 1;
+      Object.entries(selectByDate)
+        .sort((a, b) => Number(a[0]) - Number(b[0]))
+        .reduce<
+          {
+            key: string;
+            description: ReactNode;
+            cost: number;
+          }[]
+        >((acc, [date, range]) => {
+          const price = room ? room.averagePrice : 0;
+          const hours = range.length - 1;
 
-        if (range.length > 1) {
-          return [
-            ...acc,
-            {
-              key: date,
-              description: (
-                <>
-                  <b>{format(Number(date), 'dd/MM/yy')}</b> &mdash;&nbsp;
-                  {price} X {hours}{' '}
-                  {getDeclension(hours, ['час', 'часа', 'часов'])}
-                </>
-              ),
-              cost: price * hours,
-            },
-          ];
-        }
+          if (range.length > 1) {
+            return [
+              ...acc,
+              {
+                key: date,
+                description: (
+                  <>
+                    <b>{format(Number(date), 'dd/MM/yy')}</b> &mdash;&nbsp;
+                    {price} X {hours}{' '}
+                    {getDeclension(hours, ['час', 'часа', 'часов'])}
+                  </>
+                ),
+                cost: price * hours,
+              },
+            ];
+          }
 
-        return acc;
-      }, []),
+          return acc;
+        }, []),
     [room, selectByDate]
   );
 
