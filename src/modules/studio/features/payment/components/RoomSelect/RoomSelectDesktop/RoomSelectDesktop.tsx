@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo } from 'react';
 import { Hidden, Loader, Select } from '@modules/ui';
+import dequal from 'dequal';
 import { useFunctional, UseFunctionalProps } from '../useFunctional';
 
 export type RoomSelectDesktopProps = UseFunctionalProps & {
@@ -7,7 +8,7 @@ export type RoomSelectDesktopProps = UseFunctionalProps & {
   largeTabletQuery?: string;
 };
 
-export const RoomSelectDesktop = ({
+const _RoomSelectDesktop = ({
   isLoading,
   largeTabletQuery = '(max-width: 0px)',
   ...props
@@ -36,3 +37,5 @@ export const RoomSelectDesktop = ({
     </HiddenComponent>
   );
 };
+
+export const RoomSelectDesktop = memo(_RoomSelectDesktop, dequal);

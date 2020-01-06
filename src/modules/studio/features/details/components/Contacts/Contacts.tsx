@@ -46,7 +46,7 @@ export const Contacts = () => {
     >
       <List>
         {list.map(({ Icon, value }) => (
-          <ListItem>
+          <ListItem key={value}>
             <Icon />
             {value}
           </ListItem>

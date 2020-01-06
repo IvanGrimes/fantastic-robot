@@ -1,9 +1,10 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { memo, ReactNode, useMemo } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { getDeclension } from '@utils/getDeclension';
 import * as details from '@modules/studio/features/details';
 import { useCalendar } from '@modules/studio/features/calendar';
 import { format } from 'date-fns';
+import dequal from 'dequal';
 import { List, ListItem, ButtonWrapper } from './DesktopReserve.styles';
 import { useFunctional } from './useFunctional';
 
@@ -12,7 +13,7 @@ export type DesktopReserveProps = {
   room?: ReturnType<typeof details.selectors.getRooms>[number];
 };
 
-export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
+const _DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
   const { hasRange, select } = useFunctional();
   const { selectByDate } = useCalendar();
   const list = useMemo(
@@ -93,3 +94,5 @@ export const DesktopReserve = ({ isLoading, room }: DesktopReserveProps) => {
 
   return null;
 };
+
+export const DesktopReserve = memo(_DesktopReserve, dequal);

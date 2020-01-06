@@ -1,8 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, memo } from 'react';
 import { Button, Grid, IconButton, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { BaseHeaderBar, DynamicRendering, SlideTransition } from '@modules/ui';
 import * as details from '@modules/studio/features/details';
+import dequal from 'dequal';
 import { Price } from '../../Price';
 import { RoomSelectDesktop } from '../../RoomSelect';
 import { DesktopDateRange } from '../../DateRange';
@@ -20,7 +21,7 @@ export type MobileReserveProps = {
   rooms: ReturnType<typeof details.selectors.getRooms>;
 };
 
-export const MobileReserve = ({
+const _MobileReserve = ({
   isLoading,
   rooms,
   room,
@@ -30,7 +31,7 @@ export const MobileReserve = ({
   handleChangeRoomId,
   roomId,
 }: MobileReserveProps) => (
-  <Grid item spacing={2}>
+  <Grid item>
     <Dialog
       open={isVisible}
       onClose={handleClose}
@@ -59,7 +60,7 @@ export const MobileReserve = ({
           </Grid>
         </BaseHeaderBar>
         <FormGrid container justify="center" spacing={2}>
-          <Grid item xs={11} justify="flex-start">
+          <Grid item xs={11}>
             <Price isLoading={isLoading} room={room} />
           </Grid>
           <Grid container item>
@@ -96,3 +97,5 @@ export const MobileReserve = ({
     </Grid>
   </Grid>
 );
+
+export const MobileReserve = memo(_MobileReserve, dequal);

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { DynamicRendering, SlideTransition } from '@modules/ui';
+import dequal from 'dequal';
 import { MobileReserveProps } from '../MobileReserve';
 import { Price } from '../../Price';
 import { Separator, Dialog, FormGrid } from '../../Payment.styles';
@@ -10,7 +11,7 @@ import { DesktopReserve } from '../../Reserve';
 
 export type TabletReserveProps = MobileReserveProps;
 
-export const TabletReserve = ({
+const _TabletReserve = ({
   isLoading,
   handleChangeRoomId,
   handleClose,
@@ -20,7 +21,7 @@ export const TabletReserve = ({
   rooms,
   roomId,
 }: TabletReserveProps) => (
-  <Grid item spacing={2}>
+  <Grid item>
     <Dialog
       open={isVisible}
       onClose={handleClose}
@@ -30,7 +31,7 @@ export const TabletReserve = ({
     >
       <DynamicRendering>
         <FormGrid container justify="center" spacing={2}>
-          <Grid item xs={11} justify="flex-start">
+          <Grid item xs={11}>
             <Price isLoading={isLoading} room={room} />
           </Grid>
           <Grid container item>
@@ -67,3 +68,5 @@ export const TabletReserve = ({
     </Grid>
   </Grid>
 );
+
+export const TabletReserve = memo(_TabletReserve, dequal);

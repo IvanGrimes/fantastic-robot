@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Grid, Portal } from '@material-ui/core';
 import { Loader } from '@modules/ui';
+import dequal from 'dequal';
 import { List, ListItem } from './DateRange.styles';
 import { useFunctional } from '../useFunctional';
 import { Input } from '../Input';
@@ -10,7 +11,7 @@ export type DesktopDateRangeProps = {
   isLoading: boolean;
 };
 
-export const DesktopDateRange = ({ isLoading }: DesktopDateRangeProps) => {
+const _DesktopDateRange = ({ isLoading }: DesktopDateRangeProps) => {
   const wrapperRef = useRef<HTMLElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   const {
@@ -75,3 +76,5 @@ export const DesktopDateRange = ({ isLoading }: DesktopDateRangeProps) => {
     </Grid>
   );
 };
+
+export const DesktopDateRange = memo(_DesktopDateRange, dequal);

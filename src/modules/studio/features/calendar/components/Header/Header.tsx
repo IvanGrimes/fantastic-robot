@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
+import dequal from 'dequal';
 import { Wrapper } from './Header.styles';
 import { useInjections } from '../Calendar';
 
-export const Header = () => {
+const _Header = () => {
   const { RangeNavigation, Controls } = useInjections();
 
   return (
@@ -12,3 +13,5 @@ export const Header = () => {
     </Wrapper>
   );
 };
+
+export const Header = memo(_Header, dequal);

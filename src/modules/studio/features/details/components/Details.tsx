@@ -15,8 +15,6 @@ import { RoomList } from './RoomList';
 import { Schedule } from './Schedule';
 import { Location } from './Location';
 
-// TODO: Оптимизация
-
 export type DetailsNewProps = { backLink: ReactNode };
 
 export const Details = ({ backLink }: DetailsNewProps) => {

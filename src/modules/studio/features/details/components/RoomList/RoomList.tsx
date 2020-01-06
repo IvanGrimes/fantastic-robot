@@ -23,7 +23,7 @@ export const RoomList = () => {
         <DynamicRendering force={isBot}>
           <Hidden query={smallTabletDown}>
             <RoomListCarousel slidesToShow={2} infinite={false}>
-              {[...rooms, ...rooms].map(
+              {rooms.map(
                 ({
                   color,
                   photoIds,
@@ -34,6 +34,7 @@ export const RoomList = () => {
                   averagePrice,
                 }) => (
                   <RoomListItem
+                    key={id}
                     color={color}
                     photoIds={photoIds}
                     id={id}
