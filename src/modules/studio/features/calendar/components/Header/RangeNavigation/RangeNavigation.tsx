@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCalendar } from '../../CalendarContext';
 import { Wrapper, Control } from './RangeNavigation.styles';
-import { useInjections } from '../../calendarInjector';
+import { useInjections } from '../../Calendar';
 
 export type RangeNavigationProps = {
   onPreviousRange?: () => void;

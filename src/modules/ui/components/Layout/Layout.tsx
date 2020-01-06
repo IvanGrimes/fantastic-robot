@@ -1,8 +1,11 @@
 import React, { ReactNode } from 'react';
+import { makeInjectable } from '@utils/makeInjectable';
 import { LayoutProps } from './index';
 import { Wrapper, Content } from './Layout.styles';
-import { HeaderProps } from './Header';
-import { useInjections, withInjector } from './layoutInjector';
+import { HeaderProps, Header as HeaderComponent } from './Header';
+
+import { HeaderBar } from './BaseHeader/HeaderBar';
+import { BottomNavigation as BottomNavigationComponent } from './BottomNavigation';
 
 export type LayoutProps = {
   children: ReactNode | ReactNode[];
@@ -20,4 +23,8 @@ const _Layout = ({ children, withBar = false }: LayoutProps) => {
   );
 };
 
-export const Layout = withInjector(_Layout);
+export const { Component: Layout, useInjections } = makeInjectable({
+  Header: HeaderComponent,
+  HeaderBar,
+  BottomNavigation: BottomNavigationComponent,
+})(_Layout);

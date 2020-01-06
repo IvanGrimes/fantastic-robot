@@ -6,17 +6,20 @@ import React, {
   useMemo,
 } from 'react';
 
-export const createInjector = <
-  D extends { [key: string]: ComponentType<any> },
-  I = { [key in keyof D]: ComponentType<ComponentProps<D[key]>> }
->(
-  injectables: I
+export const makeInjectable = <S extends { [key: string]: ComponentType<any> }>(
+  injectables: S
 ) => {
   const Context = createContext(injectables);
   const useInjections = () => useContext(Context);
 
-  const withInjector = <P extends {}>(Component: ComponentType<P>) => {
-    const WithInjector = ({
+  return <
+    P extends {},
+    D extends typeof injectables,
+    I = { [key in keyof D]: ComponentType<ComponentProps<D[key]>> }
+  >(
+    Component: ComponentType<P>
+  ) => {
+    const WrappedComponent = ({
       injections = {},
       ...props
     }: P & { injections?: Partial<I> }) => {
@@ -31,14 +34,12 @@ export const createInjector = <
       );
     };
 
-    WithInjector.displayName = `withInjector(${Component.displayName ||
+    WrappedComponent.displayName = `Injectable(${Component.displayName ||
       Component.name})`;
 
-    return WithInjector;
-  };
-
-  return {
-    withInjector,
-    useInjections,
+    return {
+      Component: WrappedComponent,
+      useInjections,
+    };
   };
 };

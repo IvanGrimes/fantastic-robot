@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import { Calendar } from '@modules/studio/features/calendar';
 import { Wrapper, Cell } from './DatePicker.styles';
 import { ViewRange } from './ViewRange';
@@ -12,8 +12,8 @@ export type DatePickerProps = {
 };
 
 const calendarInjections = {
-  Controls: () => null,
-  WeekDay: () => null,
+  Controls: () => <Fragment />,
+  WeekDay: () => <Fragment />,
   Cell,
   ViewRange,
   Row,

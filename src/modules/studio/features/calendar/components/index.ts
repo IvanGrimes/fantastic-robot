@@ -1,8 +1,7 @@
 import dynamic from 'next/dynamic';
 import { CalendarProps } from './Calendar';
-import { withInjector } from './calendarInjector';
 
-export { useInjections as useCalendarInjections } from './calendarInjector';
+export { useInjections as useCalendarInjections } from './Calendar';
 export { CalendarProvider, useCalendar } from './CalendarContext';
 export * from './Header';
 export * from './Header/Controls';
@@ -16,8 +15,6 @@ export * from './Body/WeekDay';
 export * from './Body/Row';
 export * from './Body/Row/Cell';
 
-export const Calendar = withInjector<CalendarProps>(
-  dynamic<CalendarProps>(() =>
-    import('./Calendar').then(module => module.Calendar)
-  )
+export const Calendar = dynamic<CalendarProps>(() =>
+  import('./Calendar').then(module => module.Calendar)
 );

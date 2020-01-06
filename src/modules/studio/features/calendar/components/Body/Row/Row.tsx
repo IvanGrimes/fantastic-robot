@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row as StyledRow } from './Row.styles';
-import { useInjections } from '../../calendarInjector';
+import { useInjections } from '../../Calendar';
 
 export type RowProps = {
   data: {

@@ -33,7 +33,10 @@ export const Description = () => {
   }
 
   return (
-    <Block isLoading={isStudioLoading || !description} skeleton={descriptionSkeleton}>
+    <Block
+      isLoading={isStudioLoading || !description}
+      skeleton={descriptionSkeleton}
+    >
       <Grid item>
         <Typography>{description}</Typography>
       </Grid>

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Fragment } from 'react';
 import {
   Layout as DefaultLayout,
   LayoutProps,
@@ -15,7 +15,7 @@ export const Layout = ({ backLink, ...props }: Props) => (
           {children}
         </HeaderBar>
       ),
-      BottomNavigation: () => null,
+      BottomNavigation: () => <Fragment />,
     }}
     withBar
     {...props}

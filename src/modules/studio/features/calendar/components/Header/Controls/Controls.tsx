@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wrapper } from './Controls.styles';
-import { useInjections } from '../../calendarInjector';
+import { useInjections } from '../../Calendar';
 
 export type ControlsProps = {
   className?: string;

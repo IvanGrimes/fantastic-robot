@@ -3,7 +3,7 @@ import { useBrowser } from '@hooks/useBrowser';
 import { useCalendar } from '../CalendarContext';
 import { Table } from './Body.styles';
 import { BodySkeleton } from './BodySkeleton';
-import { useInjections } from '../calendarInjector';
+import { useInjections } from '../Calendar';
 
 const handlePreventDefault = (
   ev: MouseEvent<HTMLTableElement> | TouchEvent<HTMLTableElement>

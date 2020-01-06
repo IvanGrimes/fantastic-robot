@@ -1,17 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { ComponentProps, useEffect } from 'react';
 import { useTheme } from '@material-ui/styles';
 import throttle from 'lodash/throttle';
 import { Theme } from '@theme/types';
 import { getBreakpoints } from '@theme/breakpoints';
 import { Grid } from '@material-ui/core';
 import { DynamicRendering } from '@modules/ui';
+import { makeInjectable } from '@utils/makeInjectable';
 import { Paper } from './Calendar.styles';
 import { useCalendar } from './CalendarContext';
-import { useInjections } from './calendarInjector';
+import { Header as _Header } from './Header';
+import { RangeNavigation } from './Header/RangeNavigation';
+import { DirectionButton } from './Header/RangeNavigation/DirectionButton';
+import { ViewRange } from './Header/RangeNavigation/ViewRange';
+import { Controls } from './Header/Controls';
+import { ClearSelected } from './Header/Controls/ClearSelected';
+import { ViewColumn } from './Header/Controls/ViewColumn';
+import { Body as _Body } from './Body';
+import { WeekDay } from './Body/WeekDay';
+import { Row } from './Body/Row';
+import { Cell } from './Body/Row/Cell';
 
-export type CalendarProps = {};
+export type CalendarProps = ComponentProps<typeof Calendar>;
 
-export const Calendar = () => {
+const _Calendar = () => {
   const { Header, Body } = useInjections();
   const { setAvailableSteps, availableSteps, setStep } = useCalendar();
   const theme = useTheme<Theme>();
@@ -64,3 +75,17 @@ export const Calendar = () => {
     </Grid>
   );
 };
+
+export const { Component: Calendar, useInjections } = makeInjectable({
+  Header: _Header,
+  RangeNavigation,
+  DirectionButton,
+  ViewRange,
+  Controls,
+  ClearSelected,
+  ViewColumn,
+  Body: _Body,
+  WeekDay,
+  Row,
+  Cell,
+})(_Calendar);

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Grid } from '@material-ui/core';
 import { Container } from '@modules/ui';
 import { Wrapper, AppBar, Toolbar } from './BaseHeader.styles';
-import { useInjections } from '../layoutInjector';
+import { useInjections } from '../Layout';
 
 export type BaseHeaderProps = {
   isVisible?: boolean;
