@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { PriceType as PriceTypeComponent } from '@modules/studio/components/PriceType';
-import { Loader } from '@modules/ui';
+import { Hidden, Loader } from '@modules/ui';
 import { useDetails } from '../DetailsContext';
 
 export const Header = () => {
@@ -45,13 +45,15 @@ export const Header = () => {
 
   return (
     <Grid container alignItems="center" justify="space-between" spacing={1}>
-      <Grid item xs={10}>
+      <Grid item xs={12} sm={10}>
         <Typography variant="h4" component="h1">
           {title}
         </Typography>
       </Grid>
       <Grid item>
-        <PriceTypeComponent size="extraLarge" priceType={price} />
+        <Hidden xsDown>
+          <PriceTypeComponent size="extraLarge" priceType={price} />
+        </Hidden>
       </Grid>
     </Grid>
   );

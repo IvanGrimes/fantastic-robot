@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core';
 import { Photos } from '@modules/studio/features/details/components/Photos';
 import { Container, Hidden } from '@modules/ui';
 import { CalendarProvider } from '@modules/studio/features/calendar';
-import { MainGrid } from '@modules/studio/features/details/components/Details.styles';
 import { Payment } from '@modules/studio/features/payment';
+import { MainGrid } from './Details.styles';
 import { Layout } from './Layout';
 import { useDetails } from './DetailsContext';
 import { Header } from './Header';
@@ -15,7 +15,6 @@ import { RoomList } from './RoomList';
 import { Schedule } from './Schedule';
 import { Location } from './Location';
 
-// TODO: Отзывчивость
 // TODO: Оптимизация
 
 export type DetailsNewProps = { backLink: ReactNode };

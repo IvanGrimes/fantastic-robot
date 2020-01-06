@@ -5,35 +5,25 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useMediaQuery } from '@modules/ui/hooks';
 import { useTheme } from '@material-ui/styles';
 import { getBreakpoints } from '@theme/breakpoints';
 import * as details from '@modules/studio/features/details';
 import { Theme } from '@theme/types';
+import { Hidden } from '@modules/ui';
+import { useMediaQuery } from '@modules/ui/hooks';
 import { DesktopReserve, DesktopReserveProps } from './DesktopReserve';
 import { TabletReserve } from './TabletReserve';
 import { MobileReserve } from './MobileReserve';
+import { useToggle } from './useToggle';
 
 export type Reserve = DesktopReserveProps & {
   largeTabletQuery: string;
   rooms: ReturnType<typeof details.selectors.getRooms>;
 };
-
-export const Reserve = ({
-  room,
-  rooms,
-  isLoading,
-  largeTabletQuery,
-}: Reserve) => {
+// TODO: Refactor
+export const Reserve = ({ room, rooms, isLoading }: Reserve) => {
   const theme = useTheme<Theme>();
-  const largeTabletMatches = useMediaQuery(largeTabletQuery);
-  const mobileMatches = useMediaQuery(
-    `(max-width: ${getBreakpoints({ theme }).values.sm}px)`
-  );
-  const [isVisible, setVisibility] = useState(false);
   const [roomId, setRoomId] = useState('');
-  const handleOpen = useCallback(() => setVisibility(true), []);
-  const handleClose = useCallback(() => setVisibility(false), []);
   const handleChangeRoomId = useCallback(
     (ev: ChangeEvent<{ value: unknown }>) =>
       setRoomId(ev.target.value as string),
@@ -43,6 +33,26 @@ export const Reserve = ({
     () => room || rooms.filter(roomItem => roomItem.id === roomId)[0],
     [room, roomId, rooms]
   );
+  const tabletQuery = `(min-width: 1100px), (max-width: ${
+    getBreakpoints({ theme }).values.sm
+  }px)`;
+  const mobileQuery = `(min-width: ${getBreakpoints({ theme }).values.sm}px)`;
+  const tabletMatches = !useMediaQuery(tabletQuery);
+  const mobileMatches = !useMediaQuery(mobileQuery);
+  const tablet = useToggle();
+  const mobile = useToggle();
+
+  useEffect(() => {
+    if (mobile.isVisible && !mobileMatches) {
+      mobile.handleClose();
+    }
+  }, [mobile, mobileMatches]);
+
+  useEffect(() => {
+    if (tablet.isVisible && !tabletMatches) {
+      tablet.handleClose();
+    }
+  }, [tablet, tabletMatches]);
 
   useEffect(() => {
     if (rooms.length) {
@@ -50,35 +60,35 @@ export const Reserve = ({
     }
   }, [rooms]);
 
-  if (mobileMatches) {
-    return (
-      <MobileReserve
-        isLoading={isLoading}
-        room={selectedRoom}
-        isVisible={isVisible}
-        handleClose={handleClose}
-        handleChangeRoomId={handleChangeRoomId}
-        handleOpen={handleOpen}
-        roomId={roomId}
-        rooms={rooms}
-      />
-    );
-  }
-
-  if (largeTabletMatches) {
-    return (
-      <TabletReserve
-        isLoading={isLoading}
-        room={selectedRoom}
-        isVisible={isVisible}
-        handleClose={handleClose}
-        handleChangeRoomId={handleChangeRoomId}
-        handleOpen={handleOpen}
-        rooms={rooms}
-        roomId={roomId}
-      />
-    );
-  }
-
-  return <DesktopReserve room={selectedRoom} isLoading={isLoading} />;
+  return (
+    <>
+      <Hidden query="(max-width: 1100px)">
+        <DesktopReserve room={selectedRoom} isLoading={isLoading} />
+      </Hidden>
+      <Hidden query={tabletQuery}>
+        <TabletReserve
+          isLoading={isLoading}
+          room={selectedRoom}
+          isVisible={tablet.isVisible}
+          handleClose={tablet.handleClose}
+          handleChangeRoomId={handleChangeRoomId}
+          handleOpen={tablet.handleOpen}
+          rooms={rooms}
+          roomId={roomId}
+        />
+      </Hidden>
+      <Hidden query={mobileQuery}>
+        <MobileReserve
+          isLoading={isLoading}
+          room={selectedRoom}
+          isVisible={mobile.isVisible}
+          handleClose={mobile.handleClose}
+          handleChangeRoomId={handleChangeRoomId}
+          handleOpen={mobile.handleOpen}
+          rooms={rooms}
+          roomId={roomId}
+        />
+      </Hidden>
+    </>
+  );
 };

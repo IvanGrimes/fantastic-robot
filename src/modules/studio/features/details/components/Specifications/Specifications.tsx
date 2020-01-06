@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import { Rooms } from '@modules/studio/components/Rooms';
 import { TextList } from '@modules/studio/components/TextList';
 import { Loader } from '@modules/ui';
-import { Stations } from './Specifications.styles';
+import { StationsGrid, Stations } from './Specifications.styles';
 import { useDetails } from '../DetailsContext';
 
 export const Specifications = () => {
@@ -43,9 +43,9 @@ export const Specifications = () => {
 
   return (
     <Grid container spacing={2} justify="space-between" alignItems="flex-start">
-      <Grid container spacing={1} item xs={8}>
+      <Grid container spacing={1} item md={8} xs={12}>
         {variant === 'studio' ? (
-          <Grid item>
+          <Grid item sm="auto" xs={12}>
             <Rooms
               size="normal"
               loading={isStudioLoading}
@@ -69,7 +69,7 @@ export const Specifications = () => {
             list={config.equipment}
             size="small"
             skeleton={
-              <>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Loader top="5px" width="300px" height="15px" />
                 <Loader
                   top="10px"
@@ -77,12 +77,12 @@ export const Specifications = () => {
                   height="15px"
                   style={{ marginBottom: '12px' }}
                 />
-              </>
+              </div>
             }
           />
         </Grid>
       </Grid>
-      <Grid container item xs={3} justify="flex-end">
+      <StationsGrid container item sm={3} xs={12} justify="flex-end">
         <Stations
           size="small"
           loading={isMetroListLoading || isStudioLoading}
@@ -90,7 +90,7 @@ export const Specifications = () => {
           list={metroList}
           skeleton={<Loader top="4px" width="150px" height="20px" />}
         />
-      </Grid>
+      </StationsGrid>
     </Grid>
   );
 };

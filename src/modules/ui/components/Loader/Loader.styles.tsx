@@ -17,5 +17,5 @@ export const Loader = styled<
   ${({ width, height, top, right, bottom, left }) => css`
     position: relative;
     ${css({ width, height, top, right, bottom, left })};
-  `}
+  `};
 `;

@@ -29,72 +29,70 @@ export const MobileReserve = ({
   handleClose,
   handleChangeRoomId,
   roomId,
-}: MobileReserveProps) => {
-  return (
-    <Grid item spacing={2}>
-      <Dialog
-        open={isVisible}
-        onClose={handleClose}
-        TransitionComponent={SlideTransition}
-        keepMounted
-        fullScreen
+}: MobileReserveProps) => (
+  <Grid item spacing={2}>
+    <Dialog
+      open={isVisible}
+      onClose={handleClose}
+      TransitionComponent={SlideTransition}
+      keepMounted
+      fullScreen
+    >
+      <DynamicRendering>
+        <BaseHeaderBar>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+                size="small"
+              >
+                <Close />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">Резервирование</Typography>
+            </Grid>
+            <Grid item />
+          </Grid>
+        </BaseHeaderBar>
+        <FormGrid container justify="center" spacing={2}>
+          <Grid item xs={11} justify="flex-start">
+            <Price isLoading={isLoading} room={room} />
+          </Grid>
+          <Grid container item>
+            <Separator />
+          </Grid>
+          {rooms.length ? (
+            <Grid xs={11} item>
+              <RoomSelectDesktop
+                list={rooms}
+                isLoading={isLoading}
+                value={roomId}
+                handleChange={handleChangeRoomId}
+              />
+            </Grid>
+          ) : null}
+          <Grid xs={11} item>
+            <DesktopDateRange isLoading={isLoading} />
+          </Grid>
+          <Grid xs={11} item>
+            <DesktopReserve isLoading={isLoading} room={room} />
+          </Grid>
+        </FormGrid>
+      </DynamicRendering>
+    </Dialog>
+    <Grid>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleOpen}
+        fullWidth
       >
-        <DynamicRendering>
-          <BaseHeaderBar>
-            <Grid container justify="space-between" alignItems="center">
-              <Grid item>
-                <IconButton
-                  edge="start"
-                  color="inherit"
-                  onClick={handleClose}
-                  aria-label="close"
-                  size="small"
-                >
-                  <Close />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Резервирование</Typography>
-              </Grid>
-              <Grid item />
-            </Grid>
-          </BaseHeaderBar>
-          <FormGrid container justify="center" spacing={2}>
-            <Grid item xs={11} justify="flex-start">
-              <Price isLoading={isLoading} room={room} />
-            </Grid>
-            <Grid container item>
-              <Separator />
-            </Grid>
-            {rooms.length ? (
-              <Grid xs={11} item>
-                <RoomSelectDesktop
-                  list={rooms}
-                  isLoading={isLoading}
-                  value={roomId}
-                  handleChange={handleChangeRoomId}
-                />
-              </Grid>
-            ) : null}
-            <Grid xs={11} item>
-              <DesktopDateRange isLoading={isLoading} />
-            </Grid>
-            <Grid xs={11} item>
-              <DesktopReserve isLoading={isLoading} room={room} />
-            </Grid>
-          </FormGrid>
-        </DynamicRendering>
-      </Dialog>
-      <Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-          fullWidth
-        >
-          Зарезервировать
-        </Button>
-      </Grid>
+        Зарезервировать
+      </Button>
     </Grid>
-  );
-};
+  </Grid>
+);
