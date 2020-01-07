@@ -6,7 +6,7 @@ import { MenuGrid } from './Menu.styles';
 const menuData = [
   {
     id: '1',
-    name: 'Main',
+    name: 'Sign up',
     link: '#',
   },
   {

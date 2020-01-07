@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import { makeInjectable } from '@utils/makeInjectable';
+import { Popup as AuthPopup } from '@modules/auth';
 import { LayoutProps } from './index';
 import { Wrapper, Content } from './Layout.styles';
 import { HeaderProps, Header as HeaderComponent } from './Header';
-
 import { HeaderBar } from './BaseHeader/HeaderBar';
 import { BottomNavigation as BottomNavigationComponent } from './BottomNavigation';
 
@@ -19,6 +19,7 @@ const _Layout = ({ children, withBar = false }: LayoutProps) => {
       <Header withBar={withBar} />
       <Content withBar={withBar}>{children}</Content>
       <BottomNavigation />
+      <AuthPopup />
     </Wrapper>
   );
 };
