@@ -47,8 +47,20 @@ const _PropertyList = ({
   }, [list, search]);
 
   return (
-    <WrapperGrid className={className} container direction="column" {...props}>
-      <Grid container alignItems="center" justify="space-between" spacing={2}>
+    <WrapperGrid
+      className={className}
+      container
+      direction="column"
+      spacing={2}
+      {...props}
+    >
+      <Grid
+        container
+        item
+        alignItems="center"
+        justify="space-between"
+        spacing={2}
+      >
         <Grid item>
           <Typography variant="h6" component="span">
             {title}
@@ -67,7 +79,7 @@ const _PropertyList = ({
           </Grid>
         ) : null}
       </Grid>
-      <Grid container>
+      <Grid container item>
         {isSearchable ? (
           <SearchGrid item xs={12}>
             <ClearableInput

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Checkbox, Grid, Typography } from '@material-ui/core';
 import { PropertyListItemProps } from './index';
+import { ClickableGrid } from './PropertyListItem.styles';
 
 const _PropertyListItem = ({
   index,
@@ -12,7 +13,12 @@ const _PropertyListItem = ({
 
   return (
     <div style={style}>
-      <Grid container justify="space-between" alignItems="center">
+      <ClickableGrid
+        container
+        justify="space-between"
+        alignItems="center"
+        onClick={onChange([item.id])}
+      >
         <Grid item>
           {renderValue ? (
             renderValue({ ...item, isActive })
@@ -21,9 +27,9 @@ const _PropertyListItem = ({
           )}
         </Grid>
         <Grid item>
-          <Checkbox onChange={onChange([item.id])} checked={isActive} />
+          <Checkbox checked={isActive} />
         </Grid>
-      </Grid>
+      </ClickableGrid>
     </div>
   );
 };
