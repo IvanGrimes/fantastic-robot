@@ -11,24 +11,20 @@ const _PropertyListItem = ({
   const isActive = selectedIds.includes(item.id);
 
   return (
-    <Grid
-      container
-      justify="space-between"
-      alignItems="center"
-      spacing={2}
-      style={style}
-    >
-      <Grid item>
-        {renderValue ? (
-          renderValue({ ...item, isActive })
-        ) : (
-          <Typography>{item.value}</Typography>
-        )}
+    <div style={style}>
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item>
+          {renderValue ? (
+            renderValue({ ...item, isActive })
+          ) : (
+            <Typography>{item.value}</Typography>
+          )}
+        </Grid>
+        <Grid item>
+          <Checkbox onChange={onChange([item.id])} checked={isActive} />
+        </Grid>
       </Grid>
-      <Grid item>
-        <Checkbox onChange={onChange([item.id])} checked={isActive} />
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 

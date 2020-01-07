@@ -5,13 +5,7 @@ import debounce from 'lodash/debounce';
 import { getAbsoluteString } from '@utils/getAbsoluteString';
 import { PropertyListProps } from './index';
 import { ClearableInput } from '../ClearableInput';
-import {
-  WrapperGrid,
-  SearchGrid,
-  ListGrid,
-  ListScrollableGrid,
-  VirtualList,
-} from './PropertyList.styles';
+import { WrapperGrid, SearchGrid, VirtualList } from './PropertyList.styles';
 import { PropertyListItem } from './PropertyListItem';
 import { ChipList } from '../ChipList';
 
@@ -83,34 +77,32 @@ const _PropertyList = ({
             />
           </SearchGrid>
         ) : null}
-        <ListGrid item xs={12}>
-          <ListScrollableGrid container>
-            {variant === 'chip' && filteredList.length ? (
-              <ChipList
-                list={filteredList}
-                selectedListId={selectedIds}
-                handleToggle={handleToggle}
-                renderValue={renderValue}
-              />
-            ) : null}
-            {variant === 'checkbox' ? (
-              <VirtualList
-                itemSize={40}
-                height={400}
-                itemCount={filteredList.length}
-                width={600}
-                itemData={{
-                  renderValue,
-                  list: filteredList,
-                  selectedIds,
-                  onChange,
-                }}
-              >
-                {PropertyListItem}
-              </VirtualList>
-            ) : null}
-          </ListScrollableGrid>
-        </ListGrid>
+        <Grid container item>
+          {variant === 'chip' && filteredList.length ? (
+            <ChipList
+              list={filteredList}
+              selectedListId={selectedIds}
+              handleToggle={handleToggle}
+              renderValue={renderValue}
+            />
+          ) : null}
+          {variant === 'checkbox' ? (
+            <VirtualList
+              itemSize={40}
+              height={400}
+              itemCount={filteredList.length}
+              width={600}
+              itemData={{
+                renderValue,
+                list: filteredList,
+                selectedIds,
+                onChange,
+              }}
+            >
+              {PropertyListItem}
+            </VirtualList>
+          ) : null}
+        </Grid>
       </Grid>
     </WrapperGrid>
   );
