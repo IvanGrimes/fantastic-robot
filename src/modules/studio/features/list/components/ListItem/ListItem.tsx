@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
 import Link from 'next/link';
+import { Loader } from '@modules/ui';
 import { ListItemProps } from './index';
 import { Card, CardBottomGrid, CardContent } from './ListItem.styles';
 import { Photos } from './Photos';
@@ -26,7 +27,7 @@ const _ListItem = ({
   stationIds,
 }: ListItemProps) => (
   <Link href="/[studio]" as={`/${id}`} passHref>
-    <Card isDisabled={loading}>
+    <Card isDisabled={loading} component="a">
       <Grid item sm={variant === 'wide' ? 5 : 12} xs={12}>
         <Grid container>
           <Photos photoIds={photoIds} loading={loading} />
@@ -50,6 +51,13 @@ const _ListItem = ({
                 ids={interiorIds}
                 list={config.interior}
                 size="small"
+                skeleton={
+                  <Loader
+                    width="55%"
+                    height="14px"
+                    style={{ marginTop: '10px' }}
+                  />
+                }
               />
             </Grid>
             <Grid
@@ -61,7 +69,17 @@ const _ListItem = ({
                 }
               `}
             >
-              <Rooms loading={loading} roomsCount={roomsCount} />
+              <Rooms
+                loading={loading}
+                roomsCount={roomsCount}
+                skeleton={
+                  <Loader
+                    width="55%"
+                    height="14px"
+                    style={{ marginTop: '6px' }}
+                  />
+                }
+              />
             </Grid>
           </Grid>
           <CardBottomGrid
@@ -74,7 +92,13 @@ const _ListItem = ({
                 list={metroList}
                 stationIds={stationIds}
                 loading={loading || isMetroListLoading}
-                skeleton={null}
+                skeleton={
+                  <Loader
+                    width="75%"
+                    height="14px"
+                    style={{ marginTop: '8px', marginBottom: '4px' }}
+                  />
+                }
               />
             </Grid>
             <Grid item>

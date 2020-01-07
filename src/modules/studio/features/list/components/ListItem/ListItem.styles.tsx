@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ComponentType } from 'react';
+import React, { ComponentType } from 'react';
 import { GridProps } from '@material-ui/core/Grid';
 import {
   Grid,
@@ -13,7 +13,12 @@ import DefaultContentLoader, {
 } from 'react-content-loader';
 import { getShadows } from '../../../../../../theme/shadows';
 
-export const Card = styled<ComponentType<CardProps>>(DefaultCard)<{
+export const Card = styled<
+  ComponentType<Omit<CardProps, 'component'> & { component: string }>
+>(
+  // @ts-ignore
+  props => <DefaultCard {...props} />
+)<{
   isDisabled: boolean;
 }>`
   ${({ isDisabled, ...props }) => {
@@ -24,6 +29,7 @@ export const Card = styled<ComponentType<CardProps>>(DefaultCard)<{
         display: flex;
         width: 100%;
         flex-direction: column;
+        text-decoration: none;
         ${isDisabled
           ? css`
               cursor: default;
