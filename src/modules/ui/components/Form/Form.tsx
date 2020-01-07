@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  FormProps as FormComponentProps,
-  Form as FormComponent,
-} from 'react-final-form';
-
-export type FormProps = FormComponentProps;
+import { Form as FormComponent } from 'react-final-form';
+import { FormProps } from './index';
 
 export const Form = (props: FormProps) => <FormComponent {...props} />;

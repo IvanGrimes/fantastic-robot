@@ -1,7 +1,7 @@
 import React from 'react';
-import { TextField as DefaultTextField } from '@material-ui/core';
 import { TextFieldProps as DefaultTextFieldProps } from '@material-ui/core/TextField';
 import { FieldProps, useField } from 'react-final-form';
+import { TextField as StyledTextField } from './TextField.styles';
 import { InputProps } from '../types';
 
 export type TextFieldProps = InputProps &
@@ -16,17 +16,17 @@ export const TextField = ({
   ...props
 }: TextFieldProps) => {
   const { input, meta } = useField(name, { validate });
-  const hasError = meta.touched && meta.error;
 
   return (
-    <DefaultTextField
+    <StyledTextField
       {...input}
       {...props}
       variant="outlined"
       label={placeholder}
-      error={hasError}
-      helperText={hasError ? meta.error : undefined}
+      error={meta.touched && meta.error}
+      helperText={meta.error || ' '}
       disabled={meta.validating}
+      fullWidth={fullWidth}
     />
   );
 };

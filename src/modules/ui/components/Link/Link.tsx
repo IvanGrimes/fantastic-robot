@@ -1,17 +1,26 @@
 import React from 'react';
-import { Link as MaterialLink } from '@material-ui/core';
 import NextLink from 'next/link';
+import { Link as StyledLink } from './Link.styles';
 import { LinkProps } from './index';
 
 export const Link = ({
   className = '',
-  MaterialLinkProps = {},
   children,
+  href = '',
+  onClick,
   ...props
-}: LinkProps) => (
-  <NextLink {...props} passHref>
-    <MaterialLink className={className} {...MaterialLinkProps}>
-      {children}
-    </MaterialLink>
-  </NextLink>
-);
+}: LinkProps) => {
+  if (!href) {
+    return (
+      <StyledLink className={className} onClick={onClick} as="span">
+        {children}
+      </StyledLink>
+    );
+  }
+
+  return (
+    <NextLink {...props} href={href} passHref>
+      <StyledLink className={className}>{children}</StyledLink>
+    </NextLink>
+  );
+};

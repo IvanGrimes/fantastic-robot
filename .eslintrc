@@ -28,6 +28,7 @@
     "no-param-reassign": "off",
     "import/extensions": "off",
     "react/prop-types": "off",
-    "consistent-return": "warn"
+    "consistent-return": "warn",
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }

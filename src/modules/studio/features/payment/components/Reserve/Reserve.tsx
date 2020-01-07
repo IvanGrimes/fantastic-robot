@@ -11,10 +11,10 @@ import * as details from '@modules/studio/features/details';
 import { Theme } from '@theme/types';
 import { Hidden } from '@modules/ui';
 import { useMediaQuery } from '@modules/ui/hooks';
+import { useToggle } from '@hooks/useToggle';
 import { DesktopReserve, DesktopReserveProps } from './DesktopReserve';
 import { TabletReserve } from './TabletReserve';
 import { MobileReserve } from './MobileReserve';
-import { useToggle } from './useToggle';
 
 export type Reserve = DesktopReserveProps & {
   largeTabletQuery: string;

@@ -1,10 +1,11 @@
 import { LinkProps as NextLinkProps } from 'next/link';
-import { LinkProps as MaterialLinkProps } from '@material-ui/core/Link';
+import { ReactNode } from 'react';
 
-export type LinkProps = Pick<MaterialLinkProps, 'children'> &
-  Exclude<NextLinkProps, 'passHref'> & {
+export type LinkProps = Omit<Omit<NextLinkProps, 'passHref'>, 'href'> &
+  Partial<Pick<NextLinkProps, 'href'>> & {
     className?: string;
-    MaterialLinkProps?: Exclude<MaterialLinkProps, 'children'>;
+    onClick: () => void;
+    children: ReactNode | ReactNode[];
   };
 
 export { Link } from './Link';

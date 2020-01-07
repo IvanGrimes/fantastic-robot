@@ -4,6 +4,7 @@ import dequal from 'dequal';
 import { RootState } from '@model/types';
 import { setFilters } from '@modules/studio/features/filters/model/actions';
 import { getFilters } from '@modules/studio/features/filters/model/selectors';
+import * as auth from '@modules/auth';
 import { getIsHeaderVisible } from '../../../model/selectors';
 import { setHeaderVisibility } from '../../../model/actions';
 import { Header } from './Header';
@@ -21,6 +22,7 @@ const mapStateToProps = (state: RootState) => ({
 const dispatchProps = {
   handleSetHeaderVisibility: setHeaderVisibility,
   handleSetFilters: setFilters,
+  handleChangeAuthForm: auth.actions.changeForm,
 };
 
 const _HeaderContainer = ({
@@ -29,10 +31,19 @@ const _HeaderContainer = ({
   handleSetFilters,
   nameFilter,
   withBar,
+  handleChangeAuthForm,
 }: Props) => {
   const handleSearch = useCallback(
     (value: string) => handleSetFilters({ name: value }),
     [handleSetFilters]
+  );
+  const handleOpenSignUp = useCallback(
+    () => handleChangeAuthForm({ visibility: true, view: 'sign-up' }),
+    [handleChangeAuthForm]
+  );
+  const handleOpenSignIn = useCallback(
+    () => handleChangeAuthForm({ visibility: true, view: 'sign-in' }),
+    [handleChangeAuthForm]
   );
 
   return (
@@ -42,6 +53,8 @@ const _HeaderContainer = ({
       searchValue={nameFilter}
       handleSearch={handleSearch}
       showBar={withBar}
+      handleOpenSignUp={handleOpenSignUp}
+      handleOpenSignIn={handleOpenSignIn}
     />
   );
 };

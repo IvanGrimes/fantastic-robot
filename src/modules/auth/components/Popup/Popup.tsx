@@ -1,24 +1,20 @@
-import React, { useCallback, useState } from 'react';
-import { Dialog, Grid } from '@material-ui/core';
+import React, { ReactNode } from 'react';
 import { SlideTransition, DynamicRendering } from '@modules/ui';
-import { Form } from '../../features/sign-up';
+import { Dialog } from './Popup.styles';
 
-export const Popup = () => {
-  const [isOpen, setOpen] = useState(true);
-  const handleClose = useCallback(() => setOpen(false), []);
-
-  return (
-    <Dialog
-      open={isOpen}
-      onClose={handleClose}
-      TransitionComponent={SlideTransition}
-      fullWidth
-    >
-      <DynamicRendering>
-        <Grid container>
-          <Form />
-        </Grid>
-      </DynamicRendering>
-    </Dialog>
-  );
+export type PopupProps = {
+  children: ReactNode | ReactNode[];
+  isOpen: boolean;
+  handleClose: () => void;
 };
+
+export const Popup = ({ isOpen, handleClose, children }: PopupProps) => (
+  <Dialog
+    open={isOpen}
+    onClose={handleClose}
+    TransitionComponent={SlideTransition}
+    fullWidth
+  >
+    <DynamicRendering>{children}</DynamicRendering>
+  </Dialog>
+);

@@ -15,6 +15,8 @@ type Props = {
   searchValue: string;
   handleSearch: (value: string) => void;
   showBar: boolean;
+  handleOpenSignUp: () => void;
+  handleOpenSignIn: () => void;
 };
 
 const _Header = ({
@@ -23,6 +25,8 @@ const _Header = ({
   searchValue,
   handleSearch,
   showBar,
+  handleOpenSignIn,
+  handleOpenSignUp,
 }: Props) => {
   useHideOnScroll({
     isVisible: isHeaderVisible,
@@ -40,7 +44,10 @@ const _Header = ({
             <Search onChange={handleSearch} value={searchValue} />
           </Grid>
         </Grid>
-        <Menu />
+        <Menu
+          handleOpenSignIn={handleOpenSignIn}
+          handleOpenSignUp={handleOpenSignUp}
+        />
         <Hidden mdUp>
           <FullscreenMapButton />
         </Hidden>
