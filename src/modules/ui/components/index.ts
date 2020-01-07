@@ -17,6 +17,8 @@ export * from './Select';
 export * from './Layout/BaseHeaderBar';
 export * from './SlideTransition';
 export * from './GoogleMap';
+export * from './Button';
+export * from './Progress';
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic');

@@ -1,7 +1,12 @@
 import React, { ChangeEvent, memo } from 'react';
-import { Button, Grid, IconButton, Typography } from '@material-ui/core';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import { BaseHeaderBar, DynamicRendering, SlideTransition } from '@modules/ui';
+import {
+  BaseHeaderBar,
+  DynamicRendering,
+  SlideTransition,
+  Button,
+} from '@modules/ui';
 import * as details from '@modules/studio/features/details';
 import dequal from 'dequal';
 import { Price } from '../../Price';
@@ -90,6 +95,7 @@ const _MobileReserve = ({
         variant="contained"
         color="primary"
         onClick={handleOpen}
+        loading={isLoading}
         fullWidth
       >
         Зарезервировать

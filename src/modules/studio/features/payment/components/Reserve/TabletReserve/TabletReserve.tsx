@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Button, Grid } from '@material-ui/core';
-import { DynamicRendering, SlideTransition } from '@modules/ui';
+import { Grid } from '@material-ui/core';
+import { DynamicRendering, SlideTransition, Button } from '@modules/ui';
 import dequal from 'dequal';
 import { MobileReserveProps } from '../MobileReserve';
 import { Price } from '../../Price';
@@ -61,6 +61,7 @@ const _TabletReserve = ({
         variant="contained"
         color="primary"
         onClick={handleOpen}
+        loading={isLoading}
         fullWidth
       >
         Зарезервировать
