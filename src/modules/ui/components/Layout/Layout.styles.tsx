@@ -7,9 +7,13 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div<{ withBar: boolean }>`
-  ${({ withBar }) => css`
-    display: flex;
-    min-height: 100vh;
-    margin-top: ${withBar ? 120 : 64}px;
-  `};
+  ${({ withBar }) => {
+    const margin = withBar ? 120 : 64;
+
+    return css`
+      display: flex;
+      min-height: calc(100vh - ${margin}px);
+      margin-top: ${margin}px;
+    `;
+  }};
 `;

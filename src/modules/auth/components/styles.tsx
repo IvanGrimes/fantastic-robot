@@ -2,8 +2,11 @@ import React, { ComponentType } from 'react';
 import styled from 'styled-components';
 import { GridProps } from '@material-ui/core/Grid';
 import { Grid } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 
-export const FormGrid = styled<ComponentType<GridProps>>(props => (
+export type FormGridProps = GridProps;
+
+export const FormGrid = styled<ComponentType<FormGridProps>>(props => (
   <Grid
     {...props}
     container
@@ -12,9 +15,10 @@ export const FormGrid = styled<ComponentType<GridProps>>(props => (
     component="form"
     spacing={3}
   />
-))`
-  && {
-    width: 100%;
-    margin: 0;
-  }
+))``;
+
+export const Separator = styled.div`
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid ${grey.A100};
 `;

@@ -7,11 +7,12 @@ export const Link = ({
   className = '',
   children,
   href = '',
+  variant = 'secondary',
   ...props
 }: LinkProps) => {
   if (!href) {
     return (
-      <StyledLink className={className} as="span">
+      <StyledLink className={className} variant={variant} as="span">
         {children}
       </StyledLink>
     );
@@ -19,7 +20,9 @@ export const Link = ({
 
   return (
     <NextLink {...props} href={href} passHref>
-      <StyledLink className={className}>{children}</StyledLink>
+      <StyledLink className={className} variant={variant}>
+        {children}
+      </StyledLink>
     </NextLink>
   );
 };

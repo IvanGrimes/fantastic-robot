@@ -11,11 +11,9 @@ export const Button = ({
   loading = false,
   children,
   ...props
-}: ButtonProps) => {
-  return (
-    <StyledButton disabled={loading} {...props}>
-      {loading && <Progress size={20} />}
-      {children}
-    </StyledButton>
-  );
-};
+}: ButtonProps) => (
+  <StyledButton disabled={loading} {...props}>
+    {loading && <Progress size={20} />}
+    {children}
+  </StyledButton>
+);

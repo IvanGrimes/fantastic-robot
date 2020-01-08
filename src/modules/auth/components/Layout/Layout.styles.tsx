@@ -3,5 +3,9 @@ import { Container as DefaultContainer, ContainerProps } from '@modules/ui';
 import styled from 'styled-components';
 
 export const Container = styled<ComponentType<ContainerProps>>(props => (
-  <DefaultContainer {...props} variant="secondary" />
-))``;
+  <DefaultContainer {...props} />
+))`
+  && {
+    max-width: 600px;
+  }
+`;
