@@ -6,6 +6,7 @@ import { getBreakpoints } from '@theme/breakpoints';
 import { Grid } from '@material-ui/core';
 import { DynamicRendering } from '@modules/ui';
 import { makeInjectable } from '@utils/makeInjectable';
+import { useWithSEO } from '@modules/services';
 import { Paper } from './Calendar.styles';
 import { useCalendar } from './CalendarContext';
 import { Header as _Header } from './Header';
@@ -23,6 +24,7 @@ import { Cell } from './Body/Row/Cell';
 export type CalendarProps = ComponentProps<typeof Calendar>;
 
 const _Calendar = () => {
+  const { isBot } = useWithSEO();
   const { Header, Body } = useInjections();
   const { setAvailableSteps, availableSteps, setStep } = useCalendar();
   const theme = useTheme<Theme>();
@@ -66,7 +68,7 @@ const _Calendar = () => {
 
   return (
     <Grid container item>
-      <DynamicRendering>
+      <DynamicRendering force={isBot}>
         <Paper>
           <Header />
           <Body />

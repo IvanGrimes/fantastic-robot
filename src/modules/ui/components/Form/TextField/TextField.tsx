@@ -1,12 +1,7 @@
 import React from 'react';
-import { TextFieldProps as DefaultTextFieldProps } from '@material-ui/core/TextField';
-import { FieldProps, useField } from 'react-final-form';
+import { useField } from 'react-final-form';
 import { TextField as StyledTextField } from './TextField.styles';
-import { InputProps } from '../types';
-
-export type TextFieldProps = InputProps &
-  Omit<Omit<DefaultTextFieldProps, 'label'>, 'variant'> &
-  Pick<FieldProps<string, any>, 'validate'>;
+import { TextFieldProps } from './index';
 
 export const TextField = ({
   name,

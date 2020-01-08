@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-import { TextFieldProps, TextField } from '../TextField';
+import { TextField, TextFieldProps } from '../TextField';
 
 export type PasswordFieldProps = Omit<TextFieldProps, 'type'>;
 

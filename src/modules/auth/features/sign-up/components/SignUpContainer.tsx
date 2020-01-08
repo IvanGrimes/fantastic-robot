@@ -1,4 +1,6 @@
 import React from 'react';
 import { SignUp } from './SignUp';
 
-export const SignUpContainer = () => <SignUp />;
+export type SignUpProps = {};
+
+export const SignUpContainer = (_props: SignUpProps) => <SignUp />;

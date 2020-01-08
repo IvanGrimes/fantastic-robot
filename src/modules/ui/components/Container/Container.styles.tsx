@@ -1,13 +1,15 @@
 import styled, { css } from 'styled-components';
 import React, { ComponentType } from 'react';
 import { Container as DefaultContainer } from '@material-ui/core';
-import { ContainerProps } from '@material-ui/core/Container';
+import { ContainerProps as DefaultContainerProps } from '@material-ui/core/Container';
 
-export const Container = styled<
-  ComponentType<
-    ContainerProps & { variant?: 'fluid' | 'primary' | 'secondary' }
-  >
->(({ variant, ...props }) => <DefaultContainer {...props} />)`
+export type ContainerProps = DefaultContainerProps & {
+  variant?: 'fluid' | 'primary' | 'secondary';
+};
+
+export const Container = styled<ComponentType<ContainerProps>>(
+  ({ variant, ...props }) => <DefaultContainer {...props} />
+)`
   ${({ variant = 'fluid' }) => css`
     && {
       width: 100%;

@@ -56,6 +56,10 @@ function* fetchRoomFlow(action: ReturnType<typeof fetchRoomAsync.request>) {
 
     yield put(fetchRoomAsync.success(data));
   } catch (e) {
+    if (e.isAxiosError && e.response.status === 404) {
+      yield call(Router.push, '/');
+    }
+
     yield put(fetchRoomAsync.failure(e));
   }
 }

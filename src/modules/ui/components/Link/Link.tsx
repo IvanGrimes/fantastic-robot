@@ -7,12 +7,11 @@ export const Link = ({
   className = '',
   children,
   href = '',
-  onClick,
   ...props
 }: LinkProps) => {
   if (!href) {
     return (
-      <StyledLink className={className} onClick={onClick} as="span">
+      <StyledLink className={className} as="span">
         {children}
       </StyledLink>
     );
