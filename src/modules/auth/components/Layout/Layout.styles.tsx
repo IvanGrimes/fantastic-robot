@@ -7,5 +7,6 @@ export const Container = styled<ComponentType<ContainerProps>>(props => (
 ))`
   && {
     max-width: 600px;
+    margin-top: -64px;
   }
 `;

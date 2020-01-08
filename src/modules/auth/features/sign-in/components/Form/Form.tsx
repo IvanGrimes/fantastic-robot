@@ -6,34 +6,19 @@ import {
   Form as FormComponent,
 } from '@modules/ui';
 import { Grid } from '@material-ui/core';
-import {
-  validateName,
-  validatePhone,
-  validateEmail,
-  password,
-} from '../../../../utils/validations';
-import { FormGrid } from './Form.styles';
+import { routes } from '@utils/routes';
+import { validateEmail, password } from '../../../../utils/validations';
+import { FormGrid } from '../../../../components';
+import { Link } from './Form.styles';
 
-export type FormProps = { isVisible: boolean };
-
-export const Form = ({ isVisible }: FormProps) => (
+export const Form = () => (
   <FormComponent onSubmit={console.log}>
     {({ submitting }) => (
-      <FormGrid isVisible={isVisible}>
-        <Grid item container>
-          <TextField name="name" placeholder="Имя" validate={validateName} />
-        </Grid>
-        <Grid item container>
-          <TextField
-            name="phone"
-            placeholder="Номер телефона"
-            validate={validatePhone}
-          />
-        </Grid>
+      <FormGrid>
         <Grid item container>
           <TextField
             name="email"
-            placeholder="Email"
+            placeholder="Электронная почта"
             validate={validateEmail}
           />
         </Grid>
@@ -52,8 +37,21 @@ export const Form = ({ isVisible }: FormProps) => (
             loading={submitting}
             fullWidth
           >
-            Зарегистрироваться
+            Войти
           </Button>
+        </Grid>
+        <Grid item container>
+          <Link to={routes.passwordRecovery}>
+            <Button
+              type="submit"
+              variant="outlined"
+              color="primary"
+              loading={submitting}
+              fullWidth
+            >
+              Забыли пароль?
+            </Button>
+          </Link>
         </Grid>
       </FormGrid>
     )}

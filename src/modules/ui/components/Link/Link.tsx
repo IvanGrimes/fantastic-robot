@@ -8,7 +8,7 @@ export const Link = ({
   children,
   variant = 'secondary',
   to,
-  prefetch = true,
+  prefetch,
   withAnchor = true,
   ...props
 }: LinkProps) => {
