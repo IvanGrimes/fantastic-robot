@@ -41,7 +41,7 @@ export const Form = () => (
           </Button>
         </Grid>
         <Grid item container>
-          <Link to={routes.passwordRecovery}>
+          <Link to={routes.passwordReset}>
             <Button
               type="submit"
               variant="outlined"

@@ -10,23 +10,29 @@ export const Link = ({
   to,
   prefetch,
   withAnchor = true,
+  fluid = false,
   ...props
 }: LinkProps) => {
   const content = useMemo(() => {
     if (withAnchor) {
       return (
-        <StyledLink className={className} variant={variant}>
+        <StyledLink className={className} variant={variant} fluid={fluid}>
           {children}
         </StyledLink>
       );
     }
 
     return children;
-  }, [children, className, variant, withAnchor]);
+  }, [children, className, fluid, variant, withAnchor]);
 
   if (!to) {
     return (
-      <StyledLink className={className} variant={variant} as="span">
+      <StyledLink
+        className={className}
+        variant={variant}
+        fluid={fluid}
+        as="span"
+      >
         {children}
       </StyledLink>
     );

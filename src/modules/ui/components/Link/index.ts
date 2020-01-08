@@ -9,6 +9,7 @@ export type LinkProps = {
   variant?: LinkVariant;
   prefetch?: boolean;
   withAnchor?: boolean;
+  fluid?: boolean;
 };
 
 export { Link } from './Link';

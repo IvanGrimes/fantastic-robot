@@ -2,7 +2,7 @@ export const routes = {
   main: '/',
   signUp: '/sign-up',
   signIn: '/sign-in',
-  passwordRecovery: '/password-recovery',
+  passwordReset: '/password-reset',
   page: (number: number) => ({
     href: '/page/[number]',
     as: `/page/${number}`,

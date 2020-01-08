@@ -4,14 +4,14 @@ import { ContentGrid, Separator } from '../index';
 import { Layout, LayoutProps } from '../Layout';
 
 export type ServicesLayoutProps = LayoutProps & {
-  services: ReactNode | ReactNode[];
-  description: ReactNode | ReactNode[];
+  services?: ReactNode | ReactNode[];
+  description?: ReactNode | ReactNode[];
 };
 
 export const ServicesLayout = ({
   children,
-  services,
-  description,
+  services = null,
+  description = null,
 }: ServicesLayoutProps) => (
   <Layout>
     <ContentGrid container alignItems="center">
@@ -20,12 +20,16 @@ export const ServicesLayout = ({
           {services}
         </Grid>
         {children}
-        <Grid container item>
-          <Separator />
-        </Grid>
-        <Grid container item>
-          <Typography variant="body1">{description}</Typography>
-        </Grid>
+        {description && (
+          <>
+            <Grid container item>
+              <Separator />
+            </Grid>
+            <Grid container item>
+              <Typography variant="body1">{description}</Typography>
+            </Grid>
+          </>
+        )}
       </Grid>
     </ContentGrid>
   </Layout>
