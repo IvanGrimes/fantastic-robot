@@ -105,6 +105,9 @@
     "prettier": "^1.18.2",
     "typescript": "^3.5.3"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
