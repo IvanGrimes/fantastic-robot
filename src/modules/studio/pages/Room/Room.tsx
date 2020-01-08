@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { useRouter, withRouter, NextRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { RootState } from '@model/types';
-import Link from 'next/link';
+import { Link } from '@modules/ui';
+import { routes } from '@utils/routes';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
@@ -43,15 +44,17 @@ const _Room = ({
   room,
 }: Props) => {
   const { query } = useRouter();
-  const backLink = useMemo(
-    () =>
-      isInformationLoading ? null : (
-        <Link href="/[studio]" as={`/${information.id}`} passHref>
-          <a href="/">Студии &bull; {information.name}</a>
-        </Link>
-      ),
-    [information.id, information.name, isInformationLoading]
-  );
+  const backLink = useMemo(() => {
+    if (isInformationLoading) {
+      return null;
+    }
+
+    return (
+      <Link to={routes.studio(information.id)}>
+        Студии &bull; {information.name}
+      </Link>
+    );
+  }, [information.id, information.name, isInformationLoading]);
 
   useEffect(() => {
     const { studio: studioId, room: roomId } = query;

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { RootState } from '@model/types';
+import { routes } from '@utils/routes';
 import { List } from './List';
 import { ListProps } from './index';
 import { fetchStudiosAsync } from '../model/actions';
@@ -75,11 +76,11 @@ const _ListContainer = ({
       <Head>
         {pageNumber !== 1 ? (
           <Fragment>
-            <link rel="prev" href={`/page/${pageNumber - 1}`} />
-            <link rel="next" href={`/page/${pageNumber + 1}`} />
+            <link rel="prev" href={routes.page(pageNumber - 1).as} />
+            <link rel="next" href={routes.page(pageNumber + 1).as} />
           </Fragment>
         ) : (
-          <link rel="next" href="/page/2" />
+          <link rel="next" href={routes.page(2).as} />
         )}
       </Head>
       <List

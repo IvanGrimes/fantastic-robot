@@ -61,7 +61,7 @@ export const List = ({
         pagination={{
           route: '/page/[number]',
           pageNumber: '[number]',
-          withTrailingSlash: true,
+          withTrailingSlash: false,
         }}
         hasMore={hasNext && !isMapListFullscreen}
       >

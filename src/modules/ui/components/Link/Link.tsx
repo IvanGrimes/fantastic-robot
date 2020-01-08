@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import NextLink from 'next/link';
 import { Link as StyledLink } from './Link.styles';
 import { LinkProps } from './index';
@@ -6,11 +6,25 @@ import { LinkProps } from './index';
 export const Link = ({
   className = '',
   children,
-  href = '',
   variant = 'secondary',
+  to,
+  prefetch = true,
+  withAnchor = true,
   ...props
 }: LinkProps) => {
-  if (!href) {
+  const content = useMemo(() => {
+    if (withAnchor) {
+      return (
+        <StyledLink className={className} variant={variant}>
+          {children}
+        </StyledLink>
+      );
+    }
+
+    return children;
+  }, [children, className, variant, withAnchor]);
+
+  if (!to) {
     return (
       <StyledLink className={className} variant={variant} as="span">
         {children}
@@ -18,11 +32,17 @@ export const Link = ({
     );
   }
 
+  if (typeof to === 'string') {
+    return (
+      <NextLink href={to} prefetch={prefetch} passHref {...props}>
+        {content}
+      </NextLink>
+    );
+  }
+
   return (
-    <NextLink {...props} href={href} passHref>
-      <StyledLink className={className} variant={variant}>
-        {children}
-      </StyledLink>
+    <NextLink href={to.href} as={to.as} prefetch={prefetch} passHref {...props}>
+      {content}
     </NextLink>
   );
 };

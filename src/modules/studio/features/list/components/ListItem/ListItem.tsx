@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
-import Link from 'next/link';
-import { Loader } from '@modules/ui';
+import { Loader, Link } from '@modules/ui';
+import { routes } from '@utils/routes';
 import { ListItemProps } from './index';
 import { Card, CardBottomGrid, CardContent } from './ListItem.styles';
 import { Photos } from './Photos';
@@ -26,7 +26,7 @@ const _ListItem = ({
   priceType,
   stationIds,
 }: ListItemProps) => (
-  <Link href="/[studio]" as={`/${id}`} passHref>
+  <Link to={routes.studio(id)} withAnchor={false}>
     <Card isDisabled={loading} component="a">
       <Grid item sm={variant === 'wide' ? 5 : 12} xs={12}>
         <Grid container>

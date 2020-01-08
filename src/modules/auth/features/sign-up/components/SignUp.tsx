@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Link } from '@modules/ui';
+import { routes } from '@utils/routes';
 import { ServiceButton } from '../../../components/ServiceButton';
 import { Form } from './Form';
 import { MainGrid, WrapperGrid } from './SignUp.styles';
@@ -36,7 +37,7 @@ export const SignUp = ({ showForm, handleShowForm }: Props) => (
       <Grid container item>
         <Typography variant="body2">
           Уже есть аккаунт?{' '}
-          <Link variant="primary" href="/sign-in">
+          <Link variant="primary" to={routes.signIn}>
             Войти
           </Link>
         </Typography>

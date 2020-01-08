@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { RootState } from '@model/types';
-import Link from 'next/link';
+import { Link } from '@modules/ui';
+import { routes } from '@utils/routes';
 import * as details from '../../features/details';
 
 const { Details } = details;
@@ -68,14 +69,7 @@ const _Studio = ({
   }, [handleFetchReservations, query.studio]);
 
   return (
-    <Details
-      variant="studio"
-      backLink={
-        <Link href="/">
-          <a href="/">Студии</a>
-        </Link>
-      }
-    />
+    <Details variant="studio" backLink={<Link to={routes.main}>Студии</Link>} />
   );
 };
 

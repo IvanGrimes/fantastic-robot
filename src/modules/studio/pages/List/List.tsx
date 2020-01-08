@@ -6,6 +6,7 @@ import { usePrevious } from '@hooks/usePrevious';
 import { RootState } from '@model/types';
 import { withSEO } from '@modules/services/HOC/withSEO';
 import { Layout } from '@modules/ui/components';
+import { routes } from '@utils/routes';
 import * as listMap from '../../features/list-map';
 import { ContentGrid, StudioListGrid } from './List.styles';
 import * as list from '../../features/list';
@@ -43,7 +44,7 @@ const _List = ({
     const isPageNumberNaN = Number.isNaN(pageNumber);
 
     if (pageNumber && isPageNumberNaN) {
-      push('/404');
+      push(routes.notFound);
     }
     if (!hasFilters && !prevHasFilters && !studios.length) {
       handleFetchStudios({

@@ -1,13 +1,14 @@
-import { LinkProps as NextLinkProps } from 'next/link';
 import { ReactNode } from 'react';
 
 export type LinkVariant = 'primary' | 'secondary';
 
-export type LinkProps = Omit<Omit<NextLinkProps, 'passHref'>, 'href'> &
-  Partial<Pick<NextLinkProps, 'href'>> & {
-    className?: string;
-    children: ReactNode | ReactNode[];
-    variant?: LinkVariant;
-  };
+export type LinkProps = {
+  to?: string | { href: string; as: string };
+  className?: string;
+  children: ReactNode | ReactNode[];
+  variant?: LinkVariant;
+  prefetch?: boolean;
+  withAnchor?: boolean;
+};
 
 export { Link } from './Link';

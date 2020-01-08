@@ -33,5 +33,8 @@ export const LinkWrapper = styled.div`
     color: ${grey['800']};
     text-decoration: none;
     font-size: 16px;
+    &:hover {
+      text-decoration: none;
+    }
   }
 `;
