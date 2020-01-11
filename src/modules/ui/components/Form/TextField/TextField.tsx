@@ -8,6 +8,7 @@ export const TextField = ({
   validate,
   placeholder,
   fullWidth = true,
+  disabled,
   ...props
 }: TextFieldProps) => {
   const { input, meta } = useField(name, { validate });
@@ -20,7 +21,7 @@ export const TextField = ({
       label={placeholder}
       error={meta.touched && meta.error}
       helperText={meta.error || ' '}
-      disabled={meta.validating}
+      disabled={meta.validating || disabled}
       fullWidth={fullWidth}
     />
   );

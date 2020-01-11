@@ -2,14 +2,15 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Link } from '@modules/ui';
 import { routes } from '@utils/routes';
-import { ServiceButton, ServicesLayout, Separator } from '../../../components';
+import { ServicesLayout, Separator } from '../../../components';
 import { Form } from './Form';
+import { VkAuthButton } from '../../social';
 
 export const SignIn = () => (
   <ServicesLayout
     services={
       <Grid container item>
-        <ServiceButton variant="vk">Продолжить с VK</ServiceButton>
+        <VkAuthButton>Войти через VK</VkAuthButton>
       </Grid>
     }
     description={

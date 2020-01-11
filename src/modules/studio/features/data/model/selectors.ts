@@ -22,8 +22,7 @@ export const getConfig = createDeepEqualSelector(
 
 export const getConfigLoading = (state: RootState) => {
   const config = getConfig(state);
-  const hasConfig =
-    config.context.length && config.equipment.length && config.interior.length;
+  const hasConfig = config.equipment.length && config.interior.length;
 
   return (
     createRequestLoadingSelector([getType(fetchConfigAsync.request)]) &&

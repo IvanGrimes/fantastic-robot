@@ -3,6 +3,7 @@ export const routes = {
   signUp: '/sign-up',
   signIn: '/sign-in',
   passwordReset: '/password-reset',
+  vk: '/auth/vk',
   page: (number: number) => ({
     href: '/page/[number]',
     as: `/page/${number}`,

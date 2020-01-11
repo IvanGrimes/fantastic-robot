@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  TextField,
-  Button,
-  PasswordField,
-  Form as FormComponent,
-} from '@modules/ui';
+import { TextField, Button, PasswordField, getForm } from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import {
   validateName,
@@ -14,20 +9,39 @@ import {
 } from '../../../../utils/validations';
 import { FormGrid } from './Form.styles';
 
-export type FormProps = { isVisible: boolean };
+export type FormFields = {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+};
 
-export const Form = ({ isVisible }: FormProps) => (
-  <FormComponent onSubmit={console.log}>
-    {({ submitting }) => (
-      <FormGrid isVisible={isVisible}>
+export type FormProps = {
+  isVisible: boolean;
+  onSubmit: (values: FormFields) => void;
+  isLoading: boolean;
+};
+
+const FormComponent = getForm<FormFields>();
+
+export const Form = ({ isVisible, onSubmit, isLoading }: FormProps) => (
+  <FormComponent onSubmit={onSubmit}>
+    {({ handleSubmit, submitting }) => (
+      <FormGrid isVisible={isVisible} onSubmit={handleSubmit as any}>
         <Grid item container>
-          <TextField name="name" placeholder="Имя" validate={validateName} />
+          <TextField
+            name="name"
+            placeholder="Имя"
+            validate={validateName}
+            disabled={isLoading}
+          />
         </Grid>
         <Grid item container>
           <TextField
             name="phone"
             placeholder="Номер телефона"
             validate={validatePhone}
+            disabled={isLoading}
           />
         </Grid>
         <Grid item container>
@@ -35,6 +49,7 @@ export const Form = ({ isVisible }: FormProps) => (
             name="email"
             placeholder="Email"
             validate={validateEmail}
+            disabled={isLoading}
           />
         </Grid>
         <Grid item container>
@@ -42,6 +57,7 @@ export const Form = ({ isVisible }: FormProps) => (
             name="password"
             placeholder="Пароль"
             validate={password}
+            disabled={isLoading}
           />
         </Grid>
         <Grid item container>
@@ -51,6 +67,7 @@ export const Form = ({ isVisible }: FormProps) => (
             color="primary"
             loading={submitting}
             fullWidth
+            disabled={isLoading}
           >
             Зарегистрироваться
           </Button>

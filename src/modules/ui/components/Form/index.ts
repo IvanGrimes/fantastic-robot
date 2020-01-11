@@ -9,3 +9,8 @@ export type FormProps = FormComponentProps;
 export const Form = dynamic<FormProps>(() =>
   import('./Form').then(m => m.Form)
 );
+
+export const getForm = <V extends {}>() =>
+  dynamic<FormComponentProps<V>>(() =>
+    import('./getForm').then(m => m.getForm<V>())
+  );

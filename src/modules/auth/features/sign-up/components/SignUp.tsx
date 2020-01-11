@@ -2,26 +2,34 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Link } from '@modules/ui';
 import { routes } from '@utils/routes';
-import { Form } from './Form';
+import { FormFields, Form } from './Form';
 import {
   ContentGrid,
   Separator,
   ServiceButton,
   ServicesLayout,
 } from '../../../components';
+import { VkAuthButton } from '../../social';
 
 type Props = {
   showForm: boolean;
   handleShowForm: () => void;
+  handleSubmit: (values: FormFields) => void;
+  isLoading: boolean;
 };
 
-export const SignUp = ({ showForm, handleShowForm }: Props) => (
+export const SignUp = ({
+  showForm,
+  handleShowForm,
+  handleSubmit,
+  isLoading,
+}: Props) => (
   <ContentGrid container alignItems="center">
     <ServicesLayout
       services={
         <>
           <Grid container item>
-            <ServiceButton variant="vk">Продолжить с VK</ServiceButton>
+            <VkAuthButton>Продолжить с VK</VkAuthButton>
           </Grid>
           <Grid container item>
             <Separator />
@@ -44,7 +52,11 @@ export const SignUp = ({ showForm, handleShowForm }: Props) => (
         </>
       }
     >
-      <Form isVisible={showForm} />
+      <Form
+        isVisible={showForm}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </ServicesLayout>
   </ContentGrid>
 );
