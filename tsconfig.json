@@ -38,10 +38,8 @@
     "baseUrl": ".",
     "paths": {
       "@modules/*": ["src/modules/*"],
-      "@features/*": ["src/features/*"],
       "@components/*": ["src/components/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@lib/*": ["src/lib/*"],
       "@utils/*": ["src/utils/*"],
       "@model/*": ["src/model/*"],
       "@HOC/*": ["src/HOC/*"],

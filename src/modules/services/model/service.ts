@@ -1,6 +1,6 @@
 import defaultAxios from 'axios';
 import { Dispatch } from 'redux';
-import * as auth from '@modules/auth';
+import { actions as authActions } from '@modules/auth';
 import { paramsSerializer } from '../utils/paramsSerializer';
 
 if (!process.env.API_AUTH_USER || !process.env.API_AUTH_PASSWORD) {
@@ -29,7 +29,7 @@ service.interceptors.request.use(config => {
 export const onMount = (dispatch: Dispatch) => {
   service.interceptors.response.use(undefined, error => {
     if (error && error.response && error.response.status === 403) {
-      dispatch(auth.actions.signOut());
+      dispatch(authActions.signOut());
     }
 
     throw error;

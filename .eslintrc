@@ -15,6 +15,19 @@
   },
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
+  "settings": {
+    "import/resolver": {
+      "alias": [
+        ["@components", "./src/components"],
+        ["@modules", "./src/modules"],
+        ["@hooks", "./src/hooks"],
+        ["@utils", "./src/utils"],
+        ["@model", "./src/model"],
+        ["@HOC", "./src/HOC"],
+        ["@theme", "./src/theme"]
+      ]
+    }
+  },
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "no-underscore-dangle": "off",
