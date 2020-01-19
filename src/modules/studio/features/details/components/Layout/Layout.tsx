@@ -1,10 +1,11 @@
 import React, { ReactNode, Fragment } from 'react';
-import * as ui from '@modules/ui';
+import {
+  Layout as DefaultLayout,
+  LayoutProps,
+} from '@modules/ui/components/Layout';
 import { HeaderBar } from './HeaderBar';
 
-type Props = ui.LayoutProps & { backLink: ReactNode };
-
-const { Layout: DefaultLayout } = ui;
+type Props = LayoutProps & { backLink: ReactNode };
 
 export const Layout = ({ backLink, ...props }: Props) => (
   <DefaultLayout

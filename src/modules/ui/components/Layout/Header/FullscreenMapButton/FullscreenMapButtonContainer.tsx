@@ -1,11 +1,9 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
-import * as studio from '@modules/studio';
+import { listMap } from '@modules/studio';
 import { FullscreenMapButton } from './FullscreenMapButton';
 
 type Props = typeof dispatchProps;
-
-const { listMap } = studio
 
 const dispatchProps = {
   handleSetFullscreenMap: listMap.actions.setFullscreen,

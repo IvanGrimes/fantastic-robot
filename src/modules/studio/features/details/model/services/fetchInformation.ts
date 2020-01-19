@@ -1,5 +1,5 @@
 import { Nullable } from '@utils/Nullable';
-import * as services from '@modules/services';
+import { service } from '@modules/services';
 import { StudioId } from '../types';
 import { PriceType } from '../../../data';
 
@@ -71,7 +71,7 @@ export type InformationResponse = {
 const getHours = (minutes: number) => minutes / 60;
 
 export const fetchInformation = ({ studioId }: FetchInformationInput) =>
-  services.service
+  service
     .get<RawInformationResponse>(`/api/studio/${studioId}`)
     .then(({ data }) => data)
     .then<InformationResponse>(

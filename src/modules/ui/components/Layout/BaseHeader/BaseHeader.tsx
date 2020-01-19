@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
+import { Container } from '@modules/ui';
 import { Wrapper, AppBar, Toolbar } from './BaseHeader.styles';
 import { useInjections } from '../Layout';
 
@@ -9,8 +9,6 @@ export type BaseHeaderProps = {
   showBar?: boolean;
   children: ReactNode | ReactNode[];
 };
-
-const { Container } = ui
 
 export const BaseHeader = ({
   isVisible = false,

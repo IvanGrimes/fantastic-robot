@@ -1,9 +1,9 @@
+import { useCalendar } from '@modules/studio/features/calendar';
 import { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePrevious } from '@hooks/usePrevious';
-import * as calendar from '../../../calendar';
 
 export const useFunctional = () => {
-  const { selectByDate } = calendar.useCalendar();
+  const { selectByDate } = useCalendar();
   const [isPickerVisible, setPickerVisibility] = useState(false);
   const [pickerPosition, setPickerPosition] = useState({ x: 0, y: 0 });
   const handleOpen = useCallback((ev: MouseEvent<HTMLElement>) => {

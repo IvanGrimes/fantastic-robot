@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import { ComponentType } from 'react';
 import { Grid } from '@material-ui/core';
-import { GridProps } from '@material-ui/core/Grid';
-import { getBreakpoints } from '@theme/breakpoints';
 import {
   Stations as DefaultStations,
   StationsProps,
-} from '../../../../components/Stations';
+} from '@modules/studio/components/Stations';
+import { GridProps } from '@material-ui/core/Grid';
+import { getBreakpoints } from '@theme/breakpoints';
 
 export const StationsGrid = styled<ComponentType<GridProps>>(Grid)`
   ${props => {

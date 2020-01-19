@@ -1,20 +1,21 @@
 import { getType } from 'typesafe-actions';
 import { RootState } from '@model/types';
-import * as services from '@modules/services';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
+import { createRequestLoadingSelector } from '@modules/services';
 import { fetchConfigAsync, fetchMetroListAsync } from './actions';
 
 const getState = (state: RootState) => state.studio.data;
 
-export const getMetroList = services.createDeepEqualSelector(
+export const getMetroList = createDeepEqualSelector(
   [getState],
   state => state.metroList
 );
 
 export const getMetroListLoading = (state: RootState) =>
-  services.createRequestLoadingSelector([getType(fetchMetroListAsync.request)]) &&
+  createRequestLoadingSelector([getType(fetchMetroListAsync.request)]) &&
   !getMetroList(state).length;
 
-export const getConfig = services.createDeepEqualSelector(
+export const getConfig = createDeepEqualSelector(
   [getState],
   state => state.config
 );
@@ -24,7 +25,7 @@ export const getConfigLoading = (state: RootState) => {
   const hasConfig = config.equipment.length && config.interior.length;
 
   return (
-    services.createRequestLoadingSelector([getType(fetchConfigAsync.request)]) &&
+    createRequestLoadingSelector([getType(fetchConfigAsync.request)]) &&
     !hasConfig
   );
 };

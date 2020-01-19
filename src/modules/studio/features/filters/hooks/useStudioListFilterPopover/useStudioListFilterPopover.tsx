@@ -11,7 +11,8 @@ import { DeepPartial } from 'redux';
 import { mergeDeepRight } from 'ramda';
 import throttle from 'lodash/throttle';
 import { useSelector } from 'react-redux';
-import * as ui from '@modules/ui';
+import { DynamicRendering } from '@modules/ui/components';
+import { selectors as uiSelectors } from '@modules/ui';
 import { Paper, FilterWrapper } from './useStudioListFilterPopover.styles';
 
 type UseStudioListFilterPopoverInput = ReactNode | ReactNodeArray;
@@ -24,8 +25,6 @@ type State = {
 
 type HandleToggleFilter = MouseEventHandler<HTMLButtonElement>;
 
-const { DynamicRendering } = ui
-
 export const useStudioListFilterPopover = (
   children: UseStudioListFilterPopoverInput
 ): [boolean, HandleToggleFilter, JSX.Element] => {
@@ -36,7 +35,7 @@ export const useStudioListFilterPopover = (
     bottom: 0,
     left: 0,
   });
-  const isHeaderVisible = useSelector(ui.selectors.getIsHeaderVisible);
+  const isHeaderVisible = useSelector(uiSelectors.getIsHeaderVisible);
   const targetRef = useRef<HTMLDivElement | null>(null);
   const mountTargetRef = useRef<HTMLElement | null>(null);
   const handleToggleFilter: HandleToggleFilter = useCallback(

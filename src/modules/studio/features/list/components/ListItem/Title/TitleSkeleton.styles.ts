@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { ComponentType } from 'react';
-import * as ui from '@modules/ui';
+import {
+  Loader as DefaultLoader,
+  LoaderProps,
+} from '@modules/ui/components/Loader';
 
-const { Loader: DefaultLoader } = ui
-
-export const Loader = styled<ComponentType<ui.LoaderProps>>(DefaultLoader)`
+export const Loader = styled<ComponentType<LoaderProps>>(DefaultLoader)`
   && {
     margin-top: 1px;
   }

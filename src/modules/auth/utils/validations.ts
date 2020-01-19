@@ -1,4 +1,4 @@
-import { Validator } from './Validator';
+import { Validator } from '@modules/auth/utils/Validator';
 
 export const validateName = (value: string) =>
   new Validator(value)

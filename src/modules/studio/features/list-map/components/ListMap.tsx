@@ -2,7 +2,7 @@ import React, { memo, useRef } from 'react';
 import dequal from 'dequal';
 import { Close as CloseIcon } from '@material-ui/icons';
 import { useRequestAnimationFrame } from '@hooks/useRequestAnimationFrame';
-import * as ui from '@modules/ui';
+import { GoogleMap } from '@modules/ui';
 import {
   MapGrid,
   OuterWrapper,
@@ -20,8 +20,6 @@ type Props = {
   handleFullscreenMapOff: () => void;
   studios: StudioItem[];
 };
-
-const { GoogleMap } = ui
 
 const _ListMap = ({
   isMapListFullscreen,

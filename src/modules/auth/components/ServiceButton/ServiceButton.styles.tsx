@@ -1,17 +1,15 @@
 import React, { ComponentType, ReactNode } from 'react';
-import * as ui from '@modules/ui';
+import { Button, ButtonProps } from '@modules/ui';
 import styled from 'styled-components';
 import { EmailOutlined as Email } from '@material-ui/icons';
 import vk from '../../static/vk.svg';
-
-const { Button } = ui
 
 export const Icon = styled.img`
   width: 24px;
   height: 24px;
 `;
 
-const BaseButton = styled<ComponentType<ui.ButtonProps & { icon: ReactNode }>>(
+const BaseButton = styled<ComponentType<ButtonProps & { icon: ReactNode }>>(
   ({ children, icon, ...props }) => (
     <Button variant="contained" fullWidth {...props}>
       {icon}
@@ -24,7 +22,7 @@ const BaseButton = styled<ComponentType<ui.ButtonProps & { icon: ReactNode }>>(
   }
 `;
 
-export const VkButton = styled<ComponentType<ui.ButtonProps>>(props => (
+export const VkButton = styled<ComponentType<ButtonProps>>(props => (
   <BaseButton icon={<Icon src={vk} />} {...props} />
 ))`
   && {
@@ -38,6 +36,6 @@ export const VkButton = styled<ComponentType<ui.ButtonProps>>(props => (
   }
 `;
 
-export const EmailButton = styled<ComponentType<ui.ButtonProps>>(props => (
+export const EmailButton = styled<ComponentType<ButtonProps>>(props => (
   <BaseButton {...props} color="primary" icon={<Email />} />
 ))``;

@@ -6,7 +6,7 @@ import React, {
   memo,
   DragEventHandler,
 } from 'react';
-import * as services from '@modules/services';
+import { useWithSEO } from '@modules/services';
 import { LazyImageProps } from './index';
 import { Figure, Image } from './LazyImage.styles';
 
@@ -16,7 +16,7 @@ export const _LazyImage = ({
   alt = '',
   ratio,
 }: LazyImageProps) => {
-  const { isBot } = services.useWithSEO();
+  const { isBot } = useWithSEO();
   const [isLoaded, setLoaded] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);

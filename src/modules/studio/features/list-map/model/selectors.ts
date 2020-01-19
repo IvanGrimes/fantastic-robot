@@ -1,9 +1,9 @@
 import { RootState } from '@model/types';
-import * as services from '@modules/services';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 
 const getState = (state: RootState) => state.studio.listMap;
 
-export const getPreviewStudio = services.createDeepEqualSelector(
+export const getPreviewStudio = createDeepEqualSelector(
   [getState],
   state => state.preview
 );

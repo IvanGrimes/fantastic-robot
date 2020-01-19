@@ -1,14 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
-import * as ui from '@modules/ui';
+import { PropertyList } from '@modules/ui/components';
 import { RootState } from '@model/types';
 import { StudioListFilterTypeProps } from './index';
 import { setFilters } from '../../model/actions';
 import { getFilters } from '../../model/selectors';
 import { getConfig } from '../../../data/model/selectors';
-
-const { PropertyList } = ui
 
 type Props = StudioListFilterTypeProps &
   ReturnType<typeof mapStateToProps> &

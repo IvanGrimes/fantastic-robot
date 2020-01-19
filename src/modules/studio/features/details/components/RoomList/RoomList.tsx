@@ -1,17 +1,15 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
-import * as services from '@modules/services';
+import { DynamicRendering, Hidden } from '@modules/ui';
+import { useWithSEO } from '@modules/services';
 import { RoomListCarousel } from './RoomList.styles';
 import { Block } from '../Block';
 import { useDetails } from '../DetailsContext';
 import { RoomListItem } from './RoomListItem';
 
-const { DynamicRendering, Hidden } = ui
-
 export const RoomList = () => {
   const { variant, isRoomsLoading, rooms } = useDetails();
-  const { isBot } = services.useWithSEO();
+  const { isBot } = useWithSEO();
   const smallTabletDown = '(max-width: 767px)';
   const smallTabletUp = '(min-width: 768px)';
 

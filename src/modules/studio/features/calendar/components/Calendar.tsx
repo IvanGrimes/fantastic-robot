@@ -4,9 +4,9 @@ import throttle from 'lodash/throttle';
 import { Theme } from '@theme/types';
 import { getBreakpoints } from '@theme/breakpoints';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
+import { DynamicRendering } from '@modules/ui';
 import { makeInjectable } from '@utils/makeInjectable';
-import * as services from '@modules/services';
+import { useWithSEO } from '@modules/services';
 import { Paper } from './Calendar.styles';
 import { useCalendar } from './CalendarContext';
 import { Header as _Header } from './Header';
@@ -23,10 +23,8 @@ import { Cell } from './Body/Row/Cell';
 
 export type CalendarProps = ComponentProps<typeof Calendar>;
 
-const { DynamicRendering } = ui
-
 const _Calendar = () => {
-  const { isBot } = services.useWithSEO();
+  const { isBot } = useWithSEO();
   const { Header, Body } = useInjections();
   const { setAvailableSteps, availableSteps, setStep } = useCalendar();
   const theme = useTheme<Theme>();

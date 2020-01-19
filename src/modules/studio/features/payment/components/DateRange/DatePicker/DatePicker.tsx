@@ -1,11 +1,9 @@
 import React, { forwardRef, Fragment } from 'react';
-import * as calendar from '../../../../calendar';
+import { Calendar } from '@modules/studio/features/calendar';
 import { Wrapper, Cell } from './DatePicker.styles';
 import { ViewRange } from './ViewRange';
 import { Row } from './Row';
 import { RangeNavigation } from './RangeNavigation';
-
-const { Calendar } = calendar
 
 export type DatePickerProps = {
   isActive: boolean;

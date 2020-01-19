@@ -1,5 +1,5 @@
 import { RootAction, RootState } from '@model/types';
-import { createDeepEqualSelector } from '../utils/createDeepEqualSelector';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 import { parseRequestType } from '../utils/parseRequestType';
 
 const defaultErrorObject = { networkError: '', appError: '', serverError: '' };

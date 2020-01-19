@@ -1,6 +1,6 @@
-import * as studio from '@modules/studio';
+import { listMap } from '@modules/studio';
 import { FullscreenMapButtonContainer } from './FullscreenMapButtonContainer';
 
-export const FullscreenMapButton = studio.listMap.enabled
+export const FullscreenMapButton = listMap.enabled
   ? FullscreenMapButtonContainer
   : () => null;

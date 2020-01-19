@@ -1,9 +1,10 @@
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 import { RootAction } from '@model/types';
-import * as services from '@modules/services';
+import { botGuard } from '@modules/services/utils/botGuard';
 import { useSelector } from 'react-redux';
-import * as ui from '@modules/ui';
+import { getIsBot } from '@modules/ui/model/selectors';
+import { changeIsBot } from '@modules/ui/model/actions';
 import { NextComponentType } from 'next';
 import { NextPageContext } from '../../../../pages/_app';
 
@@ -12,7 +13,7 @@ type ComponentProps = { isBot: boolean };
 type InitialProps = Promise<ComponentProps> | ComponentProps;
 
 export const useWithSEO = () => {
-  const isBot = useSelector(ui.selectors.getIsBot);
+  const isBot = useSelector(getIsBot);
 
   return { isBot };
 };
@@ -30,9 +31,9 @@ export const withSEO = <P extends ComponentProps>(
     if (req) {
       const actions = actionsGetter({ query });
 
-      if (services.botGuard(req)) {
+      if (botGuard(req)) {
         actions.forEach(action => store.dispatch(action()));
-        store.dispatch(ui.actions.changeIsBot(true));
+        store.dispatch(changeIsBot(true));
 
         return { isBot: true };
       }

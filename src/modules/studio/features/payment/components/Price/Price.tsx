@@ -1,15 +1,13 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
-import * as details from '../../../details';
+import * as details from '@modules/studio/features/details';
+import { Loader } from '@modules/ui';
 import { Typography, Amount } from './Price.styles';
 
 export type PriceProps = {
   isLoading: boolean;
   room?: ReturnType<typeof details.selectors.getRooms>[number];
 };
-
-const { Loader } = ui;
 
 export const Price = (props: PriceProps) => {
   if (

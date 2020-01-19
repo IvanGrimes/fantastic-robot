@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { getSize } from '../../../utils/size';
+import { getSize } from '@modules/studio/utils/size';
 import { Station as StyledStation } from './Station.styles';
 
 export type StationProps = {

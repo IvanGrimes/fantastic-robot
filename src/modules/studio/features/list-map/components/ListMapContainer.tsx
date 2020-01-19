@@ -3,7 +3,7 @@ import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { RootState } from '@model/types';
-import * as ui from '@modules/ui';
+import { selectors as uiSelectors } from '@modules/ui';
 import { getBreakpoints } from '@theme/breakpoints';
 import { usePrevious } from '@hooks/usePrevious';
 import { Theme } from '@theme/types';
@@ -18,7 +18,7 @@ type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   isMapListFullscreen: getIsFullscreen(state),
-  isHeaderVisible: ui.selectors.getIsHeaderVisible(state),
+  isHeaderVisible: uiSelectors.getIsHeaderVisible(state),
   studios: list.selectors.getStudios(state),
 });
 

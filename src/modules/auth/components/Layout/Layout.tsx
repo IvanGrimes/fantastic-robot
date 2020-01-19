@@ -1,10 +1,11 @@
 import React from 'react';
-import * as ui from '@modules/ui';
+import {
+  Layout as DefaultLayout,
+  LayoutProps as DefaultLayoutProps,
+} from '@modules/ui';
 import { Container } from './Layout.styles';
 
-const { Layout: DefaultLayout } = ui;
-
-export type LayoutProps = Pick<ui.LayoutProps, 'children'>;
+export type LayoutProps = Pick<DefaultLayoutProps, 'children'>;
 
 const layoutInjections = { HeaderBar: () => null };
 

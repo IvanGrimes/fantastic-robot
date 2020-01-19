@@ -2,10 +2,10 @@ import React, { memo, ReactNode } from 'react';
 import { withRouter } from 'next/router';
 import { RootState } from '@model/types';
 import { WithRouterProps } from 'next/dist/client/with-router';
+import * as details from '@modules/studio/features/details';
+import * as data from '@modules/studio/features/data';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
-import * as details from '../../details';
-import * as data from '../../data';
 import { DetailsVariant } from './types';
 import {
   getInformation,

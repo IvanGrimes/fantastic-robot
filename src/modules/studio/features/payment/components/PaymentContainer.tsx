@@ -7,15 +7,15 @@ import React, {
   useState,
 } from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
-import * as details from '../../details';
+import { useMediaQuery } from '@modules/ui/hooks';
+import { Container, Hidden } from '@modules/ui';
+import { DetailsVariant } from '@modules/studio/features/details';
+import { details } from '@modules/studio';
 import { Wrapper } from './Payment.styles';
 import { Payment } from './Payment';
 
-const { Hidden, Container, hooks: { useMediaQuery } } = ui
-
 export type PaymentProps = {
-  variant: details.DetailsVariant;
+  variant: DetailsVariant;
   isRoomsLoading: boolean;
   rooms: ReturnType<typeof details.selectors.getRooms>;
   isRoomLoading: boolean;

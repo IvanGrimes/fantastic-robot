@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter, withRouter, NextRouter } from 'next/router';
-import * as services from '@modules/services';
+import { withSEO } from '@modules/services/HOC/withSEO';
 import { RootState } from '@model/types';
-import * as ui from '@modules/ui';
+import { Link } from '@modules/ui';
 import { routes } from '@utils/routes';
 import * as details from '../../features/details';
 
 const { Details: DetailsComponent } = details;
-const { Link } = ui
 
 type OwnProps = { isBot: boolean; router: NextRouter };
 
@@ -90,7 +89,7 @@ export const Room = withRouter<OwnProps>(
     mapStateToProps,
     dispatchProps
   )(
-    services.withSEO<Props>(({ query }) => [
+    withSEO<Props>(({ query }) => [
       () =>
         details.actions.fetchRoomAsync.request({
           roomId: query.room as string,

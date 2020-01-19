@@ -1,4 +1,4 @@
-import * as services from '@modules/services';
+import { service } from '@modules/services';
 import { ConfigObject } from '../types';
 
 export type ConfigObjectResponse = {
@@ -10,6 +10,6 @@ export type ConfigObjectPropertyResponse = 'context' | 'equipment' | 'interior';
 export type ConfigObjectValueResponse = { id: string; value: string };
 
 export const fetchConfig = () =>
-  services.service
+  service
     .get<ConfigObject>('/api/siteconfig/all')
     .then(response => response.data);

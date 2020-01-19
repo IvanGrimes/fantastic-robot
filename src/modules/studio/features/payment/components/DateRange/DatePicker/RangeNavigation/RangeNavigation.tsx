@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import * as calendar from '../../../../../calendar';
-
-const { useCalendar, RangeNavigation: DefaultRangeNavigation } = calendar;
+import {
+  RangeNavigation as DefaultRangeNavigation,
+  useCalendar,
+} from '@modules/studio/features/calendar';
 
 export const RangeNavigation = () => {
   const { setRange } = useCalendar();

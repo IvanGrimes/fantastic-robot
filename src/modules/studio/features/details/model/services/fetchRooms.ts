@@ -1,15 +1,15 @@
-import * as services from '@modules/services';
-import * as details from '../../../details';
+import { StudioId } from '@modules/studio/features/details';
+import { service } from '@modules/services';
 import { RoomId } from '../types';
 
 export type FetchRoomsInput = {
-  studioId: details.StudioId;
+  studioId: StudioId;
 };
 
 export type RoomsResponse = {
   id: RoomId;
   name: string;
-  studioId: details.StudioId;
+  studioId: StudioId;
   calendarUrl: string;
   photoIds: string[];
   photoExamples: string[] | null;
@@ -18,6 +18,6 @@ export type RoomsResponse = {
 }[];
 
 export const fetchRooms = (params: FetchRoomsInput) =>
-  services.service
+  service
     .get<RoomsResponse>('/api/room/for-studio', { params })
     .then(({ data }) => data);

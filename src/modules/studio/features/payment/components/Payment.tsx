@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import * as ui from '@modules/ui';
-import * as details from '../../details';
+import { Hidden } from '@modules/ui';
+import { details } from '@modules/studio';
 import { Price } from './Price';
 import { Separator, ScrollableWrapper, Scrollable } from './Payment.styles';
 import { RoomSelect } from './RoomSelect';
@@ -15,8 +15,6 @@ export type PaymentProps = {
   roomId: string;
   handleChangeRoomId: (ev: ChangeEvent<{ value: unknown }>) => void;
 };
-
-const { Hidden } = ui
 
 export const Payment = ({
   room,

@@ -1,9 +1,14 @@
 import React, { ChangeEvent, memo } from 'react';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import * as ui from '@modules/ui';
+import {
+  BaseHeaderBar,
+  DynamicRendering,
+  SlideTransition,
+  Button,
+} from '@modules/ui';
+import * as details from '@modules/studio/features/details';
 import dequal from 'dequal';
-import * as details from '../../../../details';
 import { Price } from '../../Price';
 import { RoomSelectDesktop } from '../../RoomSelect';
 import { DesktopDateRange } from '../../DateRange';
@@ -20,8 +25,6 @@ export type MobileReserveProps = {
   roomId: string;
   rooms: ReturnType<typeof details.selectors.getRooms>;
 };
-
-const { SlideTransition, DynamicRendering, BaseHeaderBar, Button } = ui;
 
 const _MobileReserve = ({
   isLoading,

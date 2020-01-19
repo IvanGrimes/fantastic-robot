@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import { ComponentType } from 'react';
 import {
   FormGrid as DefaultFormGrid,
   FormGridProps,
-} from '../../../../components';
+} from '@modules/auth/components';
+import styled, { css } from 'styled-components';
+import { ComponentType } from 'react';
 
 export const FormGrid = styled<
   ComponentType<FormGridProps & { isVisible: boolean }>

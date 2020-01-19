@@ -2,7 +2,8 @@ import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import dequal from 'dequal';
 import { RootState } from '@model/types';
-import * as studio from '@modules/studio';
+import { setFilters } from '@modules/studio/features/filters/model/actions';
+import { getFilters } from '@modules/studio/features/filters/model/selectors';
 import { getIsHeaderVisible } from '../../../model/selectors';
 import { setHeaderVisibility } from '../../../model/actions';
 import { Header } from './Header';
@@ -14,12 +15,12 @@ type Props = HeaderProps & StoreProps;
 
 const mapStateToProps = (state: RootState) => ({
   isHeaderVisible: getIsHeaderVisible(state),
-  nameFilter: studio.filters.selectors.getFilters(state).name,
+  nameFilter: getFilters(state).name,
 });
 
 const dispatchProps = {
   handleSetHeaderVisibility: setHeaderVisibility,
-  handleSetFilters: studio.filters.actions.setFilters,
+  handleSetFilters: setFilters,
 };
 
 const _HeaderContainer = ({

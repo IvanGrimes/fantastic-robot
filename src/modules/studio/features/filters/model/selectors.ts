@@ -1,13 +1,13 @@
-import * as services from '@modules/services';
+import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
 import { RootState } from '@model/types';
 
 const getFiltersState = (state: RootState) => state.studio.filters;
 
-export const getFilters = services.createDeepEqualSelector(
+export const getFilters = createDeepEqualSelector(
   [getFiltersState],
   state => state
 );
-export const getHasFilters = services.createDeepEqualSelector([getFilters], filters =>
+export const getHasFilters = createDeepEqualSelector([getFilters], filters =>
   Boolean(
     filters.name ||
       filters.stations.length ||

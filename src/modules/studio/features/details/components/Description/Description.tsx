@@ -1,10 +1,8 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import * as ui from '@modules/ui';
+import { Loader } from '@modules/ui';
 import { Block } from '../Block';
 import { useDetails } from '../DetailsContext';
-
-const { Loader } = ui
 
 export const descriptionSkeleton = (
   <>

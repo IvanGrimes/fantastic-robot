@@ -1,6 +1,6 @@
-import * as services from '@modules/services';
-import * as details from '../../../details';
-import { CityType } from '../../../../model/types';
+import { StudioId } from '@modules/studio/features/details';
+import { CityType } from '@modules/studio';
+import { service } from '@modules/services';
 import { PriceType } from '../../../data';
 
 type StudioRawResponse = {
@@ -9,7 +9,7 @@ type StudioRawResponse = {
 };
 
 type StudioItemRawResponse = {
-  id: details.StudioId;
+  id: StudioId;
   name: string;
   interiorIds: string[];
   photoIds: string[];
@@ -47,7 +47,7 @@ export type FilterStudiosInput = {
 export const fetchFilterStudios = (params: FilterStudiosInput) => {
   const { city: cityId, ...query } = params;
 
-  return services.service
+  return service
     .get<StudioRawResponse>(`/api/studio/filter`, {
       params: { cityId, ...query },
     })

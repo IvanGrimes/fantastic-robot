@@ -1,3 +1,3 @@
-import * as auth from '@modules/auth';
+import { pages } from '@modules/auth';
 
-export default auth.pages.PasswordReset;
+export default pages.PasswordReset;

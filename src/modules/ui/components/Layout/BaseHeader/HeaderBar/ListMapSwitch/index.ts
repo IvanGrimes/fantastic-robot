@@ -1,6 +1,6 @@
-import * as studio from '@modules/studio';
+import { listMap } from '@modules/studio';
 import { ListMapSwitchContainer } from './ListMapSwitchContainer';
 
-export const ListMapSwitch = studio.listMap.enabled
+export const ListMapSwitch = listMap.enabled
   ? ListMapSwitchContainer
   : () => null;

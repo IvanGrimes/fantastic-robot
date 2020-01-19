@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
+import { DynamicRendering, SlideTransition, Button } from '@modules/ui';
 import dequal from 'dequal';
 import { MobileReserveProps } from '../MobileReserve';
 import { Price } from '../../Price';
@@ -10,8 +10,6 @@ import { DesktopDateRange } from '../../DateRange';
 import { DesktopReserve } from '../../Reserve';
 
 export type TabletReserveProps = MobileReserveProps;
-
-const { SlideTransition, DynamicRendering, Button } = ui
 
 const _TabletReserve = ({
   isLoading,

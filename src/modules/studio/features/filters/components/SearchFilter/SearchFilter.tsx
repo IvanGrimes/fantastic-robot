@@ -2,13 +2,11 @@ import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { RootState } from '@model/types';
-import * as ui from '@modules/ui';
+import { ClearableInput } from '@modules/ui/components';
 import { setFilters } from '../../model/actions';
 import { getFilters } from '../../model/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
-
-const { ClearableInput } = ui
 
 const mapStateToProps = (state: RootState) => ({
   value: getFilters(state).name,

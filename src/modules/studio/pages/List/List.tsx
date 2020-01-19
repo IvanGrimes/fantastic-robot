@@ -4,8 +4,8 @@ import { Grid } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { usePrevious } from '@hooks/usePrevious';
 import { RootState } from '@model/types';
-import * as services from '@modules/services';
-import * as ui from '@modules/ui';
+import { withSEO } from '@modules/services/HOC/withSEO';
+import { Layout } from '@modules/ui/components';
 import { routes } from '@utils/routes';
 import * as listMap from '../../features/list-map';
 import { ContentGrid, StudioListGrid } from './List.styles';
@@ -14,7 +14,6 @@ import * as filters from '../../features/filters';
 
 const { ListMap } = listMap;
 const { List: ListComponent } = list;
-const { Layout } = ui
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & { isBot: boolean };
@@ -79,7 +78,7 @@ export const List = connect(
   mapStateToProps,
   dispatchProps
 )(
-  services.withSEO<Props>(({ query }) => [
+  withSEO<Props>(({ query }) => [
     () =>
       list.actions.fetchStudiosAsync.request({
         city: 'moscow',

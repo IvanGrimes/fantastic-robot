@@ -1,10 +1,8 @@
 import React from 'react';
-import * as ui from '@modules/ui';
+import { DynamicRendering, GoogleMap } from '@modules/ui';
 import { Block } from '../Block';
 import { Wrapper } from './Location.styles';
 import { useDetails } from '../DetailsContext';
-
-const { DynamicRendering, GoogleMap } = ui
 
 export const Location = () => {
   const { isStudioLoading, studio } = useDetails();

@@ -1,12 +1,10 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
-import * as studio from '@modules/studio';
+import { ListFilter } from '@modules/studio/features/filters/components';
 import { ListMapSwitch } from './ListMapSwitch';
 import { BaseHeaderBar, BaseHeaderBarProps } from '../../BaseHeaderBar';
 
 export type HeaderBarProps = Omit<BaseHeaderBarProps, 'children'>;
-
-const { filters: { ListFilter } } = studio
 
 const _HeaderBar = ({ show }: HeaderBarProps) => (
   <BaseHeaderBar show={show}>

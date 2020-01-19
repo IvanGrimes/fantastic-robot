@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
-import { Rooms } from '../../../../components/Rooms';
-import { TextList } from '../../../../components/TextList';
+import { Rooms } from '@modules/studio/components/Rooms';
+import { TextList } from '@modules/studio/components/TextList';
+import { Loader } from '@modules/ui';
 import { StationsGrid, Stations } from './Specifications.styles';
 import { useDetails } from '../DetailsContext';
-
-const { Loader } = ui
 
 export const Specifications = () => {
   const {

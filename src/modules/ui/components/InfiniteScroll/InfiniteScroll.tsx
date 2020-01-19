@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 import { useRouter } from 'next/router';
-import * as studio from '@modules/studio';
+import { getAsPathWithFilters } from '@modules/studio/features/filters/utils/getAsPathWithFilters';
+import { parseFilters } from '@modules/studio/features/filters/utils/parseFilters';
 import { InfiniteScrollProps } from './index';
 
 export const InfiniteScroll = ({
@@ -43,9 +44,9 @@ export const InfiniteScroll = ({
       const scrollPosition =
         window.innerHeight + document.documentElement.scrollTop;
       const threshold = scrollPosition * (loadBefore / 100);
-      const nextAsPath = studio.filters.getAsPathWithFilters(
+      const nextAsPath = getAsPathWithFilters(
         getNextAsPath(),
-        studio.filters.parseFilters(asPath)
+        parseFilters(asPath)
       );
 
       if (

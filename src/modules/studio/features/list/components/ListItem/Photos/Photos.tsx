@@ -1,8 +1,9 @@
 import React, { memo, useMemo } from 'react';
 import dequal from 'dequal';
 import { Grid } from '@material-ui/core';
-import * as ui from '@modules/ui';
+import { LazyImage } from '@modules/ui/components/LazyImage';
 import { floatToFraction } from '@utils/floatToFraction';
+import { Carousel } from '@modules/ui/components/Carousel';
 import { PhotosSkeleton } from './PhotosSkeleton';
 import { ListItemProps } from '../index';
 
@@ -10,8 +11,6 @@ export type StudioListItemPhotosProps = { loading: boolean } & Pick<
   ListItemProps,
   'photoIds'
 >;
-
-const { Carousel, LazyImage } = ui
 
 const _StudioListItemPhotos = ({
   loading,

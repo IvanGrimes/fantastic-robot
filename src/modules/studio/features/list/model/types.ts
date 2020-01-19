@@ -1,6 +1,6 @@
-import * as details from '../../details';
-import * as data from '../../data';
-import { StudiosResponse, StudioItemResponse } from './services'
+import { StudioId } from '@modules/studio/features/details';
+import { PriceType } from '../../data';
+import { StudioItemResponse, StudiosResponse } from './services';
 
 export type Station = {
   id: string;
@@ -20,9 +20,9 @@ export type Image = {
 };
 
 export type ShortStudio = {
-  id: details.StudioId;
+  id: StudioId;
   name: string;
-  priceTypes: data.PriceType;
+  priceTypes: PriceType;
   stations: Station[];
   types: StudioType[];
   roomsCount: number;

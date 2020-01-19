@@ -1,10 +1,8 @@
 import React, { memo } from 'react';
 import dequal from 'dequal';
-import * as list from '../../../../list';
+import { ListItem } from '@modules/studio/features/list';
 import { PreviewListItemProps } from './index';
 import { Wrapper } from './PreviewListItem.styles';
-
-const { ListItem } = list
 
 const _PreviewListItem = ({
   isActive,

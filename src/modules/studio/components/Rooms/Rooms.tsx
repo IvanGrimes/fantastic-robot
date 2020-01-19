@@ -1,18 +1,16 @@
 import React, { memo, ReactNode } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { getDeclension } from '@utils/getDeclension';
-import * as ui from '@modules/ui';
-import * as list from '../../features/list';
-import { getSize, Size } from '../../utils/size';
+import { ListItemProps } from '@modules/studio/features/list';
+import { getSize, Size } from '@modules/studio/utils/size';
+import { Loader } from '@modules/ui';
 
 export type StudioListItemRoomsProps = {
   loading: boolean;
   className?: string;
   size?: Size;
   skeleton?: ReactNode;
-} & Partial<Pick<list.ListItemProps, 'roomsCount'>>;
-
-const { Loader } = ui
+} & Partial<Pick<ListItemProps, 'roomsCount'>>;
 
 const _StudioListItemRooms = ({
   className = '',
