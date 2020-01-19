@@ -1,10 +1,10 @@
 import React from 'react';
-import { useCalendar } from '@modules/studio/features/calendar';
+import * as calendar from '../../../../../calendar';
 import { Typography } from '@material-ui/core';
 import { format } from 'date-fns';
 
 export const ViewRange = () => {
-  const { from } = useCalendar();
+  const { from } = calendar.useCalendar();
 
   return (
     <Typography variant="body2">

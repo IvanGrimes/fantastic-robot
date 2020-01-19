@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { withSEO } from '@modules/services/HOC/withSEO';
+import * as services from '@modules/services';
 import { RootState } from '@model/types';
-import { Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { routes } from '@utils/routes';
 import * as details from '../../features/details';
 
 const { Details } = details;
+const { Link } = ui;
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & { isBot: boolean };
@@ -77,7 +78,7 @@ export const Studio = connect(
   mapStateToProps,
   dispatchProps
 )(
-  withSEO<Props>(({ query }) => {
+  services.withSEO<Props>(({ query }) => {
     const studioId = query.studio as string;
 
     return [

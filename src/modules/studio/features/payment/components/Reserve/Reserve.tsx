@@ -7,14 +7,15 @@ import React, {
 } from 'react';
 import { useTheme } from '@material-ui/styles';
 import { getBreakpoints } from '@theme/breakpoints';
-import * as details from '@modules/studio/features/details';
 import { Theme } from '@theme/types';
-import { Hidden } from '@modules/ui';
-import { useMediaQuery } from '@modules/ui/hooks';
+import * as ui from '@modules/ui';
 import { useToggle } from '@hooks/useToggle';
+import * as details from '../../../details';
 import { DesktopReserve, DesktopReserveProps } from './DesktopReserve';
 import { TabletReserve } from './TabletReserve';
 import { MobileReserve } from './MobileReserve';
+
+const { Hidden, hooks: { useMediaQuery } } = ui
 
 export type Reserve = DesktopReserveProps & {
   largeTabletQuery: string;

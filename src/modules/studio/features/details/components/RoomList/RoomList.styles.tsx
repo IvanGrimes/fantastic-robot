@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { ComponentType } from 'react';
-import { Carousel, CarouselProps } from '@modules/ui/components/Carousel';
+import * as ui from '@modules/ui';
 
-export const RoomListCarousel = styled<ComponentType<CarouselProps>>(Carousel)`
+const { Carousel } = ui
+
+export const RoomListCarousel = styled<ComponentType<ui.CarouselProps>>(Carousel)`
   margin: 0 0 36px -10px;
   & > .slick-arrow {
     display: none !important;

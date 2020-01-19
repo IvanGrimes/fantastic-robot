@@ -1,5 +1,5 @@
-import { parseRequestType } from '../../utils/parseRequestType';
 import { RootAction } from '@model/types';
+import { parseRequestType } from '../../utils/parseRequestType';
 
 type LoadingState = {
   [key: string]: boolean;

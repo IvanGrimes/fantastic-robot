@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { Grid, Portal } from '@material-ui/core';
-import { Loader } from '@modules/ui';
+import * as ui from '@modules/ui';
 import dequal from 'dequal';
 import { List, ListItem } from './DateRange.styles';
 import { useFunctional } from '../useFunctional';
@@ -10,6 +10,8 @@ import { DatePicker } from '../DatePicker';
 export type DesktopDateRangeProps = {
   isLoading: boolean;
 };
+
+const { Loader } = ui
 
 const _DesktopDateRange = ({ isLoading }: DesktopDateRangeProps) => {
   const wrapperRef = useRef<HTMLElement>(null);

@@ -4,6 +4,7 @@ import * as selectors from './model/selectors';
 export * from './components';
 export { reducer } from './model/reducer';
 export { saga } from './model/saga';
+export * from './utils'
 
 const enabled = true;
 

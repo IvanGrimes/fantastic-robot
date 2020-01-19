@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
-import { BaseHeaderBarProps } from '@modules/ui';
+import * as ui from '@modules/ui';
 import {
   HeaderBar as StyledHeaderBar,
   Icon,
   LinkWrapper,
 } from './HeaderBarStyles';
 
-type Props = BaseHeaderBarProps & { backLink?: ReactNode };
+type Props = ui.BaseHeaderBarProps & { backLink?: ReactNode };
 
 export const HeaderBar = ({ show, className, backLink = null }: Props) => {
   return (

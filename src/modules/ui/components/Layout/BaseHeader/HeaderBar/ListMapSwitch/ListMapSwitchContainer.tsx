@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import { useTheme } from '@material-ui/styles';
 import { RootState } from '@model/types';
-import { listMap } from '@modules/studio';
+import * as studio from '@modules/studio';
 import { useRequestAnimationFrame } from '@hooks/useRequestAnimationFrame';
 import { Theme } from '@theme/types';
 import { getBreakpoints } from '@theme/index';
 import { ListMapSwitch } from './ListMapSwitch';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+
+const { listMap } = studio
 
 const mapStateToProps = (state: RootState) => ({
   isVisible: listMap.selectors.getIsEnabled(state),

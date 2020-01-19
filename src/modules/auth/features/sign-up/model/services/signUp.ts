@@ -1,4 +1,4 @@
-import { service } from '@modules/services';
+import * as services from '@modules/services';
 
 export type SignUpInput = {
   mail: string;
@@ -20,4 +20,4 @@ export type SignUpErrors = {
 };
 
 export const signUp = (input: SignUpInput) =>
-  service.post<SignUpResponse>('/api/user/register', input);
+  services.service.post<SignUpResponse>('/api/user/register', input);

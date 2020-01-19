@@ -1,10 +1,12 @@
 import React from 'react';
-import { TextField, Button, Form as FormComponent, Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import { routes } from '@utils/routes';
 import { ChevronLeft } from '@material-ui/icons';
 import { validateEmail } from '../../../../utils/validations';
 import { FormGrid } from '../../../../components';
+
+const { TextField, Button, Form: FormComponent, Link } = ui;
 
 export const Form = () => (
   <FormComponent onSubmit={console.log}>

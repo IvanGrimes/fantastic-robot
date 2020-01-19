@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import dequal from 'dequal';
-import { Hidden } from '@modules/ui/components';
+import * as ui from '@modules/ui';
 import { MobileFilters } from './MobileFilters';
 import { DesktopFilters } from './DesktopFilters';
 
@@ -9,6 +9,8 @@ export type StudioListFilterProps = {
   handleClearFilters: () => void;
   isLoading: boolean;
 };
+
+const { Hidden } = ui
 
 const _ListFilter = ({
   className,

@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
 import { getPriceType } from '@utils/getPriceType';
-import { getSize, Size } from '@modules/studio/utils/size';
-import { PriceType as IPriceType } from '@modules/studio/features/data';
+import * as data from '../../features/data';
+import { getSize, Size } from '../../utils/size';
 import { Typography } from './PriceType.styles';
 
 export type StudioListItemPriceTypeProps = {
   className?: string;
   size?: Size;
-  priceType: IPriceType | number;
+  priceType: data.PriceType | number;
 };
 
 const _StudioListItemPriceType = ({

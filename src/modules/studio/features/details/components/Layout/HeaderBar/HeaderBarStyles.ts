@@ -1,13 +1,12 @@
-import {
-  BaseHeaderBar,
-  BaseHeaderBarProps,
-} from '@modules/ui/components/Layout/BaseHeaderBar';
+import * as ui from '@modules/ui';
 import styled from 'styled-components';
 import { ComponentType } from 'react';
 import { ArrowBackIos } from '@material-ui/icons';
 import { grey } from '@material-ui/core/colors';
 
-export const HeaderBar = styled<ComponentType<BaseHeaderBarProps>>(
+const { BaseHeaderBar } = ui
+
+export const HeaderBar = styled<ComponentType<ui.BaseHeaderBarProps>>(
   BaseHeaderBar
 )`
   && {

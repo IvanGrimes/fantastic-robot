@@ -1,9 +1,8 @@
 import styled, { css } from 'styled-components';
-import {
-  CellProps,
-  Cell as DefaultCell,
-} from '@modules/studio/features/calendar';
 import { ComponentType } from 'react';
+import * as calendar from '../../../../calendar';
+
+const { Cell: DefaultCell } = calendar
 
 export const Wrapper = styled.div<{ isVisible: boolean; x: number; y: number }>`
   ${({ isVisible, y, x }) => css`
@@ -17,7 +16,7 @@ export const Wrapper = styled.div<{ isVisible: boolean; x: number; y: number }>`
   `};
 `;
 
-export const Cell = styled<ComponentType<CellProps>>(DefaultCell)`
+export const Cell = styled<ComponentType<calendar.CellProps>>(DefaultCell)`
   && {
     padding: 4px 0;
     &:last-child {

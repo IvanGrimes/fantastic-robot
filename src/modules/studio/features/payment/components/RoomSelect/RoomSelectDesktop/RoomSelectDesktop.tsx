@@ -1,5 +1,5 @@
 import React, { Fragment, memo } from 'react';
-import { Hidden, Loader, Select } from '@modules/ui';
+import * as ui from '@modules/ui';
 import dequal from 'dequal';
 import { useFunctional, UseFunctionalProps } from '../useFunctional';
 
@@ -7,6 +7,8 @@ export type RoomSelectDesktopProps = UseFunctionalProps & {
   isLoading: boolean;
   largeTabletQuery?: string;
 };
+
+const { Hidden, Loader, Select } = ui
 
 const _RoomSelectDesktop = ({
   isLoading,

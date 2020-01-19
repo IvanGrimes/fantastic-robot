@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, PasswordField, getForm } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import {
   validateName,
@@ -8,6 +8,8 @@ import {
   password,
 } from '../../../../utils/validations';
 import { FormGrid } from './Form.styles';
+
+const { TextField, PasswordField, Button } = ui
 
 export type FormFields = {
   name: string;
@@ -22,7 +24,7 @@ export type FormProps = {
   isLoading: boolean;
 };
 
-const FormComponent = getForm<FormFields>();
+const FormComponent = ui.getForm<FormFields>();
 
 export const Form = ({ isVisible, onSubmit, isLoading }: FormProps) => (
   <FormComponent onSubmit={onSubmit}>

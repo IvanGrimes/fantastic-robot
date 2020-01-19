@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { ComponentType } from 'react';
 import { floatToFraction } from '@utils/floatToFraction';
-import {
-  Loader as DefaultLoader,
-  LoaderProps,
-} from '@modules/ui/components/Loader';
+import * as ui from '@modules/ui';
+
+const { Loader: DefaultLoader } = ui
 
 export const Wrapper = styled.div`
   && {
@@ -15,7 +14,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Loader = styled<ComponentType<LoaderProps>>(DefaultLoader)`
+export const Loader = styled<ComponentType<ui.LoaderProps>>(DefaultLoader)`
   && {
     position: absolute;
     top: 0;

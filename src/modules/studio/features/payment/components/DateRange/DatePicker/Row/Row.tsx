@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-  RowProps,
-  StyledRow,
-  useCalendar,
-  useCalendarInjections,
-} from '@modules/studio/features/calendar';
 import { getDate } from 'date-fns';
+import * as calendar from '../../../../../calendar';
 
-export const Row = ({ data, selectTime }: RowProps) => {
+const { useCalendarInjections, useCalendar, StyledRow } = calendar
+
+export const Row = ({ data, selectTime }: calendar.RowProps) => {
   const { Cell } = useCalendarInjections();
   const { from } = useCalendar();
   const fromDay = getDate(from);

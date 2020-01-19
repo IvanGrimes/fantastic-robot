@@ -1,11 +1,13 @@
 import React from 'react';
-import { Calendar } from '@modules/studio/features/calendar';
-import { DynamicRendering } from '@modules/ui';
-import { useWithSEO } from '@modules/services';
+import * as ui from '@modules/ui';
+import * as services from '@modules/services';
+import { Calendar } from '../../../calendar';
 import { Block } from '../Block';
 
+const { DynamicRendering } = ui;
+
 export const Schedule = () => {
-  const { isBot } = useWithSEO();
+  const { isBot } = services.useWithSEO();
 
   return (
     <DynamicRendering force={isBot}>

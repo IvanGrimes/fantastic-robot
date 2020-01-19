@@ -1,10 +1,10 @@
 import React, { memo, ReactNode } from 'react';
 import { Grid } from '@material-ui/core';
 import dequal from 'dequal';
-import { ListItemProps } from '@modules/studio/features/list';
-import * as data from '@modules/studio/features/data';
-import { getSize, Size } from '@modules/studio/utils/size';
-import { Loader } from '@modules/ui';
+import * as ui from '@modules/ui';
+import * as fList from '../../features/list';
+import * as data from '../../features/data';
+import { getSize, Size } from '../../utils/size';
 import { Station } from './Station';
 import { useConfig } from '../../hooks/useConfig';
 
@@ -14,7 +14,9 @@ export type StationsProps = {
   list?: ReturnType<typeof data.selectors.getMetroList>;
   size?: Size;
   skeleton?: ReactNode;
-} & Pick<ListItemProps, 'stationIds'>;
+} & Pick<fList.ListItemProps, 'stationIds'>;
+
+const { Loader } = ui
 
 const _StudioListItemStations = ({
   className = '',

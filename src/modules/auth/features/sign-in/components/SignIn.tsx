@@ -1,10 +1,12 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { routes } from '@utils/routes';
 import { ServicesLayout, Separator } from '../../../components';
 import { Form } from './Form';
 import { VkAuthButton } from '../../social';
+
+const { Link } = ui
 
 export const SignIn = () => (
   <ServicesLayout

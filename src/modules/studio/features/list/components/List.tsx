@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { Container } from '@modules/ui/components';
+import * as ui from '@modules/ui';
 import { ListItem, ListItemPersist } from './ListItem';
 import {
   Wrapper,
@@ -10,6 +10,8 @@ import {
   InfiniteScrollLoader,
 } from './List.styles';
 import { StudioItem } from '../model/types';
+
+const { Container } = ui
 
 export type ListProps = ListItemPersist & {
   className?: string;

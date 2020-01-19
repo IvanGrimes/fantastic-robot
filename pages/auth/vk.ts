@@ -1,3 +1,3 @@
-import { pages } from '@modules/auth';
+import * as auth from '@modules/auth';
 
-export default pages.Social;
+export default auth.pages.Social;

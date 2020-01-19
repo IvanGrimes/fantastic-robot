@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { PriceType as PriceTypeComponent } from '@modules/studio/components/PriceType';
-import { Hidden, Loader } from '@modules/ui';
+import * as ui from '@modules/ui';
+import { PriceType as PriceTypeComponent } from '../../../../components/PriceType';
 import { useDetails } from '../DetailsContext';
+
+const { Loader, Hidden } = ui
 
 export const Header = () => {
   const {

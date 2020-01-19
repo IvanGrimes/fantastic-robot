@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Grid } from '@material-ui/core';
-import { Loader, Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { routes } from '@utils/routes';
 import { ListItemProps } from './index';
 import { Card, CardBottomGrid, CardContent } from './ListItem.styles';
@@ -10,6 +10,8 @@ import { TextList } from '../../../../components/TextList';
 import { Rooms } from '../../../../components/Rooms';
 import { Stations } from '../../../../components/Stations';
 import { PriceType } from '../../../../components/PriceType';
+
+const { Link, Loader } = ui
 
 const _ListItem = ({
   variant,

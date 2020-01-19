@@ -4,13 +4,12 @@ import { GridProps } from '@material-ui/core/Grid';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import { getBreakpoints } from '@theme/breakpoints';
-import {
-  InfiniteScroll as DefaultInfiniteScroll,
-  InfiniteScrollProps,
-} from '@modules/ui/components';
+import * as ui from '@modules/ui';
 import { ListItemProps } from './ListItem';
 
-export const InfiniteScroll = styled<ComponentType<InfiniteScrollProps>>(
+const { InfiniteScroll: DefaultInfiniteScroll } = ui
+
+export const InfiniteScroll = styled<ComponentType<ui.InfiniteScrollProps>>(
   DefaultInfiniteScroll
 )`
   && {
@@ -92,7 +91,7 @@ export const ListItemGrid = styled<ComponentType<GridProps>>(props => (
         css`
           padding-left: 0 !important;
           padding-right: 0 !important;
-        `}
+        `};
     }
   `};
 `;

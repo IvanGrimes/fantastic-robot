@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { Carousel, LazyImage, Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { floatToFraction } from '@utils/floatToFraction';
-import { TextList } from '@modules/studio/components/TextList';
 import { routes } from '@utils/routes';
+import { TextList } from '../../../../../components/TextList';
 import { Wrapper, ContentGrid } from './RoomListItem.styles';
 import { useDetails } from '../../DetailsContext';
 
@@ -16,6 +16,8 @@ export type RoomListItemProps = {
   interiorIds: string[];
   averagePrice: number;
 };
+
+const { Carousel, LazyImage, Link } = ui
 
 export const RoomListItem = ({
   averagePrice,

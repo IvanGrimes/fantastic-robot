@@ -1,4 +1,4 @@
-import { CityType } from '@modules/studio';
+import { CityType } from '../../../../model/types';
 import { fetchFilterStudios } from './fetchFilterStudios';
 
 export type StudiosInput = {

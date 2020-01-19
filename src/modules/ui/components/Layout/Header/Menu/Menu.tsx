@@ -1,8 +1,10 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Link } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { routes } from '@utils/routes';
 import { MenuGrid } from './Menu.styles';
+
+const { Link } = ui
 
 export const Menu = () => (
   <MenuGrid item container component="nav" md={5}>

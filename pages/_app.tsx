@@ -8,11 +8,9 @@ import { Store } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import withSaga from 'next-redux-saga';
 import { NextPageContext as PageContext } from 'next';
-import { initializeAsync } from '@modules/auth/model/actions';
-import { onMount } from '@modules/services/model/service';
-import { botGuard } from '@modules/services/utils/botGuard';
-import { MediaQueryProvider } from '@modules/ui/hooks';
-import { SEO, GlobalStyles } from '@modules/ui/components';
+import * as auth from '@modules/auth';
+import * as services from '@modules/services';
+import * as ui from '@modules/ui';
 import * as studio from '@modules/studio';
 import { theme } from '@theme/index';
 import { RootState } from '@model/types';
@@ -25,6 +23,12 @@ type AppStore = Store<RootState>;
 export type NextPageContext = PageContext & { store: AppStore };
 
 type DeviceType = 'mobile' | 'tablet';
+
+const {
+  GlobalStyles,
+  SEO,
+  hooks: { MediaQueryProvider },
+} = ui;
 
 const getWidthByDevice = (device: DeviceType) => {
   switch (device) {
@@ -71,7 +75,7 @@ class MyApp extends App<{
   }: AppContext & { ctx: { store: AppStore } }) {
     let pageProps = {};
     const { req, store } = ctx;
-    const isBot = req && botGuard(req);
+    const isBot = req && services.botGuard(req);
     const matchMedia = MyApp.getWidth(ctx);
 
     if (Component.getInitialProps) {
@@ -111,9 +115,9 @@ class MyApp extends App<{
     MyApp.removeServerStyles();
 
     if (!isBot) {
-      onMount(store.dispatch);
+      services.onMount(store.dispatch);
 
-      store.dispatch(initializeAsync.request());
+      store.dispatch(auth.actions.initializeAsync.request());
 
       MyApp.fetchData(store);
     }

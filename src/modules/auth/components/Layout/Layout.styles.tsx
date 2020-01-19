@@ -1,8 +1,10 @@
 import React, { ComponentType } from 'react';
-import { Container as DefaultContainer, ContainerProps } from '@modules/ui';
+import * as ui from '@modules/ui';
 import styled from 'styled-components';
 
-export const Container = styled<ComponentType<ContainerProps>>(props => (
+const { Container: DefaultContainer } = ui
+
+export const Container = styled<ComponentType<ui.ContainerProps>>(props => (
   <DefaultContainer {...props} />
 ))`
   && {

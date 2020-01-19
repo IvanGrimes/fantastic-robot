@@ -1,9 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { Await } from '@utils/Await';
-import {
-  fetchInformation,
-  FetchInformationInput,
-} from '@modules/studio/features/details/model/services/fetchInformation';
+import * as details from '../../details';
 import {
   fetchReservations,
   FetchReservationsInput,
@@ -27,7 +24,11 @@ export const fetchInformationAsync = createAsyncAction(
   'studio/details/FETCH_INFORMATION_REQUEST',
   'studio/details/FETCH_INFORMATION_SUCCESS',
   'studio/details/FETCH_INFORMATION_FAIL'
-)<FetchInformationInput, Await<ReturnType<typeof fetchInformation>>, any>();
+)<
+  details.services.FetchInformationInput,
+  Await<ReturnType<typeof details.services.fetchInformation>>,
+  any
+>();
 
 export const fetchRoomAsync = createAsyncAction(
   'studio/details/FETCH_ROOM_REQUEST',

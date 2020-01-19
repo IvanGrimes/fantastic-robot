@@ -8,12 +8,7 @@ import {
 } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import dequal from 'dequal';
-import {
-  Container,
-  DynamicRendering,
-  SlideTransition,
-  BaseHeaderBar,
-} from '@modules/ui';
+import * as ui from '@modules/ui';
 import {
   FilterGrid,
   Wrapper,
@@ -29,6 +24,8 @@ type Props = {
   handleClearFilters: () => void;
   isLoading: boolean;
 };
+
+const { Container, DynamicRendering, SlideTransition, BaseHeaderBar } = ui;
 
 const _StudioListFilterMobile = ({
   className,

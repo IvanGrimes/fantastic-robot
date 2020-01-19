@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
-import { PropertyList } from '@modules/ui/components';
+import * as ui from '@modules/ui/components';
 import { RootState } from '@model/types';
 import { getPriceType } from '@utils/getPriceType';
 import { StudioListFilterPriceSegmentProps } from './index';
@@ -12,6 +12,8 @@ import * as data from '../../../data';
 type Props = StudioListFilterPriceSegmentProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
+
+const { PropertyList } = ui
 
 const mapStateToProps = (state: RootState) => ({
   list: data.selectors.getConfig(state).price,

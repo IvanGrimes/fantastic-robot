@@ -1,9 +1,9 @@
 import React, { ReactNode, useMemo } from 'react';
 import { Grid } from '@material-ui/core';
-import { Photos } from '@modules/studio/features/details/components/Photos';
-import { Container, Hidden } from '@modules/ui';
-import { CalendarProvider } from '@modules/studio/features/calendar';
-import { Payment } from '@modules/studio/features/payment';
+import * as ui from '@modules/ui';
+import { Photos } from './Photos';
+import * as calendar from '../../calendar';
+import * as payment from '../../payment';
 import { MainGrid } from './Details.styles';
 import { Layout } from './Layout';
 import { useDetails } from './DetailsContext';
@@ -16,6 +16,10 @@ import { Schedule } from './Schedule';
 import { Location } from './Location';
 
 export type DetailsNewProps = { backLink: ReactNode };
+
+const { Container, Hidden } = ui;
+const { CalendarProvider } = calendar;
+const { Payment } = payment;
 
 export const Details = ({ backLink }: DetailsNewProps) => {
   const {

@@ -1,12 +1,13 @@
 import React from 'react';
-import { useMediaQuery } from '@modules/ui/hooks';
-import { Hidden } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { Grid } from '@material-ui/core';
 import { DesktopDateRange, DesktopDateRangeProps } from './DesktopDateRange';
 
 type Props = DesktopDateRangeProps & {
   largeTabletQuery: string;
 };
+
+const { hooks: { useMediaQuery }, Hidden } = ui
 
 export const DateRange = ({ isLoading, largeTabletQuery }: Props) => {
   const largeTabletMatches = useMediaQuery(largeTabletQuery);

@@ -1,9 +1,9 @@
 import { usePrevious } from '@hooks/usePrevious';
 import { useEffect, useReducer } from 'react';
-import { useCalendar } from '@modules/studio/features/calendar';
+import * as calendar from '../../../calendar';
 
 export const useCacheSelectedTime = ({ id }: { id: string | number }) => {
-  const { select, selectTime } = useCalendar();
+  const { select, selectTime } = calendar.useCalendar();
   const prevId = usePrevious(id);
   const [selectedTimeCache, pushSelectedTime] = useReducer(
     (state: Partial<{ [key: string]: number[] }>, selectedTime: number[]) => ({

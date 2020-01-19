@@ -1,7 +1,6 @@
 import { RootState } from '@model/types';
-import { createDeepEqualSelector } from '@modules/services/utils/createDeepEqualSelector';
+import * as services from '@modules/services';
 import { getType } from 'typesafe-actions';
-import { createRequestLoadingSelector } from '@modules/services';
 import { createSelector } from 'reselect';
 import {
   fetchInformationAsync,
@@ -24,26 +23,26 @@ const defaultRoom = {
 
 const getState = (state: RootState) => state.studio.details;
 
-export const getReservations = createDeepEqualSelector(
+export const getReservations = services.createDeepEqualSelector(
   [getState],
   state => state.reservations
 );
 
-export const getWorkHours = createDeepEqualSelector(
+export const getWorkHours = services.createDeepEqualSelector(
   [getState],
   state => state.workHours
 );
 
-export const getRoomsLoading = createRequestLoadingSelector([
+export const getRoomsLoading = services.createRequestLoadingSelector([
   getType(fetchRoomsAsync.request),
 ]);
 
-export const getRooms = createDeepEqualSelector(
+export const getRooms = services.createDeepEqualSelector(
   [getState],
   state => state.rooms
 );
 
-export const getReservationsWithColor = createDeepEqualSelector(
+export const getReservationsWithColor = services.createDeepEqualSelector(
   [getReservations, getRooms],
   (reservations, rooms) =>
     Object.entries(reservations)
@@ -63,16 +62,16 @@ export const getReservationsWithColor = createDeepEqualSelector(
       .reduce((acc, [key, value]) => ({ ...acc, [key.toString()]: value }), {})
 );
 
-export const getReservationsLoading = createRequestLoadingSelector([
+export const getReservationsLoading = services.createRequestLoadingSelector([
   getType(fetchReservationsAsync.request),
 ]);
 
-export const getInformation = createDeepEqualSelector(
+export const getInformation = services.createDeepEqualSelector(
   [getState],
   state => state.information
 );
 
-export const getInformationLoading = createRequestLoadingSelector([
+export const getInformationLoading = services.createRequestLoadingSelector([
   getType(fetchInformationAsync.request),
 ]);
 
@@ -82,7 +81,7 @@ export const getRoomById = (state: RootState, { roomId }: { roomId: RoomId }) =>
     ({ rooms }) => rooms.filter(({ id }) => id === roomId)[0] || defaultRoom
   )(state);
 
-const getIsRoomLoading = createRequestLoadingSelector([
+const getIsRoomLoading = services.createRequestLoadingSelector([
   getType(fetchRoomAsync.request),
 ]);
 

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { Loader } from '@modules/ui';
+import * as ui from '@modules/ui';
 import { getSize, Size } from '../../utils/size';
 import { useConfig } from '../../hooks/useConfig';
 
@@ -12,6 +12,8 @@ export type TextListProps = {
   size?: Size;
   skeleton?: ReactNode;
 };
+
+const { Loader } = ui
 
 export const TextList = ({
   className = '',

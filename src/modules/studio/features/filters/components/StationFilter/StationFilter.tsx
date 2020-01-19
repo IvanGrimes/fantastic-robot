@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import dequal from 'dequal';
 import { connect } from 'react-redux';
 import { Grid, Typography } from '@material-ui/core';
-import { PropertyList } from '@modules/ui/components';
+import * as ui from '@modules/ui';
 import { RootState } from '@model/types';
 import { ColorCircle } from './StationFilter.styles';
 import { StudioListFilterStationProps } from './index';
@@ -13,6 +13,8 @@ import * as data from '../../../data';
 type Props = StudioListFilterStationProps &
   ReturnType<typeof mapStateToProps> &
   typeof dispatchProps;
+
+const { PropertyList } = ui
 
 const mapStateToProps = (state: RootState) => ({
   list: data.selectors.getMetroList(state),

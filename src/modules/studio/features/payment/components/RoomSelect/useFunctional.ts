@@ -1,6 +1,6 @@
-import { useCalendar } from '@modules/studio/features/calendar';
 import { ChangeEvent, useCallback, useMemo } from 'react';
-import * as details from '@modules/studio/features/details';
+import * as calendar from '../../../calendar';
+import * as details from '../../../details';
 import { useCacheSelectedTime } from './useCacheSelectedTime';
 
 export type UseFunctionalProps = {
@@ -15,7 +15,7 @@ export const useFunctional = ({
   handleChange,
 }: UseFunctionalProps) => {
   useCacheSelectedTime({ id: value });
-  const { clearSelectedTime } = useCalendar();
+  const { clearSelectedTime } = calendar.useCalendar();
   const options = useMemo(
     () =>
       list

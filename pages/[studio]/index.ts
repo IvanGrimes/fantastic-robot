@@ -1,3 +1,3 @@
-import { pages } from '@modules/studio';
+import * as studio from '@modules/studio';
 
-export default pages.Studio;
+export default studio.pages.Studio;

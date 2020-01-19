@@ -1,3 +1,3 @@
-import { pages } from '@modules/auth';
+import * as auth from '@modules/auth';
 
-export default pages.SignIn;
+export default auth.pages.SignIn;

@@ -1,7 +1,7 @@
-import { useCalendar } from '@modules/studio/features/calendar';
+import * as calendar from '../../../../calendar';
 
 export const useFunctional = () => {
-  const { select } = useCalendar();
+  const { select } = calendar.useCalendar();
   const hasRange = select.length > 1;
   const selectedHours = select.length - 1;
 
