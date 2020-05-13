@@ -1,22 +1,44 @@
 import React, { FunctionComponent } from 'react';
-import { ListServiceProps } from '../../internal';
+import { ServiceProps } from './types';
 import { ListItem } from './ListItem';
 
-export const List: FunctionComponent<{
-  list: ListServiceProps;
-}> = ({ list }) => {
-  if (list.isInit(list) || list.isLoading(list)) {
-    return <div>loading</div>;
-  }
-  if (list.isFail(list)) {
-    return <div>{list.error.message}</div>;
+export const List: FunctionComponent<ServiceProps> = ({
+  studioList,
+  roomList,
+}) => {
+  if (studioList) {
+    if (studioList.isInit(studioList) || studioList.isLoading(studioList)) {
+      return <div>studio list is loading</div>;
+    }
+    if (studioList.isFail(studioList)) {
+      return <div>studio list has error</div>;
+    }
+
+    return (
+      <ul>
+        {studioList.data.map((entity) => (
+          <ListItem key={entity.getKey()} entity={entity} />
+        ))}
+      </ul>
+    );
   }
 
-  return (
-    <ul>
-      {list.data.map((entity) => (
-        <ListItem key={entity.getKey()} studio={entity} />
-      ))}
-    </ul>
-  );
+  if (roomList) {
+    if (roomList.isInit(roomList) || roomList.isLoading(roomList)) {
+      return <div>room list is loading</div>;
+    }
+    if (roomList.isFail(roomList)) {
+      return <div> room list has error</div>;
+    }
+
+    return (
+      <ul>
+        {roomList.data.map((entity) => (
+          <ListItem key={entity.getData().id} entity={entity} />
+        ))}
+      </ul>
+    );
+  }
+
+  return null;
 };

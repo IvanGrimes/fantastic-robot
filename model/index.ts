@@ -7,6 +7,7 @@ export {
   StudioEntity,
   ConfigEntity,
   configService,
+  RoomEntity,
 } from './internal';
 export type {
   GetPropsFromService,
@@ -14,4 +15,6 @@ export type {
   Config,
   CityId,
   ConfigServiceProps,
+  Room,
+  GetEntityName,
 } from './internal';

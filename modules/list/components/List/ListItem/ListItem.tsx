@@ -1,16 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { StudioEntity } from '../../../../../model/entities';
+import { RoomEntity, StudioEntity } from '../../../../../model';
+import { StudioListItem } from './StudioListItem';
+import { RoomListItem } from './RoomListItem';
 
-export const ListItem: FunctionComponent<{ studio: StudioEntity }> = ({
-  studio,
-}) => {
-  const {
-    studio: { id },
-  } = studio.getData();
+export const ListItem: FunctionComponent<{
+  entity: RoomEntity | StudioEntity;
+}> = ({ entity }) => {
+  if (entity instanceof StudioEntity) {
+    return <StudioListItem entity={entity} />;
+  }
 
-  return (
-    <div>
-      <h6>{id}</h6>
-    </div>
-  );
+  return <RoomListItem entity={entity} />;
 };

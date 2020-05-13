@@ -1,4 +1,11 @@
 import { Entity } from './internal';
+import {
+  ComfortId,
+  EquipmentId,
+  PhotoId,
+  PriceType,
+  StationId,
+} from '../internal';
 
 export type Studio = {
   roomIds: string[];
@@ -9,7 +16,8 @@ export type Studio = {
     closeMinutes: number;
     openMinutes: number;
     description: string;
-    equipmentIds: string[];
+    equipmentIds: EquipmentId[];
+    comfortIds: ComfortId[];
     hasDressingRoom: boolean;
     hasOnlinePayment: boolean;
     id: string;
@@ -20,19 +28,21 @@ export type Studio = {
     };
     mail: string;
     name: string;
-    photoIds: string[];
-    priceType: 1 | 2 | 3;
+    photoIds: PhotoId[];
+    priceType: PriceType;
     roomNumber: number;
     site: string;
-    stationIds: string[];
+    stationIds: StationId[];
     utcZone: string;
     vk: string;
   };
 };
 
-export class StudioEntity extends Entity<Studio> {
+const name = 'studio';
+
+export class StudioEntity extends Entity<typeof name, Studio> {
   constructor(data: Studio) {
-    super('studio', data);
+    super(name, data);
   }
 
   hasMatchingRooms = () => Boolean(this.getData().matchingRoomIds);

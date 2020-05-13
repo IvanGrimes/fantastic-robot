@@ -1,5 +1,5 @@
-export abstract class Entity<D extends {} = any> {
-  constructor(private readonly name: string, private readonly data: D) {
+export abstract class Entity<N extends string, D extends {} = any> {
+  constructor(readonly name: N, private readonly data: D) {
     this.name = name;
     this.data = data;
   }

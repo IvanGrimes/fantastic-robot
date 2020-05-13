@@ -42,8 +42,10 @@ export type Config = {
   [Filters.price]: RangeFilterConfig;
 };
 
-export class ConfigEntity extends Entity<Config> {
+const name = 'config';
+
+export class ConfigEntity extends Entity<typeof name, Config> {
   constructor(data: Config) {
-    super('config', data);
+    super(name, data);
   }
 }
