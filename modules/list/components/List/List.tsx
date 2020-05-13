@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { ListServiceProps } from '../../internal';
+import { ListItem } from './ListItem';
 
 export const List: FunctionComponent<{
   list: ListServiceProps;
@@ -13,11 +14,9 @@ export const List: FunctionComponent<{
 
   return (
     <ul>
-      {list.data.map((entity) => {
-        const { studio } = entity.getData();
-
-        return <li key={studio.id}>{studio.id}</li>;
-      })}
+      {list.data.map((entity) => (
+        <ListItem key={entity.getKey()} studio={entity} />
+      ))}
     </ul>
   );
 };

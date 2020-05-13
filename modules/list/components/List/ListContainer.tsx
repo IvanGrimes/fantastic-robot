@@ -5,13 +5,13 @@ import { List } from './List';
 // TODO: configure pre-commit
 
 export const ListContainer = () => {
-  const service = listService.use();
+  const list = listService.use();
 
   useEffect(() => {
-    if (service.isInit(service)) {
-      service.effect([]);
+    if (list.isInit(list)) {
+      list.effect([]);
     }
-  }, [service]);
+  }, [list]);
 
-  return <List list={service} />;
+  return <List list={list} />;
 };

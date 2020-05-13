@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity } from './internal';
 
 export type Studio = {
   roomIds: string[];
@@ -31,5 +31,11 @@ export type Studio = {
 };
 
 export class StudioEntity extends Entity<Studio> {
-  hasMatchingRooms = (): boolean => Boolean(this.getData().matchingRoomIds);
+  constructor(data: Studio) {
+    super('studio', data);
+  }
+
+  hasMatchingRooms = () => Boolean(this.getData().matchingRoomIds);
+
+  getKey = () => this.getData().studio.id;
 }

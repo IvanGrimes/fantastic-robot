@@ -11,9 +11,7 @@ const fetchList = () =>
     .get<{ studios: Studio[] }>('/api/studio/filter', {
       params: { city: 1, page: 1, size: 8 },
     })
-    .then(({ data }) =>
-      data.studios.map((studio) => new StudioEntity('studio', studio))
-    );
+    .then(({ data }) => data.studios.map((studio) => new StudioEntity(studio)));
 
 export type ListServiceProps = GetPropsFromService<typeof fetchList>;
 
