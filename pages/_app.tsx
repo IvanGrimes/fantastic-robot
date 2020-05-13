@@ -5,7 +5,7 @@ import './_app.scss';
 import { configService } from '../model/services';
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const config = configService.use();
+  const config = configService.useService();
 
   useEffect(() => {
     if (config.isInit(config)) {

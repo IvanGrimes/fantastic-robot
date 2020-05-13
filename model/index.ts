@@ -8,6 +8,7 @@ export {
   ConfigEntity,
   configService,
   RoomEntity,
+  renderService,
 } from './internal';
 export type {
   GetPropsFromService,

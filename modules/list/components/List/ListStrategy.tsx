@@ -6,8 +6,8 @@ import { Variant } from './types';
 export const ListStrategy: FunctionComponent<{
   variant: Variant;
 }> = ({ variant }) => {
-  const studioList = studioListService.use();
-  const roomList = roomListService.use();
+  const studioList = studioListService.useService();
+  const roomList = roomListService.useService();
 
   switch (variant) {
     case 'studio':

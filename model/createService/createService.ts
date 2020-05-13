@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { createEffect } from 'effector';
 import { createStore, useStore } from '../internal';
 import {
@@ -16,40 +17,61 @@ export const createService = <
   P = Parameters<S>
 >(
   service: S
-): { use: () => ServiceProps<P, D, ServiceError> } => {
+): {
+  useService: () => ServiceProps<P, D, ServiceError>;
+} => {
   const { name } = service;
-  const state = createStore<State>(`${name}_state`, 'init');
-  const data = createStore<D | null>(`${name}_data`, null);
-  const error = createStore<ServiceError | null>(`${name}_error`, null);
-  const effect = createEffect<P, D, ServiceError>({ handler: service });
+  const store = createStore<{
+    state: State;
+    error: ServiceError | null;
+    data: D | null;
+  }>(`${name}_service`, {
+    state: 'init',
+    error: null,
+    data: null,
+  });
+  const effect = createEffect<P, D>({ handler: service });
 
-  state
-    .on(effect, () => 'loading')
-    .on(effect.doneData, () => 'success')
-    .on(effect.failData, () => 'fail');
-
-  data.on(effect, () => null).on(effect.doneData, (_, response) => response);
-
-  error
-    .on(effect, () => null)
-    .on(effect.fail, (_, { error: { message } }) => new ServiceError(message));
+  store
+    .on(effect, () => ({
+      state: 'loading',
+      data: null,
+      error: null,
+    }))
+    .on(effect.doneData, (prevState, response) => ({
+      ...prevState,
+      state: 'success',
+      data: response,
+    }))
+    .on(effect.fail, (prevState, { error: { message } }) => ({
+      ...prevState,
+      state: 'fail',
+      error: new ServiceError(message),
+    }))
+    .on(effect.failData, (prevState, { message }) => ({
+      ...prevState,
+      state: 'fail',
+      error: new ServiceError(message),
+    }));
 
   return {
     // @ts-ignore
-    use: () => {
-      return {
-        isInit,
-        isLoading,
-        isFail,
-        isSuccess,
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        state: useStore(state),
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        data: useStore(data),
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        error: useStore(error),
-        effect,
-      };
+    useService: () => {
+      const { state, data, error } = useStore(store);
+
+      return useMemo(
+        () => ({
+          isInit,
+          isLoading,
+          isFail,
+          isSuccess,
+          state,
+          data,
+          error,
+          effect,
+        }),
+        [data, error, state]
+      );
     },
   };
 };

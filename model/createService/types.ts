@@ -16,25 +16,25 @@ export type BaseServiceProps<P, D, E> = {
   effect: Effect<P, D, E>;
 };
 
-type InitServiceProps<P, D, E> = {
+export type InitServiceProps<P, D, E> = {
   state: InitState;
   data: null;
   error: null;
 } & BaseServiceProps<P, D, E>;
 
-type LoadingServiceProps<P, D, E> = {
+export type LoadingServiceProps<P, D, E> = {
   state: LoadingState;
   data: null;
   error: null;
 } & BaseServiceProps<P, D, E>;
 
-type SuccessServiceProps<P, D, E> = {
+export type SuccessServiceProps<P, D, E> = {
   state: SuccessState;
   data: D;
   error: null;
 } & BaseServiceProps<P, D, E>;
 
-type FailServiceProps<P, D, E> = {
+export type FailServiceProps<P, D, E> = {
   state: FailState;
   data: null;
   error: E;
