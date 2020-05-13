@@ -1,44 +1,30 @@
 import React from 'react';
 import Document, {
+  Html,
   Head,
   Main,
-  DocumentContext,
   NextScript,
+  DocumentContext,
 } from 'next/document';
-import ServerStyleSheets from '@material-ui/styles/ServerStyleSheets';
-import { ServerStyleSheet } from 'styled-components';
+import { createStore } from '../model';
 
 class MyDocument extends Document {
-  static async getInitialProps({ renderPage }: DocumentContext) {
-    const sheets = new ServerStyleSheets();
-    const scSheets = new ServerStyleSheet();
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
 
-    const renderPageResult = await renderPage({
-      enhanceApp: App => props =>
-        sheets.collect(scSheets.collectStyles(<App {...props} />)),
-    });
-
-    return {
-      ...renderPageResult,
-      styles: [...scSheets.getStyleElement(), sheets.getStyleElement()],
-    };
+    return { ...initialProps };
   }
 
   render() {
     return (
-      <html lang="ru">
-        <Head>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          />
-        </Head>
+      <Html>
+        <Head />
         <body>
           <Main />
           <NextScript />
+          {createStore.renderToString()}
         </body>
-      </html>
+      </Html>
     );
   }
 }

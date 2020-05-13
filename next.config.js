@@ -2,7 +2,6 @@ const withOptimizedImages = require('next-images');
 const withOffline = require('next-offline');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const Dotenv = require('dotenv-webpack');
-const withCSS = require('@zeit/next-css');
 
 const withFonts = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {
@@ -39,66 +38,64 @@ const withFonts = (nextConfig = {}) => {
 module.exports = withOffline(
   withBundleAnalyzer(
     withFonts(
-      withCSS(
-        withOptimizedImages({
-          target: 'serverless',
-          exportTrailingSlash: false,
-          analyzeBrowser: Boolean(process.env.BUNDLE_ANALYZE),
-          bundleAnalyzerConfig: {
-            browser: {
-              analyzerMode: 'static',
-              reportFilename: '../bundles/client.html',
-            },
+      withOptimizedImages({
+        target: 'serverless',
+        exportTrailingSlash: false,
+        analyzeBrowser: Boolean(process.env.BUNDLE_ANALYZE),
+        bundleAnalyzerConfig: {
+          browser: {
+            analyzerMode: 'static',
+            reportFilename: '../bundles/client.html',
           },
-          webpack(config) {
-            config.plugins.push(
-              new Dotenv({
-                systemvars: true,
-              })
-            );
+        },
+        webpack(config) {
+          config.plugins.push(
+            new Dotenv({
+              systemvars: true,
+            })
+          );
 
-            return config;
-          },
-          workboxOpts: {
-            swDest: 'static/service-worker.js',
-            runtimeCaching: [
-              {
-                urlPattern: /^https?.*/,
-                handler: 'NetworkFirst',
-                options: {
-                  cacheName: 'https-calls',
-                  networkTimeoutSeconds: 15,
-                  expiration: {
-                    maxEntries: 150,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
-                  },
-                  cacheableResponse: {
-                    statuses: [0, 200],
-                  },
+          return config;
+        },
+        workboxOpts: {
+          swDest: 'static/service-worker.js',
+          runtimeCaching: [
+            {
+              urlPattern: /^https?.*/,
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'https-calls',
+                networkTimeoutSeconds: 15,
+                expiration: {
+                  maxEntries: 150,
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
                 },
               },
-            ],
-          },
-          inlineImageLimit: 4096,
-          optimizeImages: true,
-          optimizeImagesInDev: false,
-          responsive: {
-            sizes: [320, 375, 420, 500, 620, 768],
-            placeholder: true,
-            placeholderSize: 40,
-          },
-          mozjpeg: {
-            quality: 80,
-          },
-          optipng: {
-            optimizationLevel: 3,
-          },
-          gifsicle: {
-            interlaced: true,
-            optimizationLevel: 3,
-          },
-        })
-      )
+            },
+          ],
+        },
+        inlineImageLimit: 4096,
+        optimizeImages: true,
+        optimizeImagesInDev: false,
+        responsive: {
+          sizes: [320, 375, 420, 500, 620, 768],
+          placeholder: true,
+          placeholderSize: 40,
+        },
+        mozjpeg: {
+          quality: 80,
+        },
+        optipng: {
+          optimizationLevel: 3,
+        },
+        gifsicle: {
+          interlaced: true,
+          optimizationLevel: 3,
+        },
+      })
     )
   )
 );

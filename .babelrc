@@ -11,85 +11,19 @@
     ]
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "decoratorsBeforeExport": true }],
     [
       "module-resolver",
       {
         "root": ["./"],
         "alias": {
           "@modules": "./src/modules",
-          "@features": "./src/features",
           "@components": "./src/components",
           "@hooks": "./src/hooks",
-          "@lib": "./src/lib",
           "@utils": "./src/utils",
           "@model": "./src/model",
-          "@theme": "./src/theme",
           "@HOC": "./src/HOC"
         }
       }
     ]
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        [
-          "babel-plugin-styled-components",
-          {
-            "ssr": true
-          }
-        ]
-      ]
-    },
-    "production": {
-      "plugins": [
-        [
-          "babel-plugin-styled-components",
-          {
-            "ssr": true,
-            "minify": true,
-            "displayName": false,
-            "fileName": false,
-            "pure": true
-          }
-        ],
-        [
-          "babel-plugin-import",
-          {
-            "libraryName": "@material-ui/core",
-            "libraryDirectory": "",
-            "camel2DashComponentName": false
-          },
-          "core"
-        ],
-        [
-          "babel-plugin-import",
-          {
-            "libraryName": "@material-ui/icons",
-            "libraryDirectory": "",
-            "camel2DashComponentName": false
-          },
-          "icons"
-        ],
-        [
-          "babel-plugin-import",
-          {
-            "libraryName": "@material-ui/lab",
-            "libraryDirectory": "",
-            "camel2DashComponentName": false
-          },
-          "lab"
-        ],
-        [
-          "babel-plugin-import",
-          {
-            "libraryName": "@material-ui/styles",
-            "libraryDirectory": "",
-            "camel2DashComponentName": false
-          },
-          "styles"
-        ]
-      ]
-    }
-  }
+  ]
 }
