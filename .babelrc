@@ -16,12 +16,12 @@
       {
         "root": ["./"],
         "alias": {
-          "@modules": "./src/modules",
-          "@components": "./src/components",
-          "@hooks": "./src/hooks",
-          "@utils": "./src/utils",
-          "@model": "./src/model",
-          "@HOC": "./src/HOC"
+          "@modules": "./modules",
+          "@components": "./components",
+          "@hooks": "./hooks",
+          "@utils": "./utils",
+          "@model": "./model",
+          "@HOC": "./HOC"
         }
       }
     ]

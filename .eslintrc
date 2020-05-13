@@ -18,13 +18,13 @@
   "settings": {
     "import/resolver": {
       "alias": [
-        ["@components", "./src/components"],
-        ["@modules", "./src/modules"],
-        ["@hooks", "./src/hooks"],
-        ["@utils", "./src/utils"],
-        ["@model", "./src/model"],
-        ["@HOC", "./src/HOC"],
-        ["@theme", "./src/theme"]
+        ["@components", "./components"],
+        ["@modules", "./modules"],
+        ["@hooks", "./hooks"],
+        ["@utils", "./utils"],
+        ["@model", "./model"],
+        ["@HOC", "./HOC"],
+        ["@theme", "./theme"]
       ]
     }
   },
