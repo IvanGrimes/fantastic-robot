@@ -3,13 +3,13 @@ import { createStore as createEffectorStore, Store } from 'effector';
 
 export { useStore } from 'effector-react';
 
+const KEY = '__PRELOADED_EFFECTOR_STATE__';
 const storage: { [key: string]: Store<any> } = {};
 const loaded = false;
 
 declare global {
-  const KEY = '__PRELOADED_EFFECTOR_STATE__';
-
   interface Window {
+    // eslint-disable-next-line no-undef
     [KEY]: Store<any>;
   }
 }

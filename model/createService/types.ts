@@ -1,18 +1,26 @@
 import { Effect } from 'effector';
 import { ServiceError } from './internal';
 
-export type State = LoadingState | SuccessState | FailState;
+export type State = InitState | LoadingState | SuccessState | FailState;
 
+type InitState = 'init';
 type LoadingState = 'loading';
 type SuccessState = 'success';
 type FailState = 'fail';
 
 export type BaseServiceProps<P, D, E> = {
+  isInit: typeof isInit;
   isLoading: typeof isLoading;
   isSuccess: typeof isSuccess;
   isFail: typeof isFail;
   effect: Effect<P, D, E>;
 };
+
+type InitServiceProps<P, D, E> = {
+  state: InitState;
+  data: null;
+  error: null;
+} & BaseServiceProps<P, D, E>;
 
 type LoadingServiceProps<P, D, E> = {
   state: LoadingState;
@@ -40,9 +48,19 @@ export type GetPropsFromService<
 > = ServiceProps<P, D, E>;
 
 export type ServiceProps<P, D, E> =
+  | InitServiceProps<P, D, E>
   | LoadingServiceProps<P, D, E>
   | SuccessServiceProps<P, D, E>
   | FailServiceProps<P, D, E>;
+
+export function isInit<
+  S extends ServiceProps<any, any, any> = ServiceProps<any, any, any>,
+  P = Parameters<S['effect']>,
+  D = S['data'],
+  E = S['error']
+>(props: ServiceProps<P, D, E>): props is InitServiceProps<P, D, E> {
+  return props.state === 'init';
+}
 
 export function isLoading<
   S extends ServiceProps<any, any, any> = ServiceProps<any, any, any>,

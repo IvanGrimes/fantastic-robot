@@ -4,7 +4,7 @@ import { ListServiceProps } from '../../internal';
 export const List: FunctionComponent<{
   list: ListServiceProps;
 }> = ({ list }) => {
-  if (list.isLoading(list)) {
+  if (list.isInit(list) || list.isLoading(list)) {
     return <div>loading</div>;
   }
   if (list.isFail(list)) {

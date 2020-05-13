@@ -3,6 +3,7 @@ import { createStore, useStore } from '../internal';
 import {
   ServiceProps,
   State,
+  isInit,
   isSuccess,
   isLoading,
   isFail,
@@ -17,7 +18,7 @@ export const createService = <
   service: S
 ): { use: () => ServiceProps<P, D, ServiceError> } => {
   const { name } = service;
-  const state = createStore<State>(`${name}_state`, 'loading');
+  const state = createStore<State>(`${name}_state`, 'init');
   const data = createStore<D | null>(`${name}_data`, null);
   const error = createStore<ServiceError | null>(`${name}_error`, null);
   const effect = createEffect<P, D, ServiceError>({ handler: service });
@@ -35,17 +36,20 @@ export const createService = <
 
   return {
     // @ts-ignore
-    use: () => ({
-      isLoading,
-      isFail,
-      isSuccess,
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      state: useStore(state),
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      data: useStore(data),
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      error: useStore(error),
-      effect,
-    }),
+    use: () => {
+      return {
+        isInit,
+        isLoading,
+        isFail,
+        isSuccess,
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        state: useStore(state),
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        data: useStore(data),
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        error: useStore(error),
+        effect,
+      };
+    },
   };
 };

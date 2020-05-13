@@ -8,7 +8,9 @@ export const ListContainer = () => {
   const service = listService.use();
 
   useEffect(() => {
-    service.effect([]);
+    if (service.isInit(service)) {
+      service.effect([]);
+    }
   }, [service]);
 
   return <List list={service} />;
