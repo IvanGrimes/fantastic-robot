@@ -61,6 +61,7 @@ export const createService = <
 
       return useMemo(
         () => ({
+          name,
           isInit,
           isLoading,
           isFail,

@@ -14,32 +14,31 @@ export type InitComponent<
   S extends ServiceProps<any, any, any>,
   C extends {} = {},
   P = Parameters<S['effect']>,
-  D = NotNull<S['data']>,
-  E = NotNull<S['error']>
+  D = S['data'],
+  E = S['error']
 > = FunctionComponent<{ service: InitServiceProps<P, D, E> } & C>;
 
 export type LoadingComponent<
   S extends ServiceProps<any, any, any>,
   C extends {} = {},
   P = Parameters<S['effect']>,
-  D = NotNull<S['data']>,
-  E = NotNull<S['error']>
+  D = S['data'],
+  E = S['error']
 > = FunctionComponent<
   { service: LoadingServiceProps<P, D, E> | InitServiceProps<P, D, E> } & C
 >;
 
 export type SuccessComponent<
   S extends ServiceProps<any, any, any>,
-  C extends {} = {},
   P = Parameters<S['effect']>,
   D = NotNull<S['data']>,
-  E = NotNull<S['error']>
-> = FunctionComponent<{ service: SuccessServiceProps<P, D, E> } & C>;
+  E = S['error']
+> = FunctionComponent<{ service: SuccessServiceProps<P, D, E> }>;
 
 export type FailComponent<
   S extends ServiceProps<any, any, any>,
   C extends {} = {},
   P = Parameters<S['effect']>,
-  D = NotNull<S['data']>,
+  D = S['data'],
   E = NotNull<S['error']>
 > = FunctionComponent<{ service: FailServiceProps<P, D, E> } & C>;

@@ -4,6 +4,6 @@ import { Layout } from '../components/Layout';
 
 export default () => (
   <Layout>
-    <List variant="room" />
+    <List variant="studio" />
   </Layout>
 );

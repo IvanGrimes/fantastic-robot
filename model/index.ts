@@ -18,4 +18,8 @@ export type {
   ConfigServiceProps,
   Room,
   GetEntityName,
+  InitComponent,
+  LoadingComponent,
+  FailComponent,
+  SuccessComponent,
 } from './internal';

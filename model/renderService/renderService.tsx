@@ -8,18 +8,19 @@ import {
 } from './types';
 
 export const renderService = <S extends ServiceProps<any, any, any>>(
-  service: S
-) => ({
-  Init,
-  Loading,
-  Fail,
-  Success,
-}: {
-  Init?: InitComponent<S>;
-  Loading: LoadingComponent<S>;
-  Fail: FailComponent<S>;
-  Success: SuccessComponent<S>;
-}) => {
+  service: S,
+  {
+    Init,
+    Loading,
+    Fail,
+    Success,
+  }: {
+    Init?: InitComponent<S>;
+    Loading: LoadingComponent<S>;
+    Fail: FailComponent<S>;
+    Success: SuccessComponent<S>;
+  }
+) => {
   if (service.isInit(service)) {
     if (Init) {
       return <Init service={service} />;

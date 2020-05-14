@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { studioListService, roomListService } from '../../internal';
-import { ListContainer } from './ListContainer';
 import { Variant } from './types';
+import { StudioList } from './StudioList';
+import { RoomList } from './RoomList';
 
 export const ListStrategy: FunctionComponent<{
   variant: Variant;
@@ -11,9 +12,9 @@ export const ListStrategy: FunctionComponent<{
 
   switch (variant) {
     case 'studio':
-      return <ListContainer studioList={studioList} />;
+      return <StudioList service={studioList} />;
     case 'room':
-      return <ListContainer roomList={roomList} />;
+      return <RoomList service={roomList} />;
     default:
       return null;
   }
