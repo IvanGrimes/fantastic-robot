@@ -11,10 +11,10 @@ declare global {
 
   type ClassName = string;
 
-  type UIComponent<P extends {} = {}> = FunctionComponent<
-    {
-      className?: ClassName;
-      element?: HTMLTag;
-    } & P
-  >;
+  type UIComponentProps<P extends {} = {}> = {
+    className?: ClassName;
+    element?: HTMLTag;
+  } & P;
+
+  type Diff<T, U> = T extends U ? never : T; // Remove types from T that are assignable to U
 }

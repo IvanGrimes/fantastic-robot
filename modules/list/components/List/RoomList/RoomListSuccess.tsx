@@ -8,7 +8,7 @@ export const RoomListSuccess: SuccessComponent<RoomListServiceProps> = ({
 }) => (
   <ul>
     {service.data.map((entity) => (
-      <RoomListItem entity={entity} />
+      <RoomListItem key={entity.getData().id} entity={entity} />
     ))}
   </ul>
 );

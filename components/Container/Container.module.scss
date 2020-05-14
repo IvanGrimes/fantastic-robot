@@ -1,3 +1,5 @@
+@import "theme/variables";
+
 .container {
   display: flex;
   width: 100%;
@@ -10,11 +12,14 @@
 
 .primary {
   max-width: 1440px;
+  @media screen and (min-width: $lg) {
+    max-width: 720px;
+  }
 }
 
 .secondary {
   max-width: 1080px;
-  @media screen and (max-width: var(--lg)px) {
+  @media screen and (max-width: $lg) {
     max-width: 720px;
   }
 }

@@ -7,7 +7,6 @@ import {
   SuccessServiceProps,
 } from '../internal';
 
-type Diff<T, U> = T extends U ? never : T; // Remove types from T that are assignable to U
 type NotNull<T> = Diff<T, null | undefined>;
 
 export type InitComponent<

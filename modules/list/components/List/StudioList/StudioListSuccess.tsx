@@ -8,7 +8,7 @@ export const StudioListSuccess: SuccessComponent<StudioListServiceProps> = ({
 }) => (
   <ul>
     {service.data.map((entity) => (
-      <StudioListItem entity={entity} />
+      <StudioListItem key={entity.getData().studio.id} entity={entity} />
     ))}
   </ul>
 );
