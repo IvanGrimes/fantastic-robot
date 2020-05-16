@@ -1,8 +1,11 @@
 import React from 'react';
 import { ListService } from './types';
-import { SuccessComponent } from '../../../../model/renderService';
+import {
+  SuccessComponent,
+  RoomEntity,
+  StudioEntity,
+} from '../../../../../model';
 import { ListItem } from './ListItem';
-import { RoomEntity, StudioEntity } from '../../../../model/entities';
 
 export const List: SuccessComponent<ListService> = ({ service }) => (
   <ul>

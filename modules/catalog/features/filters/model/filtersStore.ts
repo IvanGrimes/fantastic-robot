@@ -1,5 +1,5 @@
 import { createEvent } from 'effector';
-import { createStore } from '../../../model';
+import { createStore } from '../../../../../model';
 
 type Filters = Partial<{ area: number; height: number }>;
 

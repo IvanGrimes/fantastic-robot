@@ -1,7 +1,4 @@
-import {
-  RoomListServiceProps,
-  StudioListServiceProps,
-} from '../../model/services';
+import { RoomListServiceProps, StudioListServiceProps } from '../internal';
 
 export type { StudioListServiceProps, RoomListServiceProps };
 

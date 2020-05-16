@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
-import { changeFilters, filtersStore } from '../../model';
+import { changeFilters, filtersStore } from '../internal';
 import { Filters } from './Filters';
 
 export const FiltersContainer = () => {

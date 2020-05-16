@@ -1,14 +1,11 @@
 import { FunctionComponent, useEffect } from 'react';
 import { useStore } from 'effector-react';
-import { renderService } from '../../../../model';
+import { renderService } from '../../../../../model';
 import { ListLoading } from './ListLoading';
 import { ListFail } from './ListFail';
 import { List } from './List';
-import {
-  roomListService,
-  studioListService,
-  filtersStore,
-} from '../../internal';
+import { roomListService, studioListService } from '../internal';
+import { filtersStore } from '../../../internal';
 
 export const ListContainer: FunctionComponent<{
   variant: 'studio' | 'room';
