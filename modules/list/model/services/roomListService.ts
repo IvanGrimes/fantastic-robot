@@ -4,7 +4,7 @@ import {
   GetPropsFromService,
   Room,
   RoomEntity,
-} from '../../../../../../model';
+} from '../../../../model';
 
 const fetchRoomList = () =>
   http

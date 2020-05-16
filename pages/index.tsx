@@ -1,5 +1,6 @@
 import React from 'react';
-import { Filters, List } from '../modules/catalog';
+import { List } from '../modules/list';
+import { Filters } from '../modules/filters';
 import { Layout } from '../components/Layout';
 
 export default () => {

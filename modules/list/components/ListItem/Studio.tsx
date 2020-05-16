@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StudioEntity } from '../../../../../../model';
+import { StudioEntity } from '../../../../model';
 
 export const Studio: FunctionComponent<{ entity: StudioEntity }> = ({
   entity,

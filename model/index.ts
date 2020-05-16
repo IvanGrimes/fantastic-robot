@@ -9,6 +9,7 @@ export {
   configService,
   RoomEntity,
   renderService,
+  modulesConfig,
 } from './internal';
 export type {
   GetPropsFromService,
@@ -22,4 +23,5 @@ export type {
   LoadingComponent,
   FailComponent,
   SuccessComponent,
+  Filters,
 } from './internal';

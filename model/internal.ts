@@ -5,3 +5,4 @@ export * from './createService';
 export * from './services';
 export * from './types';
 export * from './renderService';
+export * from './modulesConfig';
