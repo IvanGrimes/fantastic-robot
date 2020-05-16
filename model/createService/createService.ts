@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { createEffect } from 'effector';
 import { createStore, useStore } from '../internal';
 import {
-  ServiceProps,
   State,
   isInit,
   isSuccess,
   isLoading,
   isFail,
   ServiceError,
+  ServiceProps,
 } from './internal';
 
 export const createService = <

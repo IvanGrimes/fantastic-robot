@@ -1,1 +1,1 @@
-export { ListStrategy as List } from './ListStrategy';
+export { ListContainer as List } from './ListContainer';
