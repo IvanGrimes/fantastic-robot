@@ -1,30 +1,24 @@
 import React, { FunctionComponent } from 'react';
-import { FiltersStore, updateFilters } from '../internal';
+import { FiltersStore } from '../internal';
+import { ConfigServiceProps, renderService } from '../../../model';
+import { FiltersLoading } from './FiltersLoading';
+import { FiltersFail } from './FiltersFail';
+import { FiltersSuccess } from './FiltersSuccess';
 
-export const Filters: FunctionComponent<{ filters: FiltersStore }> = ({
-  filters,
-}) => {
-  return (
-    <div>
-      <div>filters</div>
-      <div
-        style={{
-          height: '10px',
-          width: '10px',
-          backgroundColor: filters.values?.hasOnlineBooking ? 'green' : 'red',
-          userSelect: 'none',
-        }}
-        onClick={
-          filters.disabled
-            ? undefined
-            : () =>
-                updateFilters({
-                  hasOnlineBooking: !filters.values?.hasOnlineBooking,
-                })
-        }
-      >
-        hasOnlineBooking
-      </div>
-    </div>
-  );
-};
+export const Filters: FunctionComponent<{
+  filters: FiltersStore;
+  config: ConfigServiceProps;
+}> = ({ config, filters }) => (
+  <div>
+    <div>filters</div>
+    {renderService(
+      config,
+      { filters },
+      {
+        Loading: FiltersLoading,
+        Fail: FiltersFail,
+        Success: FiltersSuccess,
+      }
+    )}
+  </div>
+);

@@ -48,9 +48,13 @@ export const ListContainer: FunctionComponent<{
     [roomList, studioList, variant]
   );
 
-  return renderService(variant === 'studio' ? studioList : roomList, {
-    Loading: ListLoading,
-    Success: List,
-    Fail: ListFail,
-  });
+  return renderService(
+    variant === 'studio' ? studioList : roomList,
+    {},
+    {
+      Loading: ListLoading,
+      Success: List,
+      Fail: ListFail,
+    }
+  );
 };

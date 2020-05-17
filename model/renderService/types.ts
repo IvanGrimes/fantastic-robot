@@ -29,10 +29,11 @@ export type LoadingComponent<
 
 export type SuccessComponent<
   S extends ServiceProps<any, any, any>,
+  C extends {} = {},
   P = Parameters<S['effect']>,
   D = NotNull<S['data']>,
   E = S['error']
-> = FunctionComponent<{ service: SuccessServiceProps<P, D, E> }>;
+> = FunctionComponent<{ service: SuccessServiceProps<P, D, E> } & C>;
 
 export type FailComponent<
   S extends ServiceProps<any, any, any>,
