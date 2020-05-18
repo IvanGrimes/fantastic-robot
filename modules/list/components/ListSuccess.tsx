@@ -8,7 +8,7 @@ export const ListSuccess: SuccessComponent<ListService> = ({ service }) => (
     {
       // @ts-ignore
       service.data.map((entity: StudioEntity | RoomEntity) => (
-        <ListItem entity={entity} />
+        <ListItem key={entity.getId()} entity={entity} />
       ))
     }
   </ul>

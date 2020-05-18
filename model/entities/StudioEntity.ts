@@ -47,5 +47,5 @@ export class StudioEntity extends Entity<typeof name, Studio> {
 
   hasMatchingRooms = () => Boolean(this.getData().matchingRoomIds);
 
-  getKey = () => this.getData().studio.id;
+  getId = () => this.getData().studio.id;
 }

@@ -21,4 +21,8 @@ export class RoomEntity extends Entity<typeof name, Room> {
   constructor(data: Room) {
     super(name, data);
   }
+
+  getId() {
+    return this.getData().id;
+  }
 }
