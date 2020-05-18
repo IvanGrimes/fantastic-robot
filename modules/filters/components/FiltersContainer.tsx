@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
+import { configService } from '@model';
 import { updateFilters, changeDisabled, filtersStore } from '../internal';
 import { Filters } from './Filters';
 import { parseFiltersQueryString, updateFiltersQueryString } from '../utils';
-import { configService } from '../../../model/services';
 
 export const FiltersContainer = () => {
   const filters = useStore(filtersStore);

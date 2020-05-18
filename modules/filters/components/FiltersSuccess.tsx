@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuccessComponent, ConfigServiceProps } from '../../../model';
+import { SuccessComponent, ConfigServiceProps } from '@model';
 import { FiltersStore, updateFilters } from '../internal';
 
 export const FiltersSuccess: SuccessComponent<

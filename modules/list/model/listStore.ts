@@ -1,4 +1,4 @@
-import { createStore, modulesConfig } from '../../../model';
+import { createStore, modulesConfig } from '@model';
 
 export type ListStore = {
   enabled: boolean;

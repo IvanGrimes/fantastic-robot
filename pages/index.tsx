@@ -1,7 +1,7 @@
 import React from 'react';
-import { List } from '../modules/list';
-import { Filters } from '../modules/filters';
-import { Layout } from '../components/Layout';
+import { List } from '@modules/list';
+import { Filters } from '@modules/filters';
+import { Layout } from '@components';
 
 export default () => {
   return (

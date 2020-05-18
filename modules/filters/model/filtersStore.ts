@@ -1,6 +1,5 @@
 import { createEvent } from 'effector';
-import { createStore, modulesConfig } from '../../../model';
-import { Filters } from '../../../model';
+import { createStore, modulesConfig, Filters } from '@model';
 
 export type FiltersType = Partial<{
   [Filters.area]: number;

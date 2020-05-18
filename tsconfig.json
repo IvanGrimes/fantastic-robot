@@ -35,14 +35,14 @@
     "noEmit": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@modules": ["modules/*"],
-      "@components": ["components/*"],
-      "@hooks": ["hooks/*"],
-      "@utils": ["utils/*"],
+      "@modules/*": ["modules/*/index.ts"],
+      "@components": ["components/index.ts"],
+      "@hooks": ["hooks/index.ts"],
+      "@utils": ["utils/index.ts"],
       "@model": ["model/index.ts"],
-      "@HOC": ["HOC/*"]
+      "@HOC": ["HOC/index.ts"]
     }
   },
   "include": ["./**/*.ts", "./**/*.tsx"]

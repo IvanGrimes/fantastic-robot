@@ -6,8 +6,8 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document';
-import { createStore } from '../model';
-import { GlobalStaticStylesManager } from '../utils';
+import { createStore } from '@model';
+import { GlobalStaticStylesManager } from '@utils';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

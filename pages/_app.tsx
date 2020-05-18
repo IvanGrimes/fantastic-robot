@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import './_app.scss';
-import { configService } from '../model/services';
+import { configService } from '@model';
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   const config = configService.useService();

@@ -4,7 +4,7 @@ import {
   GetPropsFromService,
   Studio,
   StudioEntity,
-} from '../../../../model';
+} from '@model';
 
 const fetchStudioList = () =>
   http

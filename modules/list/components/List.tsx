@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { renderService } from '@model';
+import { Grid } from '@components';
+import { ListLoading } from './ListLoading';
+import { ListSuccess } from './ListSuccess';
+import { ListFail } from './ListFail';
 import { ListService } from './types';
-import { SuccessComponent, RoomEntity, StudioEntity } from '../../../model';
-import { ListItem } from './ListItem';
 
-export const List: SuccessComponent<ListService> = ({ service }) => (
-  <ul>
-    {
-      // @ts-ignore
-      service.data.map((entity: StudioEntity | RoomEntity) => (
-        <ListItem entity={entity} />
-      ))
-    }
-  </ul>
-);
+export const List: FunctionComponent<{ service: ListService }> = ({
+  service,
+}) => {
+  console.log(service);
+  return (
+    <Grid item xs={9}>
+      {renderService(
+        service,
+        {},
+        {
+          Loading: ListLoading,
+          Success: ListSuccess,
+          Fail: ListFail,
+        }
+      )}
+    </Grid>
+  );
+};
