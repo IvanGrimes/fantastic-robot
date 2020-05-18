@@ -10,6 +10,7 @@ export const List: FunctionComponent<{ service: ListService }> = ({
   service,
 }) => {
   console.log(service);
+
   return (
     <Grid item xs={9}>
       {renderService(

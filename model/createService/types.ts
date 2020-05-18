@@ -9,7 +9,6 @@ type SuccessState = 'success';
 type FailState = 'fail';
 
 export type BaseServiceProps<P, D, E> = {
-  name: string;
   isInit: typeof isInit;
   isLoading: typeof isLoading;
   isSuccess: typeof isSuccess;
