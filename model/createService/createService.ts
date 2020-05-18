@@ -12,15 +12,16 @@ import {
 } from './internal';
 
 export const createService = <
+  N extends string,
   S extends () => any,
   D = Await<ReturnType<S>>,
   P = Parameters<S>
 >(
+  name: N,
   service: S
 ): {
   useService: () => ServiceProps<P, D, ServiceError>;
 } => {
-  const { name } = service;
   const store = createStore<{
     state: State;
     error: ServiceError | null;

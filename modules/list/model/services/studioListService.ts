@@ -17,4 +17,4 @@ export type StudioListServiceProps = GetPropsFromService<
   typeof fetchStudioList
 >;
 
-export const studioListService = createService(fetchStudioList);
+export const studioListService = createService('studioList', fetchStudioList);

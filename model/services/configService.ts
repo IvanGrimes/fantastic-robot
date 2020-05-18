@@ -11,4 +11,4 @@ const fetchConfig = () =>
 
 export type ConfigServiceProps = GetPropsFromService<typeof fetchConfig>;
 
-export const configService = createService(fetchConfig);
+export const configService = createService('config', fetchConfig);

@@ -15,4 +15,4 @@ const fetchRoomList = () =>
 
 export type RoomListServiceProps = GetPropsFromService<typeof fetchRoomList>;
 
-export const roomListService = createService(fetchRoomList);
+export const roomListService = createService('roomList', fetchRoomList);
