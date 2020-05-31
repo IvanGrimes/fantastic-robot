@@ -1,16 +1,29 @@
-import React, { FunctionComponent } from 'react';
-import cn from 'classnames';
-import s from './Container.module.scss';
+import React from 'react';
+import { Container as MaterialContainer } from '@material-ui/core';
 
-export const Container: FunctionComponent<UIComponentProps<{
+export const Container: StyleableComponent<{
   variant?: 'primary' | 'secondary' | 'fluid';
-}>> = ({
-  className,
-  element: Component = 'div',
-  variant = 'fluid',
-  children,
-}) => (
-  <Component className={cn(s.container, { [s[variant]]: true }, className)}>
-    {children}
-  </Component>
-);
+}> = ({ variant = 'fluid', className, children }) => {
+  switch (variant) {
+    case 'fluid':
+      return (
+        <MaterialContainer className={className} maxWidth={false}>
+          {children}
+        </MaterialContainer>
+      );
+    case 'primary':
+      return (
+        <MaterialContainer className={className} maxWidth="lg" fixed>
+          {children}
+        </MaterialContainer>
+      );
+    case 'secondary':
+      return (
+        <MaterialContainer className={className} maxWidth="md" fixed>
+          {children}
+        </MaterialContainer>
+      );
+    default:
+      return null;
+  }
+};

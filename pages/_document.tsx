@@ -1,25 +1,51 @@
 import React from 'react';
 import Document, {
   Html,
-  Head,
   Main,
   NextScript,
   DocumentContext,
+  Head,
 } from 'next/document';
 import { createStore } from '@model';
-import { GlobalStaticStylesManager } from '@utils';
+import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
 
-class MyDocument extends Document {
+export default class extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-
-    return { ...initialProps };
+    const styledComponentSheet = new StyledComponentSheets();
+    const materialUiSheets = new MaterialUiServerStyleSheets();
+    const originalRenderPage = ctx.renderPage;
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            styledComponentSheet.collectStyles(
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              materialUiSheets.collect(<App {...props} />)
+            ),
+        });
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {materialUiSheets.getStyleElement()}
+            {styledComponentSheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      styledComponentSheet.seal();
+    }
   }
 
   render() {
+    const { styles } = this.props;
+
     return (
       <Html>
-        <Head>{GlobalStaticStylesManager.getInstance().renderToString()}</Head>
+        <Head>{styles}</Head>
         <body>
           <Main />
           <NextScript />
@@ -29,5 +55,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;

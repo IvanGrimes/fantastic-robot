@@ -1,4 +1,6 @@
 export const modulesConfig = {
-  list: true,
-  filters: true,
+  catalog: {
+    list: true,
+    filters: true,
+  },
 };

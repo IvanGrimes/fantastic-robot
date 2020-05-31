@@ -1,7 +1,6 @@
 import React from 'react';
-import { List } from '@modules/list';
-import { Filters } from '@modules/filters';
 import { Layout } from '@components';
+import { List, Filters } from '../modules/catalog';
 
 export default () => {
   return (

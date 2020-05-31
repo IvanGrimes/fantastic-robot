@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { roomListService, studioListService } from '../internal';
-import { changeDisabled, filtersStore, updateFilters } from '../../filters';
+import { changeDisabled, filtersStore, updateFilters } from '../../../internal';
 import { List } from './List';
 
 export const ListContainer: FunctionComponent<{

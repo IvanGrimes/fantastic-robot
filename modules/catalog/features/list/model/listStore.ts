@@ -5,5 +5,5 @@ export type ListStore = {
 };
 
 export const listStore = createStore<ListStore>('list', {
-  enabled: modulesConfig.list,
+  enabled: modulesConfig.catalog.list,
 });

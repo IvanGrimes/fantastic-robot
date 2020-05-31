@@ -6,7 +6,8 @@ export const FiltersSuccess: SuccessComponent<
   ConfigServiceProps,
   { filters: FiltersStore }
 > = ({ filters }) => (
-  <div
+  <button
+    type="button"
     style={{
       height: '10px',
       width: '10px',
@@ -23,5 +24,5 @@ export const FiltersSuccess: SuccessComponent<
     }
   >
     hasOnlineBooking
-  </div>
+  </button>
 );

@@ -18,7 +18,7 @@ export const updateFilters = createEvent<FiltersType>();
 export const changeDisabled = createEvent<boolean>();
 
 export const filtersStore = createStore<FiltersStore>('filters', {
-  enabled: modulesConfig.filters,
+  enabled: modulesConfig.catalog.filters,
   values: null,
   disabled: false,
 })
