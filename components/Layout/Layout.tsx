@@ -9,7 +9,7 @@ export const Layout: FunctionComponent = ({ children }) => (
   <Wrapper>
     <Header />
     <Content>
-      <Container variant="primary">
+      <Container>
         <Grid container spacing={2}>
           {children}
         </Grid>

@@ -34,9 +34,9 @@ export const createService = <
   const effect = createEffect<P, D>({ handler: service });
 
   store
-    .on(effect, () => ({
-      state: 'loading',
-      data: null,
+    .on(effect, (state) => ({
+      state: state.data === null ? 'init' : 'loading',
+      data: state.data,
       error: null,
     }))
     .on(effect.doneData, (prevState, response) => ({

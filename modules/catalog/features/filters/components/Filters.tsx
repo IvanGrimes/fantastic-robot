@@ -10,7 +10,7 @@ export const Filters: FunctionComponent<{
   filters: FiltersStore;
   config: ConfigServiceProps;
 }> = ({ config, filters }) => (
-  <Grid item xs={3}>
+  <Grid item xs={2}>
     <div>filters</div>
     {renderService(
       config,

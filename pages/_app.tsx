@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 import { configService } from '@model';
 import { useEffectMount } from '@hooks';
 import { ThemeProvider } from 'styled-components';
+import { Normalize } from '@components';
 import { theme } from '../theme';
 
 const onMount = () => {
@@ -28,6 +29,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Normalize />
       <Component {...pageProps} />
     </ThemeProvider>
   );

@@ -30,8 +30,6 @@ export const renderService = <
       // eslint-disable-next-line react/jsx-props-no-spreading
       return <Init service={service} {...props} />;
     }
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Loading service={service} {...props} />;
   }
   if (service.isLoading(service)) {
     // eslint-disable-next-line react/jsx-props-no-spreading

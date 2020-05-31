@@ -24,7 +24,7 @@ export type InitServiceProps<P, D, E> = {
 
 export type LoadingServiceProps<P, D, E> = {
   state: LoadingState;
-  data: null;
+  data: D;
   error: null;
 } & BaseServiceProps<P, D, E>;
 

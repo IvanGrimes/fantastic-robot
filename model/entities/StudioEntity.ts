@@ -28,7 +28,10 @@ export type Studio = {
     };
     mail: string;
     name: string;
-    photoIds: PhotoId[];
+    photoIds: {
+      imageId: PhotoId;
+      description: string;
+    }[];
     priceType: PriceType;
     roomNumber: number;
     site: string;

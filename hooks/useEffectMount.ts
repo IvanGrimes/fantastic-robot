@@ -5,9 +5,9 @@ export const useEffectMount = <E extends () => void>(effect: E): void => {
 
   useEffect(() => {
     if (!isMountedRef.current) {
-      isMountedRef.current = true;
-
       effect();
+
+      isMountedRef.current = true;
     }
   }, [effect]);
 };

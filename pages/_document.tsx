@@ -15,7 +15,10 @@ export default class extends Document {
     const styledComponentSheet = new StyledComponentSheets();
     const materialUiSheets = new MaterialUiServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
+
     try {
+      const initialProps = await Document.getInitialProps(ctx);
+
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
@@ -24,7 +27,7 @@ export default class extends Document {
               materialUiSheets.collect(<App {...props} />)
             ),
         });
-      const initialProps = await Document.getInitialProps(ctx);
+
       return {
         ...initialProps,
         styles: (
