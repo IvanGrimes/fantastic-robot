@@ -43,9 +43,39 @@ export type Studio = {
 
 const name = 'studio';
 
+const defaultData: Studio = {
+  roomIds: [],
+  studio: {
+    photoIds: [],
+    id: '',
+    cityId: '',
+    address: '',
+    closeMinutes: 0,
+    comfortIds: [],
+    description: '1',
+    equipmentIds: [],
+    hasDressingRoom: false,
+    hasOnlinePayment: false,
+    instagram: '',
+    location: {
+      lat: 0,
+      lon: 0,
+    },
+    mail: '',
+    name: '1',
+    openMinutes: 0,
+    priceType: 1,
+    roomNumber: 0,
+    site: '',
+    stationIds: [],
+    utcZone: '',
+    vk: '',
+  },
+};
+
 export class StudioEntity extends Entity<typeof name, Studio> {
-  constructor(data: Studio) {
-    super(name, data);
+  constructor(data?: Studio) {
+    super(name, data || defaultData);
   }
 
   hasMatchingRooms = () => Boolean(this.getData().matchingRoomIds);
