@@ -11,36 +11,20 @@ import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
 
 export default class extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const styledComponentSheet = new StyledComponentSheets();
-    const materialUiSheets = new MaterialUiServerStyleSheets();
-    const originalRenderPage = ctx.renderPage;
+  static async getInitialProps({ renderPage }: DocumentContext) {
+    const muiStyles = new MaterialUiServerStyleSheets();
+    const scSheets = new StyledComponentSheets();
 
-    try {
-      const initialProps = await Document.getInitialProps(ctx);
+    const renderPageResult = await renderPage({
+      enhanceApp: (App) => (props) =>
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        muiStyles.collect(scSheets.collectStyles(<App {...props} />)),
+    });
 
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            styledComponentSheet.collectStyles(
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              materialUiSheets.collect(<App {...props} />)
-            ),
-        });
-
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {materialUiSheets.getStyleElement()}
-            {styledComponentSheet.getStyleElement()}
-          </>
-        ),
-      };
-    } finally {
-      styledComponentSheet.seal();
-    }
+    return {
+      ...renderPageResult,
+      styles: [...scSheets.getStyleElement(), muiStyles.getStyleElement()],
+    };
   }
 
   render() {
