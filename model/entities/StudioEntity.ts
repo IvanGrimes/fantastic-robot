@@ -28,7 +28,7 @@ export type Studio = {
     };
     mail: string;
     name: string;
-    photoIds: {
+    photos: {
       imageId: PhotoId;
       description: string;
     }[];
@@ -46,7 +46,7 @@ const name = 'studio';
 const defaultData: Studio = {
   roomIds: [],
   studio: {
-    photoIds: [],
+    photos: [],
     id: '',
     cityId: '',
     address: '',

@@ -10,7 +10,7 @@ export const Studio: FunctionComponent<{ entity?: StudioEntity }> = ({
   entity = defaultEntity,
 }) => {
   const { studio } = entity.getData();
-  const photo = studio.photoIds[0] || {};
+  const photo = studio.photos[0] || {};
 
   return (
     <Card variant="outlined">

@@ -8,8 +8,10 @@ import {
 
 const fetchStudioList = () =>
   http
-    .get<{ studios: Studio[] }>('/api/studio/filter', {
-      params: { city: 1, page: 1, size: 9 },
+    .post<{ studios: Studio[] }>('/api/studio/filter', {
+      city: 1,
+      page: 1,
+      size: 9,
     })
     .then(({ data }) => data.studios.map((studio) => new StudioEntity(studio)));
 
