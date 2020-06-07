@@ -1,6 +1,7 @@
 import { createEvent } from 'effector';
 import { createStore, modulesConfig } from '@model';
 import { FiltersEnum } from './types';
+import { configService } from '../../config';
 
 export type FiltersType = {
   [FiltersEnum.textSearch]: string;
@@ -51,6 +52,28 @@ export const filtersStore = createStore<FiltersStore>('filters', {
   },
   disabled: false,
 })
+  .on(configService.effect.doneData, (state, configEntity) => {
+    const config = configEntity.getData();
+
+    return {
+      ...state,
+      values: {
+        ...state.values,
+        [FiltersEnum.area]: {
+          from: config[FiltersEnum.area].min.toString(),
+          to: config[FiltersEnum.area].max.toString(),
+        },
+        [FiltersEnum.height]: {
+          from: config[FiltersEnum.height].min.toString(),
+          to: config[FiltersEnum.height].max.toString(),
+        },
+        [FiltersEnum.price]: {
+          from: config[FiltersEnum.price].min.toString(),
+          to: config[FiltersEnum.price].max.toString(),
+        },
+      },
+    };
+  })
   .on(updateFilters, (state, values) => {
     if (!state.disabled) {
       return {

@@ -3,10 +3,11 @@ import { SuccessComponent } from '@model';
 import { Grid } from '@components';
 import { FiltersEnum } from '../internal';
 import { ConfigServiceProps } from '../../config';
-import { Name } from './Name';
 import { Range } from './Range';
 import { FiltersProps } from './types';
 import { DebouncedSwitch } from './DebouncedSwitch';
+import { DebouncedTextField } from './DebouncedTextField';
+import { MetroList } from './MetroList';
 
 const squareMeter = <>&#13217;</>;
 const ruble = <>&#8381;</>;
@@ -14,15 +15,20 @@ const ruble = <>&#8381;</>;
 export const FiltersSuccess: SuccessComponent<
   ConfigServiceProps,
   FiltersProps
-> = ({ filters, updateFilters }) => {
+> = (props) => {
+  const { filters, updateFilters } = props;
+
   return (
     <Grid container spacing={2}>
       <Grid item container>
-        <Name
+        <DebouncedTextField
+          label="Поиск по названию"
+          variant="outlined"
           value={filters.values[FiltersEnum.textSearch]}
           onChange={(value) => {
             updateFilters({ [FiltersEnum.textSearch]: value });
           }}
+          fullWidth
         />
       </Grid>
       <Grid item container>
@@ -69,6 +75,9 @@ export const FiltersSuccess: SuccessComponent<
           }
           toLabel={<>до {ruble}</>}
         />
+      </Grid>
+      <Grid item container>
+        <MetroList config={props.service.data} />
       </Grid>
       <Grid item container>
         <DebouncedSwitch

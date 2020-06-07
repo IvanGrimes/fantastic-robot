@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { createEffect } from 'effector';
+import { createEffect, Effect } from 'effector';
 import { createStore, useStore } from '../internal';
 import {
   State,
@@ -21,6 +21,7 @@ export const createService = <
   service: S
 ): {
   useService: () => ServiceProps<P, D, ServiceError>;
+  effect: Effect<P, D>;
 } => {
   const store = createStore<{
     state: State;
@@ -74,5 +75,6 @@ export const createService = <
         [data, error, state]
       );
     },
+    effect,
   };
 };
