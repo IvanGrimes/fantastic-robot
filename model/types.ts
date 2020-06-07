@@ -18,4 +18,5 @@ export enum FiltersEnum {
   interior = 'interior',
   price = 'price',
   textSearch = 'textSearch',
+  metro = 'metro',
 }

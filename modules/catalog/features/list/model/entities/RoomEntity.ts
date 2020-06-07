@@ -1,7 +1,5 @@
-import { Entity } from '@model';
+import { Entity, FiltersEnum, InteriorId, PhotoId } from '@model';
 import { Studio } from './StudioEntity';
-import { InteriorId, PhotoId } from '../../internal';
-import { FiltersEnum } from '../../../filters';
 
 export type Room = {
   id: string;

@@ -9,3 +9,4 @@ export * from './Layout';
 export * from './Paper';
 export * from './TextField';
 export * from './Switch';
+export * from './VirtualizedList';

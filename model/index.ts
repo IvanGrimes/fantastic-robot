@@ -9,6 +9,8 @@ export {
   configService,
   FiltersEnum,
   ConfigEntity,
+  MetroEntity,
+  metroService,
 } from './internal';
 export type {
   GetPropsFromService,
@@ -26,4 +28,6 @@ export type {
   StationId,
   PriceType,
   ConfigServiceProps,
+  Metro,
+  MetroServiceProps,
 } from './internal';

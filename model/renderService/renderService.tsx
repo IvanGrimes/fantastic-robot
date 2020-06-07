@@ -29,6 +29,9 @@ export const renderService = <
     if (Init) {
       return <Init service={service} {...props} />;
     }
+
+    // @ts-ignore
+    return <Loading service={service} {...props} />;
   }
   if (service.isLoading(service)) {
     return <Loading service={service} {...props} />;

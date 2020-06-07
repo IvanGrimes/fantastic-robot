@@ -1,6 +1,6 @@
 import { createEvent } from 'effector';
-import { createStore, modulesConfig, configService } from '@model';
-import { FiltersEnum } from './types';
+import { createStore, modulesConfig, configService, FiltersEnum } from '@model';
+import { mergeDeepRight } from 'ramda';
 
 export type FiltersType = {
   [FiltersEnum.textSearch]: string;
@@ -16,6 +16,7 @@ export type FiltersType = {
     from: string;
     to: string;
   };
+  [FiltersEnum.metro]: { [key: string]: boolean | undefined };
   [FiltersEnum.hasOnlineBooking]: boolean;
 };
 
@@ -48,27 +49,31 @@ export const filtersStore = createStore<FiltersStore>('filters', {
       from: '',
       to: '',
     },
+    [FiltersEnum.metro]: {},
   },
   disabled: false,
 })
   .on(configService.effect.doneData, (state, configEntity) => {
     const config = configEntity.getData();
+    const area = state.values[FiltersEnum.area];
+    const height = state.values[FiltersEnum.height];
+    const price = state.values[FiltersEnum.price];
 
     return {
       ...state,
       values: {
         ...state.values,
         [FiltersEnum.area]: {
-          from: config[FiltersEnum.area].min.toString(),
-          to: config[FiltersEnum.area].max.toString(),
+          from: area.from || config[FiltersEnum.area].min.toString(),
+          to: area.to || config[FiltersEnum.area].max.toString(),
         },
         [FiltersEnum.height]: {
-          from: config[FiltersEnum.height].min.toString(),
-          to: config[FiltersEnum.height].max.toString(),
+          from: height.from || config[FiltersEnum.height].min.toString(),
+          to: height.to || config[FiltersEnum.height].max.toString(),
         },
         [FiltersEnum.price]: {
-          from: config[FiltersEnum.price].min.toString(),
-          to: config[FiltersEnum.price].max.toString(),
+          from: price.from || config[FiltersEnum.price].min.toString(),
+          to: price.to || config[FiltersEnum.price].max.toString(),
         },
       },
     };
@@ -77,22 +82,7 @@ export const filtersStore = createStore<FiltersStore>('filters', {
     if (!state.disabled) {
       return {
         ...state,
-        values: {
-          ...state.values,
-          ...values,
-          [FiltersEnum.area]: {
-            ...state.values[FiltersEnum.area],
-            ...(values[FiltersEnum.area] || {}),
-          },
-          [FiltersEnum.height]: {
-            ...state.values[FiltersEnum.height],
-            ...(values[FiltersEnum.height] || {}),
-          },
-          [FiltersEnum.price]: {
-            ...state.values[FiltersEnum.price],
-            ...(values[FiltersEnum.price] || {}),
-          },
-        },
+        values: mergeDeepRight(state.values, values),
       };
     }
 

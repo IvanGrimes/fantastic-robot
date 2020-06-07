@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { useConfig } from '@hooks';
+import { mergeDeepRight } from 'ramda';
 import { updateFilters, changeDisabled, filtersStore } from '../internal';
 import { Filters } from './Filters';
 import { parseFiltersQueryString, updateFiltersQueryString } from '../utils';
@@ -16,8 +17,10 @@ export const FiltersContainer = () => {
 
   useEffect(
     () =>
-      filtersStore.watch(updateFilters, (state) => {
-        updateFiltersQueryString(state.values);
+      filtersStore.watch(updateFilters, (_, payload) => {
+        updateFiltersQueryString(
+          mergeDeepRight(parseFiltersQueryString(window.location), payload)
+        );
       }),
     []
   );

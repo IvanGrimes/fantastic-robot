@@ -1,11 +1,11 @@
-import { Entity } from '@model';
 import {
+  Entity,
   ComfortId,
   EquipmentId,
   PhotoId,
   PriceType,
   StationId,
-} from '../types';
+} from '@model';
 
 export type Studio = {
   roomIds: string[];
