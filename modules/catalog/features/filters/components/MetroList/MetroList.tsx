@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { ConfigEntity } from '../../../config/model';
+import { ConfigEntity } from '@model';
 
 export const MetroList: FunctionComponent<{
   config: ConfigEntity;

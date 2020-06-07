@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { renderService } from '@model';
+import { renderService, ConfigServiceProps } from '@model';
 import { Grid } from '@components';
 import { FiltersStore, UpdateFilters } from '../internal';
-import { ConfigServiceProps } from '../../config';
 import { FiltersLoading } from './FiltersLoading';
 import { FiltersFail } from './FiltersFail';
 import { FiltersSuccess } from './FiltersSuccess';

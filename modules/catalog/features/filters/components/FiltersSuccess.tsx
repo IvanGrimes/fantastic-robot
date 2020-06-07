@@ -1,8 +1,6 @@
 import React from 'react';
-import { SuccessComponent } from '@model';
+import { SuccessComponent, ConfigServiceProps, FiltersEnum } from '@model';
 import { Grid } from '@components';
-import { FiltersEnum } from '../internal';
-import { ConfigServiceProps } from '../../config';
 import { Range } from './Range';
 import { FiltersProps } from './types';
 import { DebouncedSwitch } from './DebouncedSwitch';

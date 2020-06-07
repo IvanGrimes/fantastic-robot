@@ -1,6 +1,5 @@
 import React from 'react';
-import { FailComponent } from '@model';
-import { ConfigServiceProps } from '../../config';
+import { FailComponent, ConfigServiceProps } from '@model';
 import { FiltersProps } from './types';
 
 export const FiltersFail: FailComponent<

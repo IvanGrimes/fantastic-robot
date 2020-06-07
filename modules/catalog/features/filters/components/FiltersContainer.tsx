@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
-import { useConfig } from '../../config';
+import { useConfig } from '@hooks';
 import { updateFilters, changeDisabled, filtersStore } from '../internal';
 import { Filters } from './Filters';
 import { parseFiltersQueryString, updateFiltersQueryString } from '../utils';

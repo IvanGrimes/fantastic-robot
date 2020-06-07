@@ -1,5 +1,10 @@
-import { createService, http, GetPropsFromService } from '@model';
-import { Config, ConfigEntity } from '../entities';
+import {
+  Config,
+  ConfigEntity,
+  createService,
+  http,
+  GetPropsFromService,
+} from '../internal';
 
 const fetchConfig = () =>
   http.get<Config>('/api/config').then(({ data }) => new ConfigEntity(data));

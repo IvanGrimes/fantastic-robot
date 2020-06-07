@@ -6,6 +6,9 @@ export {
   Entity,
   renderService,
   modulesConfig,
+  configService,
+  FiltersEnum,
+  ConfigEntity,
 } from './internal';
 export type {
   GetPropsFromService,
@@ -14,4 +17,13 @@ export type {
   LoadingComponent,
   FailComponent,
   SuccessComponent,
+  CityId,
+  ComfortId,
+  EquipmentId,
+  EquipmentTypeId,
+  InteriorId,
+  PhotoId,
+  StationId,
+  PriceType,
+  ConfigServiceProps,
 } from './internal';

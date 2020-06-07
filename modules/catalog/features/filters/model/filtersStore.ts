@@ -1,7 +1,6 @@
 import { createEvent } from 'effector';
-import { createStore, modulesConfig } from '@model';
+import { createStore, modulesConfig, configService } from '@model';
 import { FiltersEnum } from './types';
-import { configService } from '../../config';
 
 export type FiltersType = {
   [FiltersEnum.textSearch]: string;

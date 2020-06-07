@@ -1,12 +1,12 @@
-import { Entity } from '@model';
+import { Entity } from './internal';
 import {
+  FiltersEnum,
   CityId,
   ComfortId,
   EquipmentId,
   EquipmentTypeId,
   InteriorId,
-} from '../../../list';
-import { FiltersEnum } from '../../../filters';
+} from '../internal';
 
 type RangeFilterConfig = {
   min: number;
