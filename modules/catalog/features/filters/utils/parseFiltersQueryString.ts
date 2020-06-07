@@ -1,7 +1,9 @@
 import { parse } from 'qs';
 import { FiltersType } from '../internal';
 
-export const parseFiltersQueryString = (location: Location): FiltersType => {
+export const parseFiltersQueryString = (
+  location: Location
+): DeepPartial<FiltersType> => {
   const { filters } = parse(location.search.replace('?', ''));
 
   if (filters) {

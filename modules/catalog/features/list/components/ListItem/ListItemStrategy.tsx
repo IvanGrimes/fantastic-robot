@@ -7,7 +7,6 @@ import { Room } from './Room';
 type Sizes = Pick<GridProps, 'xs' | 'sm' | 'md' | 'lg' | 'xl'>;
 
 const Item: FunctionComponent<Sizes> = ({ children, xs = 4, ...sizes }) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Grid item component="li" xs={4} {...sizes}>
     {children}
   </Grid>
@@ -23,15 +22,11 @@ export const ListItemStrategy: FunctionComponent<
     Sizes
 > = ({ entity, children, ...sizes }) => {
   if (entity === null) {
-    return (
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      <Item {...sizes}>{children}</Item>
-    );
+    return <Item {...sizes}>{children}</Item>;
   }
 
   if (entity instanceof StudioEntity) {
     return (
-      // eslint-disable-next-line react/jsx-props-no-spreading
       <Item {...sizes}>
         <Studio entity={entity} />
       </Item>
@@ -39,7 +34,6 @@ export const ListItemStrategy: FunctionComponent<
   }
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Item {...sizes}>
       <Room entity={entity} />
     </Item>

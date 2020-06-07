@@ -1,9 +1,9 @@
 import React from 'react';
 import { FailComponent } from '@model';
-import { FiltersStore } from '../model';
 import { ConfigServiceProps } from '../../config';
+import { FiltersProps } from './types';
 
 export const FiltersFail: FailComponent<
   ConfigServiceProps,
-  { filters: FiltersStore }
+  FiltersProps
 > = () => <div>filters fail</div>;

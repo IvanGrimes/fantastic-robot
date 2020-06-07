@@ -6,7 +6,6 @@ import {
 import styled from 'styled-components';
 
 export const CardMedia = styled((props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <DefaultCardMedia {...props} component="img" />
 ))<CardMediaProps<'img'>>`
   && {

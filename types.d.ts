@@ -18,4 +18,10 @@ declare global {
   >;
 
   type Diff<T, U> = T extends U ? never : T; // Remove types from T that are assignable to U
+
+  type DeepPartial<T> = T extends Function
+    ? T
+    : T extends object
+    ? { [P in keyof T]?: DeepPartial<T[P]> }
+    : T;
 }

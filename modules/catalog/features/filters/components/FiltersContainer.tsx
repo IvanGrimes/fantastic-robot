@@ -16,11 +16,13 @@ export const FiltersContainer = () => {
 
   useEffect(
     () =>
-      filtersStore.watch(updateFilters, (_, payload) => {
-        updateFiltersQueryString(payload);
+      filtersStore.watch(updateFilters, (state) => {
+        updateFiltersQueryString(state.values);
       }),
     []
   );
 
-  return <Filters filters={filters} config={config} />;
+  return (
+    <Filters filters={filters} updateFilters={updateFilters} config={config} />
+  );
 };

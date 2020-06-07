@@ -6,3 +6,6 @@ export * from './Typography';
 export * from './Button';
 export * from './IconButton';
 export * from './Layout';
+export * from './Paper';
+export * from './TextField';
+export * from './Switch';

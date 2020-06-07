@@ -13,5 +13,4 @@ export const Content = styled.div`
   flex-wrap: wrap;
   width: 100%;
   min-height: 100vh;
-  margin-top: 32px;
 `;

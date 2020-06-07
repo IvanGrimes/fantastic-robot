@@ -1,29 +1,84 @@
 import React from 'react';
 import { SuccessComponent } from '@model';
-import { FiltersStore, updateFilters } from '../internal';
+import { Grid } from '@components';
+import { FiltersEnum } from '../internal';
 import { ConfigServiceProps } from '../../config';
+import { Name } from './Name';
+import { Range } from './Range';
+import { FiltersProps } from './types';
+import { DebouncedSwitch } from './DebouncedSwitch';
+
+const squareMeter = <>&#13217;</>;
+const ruble = <>&#8381;</>;
 
 export const FiltersSuccess: SuccessComponent<
   ConfigServiceProps,
-  { filters: FiltersStore }
-> = ({ filters }) => (
-  <button
-    type="button"
-    style={{
-      height: '10px',
-      width: '10px',
-      backgroundColor: filters.values?.hasOnlineBooking ? 'green' : 'red',
-      userSelect: 'none',
-    }}
-    onClick={
-      filters.disabled
-        ? undefined
-        : () =>
-            updateFilters({
-              hasOnlineBooking: !filters.values?.hasOnlineBooking,
-            })
-    }
-  >
-    hasOnlineBooking
-  </button>
-);
+  FiltersProps
+> = ({ filters, updateFilters }) => {
+  return (
+    <Grid container spacing={2}>
+      <Grid item container>
+        <Name
+          value={filters.values[FiltersEnum.textSearch]}
+          onChange={(value) => {
+            updateFilters({ [FiltersEnum.textSearch]: value });
+          }}
+        />
+      </Grid>
+      <Grid item container>
+        <Range
+          name="Площадь"
+          from={filters.values[FiltersEnum.area].from}
+          changeFrom={(value) =>
+            updateFilters({ [FiltersEnum.area]: { from: value } })
+          }
+          fromLabel={<>от {squareMeter}</>}
+          to={filters.values[FiltersEnum.area].to}
+          changeTo={(value) =>
+            updateFilters({ [FiltersEnum.area]: { to: value } })
+          }
+          toLabel={<>до {squareMeter}</>}
+        />
+      </Grid>
+      <Grid item container>
+        <Range
+          name="Высота потолков"
+          from={filters.values[FiltersEnum.height].from}
+          changeFrom={(value) =>
+            updateFilters({ [FiltersEnum.height]: { from: value } })
+          }
+          fromLabel={<>от см</>}
+          to={filters.values[FiltersEnum.height].to}
+          changeTo={(value) =>
+            updateFilters({ [FiltersEnum.height]: { to: value } })
+          }
+          toLabel={<>до см</>}
+        />
+      </Grid>
+      <Grid item container>
+        <Range
+          name="Цена"
+          from={filters.values[FiltersEnum.price].from}
+          changeFrom={(value) =>
+            updateFilters({ [FiltersEnum.price]: { from: value } })
+          }
+          fromLabel={<>от {ruble}</>}
+          to={filters.values[FiltersEnum.price].to}
+          changeTo={(value) =>
+            updateFilters({ [FiltersEnum.price]: { to: value } })
+          }
+          toLabel={<>до {ruble}</>}
+        />
+      </Grid>
+      <Grid item container>
+        <DebouncedSwitch
+          label="Оплата онлайн"
+          value={filters.values[FiltersEnum.hasOnlineBooking]}
+          onChange={(value) =>
+            updateFilters({ [FiltersEnum.hasOnlineBooking]: value })
+          }
+        />
+      </Grid>
+    </Grid>
+  );
+};

@@ -17,7 +17,6 @@ export default class extends Document {
 
     const renderPageResult = await renderPage({
       enhanceApp: (App) => (props) =>
-        // eslint-disable-next-line react/jsx-props-no-spreading
         muiStyles.collect(scSheets.collectStyles(<App {...props} />)),
     });
 
