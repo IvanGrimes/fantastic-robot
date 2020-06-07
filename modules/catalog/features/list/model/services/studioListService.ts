@@ -1,10 +1,5 @@
-import {
-  http,
-  createService,
-  GetPropsFromService,
-  Studio,
-  StudioEntity,
-} from '@model';
+import { http, createService, GetPropsFromService } from '@model';
+import { Studio, StudioEntity } from '../entities';
 
 const fetchStudioList = () =>
   http

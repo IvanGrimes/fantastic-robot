@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { RoomEntity, StudioEntity } from '@model';
 import { Grid, GridProps } from '@components';
+import { RoomEntity, StudioEntity } from '../../internal';
 import { Studio } from './Studio';
 import { Room } from './Room';
 

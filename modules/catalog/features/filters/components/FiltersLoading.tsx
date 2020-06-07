@@ -1,6 +1,7 @@
 import React from 'react';
-import { LoadingComponent, ConfigServiceProps } from '@model';
+import { LoadingComponent } from '@model';
 import { FiltersStore } from '../model';
+import { ConfigServiceProps } from '../../config';
 
 export const FiltersLoading: LoadingComponent<
   ConfigServiceProps,

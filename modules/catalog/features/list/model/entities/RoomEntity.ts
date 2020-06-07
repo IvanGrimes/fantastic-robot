@@ -1,6 +1,7 @@
-import { Studio } from './internal';
-import { Entity } from './Entity';
-import { Filters, InteriorId, PhotoId } from '../internal';
+import { Entity } from '@model';
+import { Studio } from './StudioEntity';
+import { InteriorId, PhotoId } from '../../internal';
+import { FiltersEnum } from '../../../filters';
 
 export type Room = {
   id: string;
@@ -11,8 +12,8 @@ export type Room = {
   photoExamples: PhotoId[];
   interiorIds: InteriorId[];
   minimalPrice: number;
-  [Filters.area]: number;
-  [Filters.height]: number;
+  [FiltersEnum.area]: number;
+  [FiltersEnum.height]: number;
 };
 
 const name = 'room';

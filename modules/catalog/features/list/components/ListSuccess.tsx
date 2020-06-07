@@ -1,5 +1,6 @@
 import React from 'react';
-import { SuccessComponent, RoomEntity, StudioEntity } from '@model';
+import { SuccessComponent } from '@model';
+import { RoomEntity, StudioEntity } from '../internal';
 import { ListService } from './types';
 import { ListItem } from './ListItem';
 

@@ -1,10 +1,5 @@
-import {
-  http,
-  createService,
-  GetPropsFromService,
-  Room,
-  RoomEntity,
-} from '@model';
+import { http, createService, GetPropsFromService } from '@model';
+import { Room, RoomEntity } from '../entities';
 
 const fetchRoomList = () =>
   http

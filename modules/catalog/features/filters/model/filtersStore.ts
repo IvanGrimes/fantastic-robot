@@ -1,10 +1,11 @@
 import { createEvent } from 'effector';
-import { createStore, modulesConfig, Filters } from '@model';
+import { createStore, modulesConfig } from '@model';
+import { FiltersEnum } from './types';
 
 export type FiltersType = Partial<{
-  [Filters.area]: number;
-  [Filters.height]: number;
-  [Filters.hasOnlineBooking]: boolean;
+  [FiltersEnum.area]: number;
+  [FiltersEnum.height]: number;
+  [FiltersEnum.hasOnlineBooking]: boolean;
 }>;
 
 export type FiltersStore = {

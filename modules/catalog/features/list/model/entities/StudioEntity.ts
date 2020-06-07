@@ -1,11 +1,11 @@
-import { Entity } from './internal';
+import { Entity } from '@model';
 import {
   ComfortId,
   EquipmentId,
   PhotoId,
   PriceType,
   StationId,
-} from '../internal';
+} from '../types';
 
 export type Studio = {
   roomIds: string[];

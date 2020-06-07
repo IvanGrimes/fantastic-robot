@@ -1,12 +1,12 @@
-import { Entity } from './internal';
+import { Entity } from '@model';
 import {
   CityId,
   ComfortId,
   EquipmentId,
   EquipmentTypeId,
-  Filters,
   InteriorId,
-} from '../internal';
+} from '../../../list';
+import { FiltersEnum } from '../../../filters';
 
 type RangeFilterConfig = {
   min: number;
@@ -35,11 +35,11 @@ export type Config = {
     name: string;
   }[];
   filters: {
-    [key in Filters]: boolean;
+    [key in FiltersEnum]: boolean;
   };
-  [Filters.area]: RangeFilterConfig;
-  [Filters.height]: RangeFilterConfig;
-  [Filters.price]: RangeFilterConfig;
+  [FiltersEnum.area]: RangeFilterConfig;
+  [FiltersEnum.height]: RangeFilterConfig;
+  [FiltersEnum.price]: RangeFilterConfig;
 };
 
 const name = 'config';

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { StudioEntity } from '@model';
 import { Typography } from '@components';
 import { Card, CardActionArea, CardContent } from '@material-ui/core';
+import { StudioEntity } from '../../internal';
 import { CardMedia } from './ListItem.styles';
 
 const defaultEntity = new StudioEntity();

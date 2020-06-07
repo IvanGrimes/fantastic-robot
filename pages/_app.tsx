@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import { configService } from '@model';
 import { useEffectMount } from '@hooks';
 import { ThemeProvider } from 'styled-components';
 import { Normalize } from '@components';
@@ -17,15 +16,7 @@ const onMount = () => {
 };
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const config = configService.useService();
-
   useEffectMount(onMount);
-
-  useEffect(() => {
-    if (config.isInit(config)) {
-      config.effect([]);
-    }
-  }, [config]);
 
   return (
     <ThemeProvider theme={theme}>
