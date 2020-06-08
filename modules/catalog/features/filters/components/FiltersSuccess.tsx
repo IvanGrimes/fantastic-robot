@@ -1,11 +1,12 @@
 import React from 'react';
 import { SuccessComponent, ConfigServiceProps, FiltersEnum } from '@model';
 import { Grid } from '@components';
-import { Range } from './Range';
+import { DebouncedRange } from './DebouncedRange';
 import { FiltersProps } from './types';
 import { DebouncedSwitch } from './DebouncedSwitch';
 import { DebouncedTextField } from './DebouncedTextField';
 import { MetroList } from './MetroList';
+import { ParameterList } from './ParameterList';
 
 const squareMeter = <>&#13217;</>;
 const ruble = <>&#8381;</>;
@@ -13,7 +14,7 @@ const ruble = <>&#8381;</>;
 export const FiltersSuccess: SuccessComponent<
   ConfigServiceProps,
   FiltersProps
-> = ({ filters, updateFilters }) => (
+> = ({ filters, updateFilters, service }) => (
   <Grid container spacing={2}>
     <Grid item container>
       <DebouncedTextField
@@ -27,7 +28,7 @@ export const FiltersSuccess: SuccessComponent<
       />
     </Grid>
     <Grid item container>
-      <Range
+      <DebouncedRange
         name="Площадь"
         from={filters.values[FiltersEnum.area].from}
         changeFrom={(value) =>
@@ -42,7 +43,7 @@ export const FiltersSuccess: SuccessComponent<
       />
     </Grid>
     <Grid item container>
-      <Range
+      <DebouncedRange
         name="Высота потолков"
         from={filters.values[FiltersEnum.height].from}
         changeFrom={(value) =>
@@ -57,7 +58,7 @@ export const FiltersSuccess: SuccessComponent<
       />
     </Grid>
     <Grid item container>
-      <Range
+      <DebouncedRange
         name="Цена"
         from={filters.values[FiltersEnum.price].from}
         changeFrom={(value) =>
@@ -69,6 +70,48 @@ export const FiltersSuccess: SuccessComponent<
           updateFilters({ [FiltersEnum.price]: { to: value } })
         }
         toLabel={<>до {ruble}</>}
+      />
+    </Grid>
+    <Grid item container>
+      <ParameterList
+        title="Оборудование"
+        list={service.data.getData().equipmentTypes}
+        values={filters.values[FiltersEnum.equipment]}
+        onChange={(value) =>
+          updateFilters({
+            [FiltersEnum.equipment]: {
+              [value]: !filters.values[FiltersEnum.equipment][value],
+            },
+          })
+        }
+      />
+    </Grid>
+    <Grid item container>
+      <ParameterList
+        title="Интерьеры"
+        list={service.data.getData().interiors}
+        values={filters.values[FiltersEnum.interior]}
+        onChange={(value) =>
+          updateFilters({
+            [FiltersEnum.interior]: {
+              [value]: !filters.values[FiltersEnum.interior][value],
+            },
+          })
+        }
+      />
+    </Grid>
+    <Grid item container>
+      <ParameterList
+        title="Удобства"
+        list={service.data.getData().comforts}
+        values={filters.values[FiltersEnum.comfort]}
+        onChange={(value) =>
+          updateFilters({
+            [FiltersEnum.comfort]: {
+              [value]: !filters.values[FiltersEnum.comfort][value],
+            },
+          })
+        }
       />
     </Grid>
     <Grid item container>

@@ -18,6 +18,9 @@ export type FiltersType = {
   };
   [FiltersEnum.metro]: { [key: string]: boolean | undefined };
   [FiltersEnum.hasOnlineBooking]: boolean;
+  [FiltersEnum.comfort]: { [key: string]: boolean | undefined };
+  [FiltersEnum.interior]: { [key: string]: boolean | undefined };
+  [FiltersEnum.equipment]: { [key: string]: boolean | undefined };
 };
 
 export type UpdateFilters = typeof updateFilters;
@@ -29,6 +32,8 @@ export type FiltersStore = {
 };
 
 export const updateFilters = createEvent<DeepPartial<FiltersType>>();
+
+export const clearFilters = createEvent();
 
 export const changeDisabled = createEvent<boolean>();
 
@@ -50,6 +55,9 @@ export const filtersStore = createStore<FiltersStore>('filters', {
       to: '',
     },
     [FiltersEnum.metro]: {},
+    [FiltersEnum.comfort]: {},
+    [FiltersEnum.interior]: {},
+    [FiltersEnum.equipment]: {},
   },
   disabled: false,
 })

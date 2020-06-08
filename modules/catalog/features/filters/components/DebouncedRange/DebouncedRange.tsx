@@ -4,7 +4,7 @@ import { DebouncedTextField } from '../DebouncedTextField';
 
 export type ChangeEventHandler = (value: string) => void;
 
-export const Range: FunctionComponent<{
+export const DebouncedRange: FunctionComponent<{
   name: string;
   from: string;
   to: string;
