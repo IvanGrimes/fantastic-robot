@@ -10,3 +10,4 @@ export * from './Paper';
 export * from './TextField';
 export * from './Switch';
 export * from './VirtualizedList';
+export * from './Checkbox';

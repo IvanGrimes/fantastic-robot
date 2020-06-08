@@ -1,11 +1,6 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useState,
-  ChangeEvent,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import { Switch, SwitchProps } from '@components';
-import { debounce } from '@utils';
+import { useDebouncedInputState } from '../useDebouncedInputState';
 
 export const DebouncedSwitchContainer: FunctionComponent<
   {
@@ -13,18 +8,16 @@ export const DebouncedSwitchContainer: FunctionComponent<
     value: boolean;
   } & Omit<SwitchProps, 'onChange'>
 > = ({ value, onChange, label }) => {
-  const [_value, setValue] = useState(value);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceHandleChange = useCallback(debounce(onChange, 250), [onChange]);
-  const handleChange = useCallback<(ev: ChangeEvent<HTMLInputElement>) => void>(
-    (ev) => {
-      const nextValue = ev.target.checked;
+  const debounced = useDebouncedInputState(value, onChange, {
+    delay: 250,
+    mapValue: (ev) => ev.target.checked,
+  });
 
-      setValue(nextValue);
-      debounceHandleChange(nextValue);
-    },
-    [debounceHandleChange]
+  return (
+    <Switch
+      checked={debounced.value}
+      onChange={debounced.handleChange}
+      label={label}
+    />
   );
-
-  return <Switch checked={_value} onChange={handleChange} label={label} />;
 };
