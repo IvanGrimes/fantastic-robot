@@ -1,12 +1,11 @@
 import React from 'react';
 import { Layout } from '@components';
-import { List, Filters } from '../modules/catalog';
+import { Catalog } from '@modules/catalog';
 
 export default () => {
   return (
     <Layout>
-      <Filters />
-      <List variant="studio" />
+      <Catalog />
     </Layout>
   );
 };

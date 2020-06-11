@@ -1,8 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Grid, GridProps } from '@components';
-import { RoomEntity, StudioEntity } from '../../internal';
 import { Studio } from './Studio';
-import { Room } from './Room';
+import { Studio as StudioType } from '../../../../model';
 
 type Sizes = Pick<GridProps, 'xs' | 'sm' | 'md' | 'lg' | 'xl'>;
 
@@ -15,7 +14,7 @@ const Item: FunctionComponent<Sizes> = ({ children, xs = 4, ...sizes }) => (
 export const ListItemStrategy: FunctionComponent<
   (
     | {
-        entity: RoomEntity | StudioEntity;
+        entity: StudioType;
       }
     | { entity: null; children: ReactNode }
   ) &
@@ -25,17 +24,9 @@ export const ListItemStrategy: FunctionComponent<
     return <Item {...sizes}>{children}</Item>;
   }
 
-  if (entity instanceof StudioEntity) {
-    return (
-      <Item {...sizes}>
-        <Studio entity={entity} />
-      </Item>
-    );
-  }
-
   return (
     <Item {...sizes}>
-      <Room entity={entity} />
+      <Studio entity={entity} />
     </Item>
   );
 };

@@ -6,7 +6,6 @@ import Document, {
   DocumentContext,
   Head,
 } from 'next/document';
-import { createStore } from '@model';
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
 
@@ -35,7 +34,6 @@ export default class extends Document {
         <body>
           <Main />
           <NextScript />
-          {createStore.renderToString()}
         </body>
       </Html>
     );

@@ -1,10 +1,8 @@
 import React from 'react';
-import { FailComponent } from '@model';
 import { Grid } from '@components';
-import { ListService } from './types';
 
-export const ListFail: FailComponent<ListService> = ({ service }) => (
+export const ListFail = () => (
   <Grid container item>
-    {service.error.message}
+    fail
   </Grid>
 );

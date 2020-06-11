@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  CardMedia as DefaultCardMedia,
-  CardMediaProps,
-} from '@material-ui/core';
+import { CardMedia as DefaultCardMedia, CardMediaProps } from '@components';
 import styled from 'styled-components';
 
 export const CardMedia = styled((props) => (

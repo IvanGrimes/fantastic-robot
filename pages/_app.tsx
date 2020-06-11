@@ -4,7 +4,11 @@ import { NextPage } from 'next';
 import { useEffectMount } from '@hooks';
 import { ThemeProvider } from 'styled-components';
 import { Normalize } from '@components';
+import { storeWrapper } from '@model';
 import { theme } from '../theme';
+
+// TODO: loading/errors
+// TODO: filters
 
 const onMount = () => {
   const jssStyles = document.querySelector('#jss-server-side');
@@ -25,4 +29,4 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default App;
+export default storeWrapper.withRedux(App);

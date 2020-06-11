@@ -1,11 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { VirtualizedListItemProps } from '@components';
-import { Metro } from '@model';
+import { MetroList } from '@shared';
 import { ListProps } from '../types';
 import { ParameterListItem, listItemPadding } from '../../../ParameterList';
 
 export const ListItem: FunctionComponent<
-  Omit<VirtualizedListItemProps, 'data'> & { data: ListProps & { list: Metro } }
+  Omit<VirtualizedListItemProps, 'data'> & {
+    data: ListProps & { list: MetroList };
+  }
 > = ({ index, style, data }) => {
   const { values, onChange, list } = data;
   const { name, id } = list[index];

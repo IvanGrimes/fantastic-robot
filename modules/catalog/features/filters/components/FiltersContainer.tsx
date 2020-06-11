@@ -1,31 +1,51 @@
-import React, { useEffect } from 'react';
-import { useStore } from 'effector-react';
-import { useConfig } from '@hooks';
-import { mergeDeepRight } from 'ramda';
-import { updateFilters, changeDisabled, filtersStore } from '../internal';
+import React, { FunctionComponent } from 'react';
+import { selectors as sharedSelectors } from '@shared';
+import { connect } from 'react-redux';
+import { useEffectMount } from '@hooks';
 import { Filters } from './Filters';
-import { parseFiltersQueryString, updateFiltersQueryString } from '../utils';
+import { selectors, actions } from '../model';
 
-export const FiltersContainer = () => {
-  const filters = useStore(filtersStore);
-  const config = useConfig();
+export type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
-  useEffect(() => {
-    updateFilters(parseFiltersQueryString(window.location));
-    changeDisabled(false);
-  }, []);
+const mapStateToProps = (state: RootState) => ({
+  filters: selectors.getFilters(state),
+  isConfigLoading: sharedSelectors.getConfigLoading(state),
+  config: sharedSelectors.getConfig(state),
+  isMetroListLoading: sharedSelectors.getMetroListLoading(state),
+  metroList: sharedSelectors.getMetroList(state),
+});
 
-  useEffect(
-    () =>
-      filtersStore.watch(updateFilters, (_, payload) => {
-        updateFiltersQueryString(
-          mergeDeepRight(parseFiltersQueryString(window.location), payload)
-        );
-      }),
-    []
-  );
+const dispatchProps = {
+  updateFilters: actions.update,
+  syncFilters: actions.parse,
+};
+
+const _FiltersContainer: FunctionComponent<Props> = ({
+  filters,
+  isConfigLoading,
+  config,
+  updateFilters,
+  isMetroListLoading,
+  metroList,
+  syncFilters,
+}) => {
+  useEffectMount(() => {
+    syncFilters();
+  });
 
   return (
-    <Filters filters={filters} updateFilters={updateFilters} config={config} />
+    <Filters
+      filters={filters}
+      updateFilters={updateFilters}
+      isConfigLoading={isConfigLoading}
+      config={config}
+      isMetroListLoading={isMetroListLoading}
+      metroList={metroList}
+    />
   );
 };
+
+export const FiltersContainer = connect(
+  mapStateToProps,
+  dispatchProps
+)(_FiltersContainer);

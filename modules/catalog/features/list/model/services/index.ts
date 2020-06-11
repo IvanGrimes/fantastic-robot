@@ -1,2 +1,2 @@
-export * from './studioListService';
-export * from './roomListService';
+export * from './fetchStudioList';
+export * from './fetchRoomList';

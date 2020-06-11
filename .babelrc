@@ -17,6 +17,7 @@
         "root": ["./"],
         "alias": {
           "@modules": "./modules",
+          "@shared": "./shared",
           "@components": "./components",
           "@hooks": "./hooks",
           "@utils": "./utils",
@@ -27,6 +28,9 @@
     ]
   ],
   "env": {
+    "test": {
+      "plugins": ["transform-dynamic-import"]
+    },
     "development": {
       "plugins": [
         [

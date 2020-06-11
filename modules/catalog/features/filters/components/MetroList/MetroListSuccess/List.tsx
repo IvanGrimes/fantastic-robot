@@ -1,33 +1,30 @@
-import React from 'react';
-import { MetroServiceProps, SuccessComponent } from '@model';
+import React, { FunctionComponent } from 'react';
 import { VirtualizedList } from '@components';
-import { ListProps } from './types';
 import { ListItem } from './ListItem';
-import { ParameterList, listItemPadding, maxHeight } from '../../ParameterList';
+import { listItemPadding, maxHeight } from '../../ParameterList';
+import { MetroListProps } from '../types';
 
-export const List: SuccessComponent<MetroServiceProps, ListProps> = ({
-  service,
+export const List: FunctionComponent<MetroListProps> = ({
   values,
   onChange,
+  list,
 }) => {
-  const list = service.data.getData();
+  const listData = list;
 
   return (
-    <ParameterList title="Список метро">
-      <VirtualizedList
-        style={{ marginLeft: `-${listItemPadding}` }}
-        itemSize={48}
-        height={maxHeight - 15}
-        width={`calc(100% + ${listItemPadding})`}
-        itemCount={list.length}
-        itemData={{
-          list,
-          values,
-          onChange,
-        }}
-      >
-        {ListItem}
-      </VirtualizedList>
-    </ParameterList>
+    <VirtualizedList
+      style={{ marginLeft: `-${listItemPadding}` }}
+      itemSize={48}
+      height={maxHeight - 15}
+      width={`calc(100% + ${listItemPadding})`}
+      itemCount={listData.length}
+      itemData={{
+        list: listData,
+        values,
+        onChange,
+      }}
+    >
+      {ListItem}
+    </VirtualizedList>
   );
 };

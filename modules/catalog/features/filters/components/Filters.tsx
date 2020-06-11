@@ -1,26 +1,35 @@
 import React, { FunctionComponent } from 'react';
-import { renderService, ConfigServiceProps } from '@model';
 import { Grid } from '@components';
-import { FiltersStore, UpdateFilters } from '../internal';
-import { FiltersLoading } from './FiltersLoading';
-import { FiltersFail } from './FiltersFail';
-import { FiltersSuccess } from './FiltersSuccess';
 import { GridPaper } from './Filters.styles';
+import { FiltersSuccess, FiltersSuccessProps } from './FiltersSuccess';
 
-export const Filters: FunctionComponent<{
-  filters: FiltersStore;
-  updateFilters: UpdateFilters;
-  config: ConfigServiceProps;
-}> = ({ config, updateFilters, filters }) => (
-  <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
-    {renderService(
-      config,
-      { filters, updateFilters },
-      {
-        Loading: FiltersLoading,
-        Fail: FiltersFail,
-        Success: FiltersSuccess,
-      }
-    )}
-  </Grid>
-);
+type Props = FiltersSuccessProps & { isConfigLoading: boolean };
+
+export const Filters: FunctionComponent<Props> = ({
+  filters,
+  isConfigLoading,
+  config,
+  updateFilters,
+  isMetroListLoading,
+  metroList,
+}) => {
+  if (isConfigLoading) {
+    return (
+      <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
+        <Grid container>loading</Grid>
+      </Grid>
+    );
+  }
+
+  return (
+    <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
+      <FiltersSuccess
+        isMetroListLoading={isMetroListLoading}
+        metroList={metroList}
+        filters={filters}
+        config={config}
+        updateFilters={updateFilters}
+      />
+    </Grid>
+  );
+};

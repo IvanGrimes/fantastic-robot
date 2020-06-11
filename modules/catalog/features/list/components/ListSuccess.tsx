@@ -1,11 +1,13 @@
-import React from 'react';
-import { SuccessComponent } from '@model';
-import { RoomEntity, StudioEntity } from '../internal';
-import { ListService } from './types';
+import React, { FunctionComponent } from 'react';
+import { StudioList } from '../model';
 import { ListItem } from './ListItem';
 
-export const ListSuccess: SuccessComponent<ListService> = ({ service }) =>
-  // @ts-ignore
-  service.data.map((entity: StudioEntity | RoomEntity) => (
-    <ListItem key={entity.getId()} entity={entity} />
-  ));
+export const ListSuccess: FunctionComponent<{
+  list: StudioList;
+}> = ({ list }) => (
+  <>
+    {list.map(({ studio }) => (
+      <ListItem key={studio.id} entity={studio} />
+    ))}
+  </>
+);

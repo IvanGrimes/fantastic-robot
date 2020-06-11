@@ -1,26 +1,37 @@
-import React from 'react';
-import { SuccessComponent, ConfigServiceProps, FiltersEnum } from '@model';
+import React, { FunctionComponent } from 'react';
 import { Grid } from '@components';
+import { selectors as sharedSelectors, FiltersEnum } from '@shared';
+import { actions, selectors } from '../model';
 import { DebouncedRange } from './DebouncedRange';
-import { FiltersProps } from './types';
 import { DebouncedSwitch } from './DebouncedSwitch';
 import { DebouncedTextField } from './DebouncedTextField';
-import { MetroList } from './MetroList';
+import { MetroList, MetroListProps } from './MetroList';
 import { ParameterList } from './ParameterList';
+
+export type FiltersSuccessProps = {
+  filters: ReturnType<typeof selectors.getFilters>;
+  config: ReturnType<typeof sharedSelectors.getConfig>;
+  updateFilters: typeof actions.update;
+  isMetroListLoading: boolean;
+  metroList: MetroListProps['list'];
+};
 
 const squareMeter = <>&#13217;</>;
 const ruble = <>&#8381;</>;
 
-export const FiltersSuccess: SuccessComponent<
-  ConfigServiceProps,
-  FiltersProps
-> = ({ filters, updateFilters, service }) => (
+export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
+  filters,
+  updateFilters,
+  config,
+  isMetroListLoading,
+  metroList,
+}) => (
   <Grid container spacing={2}>
     <Grid item container>
       <DebouncedTextField
         label="Поиск по названию"
         variant="outlined"
-        value={filters.values[FiltersEnum.textSearch]}
+        value={filters[FiltersEnum.textSearch]}
         onChange={(value) => {
           updateFilters({ [FiltersEnum.textSearch]: value });
         }}
@@ -30,12 +41,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <DebouncedRange
         name="Площадь"
-        from={filters.values[FiltersEnum.area].from}
+        from={filters[FiltersEnum.area].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.area]: { from: value } })
         }
         fromLabel={<>от {squareMeter}</>}
-        to={filters.values[FiltersEnum.area].to}
+        to={filters[FiltersEnum.area].to}
         changeTo={(value) =>
           updateFilters({ [FiltersEnum.area]: { to: value } })
         }
@@ -45,12 +56,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <DebouncedRange
         name="Высота потолков"
-        from={filters.values[FiltersEnum.height].from}
+        from={filters[FiltersEnum.height].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.height]: { from: value } })
         }
         fromLabel={<>от см</>}
-        to={filters.values[FiltersEnum.height].to}
+        to={filters[FiltersEnum.height].to}
         changeTo={(value) =>
           updateFilters({ [FiltersEnum.height]: { to: value } })
         }
@@ -60,12 +71,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <DebouncedRange
         name="Цена"
-        from={filters.values[FiltersEnum.price].from}
+        from={filters[FiltersEnum.price].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.price]: { from: value } })
         }
         fromLabel={<>от {ruble}</>}
-        to={filters.values[FiltersEnum.price].to}
+        to={filters[FiltersEnum.price].to}
         changeTo={(value) =>
           updateFilters({ [FiltersEnum.price]: { to: value } })
         }
@@ -75,12 +86,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <ParameterList
         title="Оборудование"
-        list={service.data.getData().equipmentTypes}
-        values={filters.values[FiltersEnum.equipment]}
+        list={config.equipmentTypes}
+        values={filters[FiltersEnum.equipment]}
         onChange={(value) =>
           updateFilters({
             [FiltersEnum.equipment]: {
-              [value]: !filters.values[FiltersEnum.equipment][value],
+              [value]: !filters[FiltersEnum.equipment][value],
             },
           })
         }
@@ -89,12 +100,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <ParameterList
         title="Интерьеры"
-        list={service.data.getData().interiors}
-        values={filters.values[FiltersEnum.interior]}
+        list={config.interiors}
+        values={filters[FiltersEnum.interior]}
         onChange={(value) =>
           updateFilters({
             [FiltersEnum.interior]: {
-              [value]: !filters.values[FiltersEnum.interior][value],
+              [value]: !filters[FiltersEnum.interior][value],
             },
           })
         }
@@ -103,12 +114,12 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <ParameterList
         title="Удобства"
-        list={service.data.getData().comforts}
-        values={filters.values[FiltersEnum.comfort]}
+        list={config.comforts}
+        values={filters[FiltersEnum.comfort]}
         onChange={(value) =>
           updateFilters({
             [FiltersEnum.comfort]: {
-              [value]: !filters.values[FiltersEnum.comfort][value],
+              [value]: !filters[FiltersEnum.comfort][value],
             },
           })
         }
@@ -116,11 +127,13 @@ export const FiltersSuccess: SuccessComponent<
     </Grid>
     <Grid item container>
       <MetroList
-        values={filters.values[FiltersEnum.metro]}
+        isLoading={isMetroListLoading}
+        list={metroList}
+        values={filters[FiltersEnum.metro]}
         onChange={(value) =>
           updateFilters({
             [FiltersEnum.metro]: {
-              [value]: !filters.values[FiltersEnum.metro][value],
+              [value]: !filters[FiltersEnum.metro][value],
             },
           })
         }
@@ -129,7 +142,7 @@ export const FiltersSuccess: SuccessComponent<
     <Grid item container>
       <DebouncedSwitch
         label="Оплата онлайн"
-        value={filters.values[FiltersEnum.hasOnlineBooking]}
+        value={filters[FiltersEnum.hasOnlineBooking]}
         onChange={(value) =>
           updateFilters({ [FiltersEnum.hasOnlineBooking]: value })
         }

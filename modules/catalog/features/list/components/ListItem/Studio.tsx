@@ -1,16 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import { Typography } from '@components';
-import { Card, CardActionArea, CardContent } from '@material-ui/core';
-import { StudioEntity } from '../../internal';
+import { Typography, Card, CardActionArea, CardContent } from '@components';
 import { CardMedia } from './ListItem.styles';
+import { Studio as StudioType } from '../../../../model';
 
-const defaultEntity = new StudioEntity();
-
-export const Studio: FunctionComponent<{ entity?: StudioEntity }> = ({
-  entity = defaultEntity,
+export const Studio: FunctionComponent<{ entity?: StudioType }> = ({
+  entity: { photos, name, description } = {
+    name: '1',
+    description: '1',
+    photos: [],
+  },
 }) => {
-  const { studio } = entity.getData();
-  const photo = studio.photos[0] || {};
+  const photo = photos[0] || {};
 
   return (
     <Card variant="outlined">
@@ -22,10 +22,10 @@ export const Studio: FunctionComponent<{ entity?: StudioEntity }> = ({
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {studio.name}
+            {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {studio.description}
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>

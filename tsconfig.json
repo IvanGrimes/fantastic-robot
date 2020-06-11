@@ -39,6 +39,7 @@
     "paths": {
       "@modules/*": ["modules/*/index.ts"],
       "@components": ["components/index.ts"],
+      "@shared": ["shared/index.ts"],
       "@hooks": ["hooks/index.ts"],
       "@utils": ["utils/index.ts"],
       "@model": ["model/index.ts"],

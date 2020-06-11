@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Grid } from '@components';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Container } from '../internal';
+import { Container } from '../Container';
 import { Wrapper, Content } from './Layout.styles';
 
 export const Layout: FunctionComponent = ({ children }) => (

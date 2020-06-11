@@ -1,29 +1,26 @@
-import { FunctionComponent, useEffect } from 'react';
-import { metroService, renderService } from '@model';
-import { MetroListLoading } from './MetroListLoading';
+import React, { FunctionComponent } from 'react';
 import { MetroListSuccess } from './MetroListSuccess';
-import { MetroListFail } from './MetroListFail';
 import { MetroListProps } from './types';
+import { ParameterList } from '../ParameterList';
 
-export const MetroList: FunctionComponent<MetroListProps> = ({
-  onChange,
-  values,
-}) => {
-  const service = metroService.useService();
+const Wrapper: FunctionComponent = ({ children }) => (
+  <ParameterList title="Список метро">{children}</ParameterList>
+);
 
-  useEffect(() => {
-    if (service.isInit(service)) {
-      service.effect([]);
-    }
-  }, [service]);
+export const MetroList: FunctionComponent<
+  MetroListProps & { isLoading: boolean }
+> = ({ isLoading, onChange, values, list }) => {
+  if (isLoading) {
+    return (
+      <Wrapper>
+        <p>metro-list is loading</p>
+      </Wrapper>
+    );
+  }
 
-  return renderService(
-    service,
-    { onChange, values },
-    {
-      Loading: MetroListLoading,
-      Success: MetroListSuccess,
-      Fail: MetroListFail,
-    }
+  return (
+    <Wrapper>
+      <MetroListSuccess list={list} values={values} onChange={onChange} />
+    </Wrapper>
   );
 };

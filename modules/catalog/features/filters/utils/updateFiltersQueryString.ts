@@ -1,5 +1,5 @@
 import { updateQueryString } from '@utils';
-import { FiltersType } from '../internal';
+import { FiltersState } from '../model';
 
 const filterObject = <T extends object>(target: T): Partial<T> => {
   return Object.fromEntries(
@@ -22,7 +22,9 @@ const filterObject = <T extends object>(target: T): Partial<T> => {
   );
 };
 
-export const updateFiltersQueryString = (filters: DeepPartial<FiltersType>) => {
+export const updateFiltersQueryString = (
+  filters: DeepPartial<FiltersState>
+) => {
   const f = filterObject(filters);
 
   return updateQueryString(

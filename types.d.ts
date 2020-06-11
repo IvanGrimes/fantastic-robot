@@ -1,4 +1,4 @@
-import { ComponentType, FunctionComponent } from 'react';
+import { ComponentType } from 'react';
 
 declare global {
   type Await<T> = T extends {

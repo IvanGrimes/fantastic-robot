@@ -1,5 +1,10 @@
 import React, { ComponentType, CSSProperties } from 'react';
-import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
+import { FixedSizeListProps, ListChildComponentProps } from 'react-window';
+import dynamic from 'next/dynamic';
+
+const List = dynamic<FixedSizeListProps>(() =>
+  import('react-window').then((m) => m.FixedSizeList)
+);
 
 export type VirtualizedListProps = {
   style?: CSSProperties;

@@ -1,22 +1,26 @@
-export type CityId = string;
-export type ComfortId = string;
-export type EquipmentTypeId = string;
-export type EquipmentId = string;
-export type InteriorId = string;
-export type PhotoId = string;
-export type PriceType = 1 | 2 | 3;
-export type StationId = string;
+import { ActionType, StateType } from 'typesafe-actions';
+import * as shared from '@shared';
+import * as catalog from '@modules/catalog';
+import { Epic } from 'redux-observable';
+import { rootReducer } from './rootReducer';
 
-export enum FiltersEnum {
-  area = 'area',
-  city = 'city',
-  comfort = 'comfort',
-  date = 'date',
-  equipment = 'equipment',
-  hasOnlineBooking = 'hasOnlineBooking',
-  height = 'height',
-  interior = 'interior',
-  price = 'price',
-  textSearch = 'textSearch',
-  metro = 'metro',
+const actions = {
+  shared: shared.actions,
+  catalog: catalog.actions,
+};
+
+type RootActionType = ActionType<typeof actions>;
+type RootStateType = StateType<typeof rootReducer>;
+
+declare global {
+  type RootState = RootStateType;
+  type RootAction = RootActionType;
+  type RootEpic = Epic<RootAction, RootAction, RootState>;
+}
+
+declare module 'typesafe-actions' {
+  interface Types {
+    RootAction: RootAction;
+    RootState: RootState;
+  }
 }
