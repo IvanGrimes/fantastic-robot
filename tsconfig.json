@@ -46,6 +46,5 @@
       "@HOC": ["HOC/index.ts"]
     }
   },
-  "files": [""],
   "include": ["types.d.ts", "next-env.d.ts", "components", "hooks", "model", "pages", "shared", "theme", "utils"]
 }
