@@ -21,7 +21,7 @@ jobs:
              run: |
               npm run test
 
-           - name: npm run build
+          - name: npm run build
              run: |
                npm run build
       - name: Add remote origin
