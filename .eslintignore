@@ -3,3 +3,6 @@ build/*
 .next/*
 next.config.js
 server
+jest.config.js
+dist/
+rendertron

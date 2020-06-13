@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { stringify } from 'qs';
 
-if (!process.env.API_ENDPOINT) {
-  throw new Error('You should define API_ENDPOINT');
-}
-
 export const http = axios.create({
   baseURL: process.env.API_ENDPOINT,
   paramsSerializer: (params: any) =>

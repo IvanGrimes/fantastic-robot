@@ -46,5 +46,16 @@
       "@HOC": ["HOC/index.ts"]
     }
   },
-  "include": ["types.d.ts", "next-env.d.ts", "components", "hooks", "model", "pages", "shared", "theme", "utils"]
+  "exclude": ["rendertron"],
+  "include": [
+    "types.d.ts",
+    "next-env.d.ts",
+    "components",
+    "hooks",
+    "model",
+    "pages",
+    "shared",
+    "theme",
+    "utils"
+  ]
 }

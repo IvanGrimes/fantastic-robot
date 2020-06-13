@@ -1,7 +1,7 @@
 import { getType } from 'typesafe-actions';
 import { fetchStudioListAsync } from './actions';
 import { reducer, initialState, ListState } from './reducer';
-import { StudioList } from './types';
+import { StudioList } from './services';
 
 describe('list reducer', () => {
   it('should return initial state', () => {

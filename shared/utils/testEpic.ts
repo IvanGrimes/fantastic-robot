@@ -1,4 +1,3 @@
-import { mockStore } from '@model';
 import { ActionsObservable, StateObservable } from 'redux-observable';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -15,7 +14,7 @@ export const testEpic = <
   filterByAction?: F,
   callback?: C
 ) => {
-  const state = mockStore().getState();
+  const state = {} as RootState;
   const state$ = new StateObservable<typeof state>(new Subject(), state);
   const action$ = ActionsObservable.of(action());
   const epic$ = epic(action$, state$, {});

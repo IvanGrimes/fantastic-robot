@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Grid } from '@components';
+import { Grid } from '../Grid';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Container } from '../Container';

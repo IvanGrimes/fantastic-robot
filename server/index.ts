@@ -4,11 +4,12 @@ import path from 'path';
 import compression from 'compression';
 import cluster from 'cluster';
 import os from 'os';
+import * as rendertron from 'rendertron-middleware';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 if (!dev && cluster.isMaster) {
   console.log(`Node cluster master ${process.pid} is running`);
@@ -29,20 +30,11 @@ if (!dev && cluster.isMaster) {
 
       await app.prepare();
 
-      // if (!dev) {
-      //   server.use(function (req, res, next) {
-      //     const proto = req.headers['x-forwarded-proto'];
-      //
-      //     if (proto === 'https') {
-      //       res.set({
-      //         'Strict-Transport-Security': 'max-age=31557600', // one-year
-      //       });
-      //       return next();
-      //     }
-      //
-      //     res.redirect(`https://${req.headers.host}${req.url}`);
-      //   });
-      // }
+      server.use(
+        rendertron.makeMiddleware({
+          proxyUrl: 'http://localhost:3000/render',
+        })
+      );
 
       server.use(compression());
 
