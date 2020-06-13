@@ -1,17 +1,32 @@
 name: CI
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - next
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+          run: |
+            npm install
+            - name: npm run test
+              run: |
+                npm run test
+
+            - name: npm run build
+              run: |
+                npm run build
+      - name: Add remote origin
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      - name: Deploy to Heroku
+        run: |
+          git push heroku HEAD:master -f
