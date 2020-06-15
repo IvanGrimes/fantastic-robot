@@ -16,5 +16,4 @@ EXPOSE 3000 5000
 
 USER node
 
-# Launch app with PM2
-CMD [ "pm2-runtime", "apps.json" ]
+CMD ["pm2-runtime", "apps.json"]

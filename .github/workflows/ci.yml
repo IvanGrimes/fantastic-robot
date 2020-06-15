@@ -30,6 +30,6 @@ jobs:
           script: |
             cd /var/www/app
             git pull
-            docker-compose build --build-arg ENDPOINT=$API_ENDPOINT
-            docker-compose down
-            docker-compose up
+            docker stop $(docker ps -aq)
+            docker build . --build-arg ENDPOINT=$API_ENDPOINT --tag release
+            docker run -it -p 443:5000 -p 80:5000 -v /etc/letsencrypt/live/ivangrimes.dev:/ssl release
