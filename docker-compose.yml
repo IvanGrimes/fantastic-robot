@@ -5,6 +5,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - /etc/letsencrypt/live/ivangrimes.dev:/ssl
+      - /home/soma/Desktop:/ssl
     ports:
+      - 80:80
       - 443:443

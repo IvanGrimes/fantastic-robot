@@ -29,6 +29,6 @@ jobs:
           script: |
             cd /var/www/app
             git pull
-            docker-compose down
             docker-compose build --build-arg ENDPOINT=$API_ENDPOINT
+            docker-compose down
             docker-compose up
