@@ -8,9 +8,7 @@ COPY ./package*.json ./
 
 RUN npm install
 
-COPY /etc/letsencrypt/live/ivangrimes.dev ./
-
-COPY /ssl ./ssl
+COPY ./ ./
 
 RUN npm run build
 

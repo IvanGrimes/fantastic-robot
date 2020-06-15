@@ -17,7 +17,7 @@ export const Studio: FunctionComponent<{ entity?: StudioType }> = ({
       <CardActionArea>
         <CardMedia
           alt={photo.description}
-          image={`${process.env.API_ENDPOINT}image/?id=${photo.imageId}&type=studio`}
+          image={`${process.env.API_ENDPOINT}/image/?id=${photo.imageId}&type=studio`}
           title={photo.description}
         />
         <CardContent>
