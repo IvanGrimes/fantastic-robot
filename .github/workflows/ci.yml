@@ -31,4 +31,5 @@ jobs:
             cd ~/app
             git pull
             docker build . --build-arg ENDPOINT=$API_ENDPOINT --tag release
+            docker stop $(docker ps -q)
             docker run -it -p 443:5000 -p 80:5000 -v ~/ssl:/app/ssl release
