@@ -25,6 +25,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_KEY }}
+          command_timeout: "360m"
           envs: API_ENDPOINT
           script: |
             cd /var/www/app

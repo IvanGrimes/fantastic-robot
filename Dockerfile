@@ -1,13 +1,19 @@
 FROM node:12
 
 ARG ENDPOINT
+
 ENV API_ENDPOINT=$ENDPOINT
 
 WORKDIR /app
-COPY . /app/
 
-RUN npm i --silent
-RUN npm i -g pm2
+RUN npm install --global pm2
+
+COPY ./package*.json ./
+
+RUN npm i
+
+COPY ./ ./
+
 RUN npm run build
 
 EXPOSE 3000 5000
