@@ -6,13 +6,22 @@ import cluster from 'cluster';
 import os from 'os';
 import * as rendertron from 'rendertron-middleware';
 import fs from 'fs';
+import https from 'https';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 5000;
 
-console.log(fs.readdirSync('/ssl'));
+const options = dev
+  ? {
+      key: fs.readFileSync('./ssl/privkey.pem'),
+      cert: fs.readFileSync('./ssl/cert.pem'),
+    }
+  : {
+      key: fs.readFileSync('/ssl/privkey.pem'),
+      cert: fs.readFileSync('/ssl/cert.pem'),
+    };
 
 if (!dev && cluster.isMaster) {
   console.log(`Node cluster master ${process.pid} is running`);
@@ -30,6 +39,7 @@ if (!dev && cluster.isMaster) {
   (async () => {
     try {
       const server = express();
+      const ssl = https.createServer(options, server);
 
       await app.prepare();
 
@@ -52,7 +62,7 @@ if (!dev && cluster.isMaster) {
         return handle(req, res);
       });
 
-      server.listen(port, (err?: any) => {
+      ssl.listen(port, (err?: any) => {
         if (err) throw err;
         console.log(
           `> Ready on localhost:${port} - env ${process.env.NODE_ENV}`
