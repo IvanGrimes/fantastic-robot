@@ -8,15 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-#      - uses: actions/checkout@v1
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v1
-#        with:
-#          node-version: '12.16.3'
-#      - name: Install dependencies
-#        run: npm i
-#      - name: Test
-#        run: npm run test
+      - uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.16.3'
+      - name: Install dependencies
+        run: npm i
+      - name: Test
+        run: npm run test
       - name: Deploy
         uses: appleboy/ssh-action@master
         env:
@@ -30,6 +30,7 @@ jobs:
           script: |
             cd /var/www/app
             git pull
-            docker stop $(docker ps -aq)
+            docker rm $(docker ps -aq)
+            docker rmi release
             docker build . --build-arg ENDPOINT=$API_ENDPOINT --tag release
-            docker run -it -p 443:5000 -p 80:5000 release
+            docker run -it -p 443:5000 -p 80:5000 -v ~/ssl:/app/ssl release

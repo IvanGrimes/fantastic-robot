@@ -14,8 +14,8 @@ const handle = app.getRequestHandler();
 const port = process.env.PORT || 5000;
 
 const options = {
-  key: fs.readFileSync('/ssl/privkey.pem'),
-  cert: fs.readFileSync('/ssl/cert.pem'),
+  key: fs.readFileSync('./ssl/privkey.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem'),
 };
 
 if (!dev && cluster.isMaster) {
