@@ -32,4 +32,4 @@ jobs:
             git pull
             docker stop $(docker ps -aq)
             docker build . --build-arg ENDPOINT=$API_ENDPOINT --tag release
-            docker run -it -p 443:5000 -p 80:5000 -v /etc/letsencrypt/live/ivangrimes.dev:/ssl release
+            docker run -it -p 443:5000 -p 80:5000 release
