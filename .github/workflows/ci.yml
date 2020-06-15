@@ -21,17 +21,14 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_KEY }}
           command_timeout: "360m"
-          envs: API_ENDPOINT,REMOTE_TARGET
+          envs: API_ENDPOINT
           script: |
-            cd $REMOTE_TARGET
+            cd ~/app
             git pull
-            docker rm $(docker ps -aq)
-            docker rmi release
             docker build . --build-arg ENDPOINT=$API_ENDPOINT --tag release
             docker run -it -p 443:5000 -p 80:5000 -v ~/ssl:/app/ssl release
