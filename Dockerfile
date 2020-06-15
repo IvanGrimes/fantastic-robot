@@ -1,16 +1,12 @@
-FROM node:12
+FROM node:alpine
 
-ARG ENDPOINT
-
-ENV API_ENDPOINT=$ENDPOINT
-
-WORKDIR /app
+WORKDIR /usr/app
 
 RUN npm install --global pm2
 
 COPY ./package*.json ./
 
-RUN npm i
+RUN npm install
 
 COPY ./ ./
 
@@ -18,4 +14,7 @@ RUN npm run build
 
 EXPOSE 3000 5000
 
-CMD ["pm2-runtime", "apps.json"]
+USER node
+
+# Launch app with PM2
+CMD [ "pm2-runtime", "apps.json" ]
