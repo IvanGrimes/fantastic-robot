@@ -10,6 +10,8 @@ RUN npm install
 
 COPY ./ ./
 
+COPY /ssl ./ssl
+
 RUN npm run build
 
 EXPOSE 3000 5000
