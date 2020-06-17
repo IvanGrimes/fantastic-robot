@@ -40,7 +40,7 @@ if (!dev && cluster.isMaster) {
 
       server.use(
         rendertron.makeMiddleware({
-          proxyUrl: 'http://localhost:3000/render',
+          proxyUrl: 'http://localhost:3001/render',
         })
       );
 

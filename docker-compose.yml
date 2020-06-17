@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ENDPOINT=https://devstudionica.ru/api
+    volumes:
+      - ~/ssl:/app/ssl
+    ports:
+      - '3000:5000'
+  rendertron:
+    container_name: rendertron
+    build:
+      context: ./rendertron
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3000'
