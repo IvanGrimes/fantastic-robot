@@ -10,6 +10,6 @@ RUN npm run build
 FROM node:alpine
 WORKDIR /app
 COPY --from=build /app ./
-EXPOSE 3000 5000
+EXPOSE 5000
 USER node
 CMD ["npm", "run", "start"]
