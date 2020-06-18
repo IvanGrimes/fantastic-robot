@@ -30,7 +30,6 @@ jobs:
           script: |
             cd ~/app
             git pull
-            docker-compose down
             docker-compose build app
-            docker-compose up
-            docker run -d -p 443:3000 -p 80:3000 -v ~/ssl:/app/ssl release
+            docker-compose down
+            docker-compose up -d

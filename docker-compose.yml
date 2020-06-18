@@ -10,7 +10,8 @@ services:
     volumes:
       - ~/ssl:/app/ssl
     ports:
-      - '3000:5000'
+      - '80:5000'
+      - '443:5000'
   rendertron:
     container_name: rendertron
     build:
