@@ -10,14 +10,15 @@ export const reducer = (
 ) => {
   const matches = parseActionType(type);
 
-  if (!matches) {
-    return state;
+  if (matches) {
+    const [, requestPrefix, requestState] = matches;
+
+    return {
+      ...state,
+      [requestPrefix]:
+        requestState === 'FAIL' ? { message: payload.message } : { message: '' },
+    };
   }
 
-  const [, requestPrefix, requestState] = matches;
-  return {
-    ...state,
-    [requestPrefix]:
-      requestState === 'FAIL' ? { message: payload.message } : { message: '' },
-  };
+  return state;
 };

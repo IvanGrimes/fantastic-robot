@@ -5,7 +5,7 @@ import * as loading from './features/loading';
 import * as errors from './features/errors';
 
 export const { actions } = config;
-export const selectors = { ...loading.selectors, ...config.selectors };
+export const selectors = { ...loading.selectors, ...config.selectors, ...errors.selectors };
 
 export const reducer = combineReducers({
   config: config.reducer,
@@ -32,3 +32,4 @@ export type {
   MetroList,
   Config,
 } from './features/config';
+export type {RequestError} from './features/errors'

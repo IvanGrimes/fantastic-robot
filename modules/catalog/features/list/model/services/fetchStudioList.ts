@@ -16,7 +16,9 @@ export const fetchStudioList = () =>
     })
     .then(({ data }) => data.studios)
     .catch(() => {
-      throw new ServiceError();
+      throw new ServiceError(
+        'При загрузке списка студий произошла ошибка, пожалуйста, попробуйте позднее.'
+      );
     });
 
 export type StudioListService = Await<ReturnType<typeof fetchStudioList>>;

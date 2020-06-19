@@ -9,8 +9,10 @@ export type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
 const mapStateToProps = (state: RootState) => ({
   filters: selectors.getFilters(state),
+  configError: sharedSelectors.getConfigError(state),
   isConfigLoading: sharedSelectors.getConfigLoading(state),
   config: sharedSelectors.getConfig(state),
+  metroListError: sharedSelectors.getMetroListError(state),
   isMetroListLoading: sharedSelectors.getMetroListLoading(state),
   metroList: sharedSelectors.getMetroList(state),
 });
@@ -28,6 +30,8 @@ const _FiltersContainer: FunctionComponent<Props> = ({
   isMetroListLoading,
   metroList,
   syncFilters,
+  metroListError,
+  configError,
 }) => {
   useEffectMount(() => {
     syncFilters();
@@ -41,6 +45,8 @@ const _FiltersContainer: FunctionComponent<Props> = ({
       config={config}
       isMetroListLoading={isMetroListLoading}
       metroList={metroList}
+      configError={configError}
+      metroListError={metroListError}
     />
   );
 };

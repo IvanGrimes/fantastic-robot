@@ -5,3 +5,5 @@ const { getState, ...selectors } = s;
 export { selectors };
 
 export { reducer } from './reducer';
+
+export * from './types';

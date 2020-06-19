@@ -10,10 +10,11 @@ export const ListContainer: FunctionComponent<{
   const dispatch = useDispatch();
   const isListLoading = useSelector(selectors.getListLoading);
   const studioList = useSelector(selectors.getStudioList);
+  const error = useSelector(selectors.getListError)
 
   useEffectMount(() => {
     dispatch(actions.fetchStudioListAsync.request());
   });
 
-  return <List isLoading={isListLoading} list={studioList} />;
+  return <List isLoading={isListLoading} list={studioList} error={error} />;
 };

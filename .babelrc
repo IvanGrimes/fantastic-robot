@@ -10,23 +10,6 @@
       }
     ]
   ],
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "root": ["./"],
-        "alias": {
-          "@modules": "./modules",
-          "@shared": "./shared",
-          "@components": "./components",
-          "@hooks": "./hooks",
-          "@utils": "./utils",
-          "@model": "./model",
-          "@HOC": "./HOC"
-        }
-      }
-    ]
-  ],
   "env": {
     "test": {
       "plugins": ["transform-dynamic-import"]

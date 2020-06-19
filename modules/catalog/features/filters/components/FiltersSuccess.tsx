@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { Grid } from '@components';
-import { selectors as sharedSelectors, FiltersEnum } from '@shared';
+import {
+  selectors as sharedSelectors,
+  FiltersEnum,
+  RequestError,
+} from '@shared';
 import { actions, selectors } from '../model';
 import { DebouncedRange } from './DebouncedRange';
 import { DebouncedSwitch } from './DebouncedSwitch';
@@ -10,7 +14,9 @@ import { ParameterList } from './ParameterList';
 
 export type FiltersSuccessProps = {
   filters: ReturnType<typeof selectors.getFilters>;
+  configError: RequestError;
   config: ReturnType<typeof sharedSelectors.getConfig>;
+  metroListError: RequestError;
   updateFilters: typeof actions.update;
   isMetroListLoading: boolean;
   metroList: MetroListProps['list'];
@@ -25,6 +31,8 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
   config,
   isMetroListLoading,
   metroList,
+  configError,
+  metroListError,
 }) => (
   <Grid container spacing={2}>
     <Grid item container>
@@ -95,7 +103,9 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
             },
           })
         }
-      />
+      >
+        {configError.message}
+      </ParameterList>
     </Grid>
     <Grid item container>
       <ParameterList
@@ -109,7 +119,9 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
             },
           })
         }
-      />
+      >
+        {configError.message}
+      </ParameterList>
     </Grid>
     <Grid item container>
       <ParameterList
@@ -123,13 +135,16 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
             },
           })
         }
-      />
+      >
+        {configError.message}
+      </ParameterList>
     </Grid>
     <Grid item container>
       <MetroList
         isLoading={isMetroListLoading}
         list={metroList}
         values={filters[FiltersEnum.metro]}
+        error={metroListError}
         onChange={(value) =>
           updateFilters({
             [FiltersEnum.metro]: {

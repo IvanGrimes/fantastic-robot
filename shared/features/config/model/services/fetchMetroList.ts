@@ -43,7 +43,9 @@ export const fetchMetroList = () =>
           ) as Metro
     )
     .catch(() => {
-      throw new ServiceError();
+      throw new ServiceError(
+        'При загрузке списка станций метро произошла ошибка'
+      );
     });
 
 export type MetroList = Await<ReturnType<typeof fetchMetroList>>;

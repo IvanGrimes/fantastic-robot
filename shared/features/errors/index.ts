@@ -1,1 +1,2 @@
-export { reducer } from './model';
+export { reducer, selectors } from './model';
+export type {RequestError} from './model'

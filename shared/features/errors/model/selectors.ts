@@ -15,10 +15,10 @@ export const getRequestError = (action: ActionCreator | ActionCreator[]) => (
   const errors = getState(state);
 
   if (Array.isArray(action)) {
-    return action.map((a) =>
-      getError(errors[getStatePropFromActionType(getType(a))])
-    );
+    const [error] = action.map((a) => errors[getStatePropFromActionType(getType(a))]).filter(e => e);
+
+    return getError(error);
   }
 
-  return [getError(errors[getStatePropFromActionType(getType(action))])];
+  return getError(errors[getStatePropFromActionType(getType(action))]);
 };

@@ -47,7 +47,7 @@ export const fetchConfig = () =>
     .get<ConfigData>('/api/config')
     .then(({ data }) => data as ConfigData)
     .catch(() => {
-      throw new ServiceError();
+      throw new ServiceError('При загрузке конфигурации произошла ошибка');
     });
 
 export type Config = Await<ReturnType<typeof fetchConfig>>;

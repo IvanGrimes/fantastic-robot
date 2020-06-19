@@ -12,15 +12,16 @@ export const Filters: FunctionComponent<Props> = ({
   updateFilters,
   isMetroListLoading,
   metroList,
+  configError,
+  metroListError,
 }) => {
-  if (isConfigLoading) {
+  if (isConfigLoading || isMetroListLoading) {
     return (
       <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
         <Grid container>loading</Grid>
       </Grid>
     );
   }
-
   return (
     <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
       <FiltersSuccess
@@ -29,6 +30,8 @@ export const Filters: FunctionComponent<Props> = ({
         filters={filters}
         config={config}
         updateFilters={updateFilters}
+        configError={configError}
+        metroListError={metroListError}
       />
     </Grid>
   );
