@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - next
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.16.3'
+      - name: Install dependencies
+        run: npm i
+      - name: Test
+        run: npm run test
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        env:
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          command_timeout: "360m"
+          envs: API_ENDPOINT
+          script: |
+            cd ~/app
+            git pull
+            docker-compose build app
+            docker-compose down
+            docker-compose up -d

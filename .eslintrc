@@ -11,20 +11,21 @@
     }
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
   "settings": {
     "import/resolver": {
       "alias": [
-        ["@components", "./src/components"],
-        ["@modules", "./src/modules"],
-        ["@hooks", "./src/hooks"],
-        ["@utils", "./src/utils"],
-        ["@model", "./src/model"],
-        ["@HOC", "./src/HOC"],
-        ["@theme", "./src/theme"]
+        ["@components", "./components"],
+        ["@modules", "./modules"],
+        ["@hooks", "./hooks"],
+        ["@utils", "./utils"],
+        ["@model", "./model"],
+        ["@HOC", "./HOC"],
+        ["@theme", "./theme"]
       ]
     }
   },
@@ -42,6 +43,7 @@
     "import/extensions": "off",
     "react/prop-types": "off",
     "consistent-return": "warn",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/jsx-props-no-spreading": "warn"
   }
 }

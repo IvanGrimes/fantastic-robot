@@ -10,34 +10,15 @@
       }
     ]
   ],
-  "plugins": [
-    ["@babel/plugin-proposal-decorators", { "decoratorsBeforeExport": true }],
-    [
-      "module-resolver",
-      {
-        "root": ["./"],
-        "alias": {
-          "@modules": "./src/modules",
-          "@features": "./src/features",
-          "@components": "./src/components",
-          "@hooks": "./src/hooks",
-          "@lib": "./src/lib",
-          "@utils": "./src/utils",
-          "@model": "./src/model",
-          "@theme": "./src/theme",
-          "@HOC": "./src/HOC"
-        }
-      }
-    ]
-  ],
   "env": {
+    "test": {
+      "plugins": ["transform-dynamic-import"]
+    },
     "development": {
       "plugins": [
         [
-          "babel-plugin-styled-components",
-          {
-            "ssr": true
-          }
+          "styled-components",
+          { "ssr": true, "displayName": true, "preprocess": false }
         ]
       ]
     },
@@ -79,15 +60,6 @@
             "camel2DashComponentName": false
           },
           "lab"
-        ],
-        [
-          "babel-plugin-import",
-          {
-            "libraryName": "@material-ui/styles",
-            "libraryDirectory": "",
-            "camel2DashComponentName": false
-          },
-          "styles"
         ]
       ]
     }

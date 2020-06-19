@@ -1,46 +1,41 @@
 import React from 'react';
 import Document, {
-  Head,
+  Html,
   Main,
-  DocumentContext,
   NextScript,
+  DocumentContext,
+  Head,
 } from 'next/document';
-import ServerStyleSheets from '@material-ui/styles/ServerStyleSheets';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
 
-class MyDocument extends Document {
+export default class extends Document {
   static async getInitialProps({ renderPage }: DocumentContext) {
-    const sheets = new ServerStyleSheets();
-    const scSheets = new ServerStyleSheet();
+    const muiStyles = new MaterialUiServerStyleSheets();
+    const scSheets = new StyledComponentSheets();
 
     const renderPageResult = await renderPage({
-      enhanceApp: App => props =>
-        sheets.collect(scSheets.collectStyles(<App {...props} />)),
+      enhanceApp: (App) => (props) =>
+        muiStyles.collect(scSheets.collectStyles(<App {...props} />)),
     });
 
     return {
       ...renderPageResult,
-      styles: [...scSheets.getStyleElement(), sheets.getStyleElement()],
+      styles: [...scSheets.getStyleElement(), muiStyles.getStyleElement()],
     };
   }
 
   render() {
+    const { styles } = this.props;
+
     return (
-      <html lang="ru">
-        <Head>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          />
-        </Head>
+      <Html>
+        <Head>{styles}</Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
-
-export default MyDocument;
