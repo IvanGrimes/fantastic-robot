@@ -1,7 +1,8 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Grid, Typography } from '@components';
+import { Grid, Typography, Skeleton } from '@components';
 import { DebouncedTextField } from '../DebouncedTextField';
-import { Skeleton } from '@components';
+import { Separator } from './DebouncedRange.styles';
+
 export type ChangeEventHandler = (value: string) => void;
 
 export const DebouncedRange: FunctionComponent<{
@@ -39,7 +40,7 @@ export const DebouncedRange: FunctionComponent<{
       />
     </Grid>
     <Grid container item xs={2} alignItems="center" justify="center">
-      <Typography>&mdash;</Typography>
+      <Separator disabled={isLoading}>&mdash;</Separator>
     </Grid>
     <Grid item xs={5}>
       <DebouncedTextField
