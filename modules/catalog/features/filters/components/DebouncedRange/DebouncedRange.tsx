@@ -22,35 +22,33 @@ export const DebouncedRange: FunctionComponent<{
   fromLabel,
   toLabel,
   name,
-}) => {
-  return (
-    <Grid container spacing={1}>
-      <Grid container item>
-        <Typography variant="caption" component="div" style={{ width: '100%' }}>
-          {isLoading ? <Skeleton width="100%" /> : name}
-        </Typography>
-      </Grid>
-      <Grid container alignItems="center" justify="space-between" item xs={5}>
-        <DebouncedTextField
-          isLoading={isLoading}
-          onChange={changeFrom}
-          value={from}
-          label={fromLabel}
-          fullWidth
-        />
-      </Grid>
-      <Grid container item xs={2} alignItems="center" justify="center">
-        <Typography>&mdash;</Typography>
-      </Grid>
-      <Grid item xs={5}>
-        <DebouncedTextField
-          isLoading={isLoading}
-          onChange={changeTo}
-          value={to}
-          label={toLabel}
-          fullWidth
-        />
-      </Grid>
+}) => (
+  <Grid container spacing={1}>
+    <Grid container item>
+      <Typography variant="caption" component="div" style={{ width: '100%' }}>
+        {isLoading ? <Skeleton width="100%" /> : name}
+      </Typography>
     </Grid>
-  );
-};
+    <Grid container alignItems="center" justify="space-between" item xs={5}>
+      <DebouncedTextField
+        isLoading={isLoading}
+        onChange={changeFrom}
+        value={from}
+        label={fromLabel}
+        fullWidth
+      />
+    </Grid>
+    <Grid container item xs={2} alignItems="center" justify="center">
+      <Typography>&mdash;</Typography>
+    </Grid>
+    <Grid item xs={5}>
+      <DebouncedTextField
+        isLoading={isLoading}
+        onChange={changeTo}
+        value={to}
+        label={toLabel}
+        fullWidth
+      />
+    </Grid>
+  </Grid>
+);
