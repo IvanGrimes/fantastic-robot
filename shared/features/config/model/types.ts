@@ -8,6 +8,7 @@ export type PriceType = 1 | 2 | 3;
 export type StationId = string;
 
 export enum FiltersEnum {
+  sort = 'sort',
   area = 'area',
   city = 'city',
   comfort = 'comfort',

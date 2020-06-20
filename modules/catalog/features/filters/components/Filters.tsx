@@ -7,11 +7,13 @@ import {
 } from '@shared';
 import { DebouncedTextField } from './DebouncedTextField';
 import { DebouncedSwitch } from './DebouncedSwitch';
+import { Select } from './Select';
 import { GridPaper } from './Filters.styles';
-import { actions, selectors } from '../model';
+import { actions, selectors, SortEnum } from '../model';
 import { MetroList, MetroListProps } from './MetroList';
 import { DebouncedRange } from './DebouncedRange';
 import { ParameterList } from './ParameterList';
+import { enumToArray } from '@utils';
 
 export type FilterProps = {
   filters: ReturnType<typeof selectors.getFilters>;
@@ -26,6 +28,22 @@ export type FilterProps = {
 
 const squareMeter = <>&#13217;</>;
 const ruble = <>&#8381;</>;
+const getSortList = () => {
+  const sortNames = {
+    [SortEnum.priceAsc]: 'По цене',
+    [SortEnum.nameAsc]: 'По названию',
+  };
+
+  return enumToArray(SortEnum).map((sort) => {
+    const s: SortEnum = sort as SortEnum;
+
+    return {
+      label: sortNames[s],
+      value: s,
+    };
+  });
+};
+const sortList = getSortList();
 
 export const Filters: FunctionComponent<FilterProps> = ({
   filters,
@@ -40,15 +58,27 @@ export const Filters: FunctionComponent<FilterProps> = ({
   <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
     <Grid container spacing={2}>
       <Grid item container>
+        {/*по студиям/комнатам*/}
+      </Grid>
+      <Grid item container>
+        <Select
+          label="Сортировка"
+          isLoading={isConfigLoading}
+          list={sortList}
+          value={filters[FiltersEnum.sort]}
+          onChange={(value) =>
+            updateFilters({ [FiltersEnum.sort]: value as SortEnum })
+          }
+        />
+      </Grid>
+      <Grid item container>
         <DebouncedTextField
           label="Поиск по названию"
           isLoading={isConfigLoading}
-          variant="outlined"
           value={filters[FiltersEnum.textSearch]}
-          onChange={(value) => {
-            updateFilters({ [FiltersEnum.textSearch]: value });
-          }}
-          fullWidth
+          onChange={(value) =>
+            updateFilters({ [FiltersEnum.textSearch]: value })
+          }
         />
       </Grid>
       <Grid item container>

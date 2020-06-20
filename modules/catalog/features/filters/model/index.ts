@@ -5,3 +5,4 @@ export { actions, selectors };
 
 export * from './reducer';
 export * from './epic';
+export * from './types';

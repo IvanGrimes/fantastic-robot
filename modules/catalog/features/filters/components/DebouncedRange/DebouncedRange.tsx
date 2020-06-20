@@ -36,7 +36,6 @@ export const DebouncedRange: FunctionComponent<{
         onChange={changeFrom}
         value={from}
         label={fromLabel}
-        fullWidth
       />
     </Grid>
     <Grid container item xs={2} alignItems="center" justify="center">
@@ -48,7 +47,6 @@ export const DebouncedRange: FunctionComponent<{
         onChange={changeTo}
         value={to}
         label={toLabel}
-        fullWidth
       />
     </Grid>
   </Grid>

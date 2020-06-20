@@ -8,21 +8,13 @@ export const DebouncedTextField: FunctionComponent<
     onChange: ChangeEventHandler;
     value: string;
   } & Partial<DebouncedTextFieldProps>
-> = ({
-  onChange,
-  value,
-  className,
-  variant = 'outlined',
-  fullWidth = false,
-  label = '',
-}) => (
+> = ({ onChange, value, className, label = '' }) => (
   <TextField
     className={className}
     label={label}
-    variant={variant}
+    variant="outlined"
     onChange={onChange}
     value={value}
-    size="small"
-    fullWidth={fullWidth}
+    fullWidth
   />
 );

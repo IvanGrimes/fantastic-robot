@@ -13,3 +13,4 @@ export * from './VirtualizedList';
 export * from './Checkbox';
 export * from './Card';
 export * from './Skeleton';
+export * from './Select';

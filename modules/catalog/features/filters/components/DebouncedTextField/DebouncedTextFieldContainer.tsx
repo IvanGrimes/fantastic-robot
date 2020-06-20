@@ -10,15 +10,7 @@ export const DebouncedTextFieldContainer: StyleableComponent<
     value: string;
     isLoading?: boolean;
   } & Partial<DebouncedTextFieldProps>
-> = ({
-  value,
-  onChange,
-  className = '',
-  fullWidth,
-  variant,
-  label,
-  isLoading,
-}) => {
+> = ({ value, onChange, className = '', label, isLoading }) => {
   const debounced = useDebouncedInputState(value, onChange, { isLoading });
 
   if (isLoading) {
@@ -28,8 +20,6 @@ export const DebouncedTextFieldContainer: StyleableComponent<
   return (
     <DebouncedTextField
       className={className}
-      fullWidth={fullWidth}
-      variant={variant}
       label={label}
       onChange={debounced.handleChange}
       value={debounced.value}
