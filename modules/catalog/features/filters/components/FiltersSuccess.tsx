@@ -25,7 +25,9 @@ export type FiltersSuccessProps = {
 const squareMeter = <>&#13217;</>;
 const ruble = <>&#8381;</>;
 
-export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
+export const FiltersSuccess: FunctionComponent<
+  FiltersSuccessProps & { isLoading: boolean }
+> = ({
   filters,
   updateFilters,
   config,
@@ -33,11 +35,13 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
   metroList,
   configError,
   metroListError,
+  isLoading,
 }) => (
   <Grid container spacing={2}>
     <Grid item container>
       <DebouncedTextField
         label="Поиск по названию"
+        isLoading={isLoading}
         variant="outlined"
         value={filters[FiltersEnum.textSearch]}
         onChange={(value) => {
@@ -49,6 +53,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <DebouncedRange
         name="Площадь"
+        isLoading={isLoading}
         from={filters[FiltersEnum.area].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.area]: { from: value } })
@@ -64,6 +69,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <DebouncedRange
         name="Высота потолков"
+        isLoading={isLoading}
         from={filters[FiltersEnum.height].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.height]: { from: value } })
@@ -79,6 +85,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <DebouncedRange
         name="Цена"
+        isLoading={isLoading}
         from={filters[FiltersEnum.price].from}
         changeFrom={(value) =>
           updateFilters({ [FiltersEnum.price]: { from: value } })
@@ -94,6 +101,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <ParameterList
         title="Оборудование"
+        isLoading={isLoading}
         list={config.equipmentTypes}
         values={filters[FiltersEnum.equipment]}
         onChange={(value) =>
@@ -110,6 +118,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <ParameterList
         title="Интерьеры"
+        isLoading={isLoading}
         list={config.interiors}
         values={filters[FiltersEnum.interior]}
         onChange={(value) =>
@@ -126,6 +135,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     <Grid item container>
       <ParameterList
         title="Удобства"
+        isLoading={isLoading}
         list={config.comforts}
         values={filters[FiltersEnum.comfort]}
         onChange={(value) =>
@@ -156,6 +166,7 @@ export const FiltersSuccess: FunctionComponent<FiltersSuccessProps> = ({
     </Grid>
     <Grid item container>
       <DebouncedSwitch
+        isLoading={isLoading}
         label="Оплата онлайн"
         value={filters[FiltersEnum.hasOnlineBooking]}
         onChange={(value) =>

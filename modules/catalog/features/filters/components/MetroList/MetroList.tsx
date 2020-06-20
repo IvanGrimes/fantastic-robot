@@ -1,11 +1,16 @@
 import React, { FunctionComponent } from 'react';
+import { RequestError } from '@shared';
 import { MetroListSuccess } from './MetroListSuccess';
 import { MetroListProps } from './types';
 import { ParameterList } from '../ParameterList';
-import { RequestError } from '@shared';
 
-const Wrapper: FunctionComponent = ({ children }) => (
-  <ParameterList title="Список метро">{children}</ParameterList>
+const Wrapper: FunctionComponent<{ isLoading?: boolean }> = ({
+  children,
+  isLoading,
+}) => (
+  <ParameterList title="Список метро" isLoading={isLoading}>
+    {children}
+  </ParameterList>
 );
 
 export const MetroList: FunctionComponent<
@@ -15,16 +20,8 @@ export const MetroList: FunctionComponent<
     return <Wrapper>{error.message}</Wrapper>;
   }
 
-  if (isLoading) {
-    return (
-      <Wrapper>
-        <p>metro-list is loading</p>
-      </Wrapper>
-    );
-  }
-
   return (
-    <Wrapper>
+    <Wrapper isLoading={isLoading}>
       <MetroListSuccess list={list} values={values} onChange={onChange} />
     </Wrapper>
   );
