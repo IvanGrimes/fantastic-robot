@@ -2,7 +2,7 @@ import { actions as sharedActions, FiltersEnum } from '@shared';
 import { createReducer } from 'typesafe-actions';
 import { mergeDeepRight } from 'ramda';
 import { update } from './actions';
-import { SortEnum } from './types';
+import { SortEnum, ListVariantEnum } from './types';
 
 export type FiltersState = {
   [FiltersEnum.textSearch]: string;
@@ -24,6 +24,7 @@ export type FiltersState = {
   [FiltersEnum.interior]: { [key: string]: boolean | undefined };
   [FiltersEnum.equipment]: { [key: string]: boolean | undefined };
   [FiltersEnum.sort]: SortEnum;
+  [FiltersEnum.list]: ListVariantEnum;
 };
 
 export const initialState: FiltersState = {
@@ -46,6 +47,7 @@ export const initialState: FiltersState = {
   [FiltersEnum.interior]: {},
   [FiltersEnum.equipment]: {},
   [FiltersEnum.sort]: SortEnum.nameAsc,
+  [FiltersEnum.list]: ListVariantEnum.studio,
 };
 
 export const reducer = createReducer(initialState)

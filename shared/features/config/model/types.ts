@@ -20,4 +20,5 @@ export enum FiltersEnum {
   price = 'price',
   textSearch = 'textSearch',
   metro = 'metro',
+  list = 'list',
 }
