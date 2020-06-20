@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Grid } from '@components';
+import { Grid, Typography } from '@components';
 import { ListGrid } from './Wrapper.styles';
 
 export const Wrapper: FunctionComponent<{ title: string }> = ({
@@ -8,7 +8,7 @@ export const Wrapper: FunctionComponent<{ title: string }> = ({
 }) => (
   <Grid container item spacing={1}>
     <Grid container item>
-      {title}
+      <Typography variant="caption">{title}</Typography>
     </Grid>
     <ListGrid container item>
       {children}

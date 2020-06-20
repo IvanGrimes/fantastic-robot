@@ -9,7 +9,9 @@ import { Label } from './Checkbox.styles';
 
 export type CheckboxProps = MaterialCheckboxProps & { label?: ReactNode };
 
-export const Checkbox: FunctionComponent<CheckboxProps> = ({
+export const Checkbox: FunctionComponent<CheckboxProps> & {
+  Label: typeof Label;
+} = ({
   color = 'primary',
   label,
   onChange,
@@ -46,3 +48,5 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
     />
   );
 };
+
+Checkbox.Label = Label;

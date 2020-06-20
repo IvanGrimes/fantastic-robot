@@ -2,7 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { VirtualizedListItemProps } from '@components';
 import { MetroList } from '@shared';
 import { ListProps } from '../types';
-import { ParameterListItem, listItemPadding } from '../../../ParameterList';
+import { ParameterListItem } from '../../../ParameterList';
+import { Wrapper, StationColor } from './ListItem.styles';
 
 export const ListItem: FunctionComponent<
   Omit<VirtualizedListItemProps, 'data'> & {
@@ -10,20 +11,16 @@ export const ListItem: FunctionComponent<
   }
 > = ({ index, style, data }) => {
   const { values, onChange, list } = data;
-  const { name, id } = list[index];
+  const { name, id, color } = list[index];
 
   return (
-    <div
-      style={{
-        ...style,
-        width: `calc(100% - ${listItemPadding})`,
-      }}
-    >
+    <Wrapper style={style}>
       <ParameterListItem
         name={name}
         value={Boolean(values[id])}
         onChange={() => onChange(id)}
       />
-    </div>
+      <StationColor color={color} />
+    </Wrapper>
   );
 };

@@ -33,7 +33,7 @@ export const fetchMetroList = () =>
             stations.map(({ id, name, lat, lng }) => ({
               id,
               name,
-              color,
+              color: `#${color}`,
               lat,
               lng,
             }))
