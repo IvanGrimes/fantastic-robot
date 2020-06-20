@@ -2,10 +2,10 @@ import { combineEpics } from 'redux-observable';
 import { isActionOf } from 'typesafe-actions';
 import { filter, ignoreElements, map, tap } from 'rxjs/operators';
 import { mergeDeepRight } from 'ramda';
-import { parse, update } from './actions';
+import { clear, parse, update } from './actions';
 import { parseFiltersQueryString, updateFiltersQueryString } from '../utils';
 
-const updateFiltersFlow: RootEpic = ($action) =>
+const updateFlow: RootEpic = ($action) =>
   $action.pipe(
     filter(isActionOf(update)),
     tap(({ payload }) => {
@@ -16,10 +16,17 @@ const updateFiltersFlow: RootEpic = ($action) =>
     ignoreElements()
   );
 
-const syncFiltersFlow: RootEpic = ($action) =>
+const syncFlow: RootEpic = ($action) =>
   $action.pipe(
     filter(isActionOf(parse)),
     map(() => update(parseFiltersQueryString(window.location)))
   );
 
-export const epic = combineEpics(updateFiltersFlow, syncFiltersFlow);
+const clearFlow: RootEpic = ($action) =>
+  $action.pipe(
+    filter(isActionOf(clear)),
+    tap(() => updateFiltersQueryString({})),
+    ignoreElements()
+  );
+
+export const epic = combineEpics(updateFlow, syncFlow, clearFlow);

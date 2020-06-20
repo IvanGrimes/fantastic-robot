@@ -18,35 +18,38 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const dispatchProps = {
-  updateFilters: actions.update,
-  syncFilters: actions.parse,
+  update: actions.update,
+  sync: actions.parse,
+  clear: actions.clear,
 };
 
 const _FiltersContainer: FunctionComponent<Props> = ({
   filters,
   isConfigLoading,
   config,
-  updateFilters,
+  update,
   isMetroListLoading,
   metroList,
-  syncFilters,
+  sync,
   metroListError,
   configError,
+  clear,
 }) => {
   useEffectMount(() => {
-    syncFilters();
+    sync();
   });
 
   return (
     <Filters
       filters={filters}
-      updateFilters={updateFilters}
+      update={update}
       isConfigLoading={isConfigLoading}
       config={config}
       isMetroListLoading={isMetroListLoading}
       metroList={metroList}
       configError={configError}
       metroListError={metroListError}
+      clear={clear}
     />
   );
 };

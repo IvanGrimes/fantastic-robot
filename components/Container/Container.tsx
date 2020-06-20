@@ -1,9 +1,15 @@
 import React from 'react';
 import { Container as MaterialContainer } from '@material-ui/core';
 
-export const Container: StyleableComponent<{
+export type ContainerProps = {
   variant?: 'primary' | 'secondary' | 'fluid';
-}> = ({ variant = 'fluid', className, children }) => {
+};
+
+export const Container: StyleableComponent<ContainerProps> = ({
+  variant = 'fluid',
+  className,
+  children,
+}) => {
   switch (variant) {
     case 'fluid':
       return (

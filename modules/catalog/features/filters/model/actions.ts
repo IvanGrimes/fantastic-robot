@@ -7,4 +7,6 @@ export const update = createAction('CATALOG/FILTERS/UPDATE')<
   DeepPartial<FiltersState>
 >();
 
-export const clear = createAction('CATALOG/FILTERS/CLEAR');
+export const clear = createAction('CATALOG/FILTERS/CLEAR')<
+  (nextState: FiltersState) => void
+>();

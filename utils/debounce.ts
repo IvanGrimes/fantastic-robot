@@ -1,1 +1,3 @@
-export { debounce } from '@material-ui/core';
+import debounce from 'lodash.debounce';
+
+export { debounce };

@@ -1,13 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { VirtualizedListItemProps } from '@components';
 import { MetroList } from '@shared';
-import { ListProps } from '../types';
-import { ParameterListItem } from '../../../ParameterList';
+import { ParameterListItem } from '../../ParameterList';
 import { Wrapper, StationColor } from './ListItem.styles';
 
 export const ListItem: FunctionComponent<
   Omit<VirtualizedListItemProps, 'data'> & {
-    data: ListProps & { list: MetroList };
+    data: {
+      values: { [key: string]: boolean };
+      list: MetroList;
+      onChange: (value: string) => void;
+    };
   }
 > = ({ index, style, data }) => {
   const { values, onChange, list } = data;

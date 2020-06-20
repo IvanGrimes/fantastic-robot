@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { listItemPadding } from '../../../ParameterList';
+import { listItemPadding } from '../../ParameterList';
 
 export const Wrapper = styled.div`
   display: flex;

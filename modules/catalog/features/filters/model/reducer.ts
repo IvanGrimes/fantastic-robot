@@ -1,7 +1,7 @@
 import { actions as sharedActions, FiltersEnum } from '@shared';
 import { createReducer } from 'typesafe-actions';
-import { mergeDeepRight } from 'ramda';
-import { update } from './actions';
+import { mergeDeepRight, mergeDeepWith } from 'ramda';
+import { clear, update } from './actions';
 import { SortEnum, ListVariantEnum } from './types';
 
 export type FiltersState = {
@@ -50,30 +50,40 @@ export const initialState: FiltersState = {
   [FiltersEnum.list]: ListVariantEnum.studio,
 };
 
+let partialStateFromConfig: Partial<FiltersState> | null = null;
+
 export const reducer = createReducer(initialState)
   .handleAction(sharedActions.fetchConfigAsync.success, (state, action) => {
     const config = action.payload;
-    const area = state[FiltersEnum.area];
-    const height = state[FiltersEnum.height];
-    const price = state[FiltersEnum.price];
-
-    return {
-      ...state,
+    partialStateFromConfig = {
       [FiltersEnum.area]: {
-        from: area.from || config[FiltersEnum.area].min.toString(),
-        to: area.to || config[FiltersEnum.area].max.toString(),
+        from: config[FiltersEnum.area].min.toString(),
+        to: config[FiltersEnum.area].max.toString(),
       },
       [FiltersEnum.height]: {
-        from: height.from || config[FiltersEnum.height].min.toString(),
-        to: height.to || config[FiltersEnum.height].max.toString(),
+        from: config[FiltersEnum.height].min.toString(),
+        to: config[FiltersEnum.height].max.toString(),
       },
       [FiltersEnum.price]: {
-        from: price.from || config[FiltersEnum.price].min.toString(),
-        to: price.to || config[FiltersEnum.price].max.toString(),
+        from: config[FiltersEnum.price].min.toString(),
+        to: config[FiltersEnum.price].max.toString(),
       },
     };
+
+    return mergeDeepWith(
+      (left, right) => (Number.isInteger(parseInt(left, 10)) ? left : right),
+      state,
+      partialStateFromConfig
+    );
   })
   .handleAction(update, (state, action) => ({
     ...state,
     ...mergeDeepRight(state, action.payload),
-  }));
+  }))
+  .handleAction(clear, (_state, action) => {
+    const nextState = { ...initialState, ...partialStateFromConfig };
+
+    action.payload(nextState);
+
+    return nextState;
+  });

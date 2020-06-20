@@ -1,9 +1,9 @@
 import React, { FunctionComponent, ReactNode } from 'react';
+import { Skeleton, Grid } from '@components';
+import { debounce } from '@utils';
 import { Wrapper } from './Wrapper';
 import { ListItem } from './ListItem';
 import { List } from './ParameterList.styles';
-import { Skeleton } from '@components';
-import { Grid } from '@components';
 
 export const ParameterList: FunctionComponent<
   | {
@@ -55,7 +55,7 @@ export const ParameterList: FunctionComponent<
               key={id}
               name={name}
               value={Boolean(values[id])}
-              onChange={() => onChange(id)}
+              onChange={debounce(() => onChange(id), 250)}
             />
           ))}
         </List>

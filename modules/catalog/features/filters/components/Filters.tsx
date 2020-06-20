@@ -1,29 +1,37 @@
-import React, { FunctionComponent } from 'react';
-import { Grid } from '@components';
+import React, { FunctionComponent, useCallback, useRef } from 'react';
+import { Grid, Button, Icon } from '@components';
 import {
   FiltersEnum,
   RequestError,
   selectors as sharedSelectors,
 } from '@shared';
-import { DebouncedTextField } from './DebouncedTextField';
-import { DebouncedSwitch } from './DebouncedSwitch';
+import {
+  DebouncedTextField,
+  DebouncedTextFieldApi,
+} from './DebouncedTextField';
+import { Switch } from './Switch';
 import { Select } from './Select';
 import { GridPaper } from './Filters.styles';
 import { actions, selectors, SortEnum, ListVariantEnum } from '../model';
 import { MetroList, MetroListProps } from './MetroList';
-import { DebouncedRange } from './DebouncedRange';
+import { DebouncedRange, DebouncedRangeApi } from './DebouncedRange';
 import { ParameterList } from './ParameterList';
 import { getSortList, getListVariantList } from './utils';
+
+// TODO: Restrict input values in number-like string (area, height)
+// TODO: Make filter-list scrollable
+// TODO: Split Filters
 
 export type FilterProps = {
   filters: ReturnType<typeof selectors.getFilters>;
   configError: RequestError;
   config: ReturnType<typeof sharedSelectors.getConfig>;
   metroListError: RequestError;
-  updateFilters: typeof actions.update;
+  update: typeof actions.update;
   isMetroListLoading: boolean;
   metroList: MetroListProps['list'];
   isConfigLoading: boolean;
+  clear: typeof actions.clear;
 };
 
 const squareMeter = <>&#13217;</>;
@@ -34,15 +42,70 @@ const listVariantList = getListVariantList();
 export const Filters: FunctionComponent<FilterProps> = ({
   filters,
   config,
-  updateFilters,
+  update,
   isMetroListLoading,
   metroList,
   configError,
   metroListError,
   isConfigLoading,
-}) => (
-  <Grid item md={3} lg={2} component={GridPaper} variant="outlined" square>
-    <Grid container spacing={2}>
+  clear,
+}) => {
+  const searchTextRef = useRef<null | DebouncedTextFieldApi>(null);
+  const areaRef = useRef<null | DebouncedRangeApi>(null);
+  const heightRef = useRef<null | DebouncedRangeApi>(null);
+  const priceRef = useRef<null | DebouncedRangeApi>(null);
+  const handleClear = useCallback(() => {
+    const searchText = searchTextRef.current;
+    const area = areaRef.current;
+    const height = heightRef.current;
+    const price = priceRef.current;
+
+    clear((nextState) => {
+      if (searchText) {
+        searchText.clearWith(nextState[FiltersEnum.textSearch]);
+      }
+      if (area) {
+        area.clearWith(
+          nextState[FiltersEnum.area].from,
+          nextState[FiltersEnum.area].to
+        );
+      }
+      if (height) {
+        height.clearWith(
+          nextState[FiltersEnum.height].from,
+          nextState[FiltersEnum.height].to
+        );
+      }
+      if (price) {
+        price.clearWith(
+          nextState[FiltersEnum.price].from,
+          nextState[FiltersEnum.price].to
+        );
+      }
+    });
+  }, [clear]);
+
+  return (
+    <Grid
+      container
+      item
+      md={3}
+      lg={2}
+      component={GridPaper}
+      variant="outlined"
+      spacing={2}
+      square
+    >
+      <Grid item container justify="flex-end">
+        <Button
+          variant="outlined"
+          endIcon={<Icon name="delete" />}
+          disabled={isConfigLoading || isMetroListLoading}
+          onClick={() => handleClear()}
+        >
+          Сбросить
+        </Button>
+      </Grid>
       <Grid item container>
         <Select
           label="Поиск по"
@@ -50,7 +113,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
           list={listVariantList}
           value={filters[FiltersEnum.list]}
           onChange={(value) =>
-            updateFilters({ [FiltersEnum.list]: value as ListVariantEnum })
+            update({ [FiltersEnum.list]: value as ListVariantEnum })
           }
         />
       </Grid>
@@ -61,65 +124,61 @@ export const Filters: FunctionComponent<FilterProps> = ({
           list={sortList}
           value={filters[FiltersEnum.sort]}
           onChange={(value) =>
-            updateFilters({ [FiltersEnum.sort]: value as SortEnum })
+            update({ [FiltersEnum.sort]: value as SortEnum })
           }
         />
       </Grid>
       <Grid item container>
         <DebouncedTextField
           label="Поиск по названию"
+          ref={searchTextRef}
           isLoading={isConfigLoading}
           value={filters[FiltersEnum.textSearch]}
-          onChange={(value) =>
-            updateFilters({ [FiltersEnum.textSearch]: value })
-          }
+          onChange={(value) => update({ [FiltersEnum.textSearch]: value })}
         />
       </Grid>
       <Grid item container>
         <DebouncedRange
           name="Площадь"
+          ref={areaRef}
           isLoading={isConfigLoading}
           from={filters[FiltersEnum.area].from}
           changeFrom={(value) =>
-            updateFilters({ [FiltersEnum.area]: { from: value } })
+            update({ [FiltersEnum.area]: { from: value } })
           }
           fromLabel={<>от {squareMeter}</>}
           to={filters[FiltersEnum.area].to}
-          changeTo={(value) =>
-            updateFilters({ [FiltersEnum.area]: { to: value } })
-          }
+          changeTo={(value) => update({ [FiltersEnum.area]: { to: value } })}
           toLabel={<>до {squareMeter}</>}
         />
       </Grid>
       <Grid item container>
         <DebouncedRange
           name="Высота потолков"
+          ref={heightRef}
           isLoading={isConfigLoading}
           from={filters[FiltersEnum.height].from}
           changeFrom={(value) =>
-            updateFilters({ [FiltersEnum.height]: { from: value } })
+            update({ [FiltersEnum.height]: { from: value } })
           }
           fromLabel={<>от см</>}
           to={filters[FiltersEnum.height].to}
-          changeTo={(value) =>
-            updateFilters({ [FiltersEnum.height]: { to: value } })
-          }
+          changeTo={(value) => update({ [FiltersEnum.height]: { to: value } })}
           toLabel={<>до см</>}
         />
       </Grid>
       <Grid item container>
         <DebouncedRange
           name="Цена"
+          ref={priceRef}
           isLoading={isConfigLoading}
           from={filters[FiltersEnum.price].from}
           changeFrom={(value) =>
-            updateFilters({ [FiltersEnum.price]: { from: value } })
+            update({ [FiltersEnum.price]: { from: value } })
           }
           fromLabel={<>от {ruble}</>}
           to={filters[FiltersEnum.price].to}
-          changeTo={(value) =>
-            updateFilters({ [FiltersEnum.price]: { to: value } })
-          }
+          changeTo={(value) => update({ [FiltersEnum.price]: { to: value } })}
           toLabel={<>до {ruble}</>}
         />
       </Grid>
@@ -130,7 +189,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
           list={config.equipmentTypes}
           values={filters[FiltersEnum.equipment]}
           onChange={(value) =>
-            updateFilters({
+            update({
               [FiltersEnum.equipment]: {
                 [value]: !filters[FiltersEnum.equipment][value],
               },
@@ -147,7 +206,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
           list={config.interiors}
           values={filters[FiltersEnum.interior]}
           onChange={(value) =>
-            updateFilters({
+            update({
               [FiltersEnum.interior]: {
                 [value]: !filters[FiltersEnum.interior][value],
               },
@@ -164,7 +223,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
           list={config.comforts}
           values={filters[FiltersEnum.comfort]}
           onChange={(value) =>
-            updateFilters({
+            update({
               [FiltersEnum.comfort]: {
                 [value]: !filters[FiltersEnum.comfort][value],
               },
@@ -181,7 +240,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
           values={filters[FiltersEnum.metro]}
           error={metroListError}
           onChange={(value) =>
-            updateFilters({
+            update({
               [FiltersEnum.metro]: {
                 [value]: !filters[FiltersEnum.metro][value],
               },
@@ -190,15 +249,15 @@ export const Filters: FunctionComponent<FilterProps> = ({
         />
       </Grid>
       <Grid item container>
-        <DebouncedSwitch
+        <Switch
           isLoading={isConfigLoading}
           label="Оплата онлайн"
           value={filters[FiltersEnum.hasOnlineBooking]}
           onChange={(value) =>
-            updateFilters({ [FiltersEnum.hasOnlineBooking]: value })
+            update({ [FiltersEnum.hasOnlineBooking]: value })
           }
         />
       </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
