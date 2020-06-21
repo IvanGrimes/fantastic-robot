@@ -18,7 +18,6 @@ import { DebouncedRange, DebouncedRangeApi } from './DebouncedRange';
 import { ParameterList } from './ParameterList';
 import { getSortList, getListVariantList } from './utils';
 
-// TODO: Restrict input values in number-like string (area, height)
 // TODO: Make filter-list scrollable
 // TODO: Split Filters
 

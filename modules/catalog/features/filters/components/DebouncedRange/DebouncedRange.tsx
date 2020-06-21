@@ -20,6 +20,8 @@ export type DebouncedRangeApi = {
 
 type ClearRange = (from: string, to: string) => void;
 
+const isNumber = (value: string) => Number.isInteger(Number(value));
+
 export const DebouncedRange = forwardRef<
   DebouncedRangeApi,
   {
@@ -71,6 +73,7 @@ export const DebouncedRange = forwardRef<
             onChange={changeFrom}
             value={from}
             label={fromLabel}
+            validateValue={isNumber}
           />
         </Grid>
         <Grid container item xs={2} alignItems="center" justify="center">
@@ -81,6 +84,7 @@ export const DebouncedRange = forwardRef<
             ref={toRef}
             isLoading={isLoading}
             onChange={changeTo}
+            validateValue={isNumber}
             value={to}
             label={toLabel}
           />

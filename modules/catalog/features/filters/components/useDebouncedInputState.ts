@@ -15,10 +15,12 @@ export const useDebouncedInputState = <V, H extends (...args: any[]) => void>(
     delay = 1000,
     mapValue = (ev) => (ev.target.value as unknown) as V,
     isLoading = false,
+    validateValue = undefined,
   }: {
     delay?: number;
     mapValue?: (ev: ChangeEvent<HTMLInputElement>) => V;
     isLoading?: boolean;
+    validateValue?: (value: V) => boolean;
   } = {}
 ) => {
   const wasValueUpdated = useRef(false);
@@ -29,7 +31,7 @@ export const useDebouncedInputState = <V, H extends (...args: any[]) => void>(
       const debouncedHandler = debounce(onChange, delay);
 
       cancelChangeInFlight.current();
-      cancelChangeInFlight.current = debouncedHandler.flush;
+      cancelChangeInFlight.current = debouncedHandler.clear;
 
       debouncedHandler(nextValue);
     },
@@ -39,19 +41,25 @@ export const useDebouncedInputState = <V, H extends (...args: any[]) => void>(
     (ev) => {
       const nextValue = mapValue(ev);
 
-      setValue(nextValue);
-      debounceHandleChange(nextValue);
+      if (validateValue ? validateValue(nextValue) : true) {
+        setValue(nextValue);
+        debounceHandleChange(nextValue);
+      }
     },
-    [mapValue, debounceHandleChange]
+    [mapValue, validateValue, debounceHandleChange]
   );
   const clearWith = useCallback(
     (v: V) =>
-      setValue(() => {
+      setValue((previousValue) => {
         cancelChangeInFlight.current();
 
-        return v;
+        if (validateValue ? validateValue(v) : true) {
+          return v;
+        }
+
+        return previousValue;
       }),
-    []
+    [validateValue]
   );
 
   useEffect(() => {
