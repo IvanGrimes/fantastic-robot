@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
-import { listItemPadding } from '../../ParameterList';
+import { LIST_ITEM_PADDING } from '../../ParameterList';
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: calc(100% - ${listItemPadding}) !important;
+  width: calc(100% - ${LIST_ITEM_PADDING}) !important;
 `;
 
 export const StationColor = styled.div<{ color: string }>`

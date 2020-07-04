@@ -1,2 +1,2 @@
-export const listItemPadding = '10px';
-export const maxHeight = 365;
+export const LIST_ITEM_PADDING = '10px';
+export const MAX_HEIGHT = 365;

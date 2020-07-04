@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { RequestError, selectors, StationId } from '@shared';
-import { listItemPadding, maxHeight, ParameterList } from '../ParameterList';
-import { VirtualizedList } from '@components';
-import { ListItem } from './ListItem';
 import { debounce } from '@utils';
+import { VirtualizedList } from './MetroList.styles';
+import { LIST_ITEM_PADDING, MAX_HEIGHT, ParameterList } from '../ParameterList';
+import { ListItem } from './ListItem';
 
 export type MetroListProps = {
   values: { [key: string]: boolean | undefined };
@@ -35,10 +35,9 @@ export const MetroList: FunctionComponent<
   return (
     <Wrapper isLoading={isLoading}>
       <VirtualizedList
-        style={{ marginLeft: `-${listItemPadding}` }}
         itemSize={48}
-        height={maxHeight - 15}
-        width={`calc(100% + ${listItemPadding})`}
+        height={MAX_HEIGHT - 15}
+        width={`calc(100% + ${LIST_ITEM_PADDING})`}
         itemCount={list.length}
         itemData={{
           list,

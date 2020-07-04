@@ -18,7 +18,6 @@ import { DebouncedRange, DebouncedRangeApi } from './DebouncedRange';
 import { ParameterList } from './ParameterList';
 import { getSortList, getListVariantList } from './utils';
 
-// TODO: Make filter-list scrollable
 // TODO: Split Filters
 
 export type FilterProps = {

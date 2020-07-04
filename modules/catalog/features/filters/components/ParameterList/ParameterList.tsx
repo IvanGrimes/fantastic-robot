@@ -1,9 +1,10 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { Skeleton, Grid } from '@components';
 import { debounce } from '@utils';
 import { Wrapper } from './Wrapper';
 import { ListItem } from './ListItem';
 import { List } from './ParameterList.styles';
+import { MAX_HEIGHT } from './constants';
 
 export const ParameterList: FunctionComponent<
   | {
@@ -20,6 +21,8 @@ export const ParameterList: FunctionComponent<
       onChange: (value: string) => void;
     }
 > = (props) => {
+  const [listRef, setListRef] = useState<null | HTMLUListElement>(null);
+
   if (props.isLoading) {
     return (
       <Wrapper title={<Skeleton variant="rect" />}>
@@ -49,7 +52,13 @@ export const ParameterList: FunctionComponent<
 
     return (
       <Wrapper title={title}>
-        <List container as="ul" spacing={1}>
+        <List
+          ref={setListRef as any}
+          hasOverflow={Boolean(listRef && listRef.scrollHeight > MAX_HEIGHT)}
+          container
+          as="ul"
+          spacing={1}
+        >
           {list.map(({ id, name }) => (
             <ListItem
               key={id}

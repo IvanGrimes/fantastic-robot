@@ -7,7 +7,7 @@ export const ListItem: FunctionComponent<{
   value: boolean;
   onChange: () => void;
 }> = ({ value, name, onChange }) => (
-  <Wrapper item>
+  <Wrapper item as="li">
     <Checkbox label={name} checked={value} onChange={onChange} />
   </Wrapper>
 );
