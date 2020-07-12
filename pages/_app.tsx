@@ -7,9 +7,6 @@ import { Normalize } from '@components';
 import { storeWrapper } from '@model';
 import { theme } from '../theme';
 
-// TODO: loading/errors
-// TODO: filters
-
 const onMount = () => {
   const jssStyles = document.querySelector('#jss-server-side');
 

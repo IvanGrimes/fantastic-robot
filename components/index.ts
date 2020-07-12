@@ -15,3 +15,4 @@ export * from './Card';
 export * from './Skeleton';
 export * from './Select';
 export * from './Icon';
+export * from './InfiniteScroll';

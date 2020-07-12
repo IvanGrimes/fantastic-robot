@@ -1,8 +1,6 @@
-import React from 'react';
-import { Grid } from '@components';
+import React, { FunctionComponent } from 'react';
+import { RequestError } from '@shared';
 
-export const ListFail = () => (
-  <Grid container item>
-    fail
-  </Grid>
-);
+export const ListFail: FunctionComponent<{ error: RequestError }> = ({
+  error,
+}) => <>{error.message}</>;
