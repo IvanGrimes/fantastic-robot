@@ -1,10 +1,8 @@
-import { parse } from 'qs';
+import { parseQueryString } from '@utils';
 import { FiltersState } from '../model';
 
-export const parseFiltersQueryString = (
-  location: Location
-): DeepPartial<FiltersState> => {
-  const { filters } = parse(location.search.replace('?', ''));
+export const parseFiltersQueryString = (): DeepPartial<FiltersState> => {
+  const { filters } = parseQueryString();
 
   if (filters) {
     try {

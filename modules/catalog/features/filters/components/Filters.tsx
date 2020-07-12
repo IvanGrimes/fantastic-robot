@@ -102,7 +102,7 @@ export const Filters: FunctionComponent<FilterProps> = ({
       alignContent="flex-start"
       component={List}
     >
-      <Grid container xs={12} spacing={2}>
+      <Grid container item xs={12} spacing={2}>
         <Grid item container>
           <Grid container spacing={2} component={ListItem} variant="outlined">
             <Grid item container justify="flex-end">

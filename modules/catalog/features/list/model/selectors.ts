@@ -1,5 +1,5 @@
 import { selectors } from '@shared';
-import { fetchStudioListAsync, fetchStudioNextListAsync } from './actions';
+import { fetchStudioListAsync } from './actions';
 
 export const getState = (state: RootState) => state.catalog.list;
 
@@ -9,15 +9,10 @@ export const getListLoading = selectors.getRequestLoading(
 
 export const getListError = selectors.getRequestError([
   fetchStudioListAsync.request,
-  fetchStudioNextListAsync.request,
 ]);
 
 export const getStudioList = (state: RootState) =>
   getState(state).studioList.list;
-
-export const getNextListLoading = selectors.getRequestLoading(
-  fetchStudioNextListAsync.request
-);
 
 export const getHasNextList = (state: RootState) =>
   getState(state).studioList.hasNext;

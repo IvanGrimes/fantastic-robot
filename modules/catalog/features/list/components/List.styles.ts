@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import {
   Grid,
   GridProps,
-  InfiniteScroll as DefaultInfiniteScroll,
-  InfiniteScrollProps,
+  Pagination as DefaultPagination,
+  PaginationProps,
 } from '@components';
 
 export const GridList = styled(Grid)<GridProps>`
@@ -12,10 +12,10 @@ export const GridList = styled(Grid)<GridProps>`
   }
 `;
 
-export const InfiniteScroll = styled(DefaultInfiniteScroll)<
-  InfiniteScrollProps
->`
+export const Pagination = styled(DefaultPagination)<PaginationProps>`
   && {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
   }
 `;

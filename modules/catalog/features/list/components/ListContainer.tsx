@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { useEffectMount } from '@hooks';
+import { useRouter } from 'next/router';
+import { routes } from '@utils';
 import { List } from './List';
 import { selectors, actions } from '../model';
 
@@ -11,7 +12,6 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const mapStateToProps = (state: RootState) => ({
   isListLoading: selectors.getListLoading(state),
-  isNextListLoading: selectors.getNextListLoading(state),
   hasNextList: selectors.getHasNextList(state),
   studioList: selectors.getStudioList(state),
   error: selectors.getListError(state),
@@ -19,30 +19,42 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   fetchStudioList: actions.fetchStudioListAsync.request,
-  fetchNext: actions.fetchStudioNextListAsync.request,
 };
 
 const _ListContainer: FunctionComponent<Props> = ({
   fetchStudioList,
   isListLoading,
-  isNextListLoading,
   hasNextList,
   studioList,
   error,
-  fetchNext,
 }) => {
-  useEffectMount(() => {
-    fetchStudioList();
-  });
+  const { query, route } = useRouter();
+  const wasRequestedListRef = useRef(false);
+  const parsedPage = Number(route === routes.list.route ? query.page : 1);
+
+  useEffect(() => {
+    const wasRequestedList = wasRequestedListRef.current;
+
+    if (!wasRequestedList) {
+      if (route === routes.list.route) {
+        if (Number.isInteger(parsedPage)) {
+          fetchStudioList({
+            page: parsedPage,
+          });
+        }
+      } else {
+        fetchStudioList({ page: undefined });
+      }
+    }
+  }, [fetchStudioList, parsedPage, route]);
 
   return (
     <List
       isLoading={isListLoading}
-      isNextLoading={isNextListLoading}
       list={studioList}
       error={error}
-      fetchNext={fetchNext}
       hasNext={hasNextList}
+      page={parsedPage}
     />
   );
 };

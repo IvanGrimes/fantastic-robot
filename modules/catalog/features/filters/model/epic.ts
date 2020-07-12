@@ -10,7 +10,7 @@ const updateFlow: RootEpic = ($action) =>
     filter(isActionOf(update)),
     tap(({ payload }) => {
       updateFiltersQueryString(
-        mergeDeepRight(parseFiltersQueryString(window.location), payload)
+        mergeDeepRight(parseFiltersQueryString(), payload)
       );
     }),
     ignoreElements()
@@ -19,7 +19,7 @@ const updateFlow: RootEpic = ($action) =>
 const syncFlow: RootEpic = ($action) =>
   $action.pipe(
     filter(isActionOf(parse)),
-    map(() => update(parseFiltersQueryString(window.location)))
+    map(() => update(parseFiltersQueryString()))
   );
 
 const clearFlow: RootEpic = ($action) =>

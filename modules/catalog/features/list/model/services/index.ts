@@ -1,4 +1,3 @@
-export type { StudioList } from './baseFetchStudioList';
+export type { StudioList } from './fetchStudioList';
 export * from './fetchStudioList';
 export * from './fetchRoomList';
-export * from './fetchStudioNextList';
