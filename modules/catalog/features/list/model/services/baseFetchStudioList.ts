@@ -8,12 +8,12 @@ export type StudioList = {
 }[];
 
 export const baseFetchStudioList = ({
-  page,
+  page = 1,
   size = 9,
 }: {
-  page: number;
+  page?: number;
   size?: number;
-}) =>
+} = {}) =>
   http
     .post<{ studios: StudioList }>('/api/studio/filter', {
       city: 1,

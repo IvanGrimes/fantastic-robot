@@ -50,6 +50,7 @@ export const List: FunctionComponent<{
       <InfiniteScroll
         fetchNext={(page) => fetchNext({ page })}
         hasNext={hasNext}
+        page={1}
         loader={isNextLoading ? <p key={0}>loading</p> : <Fragment key={0} />}
       >
         <ListWrapper>
