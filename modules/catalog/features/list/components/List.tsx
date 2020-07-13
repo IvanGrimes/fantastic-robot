@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { ListSuccess } from './ListSuccess';
 import { ListInit } from './ListInit';
 import { GridList, Pagination } from './List.styles';
-import { StudioList } from '../model';
+import { StudioList, RoomList } from '../model';
 import { ListFail } from './ListFail';
 import { parseQueryString, routes } from '@utils';
 
@@ -23,7 +23,7 @@ const ListWrapper: FunctionComponent = ({ children }) => (
 
 export const List: FunctionComponent<{
   isLoading: boolean;
-  list: StudioList;
+  list: StudioList | RoomList;
   error: RequestError;
   hasNext: boolean;
   page: number;

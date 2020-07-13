@@ -3,24 +3,41 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { routes } from '@utils';
 import { List } from './List';
-import { selectors, actions } from '../model';
+import { actions, selectors } from '../model';
 import * as filtersFeature from '../../filters';
+import { ListVariantEnum } from '../../../model';
+
+type OwnProps = {
+  variant: ListVariantEnum;
+};
 
 type Props = ReturnType<typeof mapStateToProps> &
-  typeof dispatchProps & {
-    variant: 'studio' | 'room';
-  };
+  typeof dispatchProps &
+  OwnProps;
 
-const mapStateToProps = (state: RootState) => ({
-  isListLoading: selectors.getListLoading(state),
-  hasNextList: selectors.getHasNextList(state),
-  studioList: selectors.getStudioList(state),
-  error: selectors.getListError(state),
-  filters: filtersFeature.selectors.getFilters(state),
-});
+const mapStateToProps = (state: RootState, { variant }: OwnProps) => {
+  const isStudio = variant === ListVariantEnum.studio;
+
+  return {
+    isListLoading: isStudio
+      ? selectors.getStudioListLoading(state)
+      : selectors.getRoomListLoading(state),
+    hasNextList: isStudio
+      ? selectors.getHasNextStudioList(state)
+      : selectors.getHasNextRoomList(state),
+    studioList: isStudio
+      ? selectors.getStudioList(state)
+      : selectors.getRoomList(state),
+    error: isStudio
+      ? selectors.getStudioListError(state)
+      : selectors.getRoomListError(state),
+    filters: filtersFeature.selectors.getFilters(state),
+  };
+};
 
 const dispatchProps = {
   fetchStudioList: actions.fetchStudioListAsync.request,
+  fetchRoomList: actions.fetchRoomListAsync.request,
 };
 
 const _ListContainer: FunctionComponent<Props> = ({
@@ -30,6 +47,8 @@ const _ListContainer: FunctionComponent<Props> = ({
   studioList,
   error,
   filters,
+  fetchRoomList,
+  variant,
 }) => {
   const { query, route } = useRouter();
   const wasRequestedListRef = useRef(false);
@@ -37,20 +56,22 @@ const _ListContainer: FunctionComponent<Props> = ({
 
   useEffect(() => {
     const wasRequestedList = wasRequestedListRef.current;
+    const fetcher =
+      variant === ListVariantEnum.studio ? fetchStudioList : fetchRoomList;
 
     if (!wasRequestedList) {
       if (route === routes.list.route) {
         if (Number.isInteger(parsedPage)) {
-          fetchStudioList({
+          fetcher({
             page: parsedPage,
             ...filters,
           });
         }
       } else {
-        fetchStudioList({ page: undefined, ...filters });
+        fetcher({ page: undefined, ...filters });
       }
     }
-  }, [fetchStudioList, filters, parsedPage, route]);
+  }, [fetchRoomList, fetchStudioList, filters, parsedPage, route, variant]);
 
   return (
     <List

@@ -1,13 +1,16 @@
 import { createReducer } from 'typesafe-actions';
 import { StudioListService, RoomListService } from './services';
-import { fetchStudioListAsync } from './actions';
+import { fetchStudioListAsync, fetchRoomListAsync } from './actions';
 
 export type ListState = {
   studioList: {
     hasNext: boolean;
     list: StudioListService;
   };
-  roomList: RoomListService;
+  roomList: {
+    hasNext: boolean;
+    list: RoomListService;
+  };
 };
 
 export const initialState: ListState = {
@@ -15,17 +18,26 @@ export const initialState: ListState = {
     hasNext: false,
     list: [],
   },
-  roomList: [],
+  roomList: {
+    hasNext: false,
+    list: [],
+  },
 };
 
-export const reducer = createReducer(initialState).handleAction(
-  fetchStudioListAsync.success,
-  (state, action) => ({
+export const reducer = createReducer(initialState)
+  .handleAction(fetchStudioListAsync.success, (state, action) => ({
     ...state,
     studioList: {
       ...state.studioList,
       list: action.payload,
       hasNext: Boolean(action.payload.length),
     },
-  })
-);
+  }))
+  .handleAction(fetchRoomListAsync.success, (state, action) => ({
+    ...state,
+    roomList: {
+      ...state.roomList,
+      list: action.payload,
+      hasNext: Boolean(action.payload.length),
+    },
+  }));

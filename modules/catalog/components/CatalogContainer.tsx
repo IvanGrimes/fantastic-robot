@@ -1,11 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import { actions as sharedActions } from '@shared';
+import { actions as sharedActions, FiltersEnum } from '@shared';
 import { connect } from 'react-redux';
 import { useEffectMount } from '@hooks';
 import { Filters } from '../features/filters';
 import { List } from '../features/list';
+import { getFilters } from '../features/filters/model/selectors';
 
-type Props = typeof dispatchProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+
+const mapStateToProps = (state: RootState) => ({
+  filters: getFilters(state),
+});
 
 const dispatchProps = {
   fetchConfig: sharedActions.fetchConfigAsync.request,
@@ -15,6 +20,7 @@ const dispatchProps = {
 const _CatalogContainer: FunctionComponent<Props> = ({
   fetchConfig,
   fetchMetroList,
+  filters,
 }) => {
   useEffectMount(() => {
     fetchConfig();
@@ -24,9 +30,12 @@ const _CatalogContainer: FunctionComponent<Props> = ({
   return (
     <>
       <Filters />
-      <List variant="studio" />
+      <List variant={filters[FiltersEnum.list]} />
     </>
   );
 };
 
-export const CatalogContainer = connect(null, dispatchProps)(_CatalogContainer);
+export const CatalogContainer = connect(
+  mapStateToProps,
+  dispatchProps
+)(_CatalogContainer);
