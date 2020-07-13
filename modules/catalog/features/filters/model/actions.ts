@@ -4,9 +4,9 @@ import { FiltersState } from './reducer';
 export const parse = createAction('CATALOG/FILTERS/PARSE')();
 
 export const update = createAction('CATALOG/FILTERS/UPDATE')<
-  DeepPartial<FiltersState>
+  DeepPartial<FiltersState['values']>
 >();
 
 export const clear = createAction('CATALOG/FILTERS/CLEAR')<
-  (nextState: FiltersState) => void
+  (nextState: FiltersState['values']) => void
 >();

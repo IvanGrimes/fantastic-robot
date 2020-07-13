@@ -19,7 +19,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
   update: actions.update,
-  sync: actions.parse,
+  parse: actions.parse,
   clear: actions.clear,
 };
 
@@ -30,13 +30,13 @@ const _FiltersContainer: FunctionComponent<Props> = ({
   update,
   isMetroListLoading,
   metroList,
-  sync,
+  parse,
   metroListError,
   configError,
   clear,
 }) => {
   useEffectMount(() => {
-    sync();
+    parse();
   });
 
   return (

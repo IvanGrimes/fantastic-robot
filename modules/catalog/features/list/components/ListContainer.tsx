@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { routes } from '@utils';
@@ -31,6 +31,7 @@ const mapStateToProps = (state: RootState, { variant }: OwnProps) => {
     error: isStudio
       ? selectors.getStudioListError(state)
       : selectors.getRoomListError(state),
+    wereFiltersParsed: filtersFeature.selectors.getWereFiltersParsed(state),
     filters: filtersFeature.selectors.getFilters(state),
   };
 };
@@ -49,17 +50,16 @@ const _ListContainer: FunctionComponent<Props> = ({
   filters,
   fetchRoomList,
   variant,
+  wereFiltersParsed,
 }) => {
   const { query, route } = useRouter();
-  const wasRequestedListRef = useRef(false);
   const parsedPage = Number(route === routes.list.route ? query.page : 1);
 
   useEffect(() => {
-    const wasRequestedList = wasRequestedListRef.current;
     const fetcher =
       variant === ListVariantEnum.studio ? fetchStudioList : fetchRoomList;
 
-    if (!wasRequestedList) {
+    if (wereFiltersParsed) {
       if (route === routes.list.route) {
         if (Number.isInteger(parsedPage)) {
           fetcher({
@@ -71,7 +71,15 @@ const _ListContainer: FunctionComponent<Props> = ({
         fetcher({ page: undefined, ...filters });
       }
     }
-  }, [fetchRoomList, fetchStudioList, filters, parsedPage, route, variant]);
+  }, [
+    fetchRoomList,
+    fetchStudioList,
+    filters,
+    parsedPage,
+    route,
+    variant,
+    wereFiltersParsed,
+  ]);
 
   return (
     <List

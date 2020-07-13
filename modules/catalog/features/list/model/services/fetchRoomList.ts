@@ -8,7 +8,7 @@ export type RoomList = Room[];
 export const fetchRoomList = ({
   page,
   ...filters
-}: { page?: number } & FiltersState) => {
+}: { page?: number } & FiltersState['values']) => {
   const f = transformFilters(filters);
 
   return http

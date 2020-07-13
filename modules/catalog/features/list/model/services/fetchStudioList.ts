@@ -12,7 +12,7 @@ export type StudioList = {
 export const fetchStudioList = ({
   page,
   ...filters
-}: { page?: number } & FiltersState) => {
+}: { page?: number } & FiltersState['values']) => {
   const f = transformFilters(filters);
 
   return http

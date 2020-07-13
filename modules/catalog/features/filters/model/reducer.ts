@@ -6,52 +6,58 @@ import { SortEnum } from './types';
 import { ListVariantEnum } from '../../../model';
 
 export type FiltersState = {
-  [FiltersEnum.textSearch]: string;
-  [FiltersEnum.area]: {
-    from: string;
-    to: string;
+  values: {
+    [FiltersEnum.textSearch]: string;
+    [FiltersEnum.area]: {
+      from: string;
+      to: string;
+    };
+    [FiltersEnum.height]: {
+      from: string;
+      to: string;
+    };
+    [FiltersEnum.price]: {
+      from: string;
+      to: string;
+    };
+    [FiltersEnum.metro]: { [key: string]: boolean | undefined };
+    [FiltersEnum.hasOnlineBooking]: boolean;
+    [FiltersEnum.comfort]: { [key: string]: boolean | undefined };
+    [FiltersEnum.interior]: { [key: string]: boolean | undefined };
+    [FiltersEnum.equipment]: { [key: string]: boolean | undefined };
+    [FiltersEnum.sort]: SortEnum;
+    [FiltersEnum.list]: ListVariantEnum;
   };
-  [FiltersEnum.height]: {
-    from: string;
-    to: string;
-  };
-  [FiltersEnum.price]: {
-    from: string;
-    to: string;
-  };
-  [FiltersEnum.metro]: { [key: string]: boolean | undefined };
-  [FiltersEnum.hasOnlineBooking]: boolean;
-  [FiltersEnum.comfort]: { [key: string]: boolean | undefined };
-  [FiltersEnum.interior]: { [key: string]: boolean | undefined };
-  [FiltersEnum.equipment]: { [key: string]: boolean | undefined };
-  [FiltersEnum.sort]: SortEnum;
-  [FiltersEnum.list]: ListVariantEnum;
+  parsed: boolean;
 };
 
 export const initialState: FiltersState = {
-  [FiltersEnum.textSearch]: '',
-  [FiltersEnum.hasOnlineBooking]: false,
-  [FiltersEnum.height]: {
-    from: '',
-    to: '',
+  values: {
+    [FiltersEnum.textSearch]: '',
+    [FiltersEnum.hasOnlineBooking]: false,
+    [FiltersEnum.height]: {
+      from: '',
+      to: '',
+    },
+    [FiltersEnum.area]: {
+      from: '',
+      to: '',
+    },
+    [FiltersEnum.price]: {
+      from: '',
+      to: '',
+    },
+    [FiltersEnum.metro]: {},
+    [FiltersEnum.comfort]: {},
+    [FiltersEnum.interior]: {},
+    [FiltersEnum.equipment]: {},
+    [FiltersEnum.sort]: SortEnum.nameAsc,
+    [FiltersEnum.list]: ListVariantEnum.studio,
   },
-  [FiltersEnum.area]: {
-    from: '',
-    to: '',
-  },
-  [FiltersEnum.price]: {
-    from: '',
-    to: '',
-  },
-  [FiltersEnum.metro]: {},
-  [FiltersEnum.comfort]: {},
-  [FiltersEnum.interior]: {},
-  [FiltersEnum.equipment]: {},
-  [FiltersEnum.sort]: SortEnum.nameAsc,
-  [FiltersEnum.list]: ListVariantEnum.studio,
+  parsed: false,
 };
 
-let partialStateFromConfig: Partial<FiltersState> | null = null;
+let partialStateFromConfig: Partial<FiltersState['values']> | null = null;
 
 export const reducer = createReducer(initialState)
   .handleAction(sharedActions.fetchConfigAsync.success, (state, action) => {
@@ -71,20 +77,24 @@ export const reducer = createReducer(initialState)
       },
     };
 
-    return mergeDeepWith(
-      (left, right) => (Number.isInteger(parseInt(left, 10)) ? left : right),
-      state,
-      partialStateFromConfig
-    );
+    return {
+      ...state,
+      values: mergeDeepWith(
+        (left, right) => (Number.isInteger(parseInt(left, 10)) ? left : right),
+        state.values,
+        partialStateFromConfig
+      ),
+    };
   })
   .handleAction(update, (state, action) => ({
     ...state,
-    ...mergeDeepRight(state, action.payload),
+    ...mergeDeepRight(state, { values: action.payload }),
+    parsed: true,
   }))
-  .handleAction(clear, (_state, action) => {
-    const nextState = { ...initialState, ...partialStateFromConfig };
+  .handleAction(clear, (state, action) => {
+    const nextState = { ...initialState.values, ...partialStateFromConfig };
 
     action.payload(nextState);
 
-    return nextState;
+    return { ...state, values: nextState };
   });

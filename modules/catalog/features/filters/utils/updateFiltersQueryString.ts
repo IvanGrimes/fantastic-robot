@@ -23,7 +23,7 @@ const filterObject = <T extends object>(target: T): Partial<T> => {
 };
 
 export const updateFiltersQueryString = (
-  filters: DeepPartial<FiltersState>
+  filters: DeepPartial<FiltersState['values']>
 ) => {
   const f = filterObject(filters);
 
