@@ -2,7 +2,8 @@ import { actions as sharedActions, FiltersEnum } from '@shared';
 import { createReducer } from 'typesafe-actions';
 import { mergeDeepRight, mergeDeepWith } from 'ramda';
 import { clear, update } from './actions';
-import { SortEnum, ListVariantEnum } from './types';
+import { SortEnum } from './types';
+import { ListVariantEnum } from '../../../model';
 
 export type FiltersState = {
   [FiltersEnum.textSearch]: string;

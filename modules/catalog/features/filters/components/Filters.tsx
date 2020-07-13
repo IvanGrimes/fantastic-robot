@@ -10,7 +10,8 @@ import {
   DebouncedTextFieldApi,
 } from './DebouncedTextField';
 import { Select } from './Select';
-import { actions, selectors, SortEnum, ListVariantEnum } from '../model';
+import { actions, selectors, SortEnum } from '../model';
+import { ListVariantEnum } from '../../../model';
 import { MetroList, MetroListProps } from './MetroList';
 import { DebouncedRange, DebouncedRangeApi } from './DebouncedRange';
 import { ParameterList } from './ParameterList';

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { routes } from '@utils';
 import { List } from './List';
 import { selectors, actions } from '../model';
+import * as filtersFeature from '../../filters';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof dispatchProps & {
@@ -15,6 +16,7 @@ const mapStateToProps = (state: RootState) => ({
   hasNextList: selectors.getHasNextList(state),
   studioList: selectors.getStudioList(state),
   error: selectors.getListError(state),
+  filters: filtersFeature.selectors.getFilters(state),
 });
 
 const dispatchProps = {
@@ -27,6 +29,7 @@ const _ListContainer: FunctionComponent<Props> = ({
   hasNextList,
   studioList,
   error,
+  filters,
 }) => {
   const { query, route } = useRouter();
   const wasRequestedListRef = useRef(false);
@@ -40,13 +43,14 @@ const _ListContainer: FunctionComponent<Props> = ({
         if (Number.isInteger(parsedPage)) {
           fetchStudioList({
             page: parsedPage,
+            ...filters,
           });
         }
       } else {
-        fetchStudioList({ page: undefined });
+        fetchStudioList({ page: undefined, ...filters });
       }
     }
-  }, [fetchStudioList, parsedPage, route]);
+  }, [fetchStudioList, filters, parsedPage, route]);
 
   return (
     <List

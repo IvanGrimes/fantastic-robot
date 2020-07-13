@@ -1,4 +1,5 @@
-import { ListVariantEnum, SortEnum } from '../model';
+import { SortEnum } from '../model';
+import { ListVariantEnum } from '../../../model';
 import { enumToArray } from '@utils';
 
 export const getSortList = () => {

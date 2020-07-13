@@ -50,3 +50,8 @@ export type Room = {
   [FiltersEnum.area]: number;
   [FiltersEnum.height]: number;
 };
+
+export enum ListVariantEnum {
+  studio = 'studio',
+  room = 'room',
+}
