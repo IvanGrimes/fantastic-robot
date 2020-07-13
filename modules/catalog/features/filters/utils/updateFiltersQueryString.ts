@@ -15,6 +15,9 @@ const filterObject = <T extends object>(target: T): Partial<T> => {
 
           return Object.keys(filterObject(v)).length;
         }
+        if (typeof v === 'boolean') {
+          return true;
+        }
 
         return Boolean(v);
       })
